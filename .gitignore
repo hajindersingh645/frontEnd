@@ -2,3 +2,4 @@
 .idea/*
 app/models/variable/defaultSettings.js
 watch_local.sh
+logincode-from-popup.js

@@ -139,20 +139,28 @@ define(['react','app','wow',
 				body=<ForgotSecret page={this.state.AccountResetOptions}/>;
 			}
 			/* data binding example <span>{this.state.AccountResetOptions.email}</span> */
+			if(this.props.page=='login'){
 				return (
 					<div>
-						<SplashHead />
 						{body}
-						<Login />
-<SplashFoot/>
-						<ReportBug />
-						<CreateUser />
-                        <TokenPop/>
-                        <PaymentGate/>
-                        <DialogPop/>
-
 					</div>
 					);
+				}else{
+					return (
+						<div>
+							<SplashHead />
+							{body}
+							<Login />
+	<SplashFoot/>
+							<ReportBug />
+							<CreateUser />
+							<TokenPop/>
+							<PaymentGate/>
+							<DialogPop/>
+	
+						</div>
+						);
+				}
 			}
 	});
 });

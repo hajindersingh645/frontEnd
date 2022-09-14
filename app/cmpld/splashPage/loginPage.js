@@ -171,83 +171,82 @@ define(['react', 'app', 'validation'], function (React, app, Validation) {
 			};
 
 			return React.createElement(
-				'div',
-				{ className: 'container-fluid', style: { paddingTop: "30px", paddingBottom: "30px" } },
+				'form',
+				{ id: 'loginUserForm', onKeyDown: this.handleClick.bind(this, 'enterLogin') },
 				React.createElement(
-					'form',
-					{ className: 'modal-content', id: 'loginUserForm', onKeyDown: this.handleClick.bind(this, 'enterLogin') },
+					'div',
+					{ className: 'row' },
 					React.createElement(
-						'button',
-						{ type: 'button', className: 'close float-right', 'data-dismiss': 'modal', 'aria-label': 'Close' },
+						'div',
+						{ className: 'col-sm-7' },
 						React.createElement(
-							'span',
-							{ 'aria-hidden': 'true' },
-							'\xD7'
+							'div',
+							{ className: 'form-group' },
+							React.createElement('input', { type: 'email', className: 'form-control', name: 'email', id: 'LoginForm_username', placeholder: 'Email', defaultValue: app.defaults.get('userName') })
 						)
 					),
 					React.createElement(
 						'div',
-						{ className: 'row' },
+						{ className: 'col-sm-5' },
 						React.createElement(
 							'div',
-							{ className: 'col-12 text-center heading', style: { marginBottom: "20px" } },
-							React.createElement('img', { src: 'img/password.svg', height: '25' }),
-							React.createElement('br', null),
-							'LOGIN'
-						),
-						React.createElement(
-							'div',
-							{ className: 'col-12' },
+							{ className: 'form-group' },
 							React.createElement(
-								'div',
-								{ className: 'form-group' },
+								'select',
+								{ className: 'form-select', 'aria-label': 'Default select example' },
 								React.createElement(
-									'div',
-									{ className: 'input-group' },
-									React.createElement('input', { type: 'text', name: 'email', id: 'LoginForm_username', className: 'form-control', defaultValue: app.defaults.get('userName'), placeholder: 'Email', maxLength: '160' }),
-									React.createElement(
-										'span',
-										{ className: 'input-group-addon' },
-										'@CYBERFEAR.COM'
-									)
-								)
-							),
-							React.createElement(
-								'div',
-								{ className: 'form-group' },
-								React.createElement('input', { type: 'password', name: 'pP', id: 'LoginUser_password', className: 'form-control  input-lg', defaultValue: app.defaults.get('firstPassfield'), placeholder: 'Password' })
-							),
-							React.createElement(
-								'div',
-								{ className: "form-group " + (this.state.fac2Type == 0 ? "hidden" : "") },
+									'option',
+									{ selected: true },
+									'@cyberfear.com'
+								),
 								React.createElement(
-									'div',
-									{ className: 'input-group col-xs-12' },
-									React.createElement(
-										'span',
-										{ className: 'input-group-addon' },
-										React.createElement('i', { className: "fa fa-google fa-lg " + (this.state.fac2Type == 1 ? "" : "hidden") }),
-										React.createElement('img', { className: this.state.fac2Type == 2 ? "" : "hidden", src: '/img/yubi.png', width: '20' })
-									),
-									React.createElement('input', { type: 'text', className: 'form-control input-lg', placeholder: 'PIN', value: this.state.fac2Text, onChange: this.handleChange.bind(this, 'enter2FacText') })
-								)
-							),
-							React.createElement(
-								'button',
-								{ className: 'dark-btn w-100 py-2', type: 'button',
-									style: { fontSize: "14px", fontFamily: 'Rodus-Square', padding: "9px 30px", width: "100%" }, onClick: this.handleClick.bind(this, 'login') },
-								'LOGIN'
-							),
-							React.createElement(
-								'div',
-								{ className: 'text-center',
-									style: { fontSize: "16px", fontWeight: "700", marginTop: "10px" } },
+									'option',
+									{ value: '1' },
+									'@cyberfear.com'
+								),
 								React.createElement(
-									'a',
-									{ style: { fontWeight: "700" }, onClick: this.handleClick.bind(this, 'forgotPassword') },
-									'Forgot password?'
+									'option',
+									{ value: '2' },
+									'@cyberfear.com'
+								),
+								React.createElement(
+									'option',
+									{ value: '3' },
+									'@cyberfear.com'
 								)
 							)
+						)
+					),
+					React.createElement(
+						'div',
+						{ className: 'col-sm-12' },
+						React.createElement(
+							'div',
+							{ className: 'form-group' },
+							React.createElement('button', { className: 'form-icon eye' }),
+							React.createElement('input', { type: 'password', className: 'form-control with-icon', name: 'pP', id: 'LoginUser_password', placeholder: 'Password', defaultValue: app.defaults.get('firstPassfield') })
+						)
+					),
+					React.createElement(
+						'div',
+						{ className: 'col-sm-12' },
+						React.createElement(
+							'div',
+							{ className: 'forgot-link' },
+							React.createElement(
+								'a',
+								{ onClick: this.handleClick.bind(this, 'forgotPassword') },
+								'Forgot Password?'
+							)
+						)
+					),
+					React.createElement(
+						'div',
+						{ className: 'col-sm-12' },
+						React.createElement(
+							'button',
+							{ className: 'btn-blue full-width mt60', type: 'buton', onClick: this.handleClick.bind(this, 'login') },
+							'Sign in'
 						)
 					)
 				)

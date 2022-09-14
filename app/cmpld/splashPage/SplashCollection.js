@@ -112,19 +112,27 @@ define(['react', 'app', 'wow', 'cmpld/splashPage/head', 'cmpld/splashPage/compar
 				body = React.createElement(ForgotSecret, { page: this.state.AccountResetOptions });
 			}
 			/* data binding example <span>{this.state.AccountResetOptions.email}</span> */
-			return React.createElement(
-				'div',
-				null,
-				React.createElement(SplashHead, null),
-				body,
-				React.createElement(Login, null),
-				React.createElement(SplashFoot, null),
-				React.createElement(ReportBug, null),
-				React.createElement(CreateUser, null),
-				React.createElement(TokenPop, null),
-				React.createElement(PaymentGate, null),
-				React.createElement(DialogPop, null)
-			);
+			if (this.props.page == 'login') {
+				return React.createElement(
+					'div',
+					null,
+					body
+				);
+			} else {
+				return React.createElement(
+					'div',
+					null,
+					React.createElement(SplashHead, null),
+					body,
+					React.createElement(Login, null),
+					React.createElement(SplashFoot, null),
+					React.createElement(ReportBug, null),
+					React.createElement(CreateUser, null),
+					React.createElement(TokenPop, null),
+					React.createElement(PaymentGate, null),
+					React.createElement(DialogPop, null)
+				);
+			}
 		}
 	});
 });

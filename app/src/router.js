@@ -119,7 +119,7 @@ define(['app','backbone', 'react','jquery','bootstrap','cmpld/splashPage/SplashC
 		loginPage: function () {
 			React.render(
 				<SplashCollection page={'login'}/>,
-				document.getElementById('mainBody'));			
+				document.getElementById('loginBody'));			
 		},
 
 		createUser: function () {

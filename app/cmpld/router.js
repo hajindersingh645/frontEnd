@@ -94,7 +94,7 @@ define(['app', 'backbone', 'react', 'jquery', 'bootstrap', 'cmpld/splashPage/Spl
 			$('#loginUser').modal('show');
 		},
 		loginPage: function () {
-			React.render(React.createElement(SplashCollection, { page: 'login' }), document.getElementById('mainBody'));
+			React.render(React.createElement(SplashCollection, { page: 'login' }), document.getElementById('loginBody'));
 		},
 
 		createUser: function () {

@@ -178,52 +178,37 @@ define(['react','app','validation'], function (React,app,Validation) {
 			};
 
 		return 	(
-				<div className="container-fluid" style={{paddingTop: "30px", paddingBottom: "30px"}}>
-					<form className="modal-content" id="loginUserForm" onKeyDown={this.handleClick.bind(this, 'enterLogin')}>
-
-						<button type="button" className="close float-right" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						<div className="row">
-							<div className="col-12 text-center heading" style={{marginBottom: "20px"}}>
-								<img src="img/password.svg" height="25"/><br/>
-									LOGIN
-							</div>
-							<div className="col-12">
-
-									<div className="form-group">
-										<div className="input-group">
-											<input type="text" name="email" id="LoginForm_username" className="form-control" defaultValue={app.defaults.get('userName')} placeholder="Email" maxLength="160"/>
-												<span className="input-group-addon">@CYBERFEAR.COM</span>
-										</div>
-									</div>
-									<div className="form-group">
-										<input type="password" name="pP" id="LoginUser_password" className="form-control  input-lg" defaultValue={app.defaults.get('firstPassfield')} placeholder="Password"/>
-									</div>
-									<div className={"form-group " +(this.state.fac2Type==0?"hidden":"")}>
-										<div className="input-group col-xs-12">
-								<span className="input-group-addon">
-									<i className={"fa fa-google fa-lg "+(this.state.fac2Type==1?"":"hidden")}></i>
-									<img className={this.state.fac2Type==2?"":"hidden"} src="/img/yubi.png" width="20"/></span>
-											<input type="text" className="form-control input-lg" placeholder="PIN" value={this.state.fac2Text} onChange={this.handleChange.bind(this, 'enter2FacText')}/>
-
-										</div>
-
-									</div>
-
-									<button className="dark-btn w-100 py-2" type="button"
-											style={{fontSize:"14px",fontFamily: 'Rodus-Square',padding: "9px 30px",width:"100%"}} onClick={this.handleClick.bind(this, 'login')}>LOGIN
-									</button>
-
-									<div className="text-center"
-										style={{fontSize:"16px",fontWeight:"700",marginTop:"10px"}}>
-										<a style={{fontWeight:"700"}} onClick={this.handleClick.bind(this, 'forgotPassword')}>Forgot password?</a>
-									</div>
-
+				<form id="loginUserForm" onKeyDown={this.handleClick.bind(this, 'enterLogin')}>
+					<div className="row">
+						<div className="col-sm-7">
+							<div className="form-group">
+								<input type="email" className="form-control" name="email" id="LoginForm_username" placeholder="Email" defaultValue={app.defaults.get('userName')} />
 							</div>
 						</div>
-						</form>
-				</div>
+						<div className="col-sm-5">
+							<div className="form-group">
+								<select className="form-select" aria-label="Default select example">
+								<option selected>@cyberfear.com</option>
+								<option value="1">@cyberfear.com</option>
+								<option value="2">@cyberfear.com</option>
+								<option value="3">@cyberfear.com</option>
+								</select>
+							</div>
+						</div>
+						<div className="col-sm-12">
+							<div className="form-group">
+								<button className="form-icon eye"></button>
+								<input type="password" className="form-control with-icon" name="pP" id="LoginUser_password" placeholder="Password" defaultValue={app.defaults.get('firstPassfield')} />
+							</div>
+						</div>
+						<div className="col-sm-12">
+							<div className="forgot-link"><a onClick={this.handleClick.bind(this, 'forgotPassword')}>Forgot Password?</a></div>
+						</div>
+						<div className="col-sm-12">
+							<button className="btn-blue full-width mt60" type="buton" onClick={this.handleClick.bind(this, 'login')}>Sign in</button>
+						</div>
+					</div>
+				</form>
 			);
 		}
 
