@@ -87,7 +87,7 @@ define(['react'], function (React) {
 								null,
 								React.createElement(
 									'a',
-									{ className: 'nav-link dark-btn-menu', onClick: this.handleClick.bind(this, 'login') },
+									{ className: 'nav-link dark-btn-menu', href: 'login.html#login' },
 									'Login'
 								)
 							),

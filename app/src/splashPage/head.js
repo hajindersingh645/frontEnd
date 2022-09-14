@@ -51,7 +51,7 @@ define(['react'], function (React) {
 									<a href="pricing.html">Pricing</a>
 								</li>
 								<li>
-									<a className="nav-link dark-btn-menu" href="login.html">Login</a>
+									<a className="nav-link dark-btn-menu" href="login.html#login">Login</a>
 								</li>
 								<li>
 									<a className="nav-link white-btn-menu" onClick={this.handleClick.bind(this, 'signUp')}>Sign Up</a>

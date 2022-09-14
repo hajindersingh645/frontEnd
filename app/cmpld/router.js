@@ -6,7 +6,8 @@ define(['app', 'backbone', 'react', 'jquery', 'bootstrap', 'cmpld/splashPage/Spl
 			"": "index",
 			"PE": "payend",
 			"report": "report",
-			"login": "login",
+			// "login" : "login",
+			"login": "loginPage",
 			"createUser": "createUser",
 			"contactUs": "contactUs",
 			"requestInvitation": "requestInvitation",
@@ -91,6 +92,9 @@ define(['app', 'backbone', 'react', 'jquery', 'bootstrap', 'cmpld/splashPage/Spl
 		login: function () {
 			React.render(React.createElement(SplashCollection, { page: 'index' }), document.getElementById('mainBody'));
 			$('#loginUser').modal('show');
+		},
+		loginPage: function () {
+			React.render(React.createElement(SplashCollection, { page: 'login' }), document.getElementById('mainBody'));
 		},
 
 		createUser: function () {

@@ -1,4 +1,4 @@
-define(['react', 'app', 'wow', 'cmpld/splashPage/head', 'cmpld/splashPage/compare', 'cmpld/splashPage/footer', 'cmpld/modals/login', 'cmpld/splashPage/forgotPassword', 'cmpld/splashPage/forgotSecret', 'cmpld/modals/reportBug', 'cmpld/modals/createUser', 'cmpld/splashPage/pe', 'cmpld/modals/tokenPop', 'cmpld/modals/paymentGate', 'cmpld/modals/dialogPop'], function (React, app, Wow, SplashHead, Compare, SplashFoot, Login, ForgotPassword, ForgotSecret, ReportBug, CreateUser, PE, TokenPop, PaymentGate, DialogPop) {
+define(['react', 'app', 'wow', 'cmpld/splashPage/head', 'cmpld/splashPage/compare', 'cmpld/splashPage/loginPage', 'cmpld/splashPage/footer', 'cmpld/modals/login', 'cmpld/splashPage/forgotPassword', 'cmpld/splashPage/forgotSecret', 'cmpld/modals/reportBug', 'cmpld/modals/createUser', 'cmpld/splashPage/pe', 'cmpld/modals/tokenPop', 'cmpld/modals/paymentGate', 'cmpld/modals/dialogPop'], function (React, app, Wow, SplashHead, Compare, LoginPage, SplashFoot, Login, ForgotPassword, ForgotSecret, ReportBug, CreateUser, PE, TokenPop, PaymentGate, DialogPop) {
 	var body;
 
 	return React.createClass({
@@ -90,7 +90,7 @@ define(['react', 'app', 'wow', 'cmpld/splashPage/head', 'cmpld/splashPage/compar
 		componentWillUnmount: function () {},
 
 		render: function () {
-			//console.log(this.props.page);
+			console.log(this.props.page);
 
 			if (this.props.page == 'index') {
 				body = React.createElement(Compare, null);
@@ -98,7 +98,9 @@ define(['react', 'app', 'wow', 'cmpld/splashPage/head', 'cmpld/splashPage/compar
 			if (this.props.page == 'donate') {
 				//  body=<Compare scrollTo="donate"/>;
 			}
-
+			if (this.props.page == 'login') {
+				body = React.createElement(LoginPage, null);
+			}
 			if (this.props.page == 'pe') {
 				body = React.createElement(PE, null);
 			}

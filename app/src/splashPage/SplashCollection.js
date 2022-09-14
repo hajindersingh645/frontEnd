@@ -1,5 +1,5 @@
 define(['react','app','wow',
-	'cmpld/splashPage/head','cmpld/splashPage/compare',
+	'cmpld/splashPage/head','cmpld/splashPage/compare', 'cmpld/splashPage/loginPage',
 	'cmpld/splashPage/footer','cmpld/modals/login',
 	'cmpld/splashPage/forgotPassword','cmpld/splashPage/forgotSecret',
 	'cmpld/modals/reportBug','cmpld/modals/createUser',
@@ -10,7 +10,7 @@ define(['react','app','wow',
 		],
 	function (
 		React,app,Wow,
-		SplashHead,Compare,
+		SplashHead,Compare,LoginPage,
 		SplashFoot,Login,ForgotPassword,ForgotSecret,ReportBug,
 		CreateUser,PE,TokenPop,
 		PaymentGate,DialogPop
@@ -117,7 +117,7 @@ define(['react','app','wow',
 		},
 
 		render: function () {
-			//console.log(this.props.page);
+			console.log(this.props.page);
 
 			if(this.props.page=='index'){
 				body=<Compare />;
@@ -125,7 +125,9 @@ define(['react','app','wow',
             if(this.props.page=='donate'){
               //  body=<Compare scrollTo="donate"/>;
             }
-
+			if(this.props.page=='login'){
+				body=<LoginPage />;
+			}
 			if(this.props.page=='pe'){
 				body=<PE />;
 			}
