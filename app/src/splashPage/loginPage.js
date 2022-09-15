@@ -114,6 +114,7 @@ define(['react','app','validation'], function (React,app,Validation) {
 
 
 				case 'login':
+					event.preventDefault();
 					var thisComp=this;
 					createUserFormValidator.form();
 
@@ -127,7 +128,6 @@ define(['react','app','validation'], function (React,app,Validation) {
 						//app.userObjects.retrieveUserObject();
 
 						app.auth.Login(email,password,factor2,function(result){
-
 							if(result=='needGoogle'){
 								thisComp.setState({
 									secondFactorInput:true
@@ -187,8 +187,8 @@ define(['react','app','validation'], function (React,app,Validation) {
 						</div>
 						<div className="col-sm-5">
 							<div className="form-group">
-								<select className="form-select" aria-label="Default select example">
-								<option selected>@cyberfear.com</option>
+								<select className="form-select" aria-label="Default select example" defaultValue={`0`}>
+								<option value="0">@cyberfear.com</option>
 								<option value="1">@cyberfear.com</option>
 								<option value="2">@cyberfear.com</option>
 								<option value="3">@cyberfear.com</option>

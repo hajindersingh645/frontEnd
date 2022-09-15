@@ -117,7 +117,7 @@ define(['react','app','wow',
 		},
 
 		render: function () {
-			console.log(this.props.page);
+			// console.log(this.props.page);
 
 			if(this.props.page=='index'){
 				body=<Compare />;

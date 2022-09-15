@@ -109,6 +109,7 @@ define(['react', 'app', 'validation'], function (React, app, Validation) {
 					break;
 
 				case 'login':
+					event.preventDefault();
 					var thisComp = this;
 					createUserFormValidator.form();
 
@@ -121,7 +122,6 @@ define(['react', 'app', 'validation'], function (React, app, Validation) {
 						//app.userObjects.retrieveUserObject();
 
 						app.auth.Login(email, password, factor2, function (result) {
-
 							if (result == 'needGoogle') {
 								thisComp.setState({
 									secondFactorInput: true
@@ -193,10 +193,10 @@ define(['react', 'app', 'validation'], function (React, app, Validation) {
 							{ className: 'form-group' },
 							React.createElement(
 								'select',
-								{ className: 'form-select', 'aria-label': 'Default select example' },
+								{ className: 'form-select', 'aria-label': 'Default select example', defaultValue: `0` },
 								React.createElement(
 									'option',
-									{ selected: true },
+									{ value: '0' },
 									'@cyberfear.com'
 								),
 								React.createElement(

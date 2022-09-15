@@ -90,7 +90,7 @@ define(['react', 'app', 'wow', 'cmpld/splashPage/head', 'cmpld/splashPage/compar
 		componentWillUnmount: function () {},
 
 		render: function () {
-			console.log(this.props.page);
+			// console.log(this.props.page);
 
 			if (this.props.page == 'index') {
 				body = React.createElement(Compare, null);
