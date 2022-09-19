@@ -128,6 +128,9 @@ define(['react','app','wow',
 			if(this.props.page=='login'){
 				body=<LoginPage />;
 			}
+			if(this.props.page=='signup'){
+				body=<CreateUser />;
+			}
 			if(this.props.page=='pe'){
 				body=<PE />;
 			}
@@ -139,7 +142,7 @@ define(['react','app','wow',
 				body=<ForgotSecret page={this.state.AccountResetOptions}/>;
 			}
 			/* data binding example <span>{this.state.AccountResetOptions.email}</span> */
-			if(this.props.page=='login'){
+			if(this.props.page=='login' || this.props.page=='signup' || this.props.page=='forgotPassword'){
 				return (
 					<div>
 						{body}
@@ -153,7 +156,7 @@ define(['react','app','wow',
 							<Login />
 	<SplashFoot/>
 							<ReportBug />
-							<CreateUser />
+							
 							<TokenPop/>
 							<PaymentGate/>
 							<DialogPop/>

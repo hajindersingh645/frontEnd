@@ -319,7 +319,7 @@ define(['app', 'react'], function (app, React) {
         render: function () {
             return React.createElement(
                 'div',
-                { className: 'modal fade', id: 'createAccount-modal', tabIndex: '-1', role: 'dialog', 'aria-hidden': 'true' },
+                { className: '', id: 'createAccount-modal' },
                 React.createElement(
                     'div',
                     { className: 'modal-dialog modal-dialog-centered' },
@@ -327,148 +327,192 @@ define(['app', 'react'], function (app, React) {
                         'div',
                         { className: 'modal-content', onKeyDown: this.handleClick.bind(this, 'enterCreateUser') },
                         React.createElement(
-                            'button',
-                            { type: 'button', className: 'close float-right', 'data-dismiss': 'modal', 'aria-label': 'Close' },
-                            React.createElement(
-                                'span',
-                                { 'aria-hidden': 'true' },
-                                '\xD7'
-                            )
+                            'h1',
+                            null,
+                            'Create Account'
                         ),
                         React.createElement(
                             'div',
-                            { className: 'row' },
-                            React.createElement(
-                                'div',
-                                { className: 'col-12 text-center heading', style: { marginBottom: "20px" } },
-                                React.createElement('img', { src: 'img/checklist.svg', height: '25' }),
-                                React.createElement('br', null),
-                                'CREATE AN ACCOUNT'
-                            )
+                            { className: 'welcome-text' },
+                            'It\'s time to make next level email managment.'
                         ),
                         React.createElement(
                             'div',
-                            { className: 'row' },
+                            { className: 'form-section' },
                             React.createElement(
                                 'form',
                                 { className: 'registration-form smart-form', id: 'createUser' },
                                 React.createElement(
                                     'div',
-                                    {
-                                        className: "form-group " + (this.state.emailError != "" ? "has-error" : "") + (this.state.emailSucc ? "has-success" : "") },
+                                    { className: 'row' },
                                     React.createElement(
                                         'div',
-                                        { className: 'input-group emailErr' },
-                                        React.createElement('input', { type: 'text', name: 'email', id: 'userEmail', className: 'form-control input-lg',
-                                            placeholder: 'choose email',
-                                            maxLength: '160',
-                                            onChange: this.handleChange.bind(this, 'email'),
-                                            value: this.state.email }),
+                                        { className: 'col-sm-7' },
                                         React.createElement(
-                                            'span',
-                                            { className: 'input-group-addon' },
-                                            app.defaults.get('domainMail').toLowerCase()
+                                            'div',
+                                            { className: "form-group " + (this.state.emailError != "" ? "has-error" : "") + (this.state.emailSucc ? "has-success" : "") },
+                                            React.createElement('input', { type: 'text', name: 'email', id: 'userEmail', className: 'form-control input-lg',
+                                                placeholder: 'choose email',
+                                                maxLength: '160',
+                                                onChange: this.handleChange.bind(this, 'email'),
+                                                value: this.state.email }),
+                                            React.createElement(
+                                                'label',
+                                                {
+                                                    className: "control-label pull-left " + (this.state.emailError == "" ? "hidden" : ""),
+                                                    htmlFor: 'resetEmail' },
+                                                this.state.emailError
+                                            )
                                         )
                                     ),
                                     React.createElement(
-                                        'label',
-                                        {
-                                            className: "control-label pull-left " + (this.state.emailError == "" ? "hidden" : ""),
-                                            htmlFor: 'resetEmail' },
-                                        this.state.emailError
-                                    )
-                                ),
-                                React.createElement('div', { className: 'clearfix' }),
-                                React.createElement(
-                                    'div',
-                                    {
-                                        className: "form-group " + (this.state.newPassError != "" ? "has-error" : "") + (this.state.newPassSucc ? "has-success" : "") },
-                                    React.createElement('input', { className: 'form-control input-lg', name: 'password', id: 'userPassword',
-                                        type: 'password', placeholder: 'password',
-                                        onChange: this.handleChange.bind(this, 'newPass'),
-                                        value: this.state.newPass }),
-                                    React.createElement(
-                                        'label',
-                                        {
-                                            className: "control-label pull-left " + (this.state.newPassError == "" ? "hidden" : ""),
-                                            htmlFor: 'newPass' },
-                                        this.state.newPassError
-                                    )
-                                ),
-                                React.createElement('div', { className: 'clearfix' }),
-                                React.createElement(
-                                    'div',
-                                    {
-                                        className: "form-group " + (this.state.repPassError != "" ? "has-error" : "") + (this.state.repPassSucc ? "has-success" : "") },
-                                    React.createElement('input', { className: 'form-control input-lg', name: 'passwordrepeat',
-                                        id: 'userPasswordRepeat', type: 'password', placeholder: 'repeat password',
-                                        onChange: this.handleChange.bind(this, 'newPassRep'),
-                                        value: this.state.newPassRep }),
-                                    React.createElement(
-                                        'label',
-                                        {
-                                            className: "control-label pull-left " + (this.state.repPassError == "" ? "hidden" : ""),
-                                            htmlFor: 'newPassRep' },
-                                        this.state.repPassError
-                                    )
-                                ),
-                                React.createElement('div', { className: 'clearfix' }),
-                                React.createElement(
-                                    'div',
-                                    {
-                                        className: 'form-group hidden' },
-                                    React.createElement(
-                                        'span',
-                                        { className: 'pull-left' },
-                                        'Please type into field below'
+                                        'div',
+                                        { className: 'col-sm-5' },
+                                        React.createElement(
+                                            'div',
+                                            { className: 'form-group' },
+                                            React.createElement(
+                                                'select',
+                                                { className: 'form-select', 'aria-label': 'Default select example' },
+                                                React.createElement(
+                                                    'option',
+                                                    { selected: '' },
+                                                    '@cyberfear.com'
+                                                ),
+                                                React.createElement(
+                                                    'option',
+                                                    { value: '1' },
+                                                    '@cyberfear.com'
+                                                ),
+                                                React.createElement(
+                                                    'option',
+                                                    { value: '2' },
+                                                    '@cyberfear.com'
+                                                ),
+                                                React.createElement(
+                                                    'option',
+                                                    { value: '3' },
+                                                    '@cyberfear.com'
+                                                )
+                                            )
+                                        )
                                     ),
-                                    React.createElement('input', { className: 'form-control input-lg', name: 'robotText',
-                                        id: 'imrobot', type: 'text', placeholder: 'I\'m no robot',
-                                        onChange: this.handleChange.bind(this, 'norobot'),
-                                        value: this.state.norobot }),
                                     React.createElement(
-                                        'label',
-                                        {
-                                            className: "control-label pull-left " + (this.state.repPassError == "" ? "hidden" : ""),
-                                            htmlFor: 'newPassRep' },
-                                        this.state.repPassError
-                                    )
-                                ),
-                                React.createElement('div', { className: 'clearfix' }),
-                                React.createElement('div', { className: 'clearfix' }),
-                                React.createElement(
-                                    'div',
-                                    {
-                                        className: "form-group " + (this.state.couponError != "" ? "has-error" : "") + (this.state.couponSucc ? "has-success" : "") },
-                                    React.createElement('input', { className: 'form-control input-lg', name: 'password', id: 'coupon',
-                                        type: 'text', placeholder: 'if you have please enter coupon code here',
-                                        onChange: this.handleChange.bind(this, 'coupon'),
-                                        value: this.state.coupon }),
+                                        'div',
+                                        { className: 'col-sm-12' },
+                                        React.createElement(
+                                            'div',
+                                            {
+                                                className: "form-group " + (this.state.newPassError != "" ? "has-error" : "") + (this.state.newPassSucc ? "has-success" : "") },
+                                            React.createElement('input', { className: 'form-control input-lg', name: 'password', id: 'userPassword',
+                                                type: 'password', placeholder: 'password',
+                                                onChange: this.handleChange.bind(this, 'newPass'),
+                                                value: this.state.newPass }),
+                                            React.createElement(
+                                                'label',
+                                                {
+                                                    className: "control-label pull-left " + (this.state.newPassError == "" ? "hidden" : ""),
+                                                    htmlFor: 'newPass' },
+                                                this.state.newPassError
+                                            )
+                                        )
+                                    ),
                                     React.createElement(
-                                        'label',
-                                        {
-                                            className: "control-label pull-left " + (this.state.couponError == "" ? "hidden" : ""),
-                                            htmlFor: 'newPass' },
-                                        this.state.couponError
-                                    )
-                                ),
-                                React.createElement('div', { className: 'clearfix' }),
-                                React.createElement(
-                                    'button',
-                                    { className: 'dark-btn w-100 py-2', type: 'button',
-                                        style: { fontSize: "14px", fontFamily: 'Rodus-Square', padding: "9px 30px", width: "100%" }, disabled: this.state.working,
-                                        onClick: this.handleClick.bind(this, 'createUser') },
-                                    this.state.buttonText
-                                ),
-                                React.createElement(
-                                    'div',
-                                    { className: 'text-center', style: { fontSize: "13px", fontFamily: 'Rodus-Square', fontWeight: "500", marginTop: "10px" } },
-                                    'By clicking \u201CCreate Account\u201D you  agree with our ',
+                                        'div',
+                                        { className: 'col-sm-12' },
+                                        React.createElement(
+                                            'div',
+                                            {
+                                                className: "form-group " + (this.state.repPassError != "" ? "has-error" : "") + (this.state.repPassSucc ? "has-success" : "") },
+                                            React.createElement('input', { className: 'form-control input-lg', name: 'passwordrepeat',
+                                                id: 'userPasswordRepeat', type: 'password', placeholder: 'repeat password',
+                                                onChange: this.handleChange.bind(this, 'newPassRep'),
+                                                value: this.state.newPassRep }),
+                                            React.createElement(
+                                                'label',
+                                                {
+                                                    className: "control-label pull-left " + (this.state.repPassError == "" ? "hidden" : ""),
+                                                    htmlFor: 'newPassRep' },
+                                                this.state.repPassError
+                                            )
+                                        )
+                                    ),
                                     React.createElement(
-                                        'a',
-                                        { href: '/terms.html',
-                                            target: '_blank', style: { fontWeight: "700" } },
-                                        ' Terms of Service '
+                                        'div',
+                                        { className: 'col-sm-12' },
+                                        React.createElement(
+                                            'div',
+                                            {
+                                                className: 'form-group hidden' },
+                                            React.createElement(
+                                                'span',
+                                                { className: 'mb-2', style: { display: "block" } },
+                                                'Please type into field below'
+                                            ),
+                                            React.createElement('input', { className: 'form-control input-lg', name: 'robotText',
+                                                id: 'imrobot', type: 'text', placeholder: 'I\'m no robot',
+                                                onChange: this.handleChange.bind(this, 'norobot'),
+                                                value: this.state.norobot }),
+                                            React.createElement(
+                                                'label',
+                                                {
+                                                    className: "control-label pull-left " + (this.state.repPassError == "" ? "hidden" : ""),
+                                                    htmlFor: 'newPassRep' },
+                                                this.state.repPassError
+                                            )
+                                        )
+                                    ),
+                                    React.createElement(
+                                        'div',
+                                        { className: 'col-sm-12' },
+                                        React.createElement(
+                                            'div',
+                                            {
+                                                className: "form-group " + (this.state.couponError != "" ? "has-error" : "") + (this.state.couponSucc ? "has-success" : "") },
+                                            React.createElement('input', { className: 'form-control input-lg', name: 'password', id: 'coupon',
+                                                type: 'text', placeholder: 'if you have please enter coupon code here',
+                                                onChange: this.handleChange.bind(this, 'coupon'),
+                                                value: this.state.coupon }),
+                                            React.createElement(
+                                                'label',
+                                                {
+                                                    className: "control-label pull-left " + (this.state.couponError == "" ? "hidden" : ""),
+                                                    htmlFor: 'newPass' },
+                                                this.state.couponError
+                                            )
+                                        )
+                                    ),
+                                    React.createElement(
+                                        'div',
+                                        { className: 'col-sm-12' },
+                                        React.createElement(
+                                            'button',
+                                            { className: 'btn-blue full-width mt44', type: 'button',
+                                                disabled: this.state.working,
+                                                onClick: this.handleClick.bind(this, 'createUser') },
+                                            this.state.buttonText
+                                        )
+                                    ),
+                                    React.createElement(
+                                        'div',
+                                        { className: 'col-sm-12' },
+                                        React.createElement(
+                                            'div',
+                                            { className: 'text-center mt-2', style: { fontSize: "14px" } },
+                                            'By clicking \u201CCreate Account\u201D you  agree with our ',
+                                            React.createElement(
+                                                'a',
+                                                { href: '/terms.html', target: '_blank', style: { fontWeight: "700" } },
+                                                ' Terms of Service '
+                                            ),
+                                            ' ',
+                                            React.createElement('br', null),
+                                            React.createElement(
+                                                'a',
+                                                { href: 'login.html#login', className: 'text-decoration-underline' },
+                                                'Already a user'
+                                            )
+                                        )
                                     )
                                 ),
                                 React.createElement(

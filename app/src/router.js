@@ -11,7 +11,7 @@ define(['app','backbone', 'react','jquery','bootstrap','cmpld/splashPage/SplashC
 			"report" : "report",
 			// "login" : "login",
 			"login" : "loginPage",
-			"createUser" : "createUser",
+			"signup" : "createUser",
 			"contactUs" : "contactUs",
 			"requestInvitation" : "requestInvitation",
 			"forgotPassword" : "forgotPassword",
@@ -119,14 +119,13 @@ define(['app','backbone', 'react','jquery','bootstrap','cmpld/splashPage/SplashC
 		loginPage: function () {
 			React.render(
 				<SplashCollection page={'login'}/>,
-				document.getElementById('loginBody'));			
+				document.getElementById('loginBody'));
 		},
 
 		createUser: function () {
 			React.render(
-				<SplashCollection page={'index'}/>,
-				document.getElementById('mainBody'));
-			$('#createAccount-modal').modal('show');
+				<SplashCollection page={'signup'}/>,
+				document.getElementById('loginBody'));
 		},
 		contactUs: function () {
 			React.render(
@@ -143,7 +142,7 @@ define(['app','backbone', 'react','jquery','bootstrap','cmpld/splashPage/SplashC
 		forgotPassword: function () {
 			React.render(
 				<SplashCollection page={'forgotPassword'}/>,
-				document.getElementById('mainBody'));
+				document.getElementById('loginBody'));
 		},
 		forgotSecret: function () {
 

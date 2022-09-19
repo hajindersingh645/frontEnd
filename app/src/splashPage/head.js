@@ -54,7 +54,7 @@ define(['react'], function (React) {
 									<a className="nav-link dark-btn-menu" href="login.html#login">Login</a>
 								</li>
 								<li>
-									<a className="nav-link white-btn-menu" onClick={this.handleClick.bind(this, 'signUp')}>Sign Up</a>
+									<a className="nav-link white-btn-menu" href="login.html#signup">Sign Up</a>
 								</li>
 								<li className="visible-xs-block">
 									<button className="navbar-toggle collapsed" type="button" data-toggle="collapse"

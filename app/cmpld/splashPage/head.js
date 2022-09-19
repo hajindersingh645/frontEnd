@@ -96,7 +96,7 @@ define(['react'], function (React) {
 								null,
 								React.createElement(
 									'a',
-									{ className: 'nav-link white-btn-menu', onClick: this.handleClick.bind(this, 'signUp') },
+									{ className: 'nav-link white-btn-menu', href: 'login.html#signup' },
 									'Sign Up'
 								)
 							),

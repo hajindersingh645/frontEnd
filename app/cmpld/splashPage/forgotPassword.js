@@ -294,88 +294,81 @@ define(['react', 'app'], function (React, app) {
 
             return React.createElement(
                 'div',
-                { className: 'modal fade', id: 'forgPass-modal', tabIndex: '-1', role: 'dialog', 'aria-hidden': 'true' },
+                { className: '', id: 'forgPass-modal' },
                 React.createElement(
                     'div',
-                    { className: 'modal-dialog modal-md' },
+                    { className: '' },
                     React.createElement(
                         'div',
-                        { className: 'modal-content' },
+                        { className: '' },
                         React.createElement(
                             'div',
                             { className: 'row' },
                             React.createElement(
-                                'button',
-                                { type: 'button', className: 'close float-right', 'data-dismiss': 'modal', 'aria-label': 'Close' },
-                                React.createElement(
-                                    'span',
-                                    { 'aria-hidden': 'true' },
-                                    '\xD7'
-                                )
-                            ),
-                            React.createElement(
                                 'fieldset',
                                 null,
                                 React.createElement(
-                                    'div',
-                                    { className: 'col-12 text-center heading', style: { marginBottom: "20px" } },
-                                    React.createElement('img', { src: 'img/forgot.svg', height: '25' }),
-                                    React.createElement('br', null),
-                                    'RESET PASSWORD'
+                                    'h1',
+                                    null,
+                                    'Reset Password'
                                 ),
                                 React.createElement(
                                     'div',
-                                    { className: "form-group " + (this.state.emailError != "" ? "has-error" : "") + (this.state.emailSucc ? "has-success" : "") },
-                                    React.createElement('input', { type: 'email', name: 'resetEmail', id: 'resetPass_email', className: 'form-control', placeholder: '1. email address', onChange: this.handleChange.bind(this, 'email'), value: this.state.email }),
-                                    React.createElement(
-                                        'label',
-                                        { className: "control-label pull-left " + (this.state.emailError == "" ? "hidden" : ""), htmlFor: 'resetEmail' },
-                                        this.state.emailError
-                                    )
-                                ),
-                                React.createElement('div', { className: 'clearfix' }),
-                                React.createElement(
-                                    'div',
-                                    { className: "input-group form-group " + (this.state.tokenError != "" ? "has-error" : "") + (this.state.tokenSucc ? "has-success" : "") },
-                                    React.createElement('input', { className: 'hidden', id: 'tokenFile', type: 'file', readOnly: true, onChange: this.handleChange.bind(this, 'getFile') }),
-                                    React.createElement('input', { name: 'tokenFile', className: 'form-control', id: 'appendbutton', type: 'text', placeholder: '2. secret token', readOnly: true, value: this.state.token,
-                                        style: { textOverflow: "ellipsis" } }),
+                                    { className: 'form-section' },
                                     React.createElement(
                                         'div',
-                                        { className: 'input-group-btn' },
+                                        { className: "form-group " + (this.state.emailError != "" ? "has-error" : "") + (this.state.emailSucc ? "has-success" : "") },
+                                        React.createElement('input', { type: 'email', name: 'resetEmail', id: 'resetPass_email', className: 'form-control', placeholder: '1. email address', onChange: this.handleChange.bind(this, 'email'), value: this.state.email }),
                                         React.createElement(
-                                            'span',
-                                            { className: 'input-group-addon', style: { padding: "0", border: "0", lineHeight: "1.1" } },
+                                            'label',
+                                            { className: "control-label pull-left " + (this.state.emailError == "" ? "hidden" : ""), htmlFor: 'resetEmail' },
+                                            this.state.emailError
+                                        )
+                                    ),
+                                    React.createElement('div', { className: 'clearfix' }),
+                                    React.createElement(
+                                        'div',
+                                        { className: "input-group form-group " + (this.state.tokenError != "" ? "has-error" : "") + (this.state.tokenSucc ? "has-success" : "") },
+                                        React.createElement('input', { className: 'hidden', id: 'tokenFile', type: 'file', readOnly: true, onChange: this.handleChange.bind(this, 'getFile') }),
+                                        React.createElement('input', { name: 'tokenFile', className: 'form-control', id: 'appendbutton', type: 'text', placeholder: '2. secret token', readOnly: true, value: this.state.token,
+                                            style: { textOverflow: "ellipsis" } }),
+                                        React.createElement(
+                                            'div',
+                                            { className: 'input-group-btn' },
                                             React.createElement(
-                                                'button',
-                                                { className: 'dark-btn', style: { margin: "0", padding: "10px 52px", height: "100%" }, type: 'button', onClick: this.handleClick.bind(this, 'browseToken') },
-                                                'Browse for Token'
+                                                'span',
+                                                { className: 'input-group-addon', style: { padding: "0", border: "0", lineHeight: "1.1" } },
+                                                React.createElement(
+                                                    'button',
+                                                    { className: 'btn-blue', style: { margin: "0", padding: "10px 52px", height: "100%", borderTopLeftRadius: "0px", borderBottomLeftRadius: "0px" }, type: 'button', onClick: this.handleClick.bind(this, 'browseToken') },
+                                                    'Browse for Token'
+                                                )
                                             )
                                         )
-                                    )
-                                ),
-                                React.createElement(
-                                    'label',
-                                    { className: "control-label pull-left has-error" + (this.state.tokenError == "" ? "hidden" : ""), htmlFor: 'tokenFile' },
-                                    this.state.tokenError
-                                ),
-                                React.createElement('div', { className: 'clearfix' }),
-                                React.createElement('div', { className: 'clearfix' }),
-                                React.createElement(
-                                    'div',
-                                    { className: "form-group text-left " + (this.state.oneStep ? "" : "hidden") },
-                                    'Because you are using single password for login and encrypting your emails. Resetting your password will permanently delete all your existing emails and contacts.',
-                                    React.createElement('br', null),
-                                    ' Proceed with caution.'
-                                ),
-                                React.createElement(
-                                    'div',
-                                    { className: "form-group " + (this.state.secretError != "" ? "has-error" : "") + (this.state.oneStep ? "hidden" : "") },
-                                    React.createElement('input', { type: 'password', name: 'secretPhrase', className: 'form-control input-lg', placeholder: '3. second password', onChange: this.handleChange.bind(this, 'secret'), value: this.state.secret }),
+                                    ),
                                     React.createElement(
                                         'label',
-                                        { className: "control-label pull-left " + (this.state.secretError == "" ? "hidden" : ""), htmlFor: 'secretPhrase' },
-                                        this.state.secretError
+                                        { className: "control-label pull-left has-error" + (this.state.tokenError == "" ? "hidden" : ""), htmlFor: 'tokenFile' },
+                                        this.state.tokenError
+                                    ),
+                                    React.createElement('div', { className: 'clearfix' }),
+                                    React.createElement('div', { className: 'clearfix' }),
+                                    React.createElement(
+                                        'div',
+                                        { className: "form-group text-left " + (this.state.oneStep ? "" : "hidden") },
+                                        'Because you are using single password for login and encrypting your emails. Resetting your password will permanently delete all your existing emails and contacts.',
+                                        React.createElement('br', null),
+                                        ' Proceed with caution.'
+                                    ),
+                                    React.createElement(
+                                        'div',
+                                        { className: "form-group " + (this.state.secretError != "" ? "has-error" : "") + (this.state.oneStep ? "hidden" : "") },
+                                        React.createElement('input', { type: 'password', name: 'secretPhrase', className: 'form-control input-lg', placeholder: '3. second password', onChange: this.handleChange.bind(this, 'secret'), value: this.state.secret }),
+                                        React.createElement(
+                                            'label',
+                                            { className: "control-label pull-left " + (this.state.secretError == "" ? "hidden" : ""), htmlFor: 'secretPhrase' },
+                                            this.state.secretError
+                                        )
                                     )
                                 )
                             ),
@@ -406,8 +399,8 @@ define(['react', 'app'], function (React, app) {
                             ),
                             React.createElement(
                                 'button',
-                                { className: 'dark-btn w-100 py-2',
-                                    style: { fontSize: "14px", fontFamily: 'Rodus-Square', padding: "9px 30px", width: "100%" }, disabled: this.state.generateI != "" ? true : false, onClick: this.handleClick.bind(this, 'resetPass') },
+                                { className: 'btn-blue full-width mt44',
+                                    disabled: this.state.generateI != "" ? true : false, onClick: this.handleClick.bind(this, 'resetPass') },
                                 'RESET PASSWORD'
                             )
                         )

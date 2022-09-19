@@ -337,54 +337,51 @@ define(['react','app'], function (React,app) {
 		render: function () {
 
 		return (
-              <div className="modal fade" id="forgPass-modal" tabIndex="-1" role="dialog" aria-hidden="true">
-                <div className="modal-dialog modal-md">
-                    <div className="modal-content">
+              <div className="" id="forgPass-modal">
+                <div className="">
+                    <div className="">
                         <div className="row">
-                            <button type="button" className="close float-right" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                            
                         <fieldset>
-                            <div className="col-12 text-center heading" style={{marginBottom: "20px"}}>
-                                <img src="img/forgot.svg" height="25"/><br/>
-                                    RESET PASSWORD
-                            </div>
+                            <h1>Reset Password</h1>
 
-                            <div className={"form-group "+(this.state.emailError!=""?"has-error":"") + (this.state.emailSucc?"has-success":"")}>
-                                <input type="email" name="resetEmail" id="resetPass_email" className="form-control" placeholder="1. email address" onChange={this.handleChange.bind(this, 'email')} value={this.state.email}/>
-                                <label className={"control-label pull-left "+(this.state.emailError==""?"hidden":"")} htmlFor="resetEmail">{this.state.emailError}</label>
-                            </div>
-
-                            <div className="clearfix"></div>
-
-
-                            <div className={"input-group form-group "+(this.state.tokenError!=""?"has-error":"") + (this.state.tokenSucc?"has-success":"")}>
-
-                                <input className="hidden" id="tokenFile" type="file" readOnly onChange={this.handleChange.bind(this, 'getFile')}/>
-                                <input name="tokenFile" className="form-control" id="appendbutton" type="text" placeholder="2. secret token" readOnly value={this.state.token}
-                                       style={{textOverflow: "ellipsis"}}/>
-                                <div className="input-group-btn">
-                                    <span className="input-group-addon" style={{padding: "0",border:"0",lineHeight:"1.1"}}>
-                                    <button className="dark-btn" style={{margin:"0",padding: "10px 52px",height: "100%"}} type="button" onClick={this.handleClick.bind(this, 'browseToken')}>
-                                        Browse for Token
-                                    </button>
-                                    </span>
+                            <div className="form-section">
+                                <div className={"form-group "+(this.state.emailError!=""?"has-error":"") + (this.state.emailSucc?"has-success":"")}>
+                                    <input type="email" name="resetEmail" id="resetPass_email" className="form-control" placeholder="1. email address" onChange={this.handleChange.bind(this, 'email')} value={this.state.email}/>
+                                    <label className={"control-label pull-left "+(this.state.emailError==""?"hidden":"")} htmlFor="resetEmail">{this.state.emailError}</label>
                                 </div>
 
-                            </div>
-                            <label className={"control-label pull-left has-error"+(this.state.tokenError==""?"hidden":"")} htmlFor="tokenFile">{this.state.tokenError}</label>
-
-                            <div className="clearfix"></div>
+                                <div className="clearfix"></div>
 
 
-                            <div className="clearfix"></div>
-                            <div className={"form-group text-left "+ (this.state.oneStep?"":"hidden")}>
-                                Because you are using single password for login and encrypting your emails. Resetting your password will permanently delete all your existing emails and contacts.<br/> Proceed with caution.
-                            </div>
+                                <div className={"input-group form-group "+(this.state.tokenError!=""?"has-error":"") + (this.state.tokenSucc?"has-success":"")}>
 
-                            <div className={"form-group "+(this.state.secretError!=""?"has-error":"")+ (this.state.oneStep?"hidden":"")}>
-                                <input type="password" name="secretPhrase" className="form-control input-lg" placeholder="3. second password" onChange={this.handleChange.bind(this, 'secret')} value={this.state.secret}/>
-                                <label className={"control-label pull-left "+(this.state.secretError==""?"hidden":"")} htmlFor="secretPhrase">{this.state.secretError}</label>
+                                    <input className="hidden" id="tokenFile" type="file" readOnly onChange={this.handleChange.bind(this, 'getFile')}/>
+                                    <input name="tokenFile" className="form-control" id="appendbutton" type="text" placeholder="2. secret token" readOnly value={this.state.token}
+                                        style={{textOverflow: "ellipsis"}}/>
+                                    <div className="input-group-btn">
+                                        <span className="input-group-addon" style={{padding: "0",border:"0",lineHeight:"1.1"}}>
+                                        <button className="btn-blue" style={{margin:"0",padding: "10px 52px",height: "100%",borderTopLeftRadius: "0px",borderBottomLeftRadius: "0px"}} type="button" onClick={this.handleClick.bind(this, 'browseToken')}>
+                                            Browse for Token
+                                        </button>
+                                        </span>
+                                    </div>
+
+                                </div>
+                                <label className={"control-label pull-left has-error"+(this.state.tokenError==""?"hidden":"")} htmlFor="tokenFile">{this.state.tokenError}</label>
+
+                                <div className="clearfix"></div>
+
+
+                                <div className="clearfix"></div>
+                                <div className={"form-group text-left "+ (this.state.oneStep?"":"hidden")}>
+                                    Because you are using single password for login and encrypting your emails. Resetting your password will permanently delete all your existing emails and contacts.<br/> Proceed with caution.
+                                </div>
+
+                                <div className={"form-group "+(this.state.secretError!=""?"has-error":"")+ (this.state.oneStep?"hidden":"")}>
+                                    <input type="password" name="secretPhrase" className="form-control input-lg" placeholder="3. second password" onChange={this.handleChange.bind(this, 'secret')} value={this.state.secret}/>
+                                    <label className={"control-label pull-left "+(this.state.secretError==""?"hidden":"")} htmlFor="secretPhrase">{this.state.secretError}</label>
+                                </div>
                             </div>
                         </fieldset>
                         <hr/>
@@ -401,8 +398,8 @@ define(['react','app'], function (React,app) {
                         </fieldset>
 
 
-                        <button className="dark-btn w-100 py-2"
-                                style={{fontSize:"14px",fontFamily: 'Rodus-Square',padding: "9px 30px",width:"100%"}} disabled={(this.state.generateI!=""?true:false)} onClick={this.handleClick.bind(this, 'resetPass')}>RESET
+                        <button className="btn-blue full-width mt44"
+                                disabled={(this.state.generateI!=""?true:false)} onClick={this.handleClick.bind(this, 'resetPass')}>RESET
                             PASSWORD
                         </button>
 

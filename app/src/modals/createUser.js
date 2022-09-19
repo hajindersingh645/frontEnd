@@ -353,97 +353,103 @@ define(['app', 'react'], function (app, React) {
         },
         render: function () {
             return (
-                <div className="modal fade" id="createAccount-modal" tabIndex="-1" role="dialog" aria-hidden="true">
+                <div className="" id="createAccount-modal">
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content" onKeyDown={this.handleClick.bind(this, 'enterCreateUser')}>
-                            <button type="button" className="close float-right" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <div className="row">
-                                <div className="col-12 text-center heading" style={{marginBottom: "20px"}}>
-                                    <img src="img/checklist.svg" height="25"/><br/>
-                                        CREATE AN ACCOUNT
-                                </div>
-                            </div>
-                            <div className="row">
-
+                            <h1>Create Account</h1>
+                            <div className="welcome-text">It's time to make next level email managment.</div>
+                            <div className="form-section">
                                 <form className="registration-form smart-form" id="createUser">
-                                    <div
-                                        className={"form-group "+(this.state.emailError!=""?"has-error":"") + (this.state.emailSucc?"has-success":"")}>
-
-                                        <div className="input-group emailErr">
-                                            <input type="text" name="email" id="userEmail" className="form-control input-lg"
-                                                   placeholder="choose email"
-                                                   maxLength="160"
-                                                   onChange={this.handleChange.bind(this, 'email')}
-                                                   value={this.state.email}/>
-                                            <span className="input-group-addon">{app.defaults.get('domainMail').toLowerCase()}</span>
+                                    <div className="row">
+                                        <div className="col-sm-7">
+                                            <div className={"form-group "+(this.state.emailError!=""?"has-error":"") + (this.state.emailSucc?"has-success":"")}>
+                                                <input type="text" name="email" id="userEmail" className="form-control input-lg"
+                                                    placeholder="choose email"
+                                                    maxLength="160"
+                                                    onChange={this.handleChange.bind(this, 'email')}
+                                                    value={this.state.email}/>
+                                                {/* <span className="input-group-addon">{app.defaults.get('domainMail').toLowerCase()}</span> */}
+                                                <label
+                                                    className={"control-label pull-left "+(this.state.emailError==""?"hidden":"")}
+                                                    htmlFor="resetEmail">{this.state.emailError}</label>
+                                            </div>
                                         </div>
-                                        <label
-                                            className={"control-label pull-left "+(this.state.emailError==""?"hidden":"")}
-                                            htmlFor="resetEmail">{this.state.emailError}</label>
-                                    </div>
-                                    <div className="clearfix"></div>
-                                    <div
-                                        className={"form-group "+(this.state.newPassError!=""?"has-error":"") + (this.state.newPassSucc?"has-success":"")}>
-                                        <input className="form-control input-lg" name="password" id="userPassword"
-                                               type="password" placeholder="password"
-                                               onChange={this.handleChange.bind(this, 'newPass')}
-                                               value={this.state.newPass}/>
-                                        <label
-                                            className={"control-label pull-left "+(this.state.newPassError==""?"hidden":"")}
-                                            htmlFor="newPass">{this.state.newPassError}</label>
-                                    </div>
-                                    <div className="clearfix"></div>
-                                    <div
-                                        className={"form-group "+(this.state.repPassError!=""?"has-error":"") + (this.state.repPassSucc?"has-success":"")}>
+                                        <div className="col-sm-5">
+                                            <div className="form-group">
+                                                <select className="form-select" aria-label="Default select example">
+                                                    <option selected="">@cyberfear.com</option>
+                                                    <option value="1">@cyberfear.com</option>
+                                                    <option value="2">@cyberfear.com</option>
+                                                    <option value="3">@cyberfear.com</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div className="col-sm-12">
+                                            <div
+                                                className={"form-group "+(this.state.newPassError!=""?"has-error":"") + (this.state.newPassSucc?"has-success":"")}>
+                                                <input className="form-control input-lg" name="password" id="userPassword"
+                                                    type="password" placeholder="password"
+                                                    onChange={this.handleChange.bind(this, 'newPass')}
+                                                    value={this.state.newPass}/>
+                                                <label
+                                                    className={"control-label pull-left "+(this.state.newPassError==""?"hidden":"")}
+                                                    htmlFor="newPass">{this.state.newPassError}</label>
+                                            </div>
+                                        </div>
+                                        <div className="col-sm-12">
+                                            <div
+                                                className={"form-group "+(this.state.repPassError!=""?"has-error":"") + (this.state.repPassSucc?"has-success":"")}>
 
-                                        <input className="form-control input-lg" name="passwordrepeat"
-                                               id="userPasswordRepeat" type="password" placeholder="repeat password"
-                                               onChange={this.handleChange.bind(this, 'newPassRep')}
-                                               value={this.state.newPassRep}/>
-                                        <label
-                                            className={"control-label pull-left "+(this.state.repPassError==""?"hidden":"")}
-                                            htmlFor="newPassRep">{this.state.repPassError}</label>
-                                    </div>
-                                    <div className="clearfix"></div>
+                                                <input className="form-control input-lg" name="passwordrepeat"
+                                                    id="userPasswordRepeat" type="password" placeholder="repeat password"
+                                                    onChange={this.handleChange.bind(this, 'newPassRep')}
+                                                    value={this.state.newPassRep}/>
+                                                <label
+                                                    className={"control-label pull-left "+(this.state.repPassError==""?"hidden":"")}
+                                                    htmlFor="newPassRep">{this.state.repPassError}</label>
+                                            </div>
+                                        </div>
+                                        <div className="col-sm-12">
+                                            <div
+                                                className="form-group hidden">
+                                                <span className="mb-2" style={{display: "block"}}>Please type into field below</span>
 
-                                    <div
-                                        className="form-group hidden">
-                                        <span className="pull-left">Please type into field below</span>
-
-                                        <input className="form-control input-lg" name="robotText"
-                                               id="imrobot" type="text" placeholder="I'm no robot"
-                                               onChange={this.handleChange.bind(this, 'norobot')}
-                                               value={this.state.norobot}/>
-                                        <label
-                                            className={"control-label pull-left "+(this.state.repPassError==""?"hidden":"")}
-                                            htmlFor="newPassRep">{this.state.repPassError}</label>
+                                                <input className="form-control input-lg" name="robotText"
+                                                    id="imrobot" type="text" placeholder="I'm no robot"
+                                                    onChange={this.handleChange.bind(this, 'norobot')}
+                                                    value={this.state.norobot}/>
+                                                <label
+                                                    className={"control-label pull-left "+(this.state.repPassError==""?"hidden":"")}
+                                                    htmlFor="newPassRep">{this.state.repPassError}</label>
+                                            </div>
+                                        </div>
+                                        <div className="col-sm-12">
+                                            <div
+                                                className={"form-group "+(this.state.couponError!=""?"has-error":"") + (this.state.couponSucc?"has-success":"")}>
+                                                <input className="form-control input-lg" name="password" id="coupon"
+                                                    type="text" placeholder="if you have please enter coupon code here"
+                                                    onChange={this.handleChange.bind(this, 'coupon')}
+                                                    value={this.state.coupon}/>
+                                                <label
+                                                    className={"control-label pull-left "+(this.state.couponError==""?"hidden":"")}
+                                                    htmlFor="newPass">{this.state.couponError}</label>
+                                            </div>
+                                        </div>
+                                        <div className="col-sm-12">
+                                            <button className="btn-blue full-width mt44" type="button"
+                                                disabled={this.state.working}
+                                                onClick={this.handleClick.bind(this, 'createUser')}>{this.state.buttonText}
+                                            </button>
+                                        </div>
+                                        <div className="col-sm-12">
+                                            <div className="text-center mt-2" style={{fontSize: "14px"}}>
+                                                By clicking “Create Account” you  agree with our <a href="/terms.html" target="_blank" style={{fontWeight:"700"}}> Terms of Service </a> <br />
+                                                <a href="login.html#login" className="text-decoration-underline">Already a user</a>
+                                            </div>
+                                        </div>
                                     </div>
-
-                                    <div className="clearfix"></div>
-                                    <div className="clearfix"></div>
-                                    <div
-                                        className={"form-group "+(this.state.couponError!=""?"has-error":"") + (this.state.couponSucc?"has-success":"")}>
-                                        <input className="form-control input-lg" name="password" id="coupon"
-                                               type="text" placeholder="if you have please enter coupon code here"
-                                               onChange={this.handleChange.bind(this, 'coupon')}
-                                               value={this.state.coupon}/>
-                                        <label
-                                            className={"control-label pull-left "+(this.state.couponError==""?"hidden":"")}
-                                            htmlFor="newPass">{this.state.couponError}</label>
-                                    </div>
-                                    <div className="clearfix"></div>
-                                    <button className="dark-btn w-100 py-2" type="button"
-                                            style={{fontSize:"14px",fontFamily: 'Rodus-Square',padding: "9px 30px",width:"100%"}} disabled={this.state.working}
-                                            onClick={this.handleClick.bind(this, 'createUser')}>{this.state.buttonText}
-                                    </button>
-                                    <div className="text-center" style={{fontSize:"13px",fontFamily: 'Rodus-Square',fontWeight:"500",marginTop:"10px"}}>
-                                        By clicking “Create Account” you  agree with our <a href="/terms.html"
-                                                                                          target="_blank" style=
-                                                                                                {{fontWeight:"700"}}> Terms of Service </a>
-
-                                    </div>
+                                    
+                                    
 
                                     <div className="share hidden">
                                         <a className="" href="https://facebook.com/sharer/sharer.php?u=https://cyberfear.com" target="_blank" aria-label=""><i className="fa fa-facebook fa-lg"></i></a>

@@ -101,6 +101,9 @@ define(['react', 'app', 'wow', 'cmpld/splashPage/head', 'cmpld/splashPage/compar
 			if (this.props.page == 'login') {
 				body = React.createElement(LoginPage, null);
 			}
+			if (this.props.page == 'signup') {
+				body = React.createElement(CreateUser, null);
+			}
 			if (this.props.page == 'pe') {
 				body = React.createElement(PE, null);
 			}
@@ -112,7 +115,7 @@ define(['react', 'app', 'wow', 'cmpld/splashPage/head', 'cmpld/splashPage/compar
 				body = React.createElement(ForgotSecret, { page: this.state.AccountResetOptions });
 			}
 			/* data binding example <span>{this.state.AccountResetOptions.email}</span> */
-			if (this.props.page == 'login') {
+			if (this.props.page == 'login' || this.props.page == 'signup' || this.props.page == 'forgotPassword') {
 				return React.createElement(
 					'div',
 					null,
@@ -127,7 +130,6 @@ define(['react', 'app', 'wow', 'cmpld/splashPage/head', 'cmpld/splashPage/compar
 					React.createElement(Login, null),
 					React.createElement(SplashFoot, null),
 					React.createElement(ReportBug, null),
-					React.createElement(CreateUser, null),
 					React.createElement(TokenPop, null),
 					React.createElement(PaymentGate, null),
 					React.createElement(DialogPop, null)

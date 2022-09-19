@@ -8,7 +8,7 @@ define(['app', 'backbone', 'react', 'jquery', 'bootstrap', 'cmpld/splashPage/Spl
 			"report": "report",
 			// "login" : "login",
 			"login": "loginPage",
-			"createUser": "createUser",
+			"signup": "createUser",
 			"contactUs": "contactUs",
 			"requestInvitation": "requestInvitation",
 			"forgotPassword": "forgotPassword",
@@ -98,8 +98,7 @@ define(['app', 'backbone', 'react', 'jquery', 'bootstrap', 'cmpld/splashPage/Spl
 		},
 
 		createUser: function () {
-			React.render(React.createElement(SplashCollection, { page: 'index' }), document.getElementById('mainBody'));
-			$('#createAccount-modal').modal('show');
+			React.render(React.createElement(SplashCollection, { page: 'signup' }), document.getElementById('loginBody'));
 		},
 		contactUs: function () {
 			React.render(React.createElement(SplashCollection, { page: 'index' }), document.getElementById('mainBody'));
@@ -110,7 +109,7 @@ define(['app', 'backbone', 'react', 'jquery', 'bootstrap', 'cmpld/splashPage/Spl
 			$('#reqInvite').modal('show');
 		},
 		forgotPassword: function () {
-			React.render(React.createElement(SplashCollection, { page: 'forgotPassword' }), document.getElementById('mainBody'));
+			React.render(React.createElement(SplashCollection, { page: 'forgotPassword' }), document.getElementById('loginBody'));
 		},
 		forgotSecret: function () {
 
