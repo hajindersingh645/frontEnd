@@ -1,4 +1,4 @@
-define(['react','app','validation'], function (React,app,Validation) {
+define(['react','app','validation', 'cmpld/modals/paymentGate'], function (React,app,Validation,PaymentGate) {
 	return React.createClass({
 		/**
          *
@@ -11,7 +11,8 @@ define(['react','app','validation'], function (React,app,Validation) {
 				fac2Text:"",
 				fac2Type:"",
 				domainSelectFlag: false,
-				incorrectCredentials: false
+				incorrectCredentials: false,
+				firstTimeUser: false
 			};
 		},
 		componentWillUnmount: function() {
@@ -134,12 +135,15 @@ define(['react','app','validation'], function (React,app,Validation) {
 						var password=$('#LoginUser_password').val();
 						var factor2=this.state.fac2Text;
 
-
 						app.indexedDBWorker.set({"allowedToUse":$('#computerSafe').is(':checked')});
 						//app.userObjects.retrieveUserObject();
 
 						app.auth.Login(email,password,factor2,function(result){
-							
+							if( result=='firstTime'){
+								thisComp.setState({
+									firstTimeUser:true
+								});
+							}
 							if( result=='wrngUsrOrPass' ){
 								thisComp.setState({
 									incorrectCredentials:true
@@ -262,6 +266,10 @@ define(['react','app','validation'], function (React,app,Validation) {
 						</div>
 					</form>
 					</div>
+
+					{
+						this.state.firstTimeUser ? <PaymentGate/> : null
+					}
 				</div>
 			);
 		}

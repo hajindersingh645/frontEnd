@@ -146,6 +146,7 @@ define(['react','app','wow',
 				return (
 					<div>
 						{body}
+						{/* <PaymentGate/> */}
 					</div>
 					);
 				}else{
@@ -158,7 +159,7 @@ define(['react','app','wow',
 							<ReportBug />
 							
 							<TokenPop/>
-							<PaymentGate/>
+							
 							<DialogPop/>
 	
 						</div>

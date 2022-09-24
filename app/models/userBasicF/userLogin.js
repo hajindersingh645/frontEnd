@@ -81,8 +81,9 @@ define([
 						//start plancheck routines
 						thisComp.setTimer();
 						thisComp.checkPlan();
-
-						$('#makePayment').modal('show');
+						
+						callback('firstTime');
+						
 					}else{
 						Backbone.history.navigate(app.defaults.get('defaultPage'), {
 							trigger : true

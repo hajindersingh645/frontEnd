@@ -329,24 +329,24 @@ define(['app','accounting', 'react'], function (app, accounting, React) {
 
 
             return (
-                <div className="modal fade bs-example-modal-sm" id="makePayment" tabIndex="-1" role="dialog"
+                <div className="modal modal-sheet position-fixed d-block bg-secondary bg-opacity-75 py-0 overflow-hidden" id="makePayment" tabIndex="-1" role="dialog"
                      aria-hidden="true">
-                    <div className="modal-dialog modal-md">
-                        <div className="modal-content">
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content rounded-4 shadow px-4 py-4">
                             <div className="panel panel-default">
-                                <div className="panel-body text-center">
+                                <div className="panel-body text-center p-4 border border-success border-opacity-25 border-dark">
                                     {app.defaults.get('name')}
-                                    <div className="clearfix"></div>
+                                    <div className="clearfix mb-1"></div>
                                     Anonymous Email Service
-                                    <div className="clearfix"></div>
+                                    <div className="clearfix mb-1"></div>
                                     Account Type: Premium
-                                    <div className="clearfix"></div>
-                                    Amount Due:<span className={!charge?"":"hidden"}><strike>{full}</strike><b> {accounting.formatMoney(this.state.mCharge)}</b></span>
-                                    <span className={charge?"":"hidden"}>{accounting.formatMoney(this.state.mCharge)}</span>
+                                    <div className="clearfix mb-1"></div>
+                                    Amount Due:<span className={!charge?"":"d-none"}><strike>{full}</strike><b> {accounting.formatMoney(this.state.mCharge)}</b></span>
+                                    <span className={charge?"":"d-none"}>{accounting.formatMoney(this.state.mCharge)}</span>
                                 </div>
                             </div>
 
-                            <div className="panel panel-default">
+                            <div className="panel panel-default border border-success border-opacity-25 border-dark mt-2">
                                 <div className="text-center">Select your Membership:</div>
                                 <div className="panel-body">
                                     <div className="form-inline text-center">
@@ -357,7 +357,7 @@ define(['app','accounting', 'react'], function (app, accounting, React) {
                                                            value="option1"
                                                            checked={this.state.membr=='year'}
                                                            onChange={this.handleChange.bind(this, 'year')} />
-                                                    &nbsp;Yearly (<span className={!charge?"":"hidden"}><strike>${app.user.get("userPlan")['trueYearPrice']/100}/year</strike> <b>{discy}/year</b></span> <span className={charge?"":"hidden"}>${app.user.get("userPlan")['trueYearPrice']/100}/year</span>)
+                                                    &nbsp;Yearly (<span className={!charge?"":"d-none"}><strike>${app.user.get("userPlan")['trueYearPrice']/100}/year</strike> <b>{discy}/year</b></span> <span className={charge?"":"d-none"}>${app.user.get("userPlan")['trueYearPrice']/100}/year</span>)
                                                 </label>
                                             </div>
                                             <div className="clearfix"></div>
@@ -368,7 +368,7 @@ define(['app','accounting', 'react'], function (app, accounting, React) {
                                                            checked={this.state.membr=='month'}
                                                            onChange={this.handleChange.bind(this, 'month')} />
 
-                                                    &nbsp;Monthly (<span className={!charge?"":"hidden"}><strike>${app.user.get("userPlan")['trueMonthPrice']/100}/month</strike> <b>{discm}/month</b></span> <span className={charge?"":"hidden"}>${app.user.get("userPlan")['trueMonthPrice']/100}/month</span>)
+                                                    &nbsp;Monthly (<span className={!charge?"":"d-none"}><strike>${app.user.get("userPlan")['trueMonthPrice']/100}/month</strike> <b>{discm}/month</b></span> <span className={charge?"":"d-none"}>${app.user.get("userPlan")['trueMonthPrice']/100}/month</span>)
                                                 </label>
                                             </div>
                                             <div className="clearfix"></div>
@@ -391,7 +391,7 @@ define(['app','accounting', 'react'], function (app, accounting, React) {
                                 </div>
                             </div>
 
-                            <div className={this.state.membr=='free'?"hidden":"panel panel-default"}>
+                            <div className={this.state.membr=='free'?"d-none":"panel panel-default"}>
                                 <div className="text-center">Payment Method:</div>
                                 <div className="panel-body">
                                     <div className="form-inline text-center">
@@ -444,7 +444,7 @@ define(['app','accounting', 'react'], function (app, accounting, React) {
 
 
 
-                                        <form onSubmit={this.handleSubmit} className="hidden" id="perfMF"  action="https://perfectmoney.com/api/step1.asp" method="POST" target="_blank">
+                                        <form onSubmit={this.handleSubmit} className="d-none" id="perfMF"  action="https://perfectmoney.com/api/step1.asp" method="POST" target="_blank">
 
                                             <input type="hidden" name="PAYEE_ACCOUNT" value={app.defaults.get('perfectMecrh')}/>
                                             <input type="hidden" name="PAYEE_NAME" value="Cyber Fear"/>
@@ -469,7 +469,7 @@ define(['app','accounting', 'react'], function (app, accounting, React) {
 
 
 
-                                        <form  onSubmit={this.handleSubmit} className="hidden" id="cryptF" action="https://www.coinpayments.net/index.php" method="post" target="_blank"ref="crypto">
+                                        <form  onSubmit={this.handleSubmit} className="d-none" id="cryptF" action="https://www.coinpayments.net/index.php" method="post" target="_blank"ref="crypto">
                                             <input type="hidden" name="cmd" value="_pay_simple"/>
                                             <input type="hidden" name="reset" value="1"/>
                                             <input type="hidden" name="merchant" value={app.defaults.get('coinMecrh')}/>
@@ -490,19 +490,19 @@ define(['app','accounting', 'react'], function (app, accounting, React) {
                                         </form>
                                         <div className="clearfix"></div>
 
-                                        <div className={this.state.paym=="stripe"?"":"hidden"} id="stripe-container">
+                                        <div className={this.state.paym=="stripe"?"":"d-none"} id="stripe-container">
                                             <form id="payment-form">
                                                 <div id="payment-element">
                                                 </div>
                                                 <button id="submit">
-                                                    <div className="spinner hidden" id="spinner"></div>
+                                                    <div className="spinner d-none" id="spinner"></div>
                                                     <span id="button-text">Pay now</span>
                                                 </button>
-                                                <div id="payment-message" className="hidden"></div>
+                                                <div id="payment-message" className="d-none"></div>
                                             </form>
                                         </div>
 
-                                        <div className={this.state.paym=="paypal"?"":"hidden"} id="paypal-button-container"></div>
+                                        <div className={this.state.paym=="paypal"?"":"d-none"} id="paypal-button-container"></div>
 
 
 
@@ -511,12 +511,12 @@ define(['app','accounting', 'react'], function (app, accounting, React) {
                             </div>
                             <div>
                                 <div style={{textAlign:"center"}}>
-                                <button type="submit" form={this.state.paym==="perfectm" ?"perfMF":"cryptF"} onClick={this.handleClick.bind(this, 'pay')} className={(this.state.paym=="perfectm" || this.state.paym=="bitc") && this.state.membr!='free' && !this.state.butDis ?"white-btn":"hidden"} disabled={this.state.paym==""|| this.state.butDis} style={{float:"none",display:"initial"}}>Pay Now</button>
+                                <button type="submit" form={this.state.paym==="perfectm" ?"perfMF":"cryptF"} onClick={this.handleClick.bind(this, 'pay')} className={(this.state.paym=="perfectm" || this.state.paym=="bitc") && this.state.membr!='free' && !this.state.butDis ?"white-btn":"d-none"} disabled={this.state.paym==""|| this.state.butDis} style={{float:"none",display:"initial"}}>Pay Now</button>
                                 </div>
 
                             </div>
 
-                            <div className={this.state.membr=='free'?"":"hidden"} style={{textAlign:"center"}}>
+                            <div className={this.state.membr=='free'?"":"d-none"} style={{textAlign:"center"}}>
                                 <button onClick={this.handleClick.bind(this, 'freemium')} className="white-btn" style={{float:"none",display:"initial"}}>Log In</button>
                             </div>
                         </div>

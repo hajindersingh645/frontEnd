@@ -131,7 +131,6 @@ define(['react', 'app', 'wow', 'cmpld/splashPage/head', 'cmpld/splashPage/compar
 					React.createElement(SplashFoot, null),
 					React.createElement(ReportBug, null),
 					React.createElement(TokenPop, null),
-					React.createElement(PaymentGate, null),
 					React.createElement(DialogPop, null)
 				);
 			}

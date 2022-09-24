@@ -307,30 +307,30 @@ define(['app', 'accounting', 'react'], function (app, accounting, React) {
 
             return React.createElement(
                 'div',
-                { className: 'modal fade bs-example-modal-sm', id: 'makePayment', tabIndex: '-1', role: 'dialog',
+                { className: 'modal modal-sheet position-fixed d-block bg-secondary bg-opacity-75 py-0 overflow-hidden', id: 'makePayment', tabIndex: '-1', role: 'dialog',
                     'aria-hidden': 'true' },
                 React.createElement(
                     'div',
-                    { className: 'modal-dialog modal-md' },
+                    { className: 'modal-dialog', role: 'document' },
                     React.createElement(
                         'div',
-                        { className: 'modal-content' },
+                        { className: 'modal-content rounded-4 shadow px-4 py-4' },
                         React.createElement(
                             'div',
                             { className: 'panel panel-default' },
                             React.createElement(
                                 'div',
-                                { className: 'panel-body text-center' },
+                                { className: 'panel-body text-center p-4 border border-success border-opacity-25 border-dark' },
                                 app.defaults.get('name'),
-                                React.createElement('div', { className: 'clearfix' }),
+                                React.createElement('div', { className: 'clearfix mb-1' }),
                                 'Anonymous Email Service',
-                                React.createElement('div', { className: 'clearfix' }),
+                                React.createElement('div', { className: 'clearfix mb-1' }),
                                 'Account Type: Premium',
-                                React.createElement('div', { className: 'clearfix' }),
+                                React.createElement('div', { className: 'clearfix mb-1' }),
                                 'Amount Due:',
                                 React.createElement(
                                     'span',
-                                    { className: !charge ? "" : "hidden" },
+                                    { className: !charge ? "" : "d-none" },
                                     React.createElement(
                                         'strike',
                                         null,
@@ -345,14 +345,14 @@ define(['app', 'accounting', 'react'], function (app, accounting, React) {
                                 ),
                                 React.createElement(
                                     'span',
-                                    { className: charge ? "" : "hidden" },
+                                    { className: charge ? "" : "d-none" },
                                     accounting.formatMoney(this.state.mCharge)
                                 )
                             )
                         ),
                         React.createElement(
                             'div',
-                            { className: 'panel panel-default' },
+                            { className: 'panel panel-default border border-success border-opacity-25 border-dark mt-2' },
                             React.createElement(
                                 'div',
                                 { className: 'text-center' },
@@ -380,7 +380,7 @@ define(['app', 'accounting', 'react'], function (app, accounting, React) {
                                                 '\xA0Yearly (',
                                                 React.createElement(
                                                     'span',
-                                                    { className: !charge ? "" : "hidden" },
+                                                    { className: !charge ? "" : "d-none" },
                                                     React.createElement(
                                                         'strike',
                                                         null,
@@ -399,7 +399,7 @@ define(['app', 'accounting', 'react'], function (app, accounting, React) {
                                                 ' ',
                                                 React.createElement(
                                                     'span',
-                                                    { className: charge ? "" : "hidden" },
+                                                    { className: charge ? "" : "d-none" },
                                                     '$',
                                                     app.user.get("userPlan")['trueYearPrice'] / 100,
                                                     '/year'
@@ -421,7 +421,7 @@ define(['app', 'accounting', 'react'], function (app, accounting, React) {
                                                 '\xA0Monthly (',
                                                 React.createElement(
                                                     'span',
-                                                    { className: !charge ? "" : "hidden" },
+                                                    { className: !charge ? "" : "d-none" },
                                                     React.createElement(
                                                         'strike',
                                                         null,
@@ -440,7 +440,7 @@ define(['app', 'accounting', 'react'], function (app, accounting, React) {
                                                 ' ',
                                                 React.createElement(
                                                     'span',
-                                                    { className: charge ? "" : "hidden" },
+                                                    { className: charge ? "" : "d-none" },
                                                     '$',
                                                     app.user.get("userPlan")['trueMonthPrice'] / 100,
                                                     '/month'
@@ -469,7 +469,7 @@ define(['app', 'accounting', 'react'], function (app, accounting, React) {
                         ),
                         React.createElement(
                             'div',
-                            { className: this.state.membr == 'free' ? "hidden" : "panel panel-default" },
+                            { className: this.state.membr == 'free' ? "d-none" : "panel panel-default" },
                             React.createElement(
                                 'div',
                                 { className: 'text-center' },
@@ -528,7 +528,7 @@ define(['app', 'accounting', 'react'], function (app, accounting, React) {
                                     ),
                                     React.createElement(
                                         'form',
-                                        { onSubmit: this.handleSubmit, className: 'hidden', id: 'perfMF', action: 'https://perfectmoney.com/api/step1.asp', method: 'POST', target: '_blank' },
+                                        { onSubmit: this.handleSubmit, className: 'd-none', id: 'perfMF', action: 'https://perfectmoney.com/api/step1.asp', method: 'POST', target: '_blank' },
                                         React.createElement('input', { type: 'hidden', name: 'PAYEE_ACCOUNT', value: app.defaults.get('perfectMecrh') }),
                                         React.createElement('input', { type: 'hidden', name: 'PAYEE_NAME', value: 'Cyber Fear' }),
                                         React.createElement('input', { type: 'hidden', name: 'PAYMENT_AMOUNT', value: this.state.mCharge }),
@@ -546,7 +546,7 @@ define(['app', 'accounting', 'react'], function (app, accounting, React) {
                                     ),
                                     React.createElement(
                                         'form',
-                                        { onSubmit: this.handleSubmit, className: 'hidden', id: 'cryptF', action: 'https://www.coinpayments.net/index.php', method: 'post', target: '_blank', ref: 'crypto' },
+                                        { onSubmit: this.handleSubmit, className: 'd-none', id: 'cryptF', action: 'https://www.coinpayments.net/index.php', method: 'post', target: '_blank', ref: 'crypto' },
                                         React.createElement('input', { type: 'hidden', name: 'cmd', value: '_pay_simple' }),
                                         React.createElement('input', { type: 'hidden', name: 'reset', value: '1' }),
                                         React.createElement('input', { type: 'hidden', name: 'merchant', value: app.defaults.get('coinMecrh') }),
@@ -566,7 +566,7 @@ define(['app', 'accounting', 'react'], function (app, accounting, React) {
                                     React.createElement('div', { className: 'clearfix' }),
                                     React.createElement(
                                         'div',
-                                        { className: this.state.paym == "stripe" ? "" : "hidden", id: 'stripe-container' },
+                                        { className: this.state.paym == "stripe" ? "" : "d-none", id: 'stripe-container' },
                                         React.createElement(
                                             'form',
                                             { id: 'payment-form' },
@@ -574,17 +574,17 @@ define(['app', 'accounting', 'react'], function (app, accounting, React) {
                                             React.createElement(
                                                 'button',
                                                 { id: 'submit' },
-                                                React.createElement('div', { className: 'spinner hidden', id: 'spinner' }),
+                                                React.createElement('div', { className: 'spinner d-none', id: 'spinner' }),
                                                 React.createElement(
                                                     'span',
                                                     { id: 'button-text' },
                                                     'Pay now'
                                                 )
                                             ),
-                                            React.createElement('div', { id: 'payment-message', className: 'hidden' })
+                                            React.createElement('div', { id: 'payment-message', className: 'd-none' })
                                         )
                                     ),
-                                    React.createElement('div', { className: this.state.paym == "paypal" ? "" : "hidden", id: 'paypal-button-container' })
+                                    React.createElement('div', { className: this.state.paym == "paypal" ? "" : "d-none", id: 'paypal-button-container' })
                                 )
                             )
                         ),
@@ -596,14 +596,14 @@ define(['app', 'accounting', 'react'], function (app, accounting, React) {
                                 { style: { textAlign: "center" } },
                                 React.createElement(
                                     'button',
-                                    { type: 'submit', form: this.state.paym === "perfectm" ? "perfMF" : "cryptF", onClick: this.handleClick.bind(this, 'pay'), className: (this.state.paym == "perfectm" || this.state.paym == "bitc") && this.state.membr != 'free' && !this.state.butDis ? "white-btn" : "hidden", disabled: this.state.paym == "" || this.state.butDis, style: { float: "none", display: "initial" } },
+                                    { type: 'submit', form: this.state.paym === "perfectm" ? "perfMF" : "cryptF", onClick: this.handleClick.bind(this, 'pay'), className: (this.state.paym == "perfectm" || this.state.paym == "bitc") && this.state.membr != 'free' && !this.state.butDis ? "white-btn" : "d-none", disabled: this.state.paym == "" || this.state.butDis, style: { float: "none", display: "initial" } },
                                     'Pay Now'
                                 )
                             )
                         ),
                         React.createElement(
                             'div',
-                            { className: this.state.membr == 'free' ? "" : "hidden", style: { textAlign: "center" } },
+                            { className: this.state.membr == 'free' ? "" : "d-none", style: { textAlign: "center" } },
                             React.createElement(
                                 'button',
                                 { onClick: this.handleClick.bind(this, 'freemium'), className: 'white-btn', style: { float: "none", display: "initial" } },
