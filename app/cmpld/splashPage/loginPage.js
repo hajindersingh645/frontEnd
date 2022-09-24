@@ -9,8 +9,9 @@ define(['react', 'app', 'validation'], function (React, app, Validation) {
 				compSafe: false,
 				secondFactorInput: false,
 				fac2Text: "",
-				fac2Type: ""
-
+				fac2Type: "",
+				domainSelectFlag: false,
+				incorrectCredentials: false
 			};
 		},
 		componentWillUnmount: function () {
@@ -50,6 +51,7 @@ define(['react', 'app', 'validation'], function (React, app, Validation) {
 
 			if (app.defaults.get('dev') === true) {
 				this.handleClick('login');
+				// this.handleUserNameChange();
 			}
 		},
 		/**
@@ -114,7 +116,12 @@ define(['react', 'app', 'validation'], function (React, app, Validation) {
 					createUserFormValidator.form();
 
 					if (createUserFormValidator.numberOfInvalids() == 0) {
-						var email = $('#LoginForm_username').val();
+						if (!thisComp.state.domainSelectFlag) {
+							var email = $('#LoginForm_username').val() + $('#LoginForm_domain option:selected').text();
+						} else {
+							var email = $('#LoginForm_username').val();
+						}
+
 						var password = $('#LoginUser_password').val();
 						var factor2 = this.state.fac2Text;
 
@@ -122,8 +129,11 @@ define(['react', 'app', 'validation'], function (React, app, Validation) {
 						//app.userObjects.retrieveUserObject();
 
 						app.auth.Login(email, password, factor2, function (result) {
-							if (result == 'good') {
-								location.href = '/index.html#mail/Inbox';
+
+							if (result == 'wrngUsrOrPass') {
+								thisComp.setState({
+									incorrectCredentials: true
+								});
 							}
 							if (result == 'needGoogle') {
 								thisComp.setState({
@@ -158,6 +168,19 @@ define(['react', 'app', 'validation'], function (React, app, Validation) {
 					$('#forgPass-modal').modal('show');
 
 					break;
+			}
+		},
+		handleUserNameChange: function (event) {
+			const _userNameVal = event.target.value;
+			var thisComp = this;
+			if (_userNameVal.indexOf('@') > 0) {
+				thisComp.setState({
+					domainSelectFlag: true
+				});
+			} else {
+				thisComp.setState({
+					domainSelectFlag: false
+				});
 			}
 		},
 		render: function () {
@@ -206,7 +229,7 @@ define(['react', 'app', 'validation'], function (React, app, Validation) {
 								React.createElement(
 									'div',
 									{ className: 'form-group' },
-									React.createElement('input', { type: 'email', className: 'form-control', name: 'email', id: 'LoginForm_username', placeholder: 'Email', defaultValue: app.defaults.get('userName') })
+									React.createElement('input', { type: 'text', className: 'form-control', name: 'email', id: 'LoginForm_username', placeholder: 'Email', defaultValue: app.defaults.get('userName'), onChange: this.handleUserNameChange.bind() })
 								)
 							),
 							React.createElement(
@@ -217,7 +240,7 @@ define(['react', 'app', 'validation'], function (React, app, Validation) {
 									{ className: 'form-group' },
 									React.createElement(
 										'select',
-										{ className: 'form-select', 'aria-label': 'Default select example', defaultValue: `0` },
+										{ className: 'form-select', 'aria-label': 'Domain select', id: 'LoginForm_domain', defaultValue: `0`, disabled: this.state.domainSelectFlag ? true : null },
 										React.createElement(
 											'option',
 											{ value: '0' },
@@ -291,7 +314,7 @@ define(['react', 'app', 'validation'], function (React, app, Validation) {
 									{ className: 'forgot-link' },
 									React.createElement(
 										'a',
-										{ href: 'login.html#forgotPassword' },
+										{ href: 'reactIndex.html#forgotPassword' },
 										'Forgot Password?'
 									)
 								)
@@ -304,7 +327,16 @@ define(['react', 'app', 'validation'], function (React, app, Validation) {
 									{ className: 'btn-blue full-width mt60', type: 'buton', onClick: this.handleClick.bind(this, 'login') },
 									'Sign in'
 								)
-							)
+							),
+							this.state.incorrectCredentials ? React.createElement(
+								'div',
+								{ className: 'col-sm-12' },
+								React.createElement(
+									'div',
+									{ className: 'bg-danger px-4 py-2 rounded text-white text-center mt-2 fs-6' },
+									'Wrong username / password. Please try again'
+								)
+							) : null
 						)
 					)
 				)

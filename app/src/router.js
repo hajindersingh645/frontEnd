@@ -173,7 +173,7 @@ define(['app','backbone', 'react','jquery','bootstrap','cmpld/splashPage/SplashC
 				function (AuthCollection) {
 					React.render(
 						<AuthCollection page={'updateAccount'} versionUpdate={options}/>,
-						document.getElementById('mainBody'));
+						document.getElementById('wrapper'));
 				});
 
 		},
@@ -202,7 +202,7 @@ define(['app','backbone', 'react','jquery','bootstrap','cmpld/splashPage/SplashC
 
 						React.render(
 							<AuthCollection page={'mailBox'} folder={options}/>,
-							document.getElementById('mainBody'));
+							document.getElementById('wrapper'));
 					});
 			//}
 

@@ -135,7 +135,7 @@ define(['app', 'backbone', 'react', 'jquery', 'bootstrap', 'cmpld/splashPage/Spl
 			// }
 
 			require(['cmpld/authorized/authCollection'], function (AuthCollection) {
-				React.render(React.createElement(AuthCollection, { page: 'updateAccount', versionUpdate: options }), document.getElementById('mainBody'));
+				React.render(React.createElement(AuthCollection, { page: 'updateAccount', versionUpdate: options }), document.getElementById('wrapper'));
 			});
 		},
 		mail: function (options, msg) {
@@ -159,7 +159,7 @@ define(['app', 'backbone', 'react', 'jquery', 'bootstrap', 'cmpld/splashPage/Spl
 				$("#overlay").addClass('hidden');
 				//}, 1000);
 
-				React.render(React.createElement(AuthCollection, { page: 'mailBox', folder: options }), document.getElementById('mainBody'));
+				React.render(React.createElement(AuthCollection, { page: 'mailBox', folder: options }), document.getElementById('wrapper'));
 			});
 			//}
 		},

@@ -87,7 +87,7 @@ define(['react'], function (React) {
 								null,
 								React.createElement(
 									'a',
-									{ className: 'nav-link dark-btn-menu', href: 'login.html#login' },
+									{ className: 'nav-link dark-btn-menu', href: 'reactIndex.html#login' },
 									'Login'
 								)
 							),
@@ -96,7 +96,7 @@ define(['react'], function (React) {
 								null,
 								React.createElement(
 									'a',
-									{ className: 'nav-link white-btn-menu', href: 'login.html#signup' },
+									{ className: 'nav-link white-btn-menu', href: 'reactIndex.html#signup' },
 									'Sign Up'
 								)
 							),

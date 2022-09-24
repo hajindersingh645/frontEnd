@@ -444,7 +444,7 @@ define(['app', 'react'], function (app, React) {
                                         <div className="col-sm-12">
                                             <div className="text-center mt-2" style={{fontSize: "14px"}}>
                                                 By clicking “Create Account” you  agree with our <a href="/terms.html" target="_blank" style={{fontWeight:"700"}}> Terms of Service </a> <br />
-                                                <a href="login.html#login" className="text-decoration-underline">Already a user</a>
+                                                <a href="reactIndex.html#login" className="text-decoration-underline">Already a user</a>
                                             </div>
                                         </div>
                                     </div>

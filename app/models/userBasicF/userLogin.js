@@ -103,7 +103,8 @@ define([
 				}
 
 				}else{
-					app.notifications.systemMessage('wrngUsrOrPass');
+					// app.notifications.systemMessage('wrngUsrOrPass');
+					callback('wrngUsrOrPass');
 				}
 			});
 

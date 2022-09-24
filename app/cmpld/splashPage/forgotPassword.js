@@ -402,6 +402,24 @@ define(['react', 'app'], function (React, app) {
                                 { className: 'btn-blue full-width mt44',
                                     disabled: this.state.generateI != "" ? true : false, onClick: this.handleClick.bind(this, 'resetPass') },
                                 'RESET PASSWORD'
+                            ),
+                            React.createElement(
+                                'div',
+                                { className: 'login-bottom' },
+                                React.createElement(
+                                    'div',
+                                    { className: 'welcome-text' },
+                                    `Already have the login details?`
+                                ),
+                                React.createElement(
+                                    'div',
+                                    { className: 'btn-row' },
+                                    React.createElement(
+                                        'a',
+                                        { href: '#login', className: 'btn-gray-border' },
+                                        `Sign in`
+                                    )
+                                )
                             )
                         )
                     )

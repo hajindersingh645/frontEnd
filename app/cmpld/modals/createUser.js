@@ -509,7 +509,7 @@ define(['app', 'react'], function (app, React) {
                                             React.createElement('br', null),
                                             React.createElement(
                                                 'a',
-                                                { href: 'login.html#login', className: 'text-decoration-underline' },
+                                                { href: 'reactIndex.html#login', className: 'text-decoration-underline' },
                                                 'Already a user'
                                             )
                                         )

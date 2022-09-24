@@ -282,7 +282,7 @@ require(['app', 'cmpld/router',
 		 });
 		 */
 		app.restartApp = function () {
-			window.location.href = '';
+			window.location.href = '/index.html';
 		};
 
 		app.run();

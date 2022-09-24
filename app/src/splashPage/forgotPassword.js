@@ -403,6 +403,15 @@ define(['react','app'], function (React,app) {
                             PASSWORD
                         </button>
 
+                        <div className="login-bottom">
+                            <div className="welcome-text">
+                                {`Already have the login details?`}
+                            </div>
+                            <div className="btn-row">
+                                <a href="#login" className="btn-gray-border">{`Sign in`}</a>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 </div>

@@ -9,8 +9,9 @@ define(['react','app','validation'], function (React,app,Validation) {
 				compSafe:false,
 				secondFactorInput:false,
 				fac2Text:"",
-				fac2Type:""
-
+				fac2Type:"",
+				domainSelectFlag: false,
+				incorrectCredentials: false
 			};
 		},
 		componentWillUnmount: function() {
@@ -52,6 +53,7 @@ define(['react','app','validation'], function (React,app,Validation) {
 
             if(app.defaults.get('dev')===true){
                 this.handleClick('login');
+				// this.handleUserNameChange();
             }
 
 		},
@@ -119,7 +121,12 @@ define(['react','app','validation'], function (React,app,Validation) {
 					createUserFormValidator.form();
 
 					if (createUserFormValidator.numberOfInvalids() == 0) {
-						var email=$('#LoginForm_username').val();
+						if( !thisComp.state.domainSelectFlag ){
+							var email=$('#LoginForm_username').val()+$('#LoginForm_domain option:selected').text();
+						}else{
+							var email=$('#LoginForm_username').val();
+						}
+						
 						var password=$('#LoginUser_password').val();
 						var factor2=this.state.fac2Text;
 
@@ -128,8 +135,11 @@ define(['react','app','validation'], function (React,app,Validation) {
 						//app.userObjects.retrieveUserObject();
 
 						app.auth.Login(email,password,factor2,function(result){
-							if( result=='good' ){
-								location.href = '/index.html#mail/Inbox'
+							
+							if( result=='wrngUsrOrPass' ){
+								thisComp.setState({
+									incorrectCredentials:true
+								});
 							}
 							if(result=='needGoogle'){
 								thisComp.setState({
@@ -167,6 +177,19 @@ define(['react','app','validation'], function (React,app,Validation) {
 					break;
 			}
 		},
+		handleUserNameChange: function(event){
+			const _userNameVal = event.target.value;
+			var thisComp=this;
+			if( _userNameVal.indexOf('@') > 0 ){
+				thisComp.setState({
+					domainSelectFlag:true
+				});
+			}else{
+				thisComp.setState({
+					domainSelectFlag:false
+				});
+			}
+		},
 		render: function () {
 
 			var styleYes = {
@@ -189,12 +212,12 @@ define(['react','app','validation'], function (React,app,Validation) {
 						<div className="row">
 							<div className="col-sm-7">
 								<div className="form-group">
-									<input type="email" className="form-control" name="email" id="LoginForm_username" placeholder="Email" defaultValue={app.defaults.get('userName')} />
+									<input type="text" className="form-control" name="email" id="LoginForm_username" placeholder="Email" defaultValue={app.defaults.get('userName')} onChange={this.handleUserNameChange.bind()} />
 								</div>
 							</div>
 							<div className="col-sm-5">
 								<div className="form-group">
-									<select className="form-select" aria-label="Default select example" defaultValue={`0`}>
+									<select className="form-select" aria-label="Domain select" id="LoginForm_domain" defaultValue={`0`} disabled={this.state.domainSelectFlag ? true : null}>
 									<option value="0">@cyberfear.com</option>
 									<option value="1">@cyberfear.com</option>
 									<option value="2">@cyberfear.com</option>
@@ -218,11 +241,19 @@ define(['react','app','validation'], function (React,app,Validation) {
 								</div>
 							</div>
 							<div className="col-sm-12">
-								<div className="forgot-link"><a href="login.html#forgotPassword">Forgot Password?</a></div>
+								<div className="forgot-link"><a href="reactIndex.html#forgotPassword">Forgot Password?</a></div>
 							</div>
 							<div className="col-sm-12">
 								<button className="btn-blue full-width mt60" type="buton" onClick={this.handleClick.bind(this, 'login')}>Sign in</button>
 							</div>
+							{
+								this.state.incorrectCredentials ?
+								<div className="col-sm-12">
+									<div className="bg-danger px-4 py-2 rounded text-white text-center mt-2 fs-6">Wrong username / password. Please try again</div>
+								</div>
+								: 
+								null
+							}
 						</div>
 					</form>
 					</div>
