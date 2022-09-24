@@ -22,9 +22,10 @@ define(['app', 'react'], function (app, React) {
 
                 working: false,
                 buttonTag: "",
-                buttonText: "SIGN UP"
+                buttonText: "SIGN UP",
 
-
+                accountCreationStatus: null,
+                accountCreationError: ""
             };
         },
 
@@ -208,20 +209,21 @@ define(['app', 'react'], function (app, React) {
 
                                     if(msg['response']==='fail'){
                                         if(msg['data']==='limitIsReached'){
-                                            app.notifications.systemMessage('once5min');
+                                            // app.notifications.systemMessage('once5min');
+                                            thisComp.setState({
+                                                accountCreationError: "once5min"
+                                            });
                                         }else{
-                                            app.notifications.systemMessage('tryAgain');
+                                            // app.notifications.systemMessage('tryAgain');
+                                            thisComp.setState({
+                                                accountCreationError: "tryAgain"
+                                            });
                                         }
 
-
                                     }else if(msg['response']==='success'){
-                                        $('#tokenModHead').html('Your account was successfully created!');
-
-                                        $('#createAccount-modal').modal('hide');
-                                        $('#tokenModBody').html('Before logging in, please <b>download the secret token</b>. You will need this token to reset your password or secret phrase. You can read more about it in our <a href="https://blog.cyberfear.com/reset-password" target="_blank">blog</a>');
-
-
-                                        $('#tokenModal').modal('show');
+                                        thisComp.setState({
+                                            accountCreationStatus: true
+                                        });
                                     }
 
                                     thisComp.setState({
@@ -331,12 +333,18 @@ define(['app', 'react'], function (app, React) {
                             emailError: JSON.parse(msg)['email']
                         });
                     }else{
-                        app.notifications.systemMessage('tryAgain');
+                        // app.notifications.systemMessage('tryAgain');
+                        thisComp.setState({
+                            accountCreationError: "tryAgain"
+                        });
                     }
                 });
 
         },
         handleClick: function (i, e) {
+            this.setState({
+                accountCreationError: ""
+            })
             switch (i) {
                 case 'createUser':
 
@@ -350,6 +358,26 @@ define(['app', 'react'], function (app, React) {
                     }
                     break;
             }
+        },
+        handleModalClose: function(){
+            this.setState({
+                accountCreationStatus: null
+            });
+        },
+        handleDownloadToken: function(){
+            
+            var toFile = app.user.get('downloadToken');
+
+            var element = document.createElement('a');
+            element.setAttribute('href', 'data:attachment/plain;charset=utf-8,' + toFile);
+            element.setAttribute('download', 'secretToken.key');
+
+            element.style.display = 'none';
+            document.body.appendChild(element);
+
+            element.click();
+            document.body.removeChild(element);
+
         },
         render: function () {
             return (
@@ -435,6 +463,21 @@ define(['app', 'react'], function (app, React) {
                                                     htmlFor="newPass">{this.state.couponError}</label>
                                             </div>
                                         </div>
+                                        {
+                                            this.state.accountCreationError !== "" ?
+                                            <div className="col-sm-12">
+                                                <div className="bg-danger px-4 py-2 rounded text-white text-center mb-2 fs-6">
+                                                    {
+                                                        this.state.accountCreationError === 'once5min' ?
+                                                        <span>{`Please wait 5 minutes before creating another account`}</span>
+                                                        :
+                                                        <span>{`An error occured while trying to create user, please try again in another 5 minutes`}</span>
+                                                    }
+                                                </div>
+                                            </div>
+                                            : 
+                                            null
+                                        }
                                         <div className="col-sm-12">
                                             <button className="btn-blue full-width mt44" type="button"
                                                 disabled={this.state.working}
@@ -463,6 +506,24 @@ define(['app', 'react'], function (app, React) {
                                 </form>
                             </div>
 
+                        </div>
+                    </div>
+                    <div className={`modal modal-sheet position-fixed ${this.state.accountCreationStatus ? "d-block" : "d-none"} bg-secondary bg-opacity-75 py-5`} tabindex="-1" role="dialog" id="modalSheet">
+                        <div className="modal-dialog" role="document">
+                            <div className="modal-content rounded-4 shadow px-4 py-4">
+                                <div className="modal-header border-bottom-0">
+                                    <h5 className="modal-title">Your account was successfully created!</h5>
+                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={this.handleModalClose.bind(this)}></button>
+                                </div>
+                                <div className="modal-body py-0">
+                                    <p className="mb-2">Before logging in, please <b>download the secret token</b>. You will need this token to reset your password or secret phrase. You can read more about it in our <a href="https://blog.cyberfear.com/reset-password" target="_blank">blog</a></p>
+                                    <button type="button" className="btn btn-lg btn-dark mx-0 mb-2 fs-6" onClick={this.handleDownloadToken.bind(this)}>Download Token</button>
+                                </div>
+                                <div className="modal-footer flex-column border-top-0">
+                                    <p>Once dwonloaded, please log in.</p>
+                                    <a href="#login" className="btn btn-lg btn-primary w-100 mx-0 fs-6" data-bs-dismiss="modal">Login</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -120,6 +120,10 @@ define(['react','app','validation'], function (React,app,Validation) {
 					var thisComp=this;
 					createUserFormValidator.form();
 
+					thisComp.setState({
+						incorrectCredentials: false
+					});
+
 					if (createUserFormValidator.numberOfInvalids() == 0) {
 						if( !thisComp.state.domainSelectFlag ){
 							var email=$('#LoginForm_username').val()+$('#LoginForm_domain option:selected').text();
@@ -240,20 +244,21 @@ define(['react','app','validation'], function (React,app,Validation) {
 									<input type="text" className="form-control input-lg" placeholder="PIN" value={this.state.fac2Text} onChange={this.handleChange.bind(this, 'enter2FacText')} />
 								</div>
 							</div>
+							{
+								this.state.incorrectCredentials ?
+								<div className="col-sm-12">
+									<div className="bg-danger px-4 py-2 rounded text-white text-center mb-2 fs-6">Wrong username / password. Please try again</div>
+								</div>
+								: 
+								null
+							}
 							<div className="col-sm-12">
 								<div className="forgot-link"><a href="reactIndex.html#forgotPassword">Forgot Password?</a></div>
 							</div>
 							<div className="col-sm-12">
 								<button className="btn-blue full-width mt60" type="buton" onClick={this.handleClick.bind(this, 'login')}>Sign in</button>
 							</div>
-							{
-								this.state.incorrectCredentials ?
-								<div className="col-sm-12">
-									<div className="bg-danger px-4 py-2 rounded text-white text-center mt-2 fs-6">Wrong username / password. Please try again</div>
-								</div>
-								: 
-								null
-							}
+							
 						</div>
 					</form>
 					</div>
