@@ -268,7 +268,7 @@ define(['react','app','validation', 'cmpld/modals/paymentGate'], function (React
 					</div>
 
 					{
-						this.state.firstTimeUser ? <PaymentGate/> : null
+						// this.state.firstTimeUser ? <PaymentGate/> : null
 					}
 				</div>
 			);

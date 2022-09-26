@@ -348,8 +348,7 @@ define(['react', 'app', 'validation', 'cmpld/modals/paymentGate'], function (Rea
 							)
 						)
 					)
-				),
-				this.state.firstTimeUser ? React.createElement(PaymentGate, null) : null
+				)
 			);
 		}
 	});

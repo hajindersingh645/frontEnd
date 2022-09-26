@@ -142,11 +142,12 @@ define(['react','app','wow',
 				body=<ForgotSecret page={this.state.AccountResetOptions}/>;
 			}
 			/* data binding example <span>{this.state.AccountResetOptions.email}</span> */
-			if(this.props.page=='login' || this.props.page=='signup' || this.props.page=='forgotPassword'){
+			if(this.props.page=='login' || this.props.page=='signup' || this.props.page=='forgotPassword' || this.props.page=='firstTimeLogin'){
 				return (
 					<div>
-						{body}
-						{/* <PaymentGate/> */}
+						{
+							this.props.page=='firstTimeLogin' ? <PaymentGate/> : {body}
+						}
 					</div>
 					);
 				}else{

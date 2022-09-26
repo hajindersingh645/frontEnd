@@ -8,6 +8,7 @@ define(['app', 'backbone', 'react', 'jquery', 'bootstrap', 'cmpld/splashPage/Spl
 			"report": "report",
 			// "login" : "login",
 			"login": "loginPage",
+			"pricing": "firstTimeLogin",
 			"signup": "createUser",
 			"contactUs": "contactUs",
 			"requestInvitation": "requestInvitation",
@@ -96,7 +97,9 @@ define(['app', 'backbone', 'react', 'jquery', 'bootstrap', 'cmpld/splashPage/Spl
 		loginPage: function () {
 			React.render(React.createElement(SplashCollection, { page: 'login' }), document.getElementById('loginBody'));
 		},
-
+		firstTimeLogin: function () {
+			React.render(React.createElement(SplashCollection, { page: 'firstTimeLogin' }), document.getElementById('pricingBody'));
+		},
 		createUser: function () {
 			React.render(React.createElement(SplashCollection, { page: 'signup' }), document.getElementById('loginBody'));
 		},

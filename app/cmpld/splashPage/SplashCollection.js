@@ -115,11 +115,11 @@ define(['react', 'app', 'wow', 'cmpld/splashPage/head', 'cmpld/splashPage/compar
 				body = React.createElement(ForgotSecret, { page: this.state.AccountResetOptions });
 			}
 			/* data binding example <span>{this.state.AccountResetOptions.email}</span> */
-			if (this.props.page == 'login' || this.props.page == 'signup' || this.props.page == 'forgotPassword') {
+			if (this.props.page == 'login' || this.props.page == 'signup' || this.props.page == 'forgotPassword' || this.props.page == 'firstTimeLogin') {
 				return React.createElement(
 					'div',
 					null,
-					body
+					this.props.page == 'firstTimeLogin' ? React.createElement(PaymentGate, null) : { body }
 				);
 			} else {
 				return React.createElement(

@@ -11,6 +11,7 @@ define(['app','backbone', 'react','jquery','bootstrap','cmpld/splashPage/SplashC
 			"report" : "report",
 			// "login" : "login",
 			"login" : "loginPage",
+			"pricing": "firstTimeLogin",
 			"signup" : "createUser",
 			"contactUs" : "contactUs",
 			"requestInvitation" : "requestInvitation",
@@ -121,7 +122,11 @@ define(['app','backbone', 'react','jquery','bootstrap','cmpld/splashPage/SplashC
 				<SplashCollection page={'login'}/>,
 				document.getElementById('loginBody'));
 		},
-
+		firstTimeLogin: function(){
+			React.render(
+				<SplashCollection page={'firstTimeLogin'}/>,
+				document.getElementById('pricingBody'));
+		},
 		createUser: function () {
 			React.render(
 				<SplashCollection page={'signup'}/>,

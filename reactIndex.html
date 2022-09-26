@@ -1,156 +1,381 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="utf-8" />
 
-<head>
-    <meta charset="utf-8">
+        <script>
+            window.addEventListener("hashchange", changeStyles);
+            function changeStyles() {
+                if (
+                    window.location.hash === "#mail/Inbox" ||
+                    window.location.hash === "#mail/Sent" ||
+                    window.location.hash === "#mail/Draft" ||
+                    window.location.hash === "#mail/Spam" ||
+                    window.location.hash === "#mail/Trash" ||
+                    window.location.hash === "#settings/Folders" ||
+                    window.location.hash === "#settings/Profile"
+                ) {
+                    try {
+                        document.getElementById("link_imail").remove();
+                    } catch (e) {}
+                    document.head.insertAdjacentHTML(
+                        "beforeend",
+                        '<link id="link_iboot" rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />'
+                    );
+                    document.head.insertAdjacentHTML(
+                        "beforeend",
+                        '<link id="link_ifont" rel="stylesheet" type="text/css" href="/css/font-awesome.min.css" />'
+                    );
+                    document.head.insertAdjacentHTML(
+                        "beforeend",
+                        '<link id="link_iion" rel="stylesheet" type="text/css" href="/css/ionicons.min.css" />'
+                    );
+                    document.head.insertAdjacentHTML(
+                        "beforeend",
+                        '<link id="link_isma" rel="stylesheet" type="text/css" href="/css/smartnotif.css" />'
+                    );
+                    document.head.insertAdjacentHTML(
+                        "beforeend",
+                        '<link id="link_idat" rel="stylesheet" type="text/css" href="/css/dataTables/jquery.dataTables.min.css" />'
+                    );
+                    document.head.insertAdjacentHTML(
+                        "beforeend",
+                        '<link id="link_idab" rel="stylesheet" type="text/css" href="/css/dataTables/dataTables.bootstrap.css" />'
+                    );
+                    document.head.insertAdjacentHTML(
+                        "beforeend",
+                        '<link id="link_isum" rel="stylesheet" type="text/css" href="/css/summernote/summernote.css"/>'
+                    );
+                    document.head.insertAdjacentHTML(
+                        "beforeend",
+                        '<link id="link_isub" rel="stylesheet" type="text/css" href="/css/summernote/summernote-bs3.css"/>'
+                    );
+                    document.head.insertAdjacentHTML(
+                        "beforeend",
+                        '<link id="link_ijqu" rel="stylesheet" type="text/css" href="/css/jquery-ui.min.css"/>'
+                    );
+                    document.head.insertAdjacentHTML(
+                        "beforeend",
+                        '<link id="link_isel" rel="stylesheet" type="text/css" href="/css/select2/select2.css"/>'
+                    );
+                    document.head.insertAdjacentHTML(
+                        "beforeend",
+                        '<link id="link_imst" rel="stylesheet" type="text/css" href="/css/style_.css"/>'
+                    );
+                    document.head.insertAdjacentHTML(
+                        "beforeend",
+                        '<link id="link_ianm" rel="stylesheet" type="text/css" href="/css/animate.min.css" />'
+                    );
+                    document.head.insertAdjacentHTML(
+                        "beforeend",
+                        '<style type="text/css">.standard-button,.navbar-register-button {filter: none;}</style>'
+                    );
+                } else {
+                    try {
+                        document.getElementById("link_iboot").remove();
+                        document.getElementById("link_ifont").remove();
+                        document.getElementById("link_iion").remove();
+                        document.getElementById("link_isma").remove();
+                        document.getElementById("link_idat").remove();
+                        document.getElementById("link_idab").remove();
+                        document.getElementById("link_isum").remove();
+                        document.getElementById("link_isub").remove();
+                        document.getElementById("link_ijqu").remove();
+                        document.getElementById("link_isel").remove();
+                        document.getElementById("link_imst").remove();
+                        document.getElementById("link_ianm").remove();
+                    } catch (e) {}
 
-    <script>
-        window.addEventListener('hashchange', changeStyles);
-        function changeStyles(){
-            if( window.location.hash === '#mail/Inbox' ){
-                try{
-                    document.getElementById('link_imail').remove();
-                }catch(e){}
-                document.head.insertAdjacentHTML('beforeend', '<link id="link_iboot" rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />');
-                document.head.insertAdjacentHTML('beforeend', '<link id="link_ifont" rel="stylesheet" type="text/css" href="/css/font-awesome.min.css" />');
-                document.head.insertAdjacentHTML('beforeend', '<link id="link_iion" rel="stylesheet" type="text/css" href="/css/ionicons.min.css" />');
-                document.head.insertAdjacentHTML('beforeend', '<link id="link_isma" rel="stylesheet" type="text/css" href="/css/smartnotif.css" />');
-                document.head.insertAdjacentHTML('beforeend', '<link id="link_idat" rel="stylesheet" type="text/css" href="/css/dataTables/jquery.dataTables.min.css" />');
-                document.head.insertAdjacentHTML('beforeend', '<link id="link_idab" rel="stylesheet" type="text/css" href="/css/dataTables/dataTables.bootstrap.css" />');
-                document.head.insertAdjacentHTML('beforeend', '<link id="link_isum" rel="stylesheet" type="text/css" href="/css/summernote/summernote.css"/>');
-                document.head.insertAdjacentHTML('beforeend', '<link id="link_isub" rel="stylesheet" type="text/css" href="/css/summernote/summernote-bs3.css"/>');
-                document.head.insertAdjacentHTML('beforeend', '<link id="link_ijqu" rel="stylesheet" type="text/css" href="/css/jquery-ui.min.css"/>');
-                document.head.insertAdjacentHTML('beforeend', '<link id="link_isel" rel="stylesheet" type="text/css" href="/css/select2/select2.css"/>');
-                document.head.insertAdjacentHTML('beforeend', '<link id="link_imst" rel="stylesheet" type="text/css" href="/css/style.css"/>');
-                document.head.insertAdjacentHTML('beforeend', '<link id="link_ianm" rel="stylesheet" type="text/css" href="/css/animate.min.css" />');
-                document.head.insertAdjacentHTML('beforeend', '<style type="text/css">.standard-button,.navbar-register-button {filter: none;}</style>');
-                
-            }else{
-                try{
-                    document.getElementById('link_iboot').remove();
-                    document.getElementById('link_ifont').remove();
-                    document.getElementById('link_iion').remove();
-                    document.getElementById('link_isma').remove();
-                    document.getElementById('link_idat').remove();
-                    document.getElementById('link_idab').remove();
-                    document.getElementById('link_isum').remove();
-                    document.getElementById('link_isub').remove();
-                    document.getElementById('link_ijqu').remove();
-                    document.getElementById('link_isel').remove();
-                    document.getElementById('link_imst').remove();
-                    document.getElementById('link_ianm').remove();
-                }catch(e){
-                    
+                    document.head.insertAdjacentHTML(
+                        "beforeend",
+                        '<link id="link_imail" rel="stylesheet" type="text/css" href="/css/style.css"/>'
+                    );
+                    document.head.insertAdjacentHTML(
+                        "beforeend",
+                        "<style>.hidden{display: none;}</style>"
+                    );
+                    document.head.insertAdjacentHTML(
+                        "beforeend",
+                        '<style type="text/css">.standard-button,.navbar-register-button {filter: none;}.modal-backdrop, .modal-backdrop.in{display: none!important;height: 0px !important;}</style>'
+                    );
                 }
-                
-                document.head.insertAdjacentHTML('beforeend', '<link id="link_imail" rel="stylesheet" type="text/css" href="/css/mailum/style.css"/>');
-                document.head.insertAdjacentHTML('beforeend', '<style>.hidden{display: none;}</style>');
-                document.head.insertAdjacentHTML('beforeend', '<style type="text/css">.standard-button,.navbar-register-button {filter: none;}.modal-backdrop, .modal-backdrop.in{display: none!important;height: 0px !important;}</style>');
             }
-        }
-        changeStyles();
-    </script>
+            changeStyles();
+        </script>
 
-    <script src="/js/main/jquery-2.1.3.min.js"></script>
-    <!--[if gte IE 11]><!-->
-    <script data-main="app/main" src="js/main/require.js"></script>
-    
-    <script type="text/javascript">
-        $(document).ready(function() {
-            if (navigator.userAgent.match(/msie 10.0/i) ){
-                alert('Site requires Internet Explorer 12 or higher. Please upgrade you browser or use Google Chrome or Firefox');
+        <script src="/js/main/jquery-2.1.3.min.js"></script>
+        <!--[if gte IE 11]><!-->
+        <script data-main="app/main" src="js/main/require.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                if (navigator.userAgent.match(/msie 10.0/i)) {
+                    alert(
+                        "Site requires Internet Explorer 12 or higher. Please upgrade you browser or use Google Chrome or Firefox"
+                    );
+                }
+            });
+        </script>
+
+        <!--[if !IE]><!-->
+        <!--<script data-main="app/main" src="/js/main/require.js"></script>-->
+        <!--<![endif]-->
+
+        <title>CyberFear.com</title>
+        <meta
+            name="description"
+            content="End-to-end encrypted email service. Join CyberFear to send and receive emails anonymously.
+No logs, no ads, offshore servers location. We accept BitCoin, Monero and more!"
+        />
+
+        <meta property="og:title" content="CyberFear.com" />
+        <meta
+            property="og:description"
+            content="End-to-end encrypted email service. Join CyberFear to send and receive emails anonymously."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://cyberfear.com" />
+        <meta
+            property="og:image"
+            content="https://cyberfear.com/img/mainpage.png"
+        />
+        <meta
+            http-equiv="onion-location"
+            content="http://cyberfe3gvh7cvq2nhuqtaghjxebhcnqafnfvalwvq6mxrinep7m7xqd.onion"
+        />
+
+        <meta name="author" content="" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        />
+
+        <link
+            rel="apple-touch-icon"
+            sizes="57x57"
+            href="/images/icons/apple-icon-57x57.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="60x60"
+            href="/images/icons/apple-icon-60x60.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="72x72"
+            href="/images/icons/apple-icon-72x72.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="76x76"
+            href="/images/icons/apple-icon-76x76.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="114x114"
+            href="/images/icons/apple-icon-114x114.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="120x120"
+            href="/images/icons/apple-icon-120x120.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="144x144"
+            href="/images/icons/apple-icon-144x144.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="152x152"
+            href="/images/icons/apple-icon-152x152.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/icons/apple-icon-180x180.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="192x192"
+            href="/images/icons/android-icon-192x192.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/icons/favicon-32x32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="96x96"
+            href="/images/icons/favicon-96x96.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/images/icons/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/images/icons/manifest.json" />
+        <meta name="msapplication-TileColor" content="#2277F7" />
+        <meta
+            name="msapplication-TileImage"
+            content="/images/icons/ms-icon-144x144.png"
+        />
+        <meta name="theme-color" content="#2277F7" />
+
+        <style>
+            .modal-dialog.modal-pricing {
+                max-width: 80%;
+                margin: auto;
             }
-        });
-    </script>
+            @media screen and (max-width: 992px) {
+                .modal-dialog.modal-pricing .modal-content {
+                    height: 620px;
+                }
+                .modal-dialog.modal-pricing .modal-content .tab-content {
+                    overflow-x: hidden;
+                    overflow-y: auto;
+                }
+            }
+        </style>
 
-    <!--[if !IE]><!-->
-    <!--<script data-main="app/main" src="/js/main/require.js"></script>-->
-   <!--<![endif]-->
+        <!-- Piwik -->
+        <script type="text/javascript">
+            var _paq = _paq || [];
+            _paq.push(["trackPageView"]);
+            _paq.push(["enableLinkTracking"]);
+            (function () {
+                var u = "//piwik.cyberfear.com/";
+                _paq.push(["setTrackerUrl", u + "piwik.php"]);
+                _paq.push(["setSiteId", "1"]);
+                var d = document,
+                    g = d.createElement("script"),
+                    s = d.getElementsByTagName("script")[0];
+                g.type = "text/javascript";
+                g.async = true;
+                g.defer = true;
+                g.src = u + "piwik.js";
+                s.parentNode.insertBefore(g, s);
+            })();
+        </script>
+        <noscript
+            ><p>
+                <img
+                    src="//piwik.cyberfear.com/piwik.php?idsite=1"
+                    style="border: 0"
+                    alt=""
+                /></p
+        ></noscript>
+        <!-- End Piwik Code -->
+    </head>
+    <body>
+        <div id="wrapper">
+            <!--- Header -->
+            <header>
+                <div class="container">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <a class="navbar-brand" href="index.html"
+                            ><img src="/images/logo-black.svg" alt=""
+                        /></a>
+                        <button
+                            class="navbar-toggler collapsed"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent"
+                            aria-controls="navbarSupportedContent"
+                            aria-expanded="false"
+                            aria-label="Toggle navigation"
+                        >
+                            <span class="icon-bar top-bar"></span>
+                            <span class="icon-bar middle-bar"></span>
+                            <span class="icon-bar bottom-bar"></span>
+                        </button>
+                        <div
+                            class="collapse navbar-collapse"
+                            id="navbarSupportedContent"
+                        >
+                            <ul class="navbar-nav mx-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/pricing.html"
+                                        >Pricing</a
+                                    >
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/company.html"
+                                        >Company</a
+                                    >
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/contact-us.html"
+                                        >Contact</a
+                                    >
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav ms-auto header-cta-btn">
+                                <li class="nav-item">
+                                    <a
+                                        href="/reactIndex.html#login"
+                                        class="btn-1"
+                                        >Sign In</a
+                                    >
+                                </li>
+                                <li class="nav-item">
+                                    <a
+                                        href="/reactIndex.html#signup"
+                                        class="btn-2"
+                                        >Sign Up</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <!--      <div class="logo"><a href="#"><img src="images/logo.svg" alt=""/></a></div>-->
+                </div>
+            </header>
+            <!--- /Header -->
 
-
-    <title>CyberFear.com</title>
-    <meta name="description" content="End-to-end encrypted email service. Join CyberFear to send and receive emails anonymously.
-No logs, no ads, offshore servers location. We accept BitCoin, Monero and more!">
-
-    <meta property="og:title" content="CyberFear.com" />
-    <meta property="og:description" content="End-to-end encrypted email service. Join CyberFear to send and receive emails anonymously." />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://cyberfear.com" />
-    <meta property="og:image" content="https://cyberfear.com/img/mainpage.png" />
-    <meta http-equiv="onion-location" content="http://cyberfe3gvh7cvq2nhuqtaghjxebhcnqafnfvalwvq6mxrinep7m7xqd.onion"/>
-
-    <meta name="author" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-    <!-- #FAVICONS-->
-    <link rel="shortcut icon" type="image/png" href="favicon.png" />
-    <link rel="icon" href="/img/favicon.png" type="image/x-icon">
-
-    <!-- Piwik -->
-    <script type="text/javascript">
-        var _paq = _paq || [];
-        _paq.push(['trackPageView']);
-        _paq.push(['enableLinkTracking']);
-        (function() {
-            var u="//piwik.cyberfear.com/";
-            _paq.push(['setTrackerUrl', u+'piwik.php']);
-            _paq.push(['setSiteId', '1']);
-            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-        })();
-    </script>
-    <noscript><p><img src="//piwik.cyberfear.com/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
-    <!-- End Piwik Code -->
-</head>
-<body>
-    <div id="wrapper"> 
-
-        <!--- Header -->
-        <header>
-            <div class="container">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light"> <a class="navbar-brand" href="index.html"><img src="/img/logo-black.svg" alt=""/></a>
-                    <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav mx-auto">
-                            <li class="nav-item"> <a class="nav-link" href="features.html">About</a></li>
-                            <li class="nav-item"> <a class="nav-link" href="pricing.html">Pricing</a></li>
-                        </ul>
-                        <ul class="navbar-nav ms-auto header-cta-btn">
-                            <li class="nav-item"><a href="reactIndex.html#login" class="btn-1">Sign In</a></li>
-                            <li class="nav-item"><a href="/reactIndex.html#signup" class="btn-2">Sign Up</a></li>
-                        </ul>
+            <!--- Middle -->
+            <div class="full-height-container">
+                <!-- <div class="position-fixed top-0 start-0 bg-success vw-100 vh-100 bg-opacity-25" style="z-index:9999">FIXED</div> -->
+                <div id="pricingBody"></div>
+                <div class="left-side">
+                    <div class="vertical-center-container">
+                        <div class="left-data">
+                            <div
+                                class="form-section"
+                                id="loginBody"
+                                style="padding-top: 53px; padding-bottom: 53px"
+                            ></div>
+                        </div>
                     </div>
-                </nav>
-            <!--      <div class="logo"><a href="#"><img src="images/logo.svg" alt=""/></a></div>--> 
-            </div>
-        </header>
-        <!--- /Header --> 
-
-        <!--- Middle -->
-        <div class="full-height-container">
-            <div class="left-side">
-                <div class="vertical-center-container">
-                    <div class="left-data">
-                        <div class="form-section" id="loginBody" style="padding-top:53px;padding-bottom:53px">
-                        
+                </div>
+                <div class="right-side">
+                    <div class="vertical-center-container">
+                        <div class="right-data">
+                            <div class="right-title">
+                                How to check your mails?
+                            </div>
+                            <p>
+                                Our privacy is quickly becoming a thing of the
+                                past. Privacy enables you to control who can
+                                access information about your private life and
+                                activities. Stand your ground and take it back.
+                            </p>
+                        </div>
+                        <div class="message-image">
+                            <img src="/css/images/message.svg" alt="" />
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="right-side">
-            <div class="vertical-center-container">
-            <div class="right-data">
-            <div class="right-title">How to check your mails?</div>
-            <p>Our privacy is quickly becoming a thing of the past. 
-            Privacy enables you to control who can access information about your private life 
-            and activities. Stand your ground and take it back. </p>
-            </div>
-            <div class="message-image"><img src="/css/images/message.svg" alt=""/></div>
-            </div>
-            </div>
+            <!--- /Middle -->
         </div>
-        <!--- /Middle --> 
-
-    </div>
-</body>
+        <!-- <script src="/js/jquery-1.12.4.min.js"></script>  -->
+        <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>  -->
+        <!-- <script src="/js/app.js"></script> -->
+    </body>
 </html>
