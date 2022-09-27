@@ -125,8 +125,7 @@ CreateUser, PE, TokenPop, PaymentGate, DialogPop) {
                 return React.createElement(
                     "div",
                     null,
-                    React.createElement(PaymentGate, null),
-                    body
+                    this.props.page === "firstTimeLogin" ? React.createElement(PaymentGate, null) : { body }
                 );
             } else {
                 return React.createElement(
