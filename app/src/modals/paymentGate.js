@@ -378,7 +378,10 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                 >
                     <div className="modal-dialog modal-pricing" role="document">
                         <div className="modal-content rounded-4 shadow px-4 py-4">
-                            <div className="pricing-top horizontal-center">
+                            <div
+                                className="pricing-top horizontal-center"
+                                style={{ paddingTop: "10px" }}
+                            >
                                 <ul
                                     className="nav nav-tabs"
                                     id="myTab"
