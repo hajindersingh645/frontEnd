@@ -167,11 +167,8 @@ define([
             ) {
                 return (
                     <div>
-                        {this.props.page === "firstTimeLogin" ? (
-                            <PaymentGate />
-                        ) : (
-                            { body }
-                        )}
+                        <PaymentGate />
+                        {body}
                     </div>
                 );
             } else {
