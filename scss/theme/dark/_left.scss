@@ -1,0 +1,93 @@
+.left-side{
+	.logo{
+		.light-theme-logo{
+			display: none;
+		}
+	}
+	
+	.new-message-btn{
+		button{
+			background-color: $dt-semi-blue-color;
+			
+			&:hover{
+				background-color: $dt-dark-gray-color;
+				box-shadow: 0 0 20px rgba(61, 61, 66, 0.5);
+			}
+		}
+	}
+}
+
+.left-acco-menu{
+	.accordion-button{
+		color: $white-color;
+		
+		&:after{
+			background: url("#{$images-path}/icon-menu-arrow-white.svg") no-repeat left top;
+			background-size: 11px 17px; 
+		}
+		
+		&:hover{
+			color: $white-color;
+		}
+		
+		&.icon-profile{
+			background: url("#{$images-path}/icon-profile-white.svg") no-repeat left top;
+			background-size: 24px;
+		}
+		
+		&.icon-security{
+			background: url("#{$images-path}/icon-security-white.svg") no-repeat left top;
+			background-size: 24px;
+		}
+		
+		&.icon-mailbox{
+			background: url("#{$images-path}/icon-mailbox-white.svg") no-repeat left top;
+			background-size: 24px;
+		}
+		
+		&.icon-premium{
+			background: url("#{$images-path}/icon-premium-white.svg") no-repeat left top;
+			background-size: 24px;
+		}
+		
+		&.icon-setting{
+			background: url("#{$images-path}/icon-setting-white.svg") no-repeat left top;
+			background-size: 24px;
+		}
+		&:not(.collapsed){
+			color: $white-color;
+		}
+	}
+	
+	.accordion-body{
+		&:after{
+			background: $white-color;
+			opacity: 0.05;
+		}
+	}
+	
+	.acco-menu-list{
+		ul{
+			li{
+				a{
+					color: $white-color;
+					
+					&:hover{
+						color: $white-color;
+					}
+				}
+				
+				&.active{
+					a{
+						color: $white-color;
+						background: $dt-semi-blue-color;
+						
+						&:hover{
+							color: $white-color;
+						}
+					}
+				}
+			}
+		}
+	}
+}

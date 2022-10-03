@@ -1,0 +1,340 @@
+.middle-section{
+	width: 100%;
+	float: left;
+	padding: 30px 0 0 0;
+
+	.middle-top{
+		width: 100%;
+		float: left;
+		padding: 36px 0 0 0;
+		
+		.desktop-search{
+			width: 100%;
+			float: left;
+			padding: 0 24px;
+			display: none;
+			
+			input{
+				width: 100%;
+				float: left;
+				background-size: 24px;
+				padding: 0 0 0 30px;
+				opacity: 0.5;
+				border: none;
+				outline: none;
+				font-family: $base-font;
+				
+				&:focus{
+					opacity: 1;
+				}
+			}
+		}
+		
+		.info-row{
+			width: 100%;
+			float: left;
+			padding: 50px 15px 20px;
+			
+			
+			.all-check{
+				width: auto;
+				float: left;
+				margin: 2px 0 0 0;
+			}
+			
+			.info-row-right{
+				width: auto;
+				float: right;
+			}
+		}
+	}
+	
+	.middle-content{
+		width: 100%;
+		float: left;
+	}
+	
+	.inbox-list{
+		width: 100%;
+		float: left;
+		
+		ul{
+			margin: 0;
+			padding: 0;
+			list-style-type: none;
+			
+			li{
+				width: 100%;
+				float: left;
+				padding: 20px 60px 20px 50px;
+				position: relative;
+				cursor: pointer;
+				
+				&.unread{
+					font-weight: 700;
+				}
+				
+				.select-checkbox{
+					width: auto;
+					position: absolute;
+					left: 15px;
+					top: 23px;
+				}
+				
+				.inbox-list-top{
+					width: 100%;
+					float: left;
+					font-size: $small-size;
+
+					.unread-bullet{
+						width: 8px;
+						height: 8px;
+						display: inline-block;
+						background: #F05E30;
+						border-radius: 50%;
+						margin: 0 0 0 8px;
+						position: relative;
+						top: 0px;
+						
+						@-moz-document url-prefix() {
+								top: 2px;
+						}
+					}
+				}
+				
+				.mail-title{
+					width: 100%;
+					float: left;
+					font-size: $medium-size;
+					line-height: 18px;
+					padding: 10px 0 0 0;
+					letter-spacing: -0.02em;
+				}
+				
+				p{
+					width: 100%;
+					float: left;
+					padding: 8px 0 0 0;
+					margin: 0;
+					font-size: $small-size;
+					line-height: 140%;
+					letter-spacing: -0.02em;
+					opacity: 0.6;
+				}
+				
+				.date-time{
+					width: auto;
+					float: right;
+					position: absolute;
+					right: 15px;
+					top: 23px;
+					font-size: $small-size;
+					opacity: 0.6;
+				}
+				
+				.started-icon{
+					width: 16px;
+					float: left;
+					height: 16px;
+					position: absolute;
+					right: 33px;
+					bottom: 23px;
+					cursor: pointer;
+					padding: 0;
+					border: none;
+				}
+				
+				&:hover{
+					.inbox-list-top{
+						color: rgba(8, 13, 19, 1);
+					}
+					
+					p{
+						opacity: 1;
+					}
+				}
+				
+				&.selected{
+					border-bottom: 1px solid transparant;
+					box-shadow: -24px 40px 96px rgba(34, 91, 175, 0.1);
+					border-radius: 16px;
+					
+					.mail-title{
+						font-weight: 700;
+					}
+					
+					&:after{
+						width: 4px;
+						height: 70px;
+						position: absolute;
+						left: 0;
+						top: 50%;
+						margin: -35px 0 0 0;
+						border-radius: 0 5px 5px 0;
+						content: "";
+					}
+					
+					&:hover{
+						p{
+							opacity: 0.6;
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	.middle-pagination{
+		width: 100%;
+		float: left;
+		padding: 20px 0;
+		
+		.pagibox{
+			width: auto;
+			float: left;
+			border-radius: 10px;
+			padding: 10px 10px;
+			 -webkit-transform: translateX(-50%); 
+			-ms-transform: translateX(-50%); 
+			transform: translateX(-50%);
+			position: relative;
+			left: 50%;
+			
+			.mail-count{
+				float: left;
+				padding: 1px 15px 0;
+				opacity: 0.6;
+				font-size: $medium-size;
+			}
+			
+			button{
+				float: left;
+				border: none;
+				padding: 0;
+				height: 24px;
+				width: 24px;
+				opacity: 0.6;
+				
+				&.mail-prev{
+					background: url("#{$images-path}/icon-arrow-left.svg") no-repeat left top;
+					background-size: 24px;
+				}
+				
+				&.mail-next{
+					background: url("#{$images-path}/icon-arrow-right.svg") no-repeat left top;
+					background-size: 24px;
+				}
+					
+				&:hover{
+					opacity: 1;
+				}
+			}
+		}
+	}
+}
+
+@media screen and (min-width: 992px) {
+	.middle-section{
+		width: -webkit-calc(100% - 291px);
+		width: -moz-calc(100% - 291px);
+		width: calc(100% - 291px);
+		float: right;
+		padding: 80px 0 0 0;
+		
+		.middle-top{
+			.desktop-search{
+				display: block;
+			}
+			
+			.info-row{
+				padding: 50px 24px 30px;
+			}
+		}
+		
+		.inbox-list{
+			padding: 0;
+			
+			ul{
+				li{
+					padding: 20px 80px 20px 60px;
+					
+					.select-checkbox{
+						left: 24px;
+					}
+					
+					.date-time{
+						right: 33px;
+					}
+				}
+			}
+		}
+	}
+}
+
+@media screen and (min-width: 1366px){
+	.middle-section{
+		height: 100%;
+		position: fixed;
+		padding: 0;
+		width: 441px;
+		left: 291px;
+		
+		.middle-content{
+			height: -moz-calc(100vh - 165px);
+			height: -webkit-calc(100vh - 165px);
+			height: calc(100vh - 165px);
+			overflow-y: scroll; 
+			position: absolute;
+			padding: 0;
+			bottom: 0;
+			
+			&::-webkit-scrollbar
+			{
+				width: 5px;
+				background-color: #EAEFF8;
+			}
+		}
+		
+	}
+}
+
+
+@media screen and (min-width: 2000px){
+	.middle-section{
+		width: 35%;
+		left: 15%;
+
+		.inbox-list{
+			ul{
+				li{
+					.inbox-list-top{
+						font-size: $xxl-small-size;
+					}
+				
+					.mail-title{
+						font-size: $xxl-medium-size;
+					}
+				
+					p{
+						font-size: $xxl-small-size;
+					}
+				
+					.date-time{
+						font-size: $xxl-small-size;
+					}
+				}
+			}
+		}
+	
+		.middle-pagination{
+			.pagibox{
+				.mail-count{
+					font-size: $xxl-medium-size;
+						padding: 0 15px 0;
+					position: relative;
+					top: -1px;
+				}
+			}
+		}
+	}
+}

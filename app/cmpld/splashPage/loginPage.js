@@ -403,7 +403,7 @@ define(["react", "app", "validation", "cmpld/modals/paymentGate"], function (Rea
                                     { className: "forgot-link" },
                                     React.createElement(
                                         "a",
-                                        { href: "reactIndex.html#forgotPassword" },
+                                        { href: "mailbox.html#forgotPassword" },
                                         "Forgot Password?"
                                     )
                                 )

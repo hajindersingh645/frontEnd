@@ -1,0 +1,735 @@
+body{
+	color: $dak-gray-color;
+	background: $white-color;
+}
+
+.dropdown-menu{
+	border: 1px solid #F3F5F8;
+	box-shadow: 0px 12px 56px -12px rgba(103, 109, 124, 0.12);
+	background: $white-color;
+}
+
+::-webkit-scrollbar-track
+{
+	background-color: #EAEFF8;
+}
+
+::-webkit-scrollbar
+{
+	background-color: #EAEFF8;
+}
+
+::-webkit-scrollbar-thumb
+{
+	background-color: #A9B6CD;
+}
+
+.number-badge{
+	background: $light-bule-color;
+	color: $blue-color;
+}
+
+.call-to-action{
+	background: url("#{$images-path}/cta-bg.jpg") no-repeat left top;
+	background-size: cover;
+	
+	.white-btn{
+		a{
+			color: $blue-color;
+			
+			&:hover{
+				color: $blue-color;
+			}
+		}
+	}
+}
+
+.storage{
+	.storage-count{
+		color: #415067;
+		background: url("#{$images-path}/icon-storage.svg") no-repeat left 2px;
+		background-size: 16px;
+	}
+	
+	.storage-bar{
+		span{
+			background: $blue-color;
+		}
+	}
+}
+
+.container-checkbox {
+	
+	.checkmark {
+		 border: 2px solid rgba(0, 0, 0, 0.1);
+		
+		 &:after {
+			border: solid white;
+			 border-width: 0 2px 2px 0;
+		}
+	}
+	
+	input:checked ~ .checkmark {
+		background-color: $blue-color;
+	}
+	
+
+}
+
+
+
+.new-message-btn-mobile{
+	button{
+		background-color: $blue-color;
+		box-shadow: 0 0 20px rgba(11, 77, 176, 0.5);
+		
+		&:hover{
+			background-color: $dark-blue-color;
+		}
+	}
+}
+
+.main-menu{
+	ul{
+		li{
+			a{
+				color: #415067;
+				
+				.menu-icon{
+					&.inbox{
+						background: url("#{$images-path}/icon-inbox.svg") no-repeat left top;
+						background-size: 24px;
+					}
+							
+					&.send{
+						background: url("#{$images-path}/icon-send.svg") no-repeat left top;
+						background-size: 24px;
+					}
+					
+					&.draft{
+						background: url("#{$images-path}/icon-draft.svg") no-repeat left top;
+						background-size: 24px;
+					}
+							
+					&.spam{
+						background: url("#{$images-path}/icon-spam.svg") no-repeat left top;
+						background-size: 24px;
+					}
+							
+					&.trash{
+						background: url("#{$images-path}/icon-trash.svg") no-repeat left top;
+						background-size: 24px;
+					}
+				}
+				
+				&:hover{
+					color: $blue-color;
+					
+					.menu-icon{
+						&.inbox{
+							background: url("#{$images-path}/icon-inbox-hover.svg") no-repeat left top;
+							background-size: 24px;
+						}
+						
+						&.send{
+							background: url("#{$images-path}/icon-send-hover.svg") no-repeat left top;
+							background-size: 24px;
+						}
+						&.draft{
+							background: url("#{$images-path}/icon-draft-hover.svg") no-repeat left top;
+							background-size: 24px;
+						}
+
+						&.spam{
+							background: url("#{$images-path}/icon-spam-hover.svg") no-repeat left top;
+							background-size: 24px;
+						}
+						
+						&.trash{
+							background: url("#{$images-path}/icon-trash-hover.svg") no-repeat left top;
+							background-size: 24px;
+						}
+					}
+				}
+			}
+			
+			&.active{
+				a{
+					color: $blue-color;
+
+					.menu-icon{
+						&.inbox{
+							background: url("#{$images-path}/icon-inbox-hover.svg") no-repeat left top;
+							background-size: 24px;
+						}
+
+						&.send{
+							background: url("#{$images-path}/icon-send-hover.svg") no-repeat left top;
+							background-size: 24px;
+						}
+
+						&.draft{
+							background: url("#{$images-path}/icon-draft-hover.svg") no-repeat left top;
+							background-size: 24px;
+						}
+
+						&.spam{
+							background: url("#{$images-path}/icon-spam-hover.svg") no-repeat left top;
+							background-size: 24px;
+						}
+
+						&.trash{
+							background: url("#{$images-path}/icon-trash-hover.svg") no-repeat left top;
+							background-size: 24px;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.folder-menu{
+	border-top: 1px solid #F7F7F7;
+}
+
+.folder-menu{
+	border-top: 1px solid #F6F6F6;
+	
+	.add-folder{
+		button{
+			background: url("#{$images-path}/icon-plus.svg") no-repeat center;
+			background-size: 14px;
+
+			&:hover{
+				background: url("#{$images-path}/icon-plus-black.svg") no-repeat center;
+				background-size: 14px;
+			}
+		}
+	}
+	
+	.accordion-button{
+		color: #415067;
+		
+		&:after{
+			background: url("#{$images-path}/icon-arrow-down.svg") no-repeat left top;
+			background-size: 16px;
+		}
+	}
+	
+	.accordion-body{
+		ul{
+			li{
+				a{
+					color: #415067;
+					
+					&:hover{
+						color: $dak-gray-color;
+					}
+				}
+			}
+		}
+	}
+}
+
+.arrow-btn{
+	.btn-secondary{
+		background: url("#{$images-path}/icon-down-arrow-black.svg") no-repeat left top;
+		background-size: 16px;
+		
+		&:hover{
+			background: url("#{$images-path}/icon-down-arrow-black.svg") no-repeat left top;
+			box-shadow: none;
+		}
+	}
+	
+	.dropdown-menu{
+		li{
+			.container-checkbox{
+				color: $dak-gray-color;
+			}
+			
+			button{
+				color: $dak-gray-color;
+				
+				span{
+					&.star-yellow{
+						background: url("#{$images-path}/icon-star-yellow.svg") no-repeat left top;
+						background-size: 18px;
+					}
+					
+					&.star-gray{
+						background: url("#{$images-path}/icon-star-gray.svg") no-repeat left top;
+						background-size: 18px;
+					}
+					
+					&.eye{
+						background: url("#{$images-path}/icon-eye.svg") no-repeat left top;
+						background-size: 18px;
+						top: 4px;
+					}
+					
+					&.eye-close{
+						background: url("#{$images-path}/icon-eye-close.svg") no-repeat left top;
+						background-size: 18px;
+					}
+				}
+			}
+		}
+	}
+}
+
+.referesh-btn{
+	button{
+		i{
+			background: url("#{$images-path}/icon-referesh.svg") no-repeat left top;
+			background-size: 24px;
+		}
+	}
+}
+
+.ellipsis-dropdown{
+	button{
+		background: url("#{$images-path}/icon-ellipsis.svg") no-repeat left top;
+		background-size: 24px;
+	}
+}
+
+.attachment-icon{
+	background: url("#{$images-path}/icon-attachment.svg") no-repeat left top;
+	background-size: 16px;
+}
+
+.icon-notification{
+	button{
+		background: url("#{$images-path}/icon-notification.svg") no-repeat left top;
+		background-size: 24px;
+			
+		span{
+			border: 3px solid $white-color;
+		}
+	}
+}
+
+header{
+	border-bottom: 1px solid #F2F2F2;
+	background: $white-color;
+	
+	.logo-2{
+		.dark-theme{
+			display: none;
+		}
+	}
+	
+	.menu-icon{
+		button{
+			background: url("#{$images-path}/icon-menu.svg") no-repeat left top;
+			background-size: 30px;
+			
+			&:hover{
+				background: url("#{$images-path}/icon-menu-hover.svg") no-repeat left top;
+				background-size: 30px;
+			}
+		}
+	}
+	
+	.user-dropdown{
+		.btn-secondary{
+			background: $white-color;
+			color: $dak-gray-color;
+			
+			.arrow{
+				background: url("#{$images-path}/icon-down-arrow-black.svg") no-repeat left top;
+				background-size: 14px;
+			}
+		}
+		
+		.dropdown-menu{
+			a,
+			button{
+				color: $dak-gray-color;
+				
+				&.copy-icon{
+					background: url("#{$images-path}/icon-copy.svg") no-repeat left top;
+					background-size: 20px;
+				}
+					
+				&.logout-icon{
+					background: url("#{$images-path}/icon-logout.svg") no-repeat left top;
+					background-size: 20px;
+				}
+					
+				&:hover{
+					color: #CE5353;
+					
+					&.copy-icon{
+						background: url("#{$images-path}/icon-copy-hover.svg") no-repeat left top;
+						background-size: 20px;
+					}
+
+					&.logout-icon{
+						background: url("#{$images-path}/icon-logout-hover.svg") no-repeat left top;
+						background-size: 20px;
+					}
+				}
+			}
+		}
+	}
+}
+
+.offcanvas{
+	background: $white-color;
+}
+
+.offcanvas-header{
+	border-bottom: 1px solid #F2F2F2;
+	
+	.btn-close{
+		background: url("#{$images-path}/icon-close.svg") no-repeat left top;
+		background-size: 20px;
+	}
+}
+
+.side-menu{
+	border-top: 1px solid #F2F2F2;
+	
+	ul{
+		li{
+			a{
+				color: #415067;
+				
+				&:hover{
+					color: $blue-color;
+				}
+			}
+		}
+	}
+}
+
+.mobile-search{
+	background: $white-color;
+	border-bottom: 1px solid #F2F2F2;
+	
+	input{
+		background: url("#{$images-path}/icon-search.svg") no-repeat left center;
+		background-size: 20px;
+	}
+}
+
+.user-side-menu{
+	ul{
+		li{
+			a,
+			button{
+				color: $dak-gray-color;
+				
+				&.copy-icon{
+					background: url("#{$images-path}/icon-copy.svg") no-repeat left top;
+					background-size: 20px;
+				}
+					
+				&.logout-icon{
+					background: url("#{$images-path}/icon-logout.svg") no-repeat left top;
+					background-size: 20px;
+				}
+				
+				&:hover{
+					color: #CE5353;
+				}
+			}
+		}
+	}
+}
+
+.back-to-inbox-link{
+	a{
+		background: url("#{$images-path}/icon-inbox.svg") no-repeat left top;
+		background-size: 24px;
+		color: $dark-blue-color-2;
+			
+		&:hover{
+			color: $dark-blue-color-2;
+		}
+	}
+}
+
+.bread-crumb{
+	ul{
+		li{
+			a{
+				color: $dark-blue-color-2;
+				
+				&:hover{
+					color: $dark-blue-color-2;
+				}
+			}	
+			
+			&:after{
+				background: url("#{$images-path}/icon-menu-arrow.svg") no-repeat right top;
+				background-size: 7px;
+			}
+		}
+	}
+}
+
+.form-group{
+	.select-icon{
+		&.icon-calendar{
+			background-image: url("#{$images-path}/icon-calendar.svg");
+			background-position: left center;
+			background-repeat: no-repeat;
+			background-size: 22px;
+		}
+	}
+}
+
+.form-select{
+	background-color: #fbfbfc;
+	border: 1px solid #f1f4f9;
+	color: $dark-blue-color-2;
+	
+	&:focus{
+		border: 1px solid #f1f4f9;
+	}
+	
+	&.with-icon{
+		&.icon-calendar{
+			&:after{
+				
+			}
+		}
+	}
+}
+
+.form-control{
+	background-color: #fbfbfc;
+	border: 1px solid #f1f4f9;
+	color: $dark-blue-color-2;
+	
+	&:focus{
+		border: 1px solid #f1f4f9;
+	}
+	
+	&.with-icon{
+		&.icon-domain-name{
+			background-image: url("#{$images-path}/icon-domain-name.svg");
+			background-position: 15px center;
+			background-repeat: no-repeat;
+			background-size: 22px;
+		}
+		
+		&.icon-name{
+			background-image: url("#{$images-path}/icon-name.svg");
+			background-position: 15px center;
+			background-repeat: no-repeat;
+			background-size: 22px;
+		}
+		
+		&.icon-email{
+			background-image: url("#{$images-path}/icon-email.svg");
+			background-position: 15px center;
+			background-repeat: no-repeat;
+			background-size: 22px;
+		}
+		
+		&.icon-pin{
+			background-image: url("#{$images-path}/icon-pin.svg");
+			background-position: 15px center;
+			background-repeat: no-repeat;
+			background-size: 22px;
+		}
+		
+		&.icon-key{
+			background-image: url("#{$images-path}/icon-key.svg");
+			background-position: 15px center;
+			background-repeat: no-repeat;
+			background-size: 22px;
+		}
+		
+		&.icon-lock{
+			background-image: url("#{$images-path}/icon-lock.svg");
+			background-position: 15px center;
+			background-repeat: no-repeat;
+			background-size: 22px;
+		}
+		
+		&.icon-calendar{
+			background-image: url("#{$images-path}/icon-calendar.svg");
+			background-position: 15px center;
+			background-repeat: no-repeat;
+			background-size: 22px;
+		}
+	}
+}
+
+.btn-border-red{
+	background: $white-color;
+}
+
+.btn-border{
+	background: $white-color;
+	color: $dark-blue-color-2;
+}
+
+.table-responsive{
+	color: $dark-blue-color-2;
+	
+	th{
+		color: rgba(65, 80, 103, 0.5);
+		border-bottom: 1px solid #f6f6f6 !important;
+		
+		.trash-btn{
+			background: url("#{$images-path}/icon-trash-2.svg") no-repeat left top;
+			background-size: 24px;
+		}
+		
+		.ellipsis-btn{
+			background: url("#{$images-path}/icon-ellipsis.svg") no-repeat left top;
+			background-size: 24px;
+		}
+	}
+	
+	td{
+		color: $dark-blue-color-2;
+		border-bottom: 1px solid #f6f6f6 !important;
+	}
+	
+	.dropdown-menu{
+		li{
+			a{
+				color: $dak-gray-color;
+				&:hover{
+					color: $dak-gray-color;
+				}
+			}
+		}
+	}
+	
+	.table-icon{
+		&.edit-button{
+			background: url("#{$images-path}/icon-edit.svg") no-repeat right top;
+			background-size: 24px;
+		}
+		
+		&.delete-button{
+			background: url("#{$images-path}/icon-delete-blue.svg") no-repeat right top;
+			background-size: 24px;
+		}
+		
+		&.dropdown-toggle{
+			background: url("#{$images-path}/icon-ellipsis-blue.svg") no-repeat right top;
+			background-size: 24px;
+		}
+	}
+	
+	.disposed-button{
+		background: url("#{$images-path}/icon-disposed.svg") no-repeat right top;
+		background-size: 24px;
+	}
+	
+	.check-button{
+		background: url("#{$images-path}/icon-check-2.svg") no-repeat right top;
+		background-size: 24px;
+	}
+	
+	tbody{
+		tr{
+			&:hover{
+				background: rgba(34, 119, 246, 0.1);
+				
+				.disposed-button{
+					background: url("#{$images-path}/icon-disposed-blue.svg") no-repeat right top;
+					background-size: 24px;
+				}
+				
+				.check-button{
+					background: url("#{$images-path}/icon-check-2-blue.svg") no-repeat right top;
+					background-size: 24px;
+				}
+				
+				td{
+					color: $blue-color;
+					 text-shadow: 0 0 .01px $blue-color;
+				}
+			}
+		}
+	}
+	
+	.btn-sorting{
+		background: url("#{$images-path}/icon-sort.svg") no-repeat left top;
+		background-size: 24px;
+	}
+	
+	.table-light-icon{
+		display: inherit;
+	}
+	
+	.table-dark-icon{
+		display: none;
+	}
+}
+
+.mid-pagination-row{
+	.pagi-right{
+		ul{
+			li{
+				a{
+					color: $dark-blue-color-2;
+					border: 1px solid rgba(65, 80, 103, 0.1);
+					
+					&:hover{
+						background-color: rgba(65, 80, 103, 0.1);
+					}
+					
+					&.prev{
+						background: url("#{$images-path}/icon-arrow-left-2.svg") no-repeat center;
+						background-size: 16px;
+							
+						&:hover{
+							background: url("#{$images-path}/icon-arrow-left-2-white.svg") no-repeat center $dark-blue-color-2;
+							background-size: 16px;
+						}
+					}
+						
+					&.next{
+						background: url("#{$images-path}/icon-arrow-right-2.svg") no-repeat center;
+						background-size: 16px;
+							
+						&:hover{
+							background: url("#{$images-path}/icon-arrow-right-2-white.svg") no-repeat center $dark-blue-color-2;
+							background-size: 16px;
+						}
+					}
+				}
+				&.active{
+					a{
+						background-color: rgba(65, 80, 103, 0.1);
+						border: none;
+					}
+				}
+			}
+		}
+	}
+}
+
+.bullets{
+	ul{
+		li{
+			&:after{
+				background: $dark-blue-color-2;
+			}
+		}
+	}
+}
+
+textarea{
+	border: 1px solid #f1f4f9;
+	background: #fbfbfc;
+	color: $dark-blue-color-2;
+	
+	&:focus{
+		border: 1px solid #f1f4f9;
+	}
+}
+
+

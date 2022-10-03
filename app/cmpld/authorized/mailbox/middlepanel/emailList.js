@@ -1,4 +1,4 @@
-define(['react', 'app', 'dataTable', 'dataTableBoot'], function (React, app, DataTable, dataTableBoot) {
+define(["react", "app"], function (React, app) {
     return React.createClass({
         mixins: [app.mixins.touchMixins()],
         getInitialState: function () {
@@ -10,105 +10,75 @@ define(['react', 'app', 'dataTable', 'dataTableBoot'], function (React, app, Dat
                 emailInFolder: 0,
                 displayedFolder: "",
                 messsageId: "",
-                allChecked: false
+                allChecked: false,
+                emailList: []
             };
         },
-
         componentWillReceiveProps: function (nextProps) {
-            //console.log(this.props.folderId);
             if (this.props.folderId != nextProps.folderId && this.props.folderId != "") {
-                this.updateEmails(nextProps.folderId, '');
-                //console.log(nextProps.folderId);
+                this.updateEmails(nextProps.folderId, "");
             }
-
-            //this.setState({
-            //	likesIncreasing: nextProps.likeCount > this.props.likeCount
-            //});
         },
         updateEmails: function (folderId, noRefresh) {
-
             var thisComp = this;
-            var emails = app.user.get('emails')['folders'][folderId];
-
-            // if (thisComp.state.emailInFolder == Object.keys(emails).length && thisComp.state.displayedFolder == app.transform.from64str(app.user.get('folders')[folderId]['name'])) {
-
-            //} else {
-
+            var emails = app.user.get("emails")["folders"][folderId];
             var emailListCopy = app.user.get("folderCached");
-
             if (emailListCopy[folderId] === undefined) {
                 emailListCopy[folderId] = {};
             }
 
             thisComp.setState({
-                "displayedFolder": app.transform.from64str(app.user.get('folders')[folderId]['name']),
-                "emailInFolder": Object.keys(emails).length
+                emailList: emailListCopy,
+                displayedFolder: app.transform.from64str(app.user.get("folders")[folderId]["name"]),
+                emailInFolder: Object.keys(emails).length
             });
 
             app.user.set({
-                'currentFolder': app.transform.from64str(app.user.get('folders')[folderId]['name'])
+                currentFolder: app.transform.from64str(app.user.get("folders")[folderId]["name"])
             });
-
-            //console.log(app.user.get('folders')[folderId]['role']);
-            if (app.user.get('folders')[folderId]['role'] != undefined) {
-                var t = app.transform.from64str(app.user.get('folders')[folderId]['role']);
+            if (app.user.get("folders")[folderId]["role"] != undefined) {
+                var t = app.transform.from64str(app.user.get("folders")[folderId]["role"]);
             } else {
-                var t = '';
+                var t = "";
             }
-
-            //console.log(t);
-
 
             var data = [];
             var d = new Date();
             var trusted = app.user.get("trustedSenders");
             var encrypted2 = "";
 
+            let htmlSource = ``;
+
             $.each(emails, function (index, folderData) {
                 if (emailListCopy[folderId][index] !== undefined) {
-                    var unread = folderData['st'] == 0 ? "unread" : folderData['st'] == 1 ? "fa fa-mail-reply" : folderData['st'] == 2 ? "fa fa-mail-forward" : "";
-
-                    var row = {
-                        "DT_RowId": index,
-                        "email": {
-                            "display": '<div class="email no-padding ' + unread + '">' + emailListCopy[folderId][index]["checkBpart"] + emailListCopy[folderId][index]["dateAtPart"] + emailListCopy[folderId][index]["fromPart"] + '<div class="title ellipsisText col-xs-10 col-md-6"><span>' + emailListCopy[folderId][index]["sb"] + '</span> - ' + emailListCopy[folderId][index]["bd"] + '</div>' + emailListCopy[folderId][index]["tagPart"] + '</div>',
-
-                            //"open":folderData['o']?1:0,
-                            "timestamp": emailListCopy[folderId][index]["timestamp"]
-                        }
-                    };
+                    var unread = folderData["st"] == 0 ? "unread" : folderData["st"] == 1 ? "fa fa-mail-reply" : folderData["st"] == 2 ? "fa fa-mail-forward" : "";
+                    htmlSource += '<li id="' + index + '" class="' + unread + '"><div class="select-checkbox"><label class="container-checkbox"><input type="checkbox" name="inbox-email" /><span class="checkmark"></span></label></div><div class="date-time">' + emailListCopy[folderId][index]["dateAtPart"] + '</div><button class="started-icon"></button><div class="inbox-list-top">' + emailListCopy[folderId][index]["fromPart"] + '<button class="attachment-icon"></button><span class="unread-bullet"></span></div><div class="mail-toggle"><div class="mail-title">' + emailListCopy[folderId][index]["sb"] + "</div><p>" + emailListCopy[folderId][index]["bd"] + emailListCopy[folderId][index]["tagPart"] + "</p></div></li>";
                 } else {
-                    var time = folderData['tr'] != undefined ? folderData['tr'] : folderData['tc'] != undefined ? folderData['tc'] : '';
+                    var time = folderData["tr"] != undefined ? folderData["tr"] : folderData["tc"] != undefined ? folderData["tc"] : "";
 
-                    //console.log(time);
-                    if (d.toDateString() == new Date(parseInt(time + '000')).toDateString()) {
-                        var dispTime = new Date(parseInt(time + '000')).toLocaleTimeString();
+                    if (d.toDateString() == new Date(parseInt(time + "000")).toDateString()) {
+                        var dispTime = new Date(parseInt(time + "000")).toLocaleTimeString();
                     } else {
-                        var dispTime = new Date(parseInt(time + '000')).toLocaleDateString();
+                        var dispTime = new Date(parseInt(time + "000")).toLocaleDateString();
                     }
                     var fromEmail = [];
                     var fromTitle = [];
                     var recipient = [];
                     var recipientTitle = [];
                     var trust = "";
-                    if (folderData['to'].length > 0) {
-
-                        $.each(folderData['to'], function (indexTo, email) {
-                            // console.log(email);
-
+                    if (folderData["to"].length > 0) {
+                        $.each(folderData["to"], function (indexTo, email) {
                             if (app.transform.check64str(email)) {
                                 var str = app.transform.from64str(email);
                             } else {
                                 var str = email;
                             }
 
-                            recipient.push(app.globalF.parseEmail(str)['name']);
-                            recipientTitle.push(app.globalF.parseEmail(str)['email']);
+                            recipient.push(app.globalF.parseEmail(str)["name"]);
+                            recipientTitle.push(app.globalF.parseEmail(str)["email"]);
                         });
-                    } else if (Object.keys(folderData['to']).length > 0) {
-
-                        $.each(folderData['to'], function (indexTo, email) {
-
+                    } else if (Object.keys(folderData["to"]).length > 0) {
+                        $.each(folderData["to"], function (indexTo, email) {
                             try {
                                 var str = app.transform.from64str(indexTo);
 
@@ -116,13 +86,13 @@ define(['react', 'app', 'dataTable', 'dataTableBoot'], function (React, app, Dat
                                 if (email === undefined) {
                                     name = str;
                                 } else {
-                                    if (email['name'] === undefined) {
+                                    if (email["name"] === undefined) {
                                         name = str;
                                     } else {
-                                        if (email['name'] === "") {
+                                        if (email["name"] === "") {
                                             name = str;
                                         } else {
-                                            name = app.transform.from64str(email['name']);
+                                            name = app.transform.from64str(email["name"]);
                                         }
                                     }
                                 }
@@ -130,121 +100,109 @@ define(['react', 'app', 'dataTable', 'dataTableBoot'], function (React, app, Dat
                                 recipient.push(name);
                                 recipientTitle.push(str);
                             } catch (err) {
-                                recipient.push('error');
-                                recipientTitle.push('error');
+                                recipient.push("error");
+                                recipientTitle.push("error");
                             }
                         });
                     }
-                    //console.log(recipient);
+                    if (t == "Sent" || t == "Draft") {
+                        fromEmail = "";
+                        fromTitle = "";
 
-                    if (t == 'Sent' || t == 'Draft') {
-
-                        //  console.log(folderData['to']);
-                        //  console.log(folderData['cc']);
-                        //  console.log(folderData['bcc']);
-                        fromEmail = '';
-                        fromTitle = '';
-
-                        if (folderData['cc'] != undefined && Object.keys(folderData['cc']).length > 0) {
-
-                            $.each(folderData['cc'], function (indexCC, email) {
+                        if (folderData["cc"] != undefined && Object.keys(folderData["cc"]).length > 0) {
+                            $.each(folderData["cc"], function (indexCC, email) {
                                 try {
                                     var str = app.transform.from64str(indexCC);
                                     var name = "";
                                     if (email === undefined) {
                                         name = str;
                                     } else {
-                                        if (email['name'] === undefined) {
+                                        if (email["name"] === undefined) {
                                             name = str;
                                         } else {
-                                            if (email['name'] === "") {
+                                            if (email["name"] === "") {
                                                 name = str;
                                             } else {
-                                                name = app.transform.from64str(email['name']);
+                                                name = app.transform.from64str(email["name"]);
                                             }
                                         }
                                     }
                                     recipient.push(name);
                                     recipientTitle.push(str);
                                 } catch (err) {
-                                    recipient.push('error');
-                                    recipientTitle.push('error');
+                                    recipient.push("error");
+                                    recipientTitle.push("error");
                                 }
                             });
                         }
 
-                        if (folderData['bcc'] != undefined && Object.keys(folderData['bcc']).length > 0) {
-
-                            $.each(folderData['bcc'], function (indexBCC, email) {
+                        if (folderData["bcc"] != undefined && Object.keys(folderData["bcc"]).length > 0) {
+                            $.each(folderData["bcc"], function (indexBCC, email) {
                                 try {
                                     var str = app.transform.from64str(indexBCC);
                                     var name = "";
                                     if (email === undefined) {
                                         name = str;
                                     } else {
-                                        if (email['name'] === undefined) {
+                                        if (email["name"] === undefined) {
                                             name = str;
                                         } else {
-                                            if (email['name'] === "") {
+                                            if (email["name"] === "") {
                                                 name = str;
                                             } else {
-                                                name = app.transform.from64str(email['name']);
+                                                name = app.transform.from64str(email["name"]);
                                             }
                                         }
                                     }
                                     recipient.push(name);
                                     recipientTitle.push(str);
                                 } catch (err) {
-                                    recipient.push('error');
-                                    recipientTitle.push('error');
+                                    recipient.push("error");
+                                    recipientTitle.push("error");
                                 }
                             });
                         }
 
-                        recipient = recipient.join(', ');
-                        recipientTitle = recipientTitle.join(', ');
+                        recipient = recipient.join(", ");
+                        recipientTitle = recipientTitle.join(", ");
 
                         fromEmail = recipient;
                         fromTitle = recipientTitle;
                     } else {
-
-                        var str = app.transform.from64str(folderData['fr']);
+                        var str = app.transform.from64str(folderData["fr"]);
 
                         //console.log(str);
-                        fromEmail = app.globalF.parseEmail(str, true)['name'];
-                        fromTitle = app.globalF.parseEmail(str, true)['email'];
+                        fromEmail = app.globalF.parseEmail(str, true)["name"];
+                        fromTitle = app.globalF.parseEmail(str, true)["email"];
 
-                        if (trusted.indexOf(app.transform.SHA256(app.globalF.parseEmail(str)['email'])) !== -1) {
-                            //console.log('X');
+                        if (trusted.indexOf(app.transform.SHA256(app.globalF.parseEmail(str)["email"])) !== -1) {
                             trust = "<img src='/img/logo/logo.png' style='height:25px'/>";
                         } else {
                             trust = "";
                         }
-                        recipient = recipient.join(', ');
-                        recipientTitle = recipientTitle.join(', ');
+                        recipient = recipient.join(", ");
+                        recipientTitle = recipientTitle.join(", ");
                     }
 
-                    if (folderData['tg'].length > 0) {
-                        //console.log(folderData['tg']);
-                        var tag = folderData['tg'][0]['name'];
+                    if (folderData["tg"].length > 0) {
+                        var tag = folderData["tg"][0]["name"];
                     } else {
                         var tag = "";
                     }
 
-                    if (parseInt(folderData['en']) == 1) {
+                    if (parseInt(folderData["en"]) == 1) {
                         encrypted2 = "<i class='fa fa-lock fa-lg'></i>";
-                    } else if (parseInt(folderData['en']) == 0) {
+                    } else if (parseInt(folderData["en"]) == 0) {
                         encrypted2 = "<i class='fa fa-unlock fa-lg'></i>";
-                    } else if (parseInt(folderData['en']) == 3) {
+                    } else if (parseInt(folderData["en"]) == 3) {
                         encrypted2 = "";
                     }
 
-                    //console.log(tag);
                     tag = app.globalF.stripHTML(app.transform.from64str(tag));
-                    //console.log(app.transform.from64str(tag));
-                    var unread = folderData['st'] == 0 ? "unread" : folderData['st'] == 1 ? "fa fa-mail-reply" : folderData['st'] == 2 ? "fa fa-mail-forward" : "";
 
-                    var attch = folderData['at'] == "1" ? '<span class="fa fa-paperclip fa-lg"></span>' : "";
+                    var unread = folderData["st"] == 0 ? "unread" : folderData["st"] == 1 ? "fa fa-mail-reply" : folderData["st"] == 2 ? "fa fa-mail-forward" : "";
+
+                    var attch = folderData["at"] == "1" ? '<span class="fa fa-paperclip fa-lg"></span>' : "";
 
                     if (fromEmail == "") {
                         fromEmail = fromTitle;
@@ -252,232 +210,68 @@ define(['react', 'app', 'dataTable', 'dataTableBoot'], function (React, app, Dat
 
                     var checkBpart = '<label><input class="emailchk hidden-xs" type="checkbox" /></label>';
 
-                    var fromPart = '<span class="from no-padding col-xs-8 col-md-3 ellipsisText margin-right-10" data-placement="bottom" data-toggle="popover-hover" title="" data-content="' + fromTitle + '">' + trust + ' ' + fromEmail + '</span>';
+                    var fromPart = fromTitle + trust + fromEmail;
 
-                    var dateAtPart = '<span class="no-padding date col-xs-3 col-sm-2">' + attch + '&nbsp;' + encrypted2 + ' ' + dispTime + '<span class="label label-primary f-s-10"></span><span class="label label-primary f-s-10"></span></span>';
+                    var dateAtPart = attch + encrypted2 + dispTime;
 
-                    var tagPart = '<div class="mailListLabel pull-right text-right col-xs-2"><div class="ellipsisText visible-xs"><span class="label label-success">' + tag + '</span></div><div class="ellipsisText hidden-xs col-xs-12 pull-right"><span class="label label-success">' + tag + '</span></div></div>';
+                    var tagPart = tag + tag;
 
                     emailListCopy[folderId][index] = {
-                        "DT_RowId": index,
-                        "unread": unread,
-                        "checkBpart": checkBpart,
-                        "dateAtPart": dateAtPart,
-                        "fromPart": fromPart,
-                        "sb": app.transform.escapeTags(app.transform.from64str(folderData['sb'])),
-                        "bd": app.transform.escapeTags(app.transform.from64str(folderData['bd'])),
-                        "tagPart": tagPart,
-                        "timestamp": time
+                        DT_RowId: index,
+                        unread: unread,
+                        checkBpart: checkBpart,
+                        dateAtPart: dateAtPart,
+                        fromPart: fromPart,
+                        sb: app.transform.escapeTags(app.transform.from64str(folderData["sb"])),
+                        bd: app.transform.escapeTags(app.transform.from64str(folderData["bd"])),
+                        tagPart: tagPart,
+                        timestamp: time
                     };
 
-                    var row = {
-                        "DT_RowId": index,
-                        "email": {
-                            "display": '<div class="email no-padding ' + emailListCopy[folderId][index]["unread"] + '">' + emailListCopy[folderId][index]["checkBpart"] + emailListCopy[folderId][index]["dateAtPart"] + emailListCopy[folderId][index]["fromPart"] + '<div class="title ellipsisText col-xs-10 col-md-6"><span>' + emailListCopy[folderId][index]["sb"] + '</span> - ' + emailListCopy[folderId][index]["bd"] + '</div>' + emailListCopy[folderId][index]["tagPart"] + '</div>',
-
-                            //"open":folderData['o']?1:0,
-                            "timestamp": emailListCopy[folderId][index]["timestamp"]
-                        }
-                    };
+                    htmlSource += '<li id="' + index + '" class="' + emailListCopy[folderId][index]["unread"] + '"><div class="select-checkbox"><label class="container-checkbox"><input type="checkbox" name="inbox-email" /><span class="checkmark"></span></label></div><div class="date-time">' + emailListCopy[folderId][index]["dateAtPart"] + '</div><button class="started-icon"></button><div class="inbox-list-top">' + emailListCopy[folderId][index]["fromPart"] + '<button class="attachment-icon"></button><span class="unread-bullet"></span></div><div class="mail-toggle"><div class="mail-title">' + emailListCopy[folderId][index]["sb"] + "</div><p>" + emailListCopy[folderId][index]["bd"] + emailListCopy[folderId][index]["tagPart"] + "</p></div></li>";
                 }
-
-                data.push(row);
             });
 
-            app.user.set({ "folderCached": emailListCopy });
-
-            var emTab = $('#emailListTable').DataTable();
-            emTab.clear();
-            if (noRefresh == '') {
-                emTab.draw();
-                //$('#mMiddlePanel').scrollTop(0);
-                thisComp.setState({
-                    messsageId: "",
-                    allChecked: false
-
-                }, function () {
-                    $('#selectAll>input').prop("checked", false);
-                });
-            }
-
-            emTab.rows.add(data);
-            emTab.draw(false);
-
-            this.attachTooltip();
-
-            $('#emailListTable td').click(function () {
-                var selectedEmails = app.user.get('selectedEmails');
-                if ($(this).find('.emailchk').prop("checked")) {
-                    selectedEmails[$(this).parents('tr').attr('id')] = true;
-                } else {
-                    delete selectedEmails[$(this).parents('tr').attr('id')];
-                }
-
-                //   console.log(selectedEmails);
-            });
-
-            //}
+            $("#inboxList").html(htmlSource);
         },
-
         componentDidMount: function () {
-
             var dtSet = this.state.dataSet;
             var thisComp = this;
-
-            $('#emailListTable').dataTable({
-                "dom": '<"#checkAll"><"#emailListNavigation"pi>rt<"pull-right"p><"pull-right"i>',
-                "data": dtSet,
-                "columns": [{ data: {
-                        _: "email.display",
-                        sort: "email.timestamp",
-                        filter: "email.display"
-                    }
-                }],
-
-                "columnDefs": [{ "sClass": 'col-xs-12 border-right text-align-left no-padding padding-vertical-10', "targets": 0 }, { "orderDataType": "data-sort", "targets": 0 }],
-                "sPaginationType": "simple",
-                "order": [[0, "desc"]],
-                "iDisplayLength": app.user.get("mailPerPage"),
-                "language": {
-                    "emptyTable": "Empty",
-                    "info": "_START_ - _END_ of _TOTAL_",
-                    "infoEmpty": "No entries",
-                    "paginate": {
-                        "sPrevious": "<i class='fa fa-chevron-left'></i>",
-                        "sNext": "<i class='fa fa-chevron-right'></i>"
-                    }
-                },
-                fnDrawCallback: function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-                    $("#emailListTable thead").remove();
-                },
-                "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-                    if ($(nRow).attr('id') == app.user.get('currentMessageView')['id']) {
-                        $(nRow).addClass('selected');
-                    }
-
-                    if (app.user.get("selectedEmails")[$(nRow).attr('id')] !== undefined) {
-                        $(nRow).find('.emailchk').prop('checked', true);
-                    }
-                    //$(nRow).attr('id', aData[0]);
-
-                    return nRow;
-                }
-            });
-
-            //console.log(app.globalF.getInboxFolderId());
             app.globalF.getInboxFolderId(function (inbox) {
-                thisComp.updateEmails(inbox, '');
+                thisComp.updateEmails(inbox, "");
             });
-
             app.user.on("change:resetSelectedItems", function () {
                 if (app.user.get("resetSelectedItems")) {
-                    app.user.set({ "selectedEmails": {} });
-
-                    app.user.set({ "resetSelectedItems": false });
+                    app.user.set({ selectedEmails: {} });
+                    app.user.set({ resetSelectedItems: false });
                 }
             }, thisComp);
-
-            //  app.user.set({"resetSelectedItems":true});
-
             app.user.on("change:emailListRefresh", function () {
-                $('#sdasdasd').addClass("hidden");
-
-                thisComp.updateEmails(thisComp.props.folderId, 'noRefresh');
-                // $('#selectAll>input').prop("checked",false);
+                // $("#sdasdasd").addClass("hidden"); - find this in original inbox page
+                thisComp.updateEmails(thisComp.props.folderId, "noRefresh");
             }, thisComp);
-
-            var container = $('#checkAll');
-
-            //$(thisComp.selectAll()).appendTo(container);
-
-
-            var mainChecker = [];
-
-            $('#checkAll').html('<div class="btn-group btn btn-default borderless pull-left hidden-xs" id="selectAll"><input type="checkbox"/> </div>');
-
-            /*
-             <i class="fa fa-angle-down fa-lg" data-toggle="dropdown"></i><ul id="mvtofolder1" class="dropdown-menu"><li><a id="thisPage">this page</a></li><li><a id="wholeFolder">All in folder</a></li></ul>
-             */
-
-            /* $('#thisPage').click( function () {
-                 if($('#selectAll>input').prop("checked")){
-                     $('#selectAll>input').prop("checked",false);
-                 }else{
-                     $('#selectAll>input').prop("checked",true);
-                 }
-                  thisComp.selectThisPage(thisComp.state.selectedEmails);
-              } );
-              $('#wholeFolder').click( function () {
-                 if($('#selectAll>input').prop("checked")){
-                     $('#selectAll>input').prop("checked",false);
-                 }else{
-                     $('#selectAll>input').prop("checked",true);
-                 }
-                  thisComp.selectAll(thisComp.state.selectedEmails);
-             } );
-            */
-            $('#selectAll').change(function () {
-                var selectedEmails = app.user.get('selectedEmails');
-
-                if ($('#selectAll>input').prop("checked")) {
-                    $(".emailchk").prop('checked', true);
-
-                    $(".emailchk").each(function (index) {
-                        var messageId = $(this).closest('tr').attr('id');
-                        selectedEmails[messageId] = true;
-                    });
-                    //  console.log(selectedEmails);
-                } else {
-                    $(".emailchk").prop('checked', false);
-                    app.user.set({ "selectedEmails": {} });
-                }
-
-                if ($('#selectAll>input').prop("checked") === true) {
-                    thisComp.setState({
-                        allChecked: true
-                    });
-                    $('#sdasdasd').removeClass("hidden");
-                } else {
-                    thisComp.setState({
-                        allChecked: false
-                    });
-                    if (thisComp.state.messsageId == "") {
-                        $('#sdasdasd').addClass("hidden");
-                    }
-                }
-                //console.log(thisComp.state.messsageId);
-
-                // console.log($('#selectAll>input').prop("checked"));
-
-            });
-        },
-        /*selectThisPage:function(thisComp){
-            selectedEmails=thisComp.state.selectedEmails;
-          },*/
-
-        componentWillUnmount: function () {
-            app.user.off("change:emailListRefresh");
         },
         handleClick: function (i, event) {
             switch (i) {
-
-                case 'wholeFolder':
+                case "wholeFolder":
                     //  console.log('wholeFolder')
                     break;
 
-                case 'thisPage':
+                case "thisPage":
                     //  console.log('thisPage')
                     break;
 
-                case 'readEmail':
+                case "readEmail":
                     var thisComp = this;
 
-                    var folder = app.user.get('folders')[this.props.folderId]['name'];
+                    var folder = app.user.get("folders")[this.props.folderId]["name"];
 
                     app.mixins.canNavigate(function (decision) {
                         if (decision) {
-                            var id = $(event.target).parents('tr').attr('id');
-                            if (!$(event.target).is('input')) {
+                            // console.log($(event.target).is("li"));
+                            // var id = $(event.target).parents("li").attr("id");
+                            var id = $(event.target).attr("id");
+                            if (!$(event.target).is("input")) {
                                 app.globalF.resetCurrentMessage();
                                 app.globalF.resetDraftMessage();
 
@@ -485,15 +279,25 @@ define(['react', 'app', 'dataTable', 'dataTableBoot'], function (React, app, Dat
                                     trigger: true
                                 });
 
-                                if (id != undefined && $(event.target).attr('type') != "checkbox" && $(event.target).prop("tagName") != "LABEL") {
-                                    console.log('1');
-                                    $('#sdasdasd').removeClass("hidden");
-                                    $('#mMiddlePanelTop').addClass(' hidden-xs hidden-sm hidden-md');
-                                    $('#mRightPanel').removeClass(' hidden-xs hidden-sm hidden-md');
-                                    var table = $('#emailListTable').DataTable();
-                                    table.$('tr.selected').removeClass('selected');
+                                if (id != undefined && $(event.target).attr("type") != "checkbox" && $(event.target).prop("tagName") != "LABEL") {
+                                    // $("#sdasdasd").removeClass("hidden"); - [NEW VERSION AVAILABLE BUTTON]
+                                    // TODO: check if following is needed, otherwise remove it
+                                    // $("#mMiddlePanelTop").addClass(
+                                    //     " hidden-xs hidden-sm hidden-md"
+                                    // );
+                                    // $("#mRightPanel").removeClass(
+                                    //     " hidden-xs hidden-sm hidden-md"
+                                    // );
+                                    // $(event.target)
+                                    //     .parents("li.selected")
+                                    //     .removeClass("selected");
 
-                                    $(event.target).parents('tr').toggleClass('selected');
+                                    // $(event.target)
+                                    //     .parents("li")
+                                    //     .toggleClass("selected");
+
+                                    $("#inboxList").find("li").removeClass("selected");
+                                    $("#inboxList").find("li#" + id).addClass("selected");
 
                                     thisComp.setState({
                                         messsageId: id
@@ -510,44 +314,193 @@ define(['react', 'app', 'dataTable', 'dataTableBoot'], function (React, app, Dat
                     break;
             }
         },
-        attachTooltip: function () {
-            //console.log('gg');
-            $('[data-toggle="popover-hover"]').popover({ trigger: "hover", container: 'body' });
-
-            $('[data-toggle="popover-hover"]').on('shown.bs.popover', function () {
-                var $pop = $(this);
-                setTimeout(function () {
-                    $pop.popover('hide');
-                }, 5000);
-            });
-            var thisComp = this;
-            $('#emailListTable input[type="checkbox"]').click(function () {
-                if ($(".emailchk").prop('checked')) {
-                    $('#sdasdasd').removeClass("hidden");
-                } else if (thisComp.state.messsageId == "") {
-                    $('#sdasdasd').addClass("hidden");
-                } else {
-                    //  thisComp.setState({
-                    //    messsageId:""
-                    //  });
-                }
-            });
-        },
-
-        componentDidUpdate: function () {
-            //this.attachTooltip();
-        },
         render: function () {
-            var middleClass = "Middle inbox checkcentr col-lg-6 col-xs-12 ";
-
-            //console.log(this.props.panel.middlePanel);
-            //$('[data-toggle="popover-hover"]').popover({ trigger: "hover" ,container: 'body'});
             return React.createElement(
-                'div',
-                { className: ' no-padding', id: 'mMiddlePanel' },
-                React.createElement('table', { className: 'table table-hover table-inbox row-border clickable', id: 'emailListTable', onClick: this.handleClick.bind(this, 'readEmail') })
+                "div",
+                { className: "middle-section" },
+                React.createElement(
+                    "div",
+                    { className: "middle-top" },
+                    React.createElement(
+                        "div",
+                        { className: "desktop-search" },
+                        React.createElement("input", { type: "search", placeholder: "Search..." })
+                    ),
+                    React.createElement(
+                        "div",
+                        { className: "info-row" },
+                        React.createElement(
+                            "div",
+                            { className: "all-check" },
+                            React.createElement(
+                                "label",
+                                { className: "container-checkbox" },
+                                React.createElement("input", {
+                                    type: "checkbox"
+                                    // onClick="toggle(this)"
+                                }),
+                                React.createElement("span", { className: "checkmark" }),
+                                " "
+                            )
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "arrow-btn" },
+                            React.createElement(
+                                "div",
+                                { className: "dropdown" },
+                                React.createElement("button", {
+                                    className: "btn btn-secondary dropdown-toggle",
+                                    type: "button",
+                                    id: "mail-sort",
+                                    "data-bs-toggle": "dropdown",
+                                    "aria-expanded": "false"
+                                }),
+                                React.createElement(
+                                    "ul",
+                                    {
+                                        className: "dropdown-menu",
+                                        "aria-labelledby": "mail-sort"
+                                    },
+                                    React.createElement(
+                                        "li",
+                                        null,
+                                        React.createElement(
+                                            "label",
+                                            { className: "container-checkbox" },
+                                            React.createElement("input", {
+                                                type: "checkbox"
+                                                // onClick="toggle(this)"
+                                            }),
+                                            React.createElement("span", { className: "checkmark" }),
+                                            " ",
+                                            React.createElement(
+                                                "div",
+                                                null,
+                                                "Select all"
+                                            )
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "li",
+                                        null,
+                                        React.createElement(
+                                            "button",
+                                            null,
+                                            " ",
+                                            React.createElement("span", { className: "star-yellow" }),
+                                            " ",
+                                            React.createElement(
+                                                "div",
+                                                null,
+                                                "Show all starred"
+                                            )
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "li",
+                                        null,
+                                        React.createElement(
+                                            "button",
+                                            null,
+                                            " ",
+                                            React.createElement("span", { className: "star-gray" }),
+                                            " ",
+                                            React.createElement(
+                                                "div",
+                                                null,
+                                                "Show unstarred"
+                                            )
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "li",
+                                        null,
+                                        React.createElement(
+                                            "button",
+                                            null,
+                                            " ",
+                                            React.createElement("span", { className: "eye" }),
+                                            " ",
+                                            React.createElement(
+                                                "div",
+                                                null,
+                                                "Show all read"
+                                            )
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "li",
+                                        null,
+                                        React.createElement(
+                                            "button",
+                                            null,
+                                            " ",
+                                            React.createElement("span", { className: "eye-close" }),
+                                            " ",
+                                            React.createElement(
+                                                "div",
+                                                null,
+                                                "Show all unread"
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "info-row-right" },
+                            React.createElement(
+                                "div",
+                                { className: "referesh-btn" },
+                                React.createElement(
+                                    "button",
+                                    {
+                                        id: "referesh-btn",
+                                        className: "icon-btn"
+                                    },
+                                    " ",
+                                    React.createElement("i", null),
+                                    " "
+                                )
+                            ),
+                            React.createElement(
+                                "div",
+                                { className: "ellipsis-dropdown" },
+                                React.createElement("button", null)
+                            )
+                        )
+                    )
+                ),
+                React.createElement(
+                    "div",
+                    { className: "middle-content" },
+                    React.createElement(
+                        "div",
+                        { className: "inbox-list" },
+                        React.createElement("ul", {
+                            id: "inboxList",
+                            onClick: this.handleClick.bind(this, "readEmail")
+                        })
+                    ),
+                    React.createElement(
+                        "div",
+                        { className: "middle-pagination" },
+                        React.createElement(
+                            "div",
+                            { className: "pagibox" },
+                            React.createElement("button", { className: "mail-prev" }),
+                            React.createElement(
+                                "span",
+                                { className: "mail-count" },
+                                "1/38"
+                            ),
+                            React.createElement("button", { className: "mail-next" })
+                        )
+                    )
+                )
             );
         }
-
     });
 });

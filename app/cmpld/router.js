@@ -30,8 +30,8 @@ define(["app", "backbone", "react", "jquery", "bootstrap", "cmpld/splashPage/Spl
         },
         execute: function (callback, args) {
             //var tt=setTimeout(function(){
-            $("#spinn").removeClass("hidden");
-            $("#overlay").removeClass("hidden");
+            // $("#spinn").removeClass("d-none");
+            // $("#overlay").removeClass("d-none");
             //}, 3000);
 
             //app.user.set({'loading':tt});
@@ -156,8 +156,8 @@ define(["app", "backbone", "react", "jquery", "bootstrap", "cmpld/splashPage/Spl
                 //clearTimeout(app.mailMan.get('loading'));
 
                 //setTimeout(function(){
-                $("#spinn").addClass("hidden");
-                $("#overlay").addClass("hidden");
+                // $("#spinn").addClass("hidden");
+                // $("#overlay").addClass("hidden");
                 //}, 1000);
 
                 React.render(React.createElement(AuthCollection, { page: "mailBox", folder: options }), document.getElementById("wrapper"));

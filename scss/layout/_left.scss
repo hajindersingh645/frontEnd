@@ -1,0 +1,268 @@
+.left-side{
+	width: 291px;
+	float: left;
+	position: fixed;
+	left: 0;
+	height: 100%;
+	overflow-y: auto;
+	padding: 0 0 20px;
+	display: none;
+	
+	&::-webkit-scrollbar{
+		width: 5px;
+	}
+	
+	.logo{
+		width: 100%;
+		float: left;
+		padding: 35px 0 0 56px;
+		
+		img{
+			width: 134px;
+		}
+	}
+	
+	.new-message-btn{
+		width: 100%;
+		float: left;
+		padding: 48px 20px 0;
+		
+		button{
+			width: 100%;
+			float: left;
+			background: url("#{$images-path}/icon-plus-circle.svg") no-repeat 24px center;
+			color: $white-color;
+			font-size: $base-size;
+			border: none;
+			border-radius: 12px;
+			height: 56px;
+			padding: 12px 0 12px 56px;
+			text-align: left;
+			
+			&:hover{
+				background: url("#{$images-path}/icon-plus-circle.svg") no-repeat 24px center;
+				padding: 0 0 0 56px;
+			}
+		}
+	}
+
+	.left-cta{
+		width: 100%;
+		float: left;
+		padding: 20px 20px 0 20px;
+	}
+	
+	.left-bottom{
+		width: 100%;
+		float: left;
+		height: 270px;
+	}
+	
+	.left-container{
+		  min-height: 100%;
+		height: auto !important;
+		height: 100%;
+		margin: 0 auto -270px;
+	}
+	
+	&.no-cta{
+		.left-bottom{
+			height: 71px;
+		}
+		
+		.left-container{
+			margin: 0 auto -71px;
+		}
+	}
+	
+}
+
+.left-acco-menu{
+	width: 100%;
+	float: left;
+	padding: 0 30px 0 15px;
+	
+	.accordion-item{
+		background: none;
+	}
+	
+	.accordion-button{
+		opacity: 0.5;
+		padding: 2px 15px 2px 36px;
+		position: relative;
+		outline: none !important;
+		box-shadow: none !important;
+		text-decoration: none;
+		font-size: $base-size;
+		
+		&:after{
+			width: 11px;
+			height: 17px;
+			top: 4px;
+			position: absolute;
+			right: 0;
+		}
+		
+		&:hover{
+			opacity: 1;
+			text-decoration: none;
+		}
+		
+		&:not(.collapsed){
+			border: none;
+			box-shadow: none;
+			opacity: 1;
+		}
+	}
+	
+	a{
+		&.accordion-button{
+			&:after{
+				display: none;
+			}
+		}
+	}
+	
+	.accordion-item{
+		border: none;
+		width: 100%;
+		float: left;
+		margin: 32px 0 0 0;
+	}
+	
+	.accordion-body{
+		width: 100%;
+		float: left;
+		padding: 0 0 0 36px;
+		position: relative;
+		margin: 24px 0 0 0;
+		
+		&:after{
+			width: 1px;
+			height: 100%;
+			position: absolute;
+			left: 12px;
+			top: 0;
+			content: "";
+		}
+	}
+	
+	.acco-menu-list{
+		width: 100%;
+		float: left;
+		
+		ul{
+			marging: 0;
+			padding: 0;
+			list-style-type: none;
+			
+			li{
+				width: 100%;
+				float: left;
+				
+				a{
+					width: 100%;
+					float: left;
+					padding: 16px 16px;
+					font-size: $medium-size;
+					line-height: 18px;
+					opacity: 0.5;
+					text-decoration: none;
+					
+					&:hover{
+						opacity: 1;
+						text-decoration: none;
+					}
+				}
+				
+				&.active{
+					a{
+						font-weight: 700;
+						opacity: 1;
+						border-radius: 12px;
+					}
+				}
+			}
+		}
+	}
+}
+
+.left-setting{
+	display: none;
+}
+
+@media screen and (min-width: 992px) {
+	.left-side{
+		display: block;
+		
+		.logo{
+			padding: 35px 0 0 20px;
+		}
+	}
+	
+	.left-setting{
+		display: none;
+	}
+}
+
+@media screen and (min-width: 1366px) {
+	.left-setting{
+		display: block !important;
+	}
+	
+	.left-acco-menu{
+		padding: 20px 30px 0 15px;
+	}
+}
+
+@media screen and (min-width: 1600px) {
+	.left-side{
+		.logo{
+			padding: 35px 0 0 56px;
+		}
+		
+		.new-message-btn{
+			padding: 48px 32px 0;
+		}
+		
+		.left-cta{
+			padding: 20px 40px 0 40px;
+		}
+	}
+	
+	.left-acco-menu{
+		padding: 20px 40px 0 40px;
+	}
+}
+
+@media screen and (min-width: 2000px) {
+	.left-side{
+		width: 15%;
+		
+		.new-message-btn{
+		
+			button{
+				font-size: $xxl-base-size;
+			}
+		}
+	}
+	
+	.left-acco-menu{
+		.accordion-button{
+			font-size: $xxl-base-size;
+		}
+
+		.acco-menu-list{
+			ul{
+				li{
+					a{
+						font-size: $xxl-medium-size;
+					}
+				}
+			}
+		}
+	}
+}
+
+
+

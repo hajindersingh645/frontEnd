@@ -1,0 +1,63 @@
+.right-side{
+	background: #fff;
+	
+	.mail-back{
+		background: url("#{$images-path}/arrow-mail-back.svg") no-repeat left top;
+	}
+	
+	.email-content-top-left{
+		.sender-name{
+			color: $dak-gray-color;
+		}
+		
+		.sender-detail-dropdown{
+			.btn-secondary{
+				color: $dak-gray-color;
+				background: url("#{$images-path}/icon-down-arrow-black.svg") no-repeat right -1px;
+			}
+		}
+	}
+	
+	.email-content-top-right{
+		.button-group{
+			button{
+				&.back{
+					background: url("#{$images-path}/icon-back.svg") no-repeat left top;
+					opacity: 0.4;
+					background-size: 24px;
+				}
+
+				&.next{
+					background: url("#{$images-path}/icon-next.svg") no-repeat left top;
+					opacity: 0.4;
+					background-size: 24px;
+				}
+
+				&.star{
+					background: url("#{$images-path}/icon-star-yellow.svg") no-repeat left top;
+					opacity: 1;
+					background-size: 24px;
+				}
+
+				&.delete{
+					background: url("#{$images-path}/icon-delete.svg") no-repeat left top;
+					opacity: 0.4;
+					background-size: 24px;
+				}
+			}
+		}
+		.content-list-menu{
+			.btn-secondary{
+				background: url("#{$images-path}/icon-ellipsis.svg") no-repeat left top;
+			}
+			
+			.dropdown-menu{
+				li{
+					button{
+						color: $dak-gray-color;
+					}
+				}
+			}
+		}
+	}
+}

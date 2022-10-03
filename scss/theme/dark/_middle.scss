@@ -1,0 +1,91 @@
+.middle-section{
+	background: $dt-semi-blue-color;
+	
+	.middle-top{
+		input{
+			background: url("#{$images-path}/icon-search-white.svg") no-repeat left top;
+			color: $white-color;
+		}
+		
+		.info-row{
+			border-bottom: 1px solid #4d4d53;
+		}
+	}
+	
+	.inbox-list{
+		ul{
+			li{
+				border-bottom: 1px solid #4d4d53;
+				
+				.inbox-list-top{
+					color: rgba(255, 255, 255, 0.6);
+				}
+				
+				&:hover{
+					.inbox-list-top{
+						color: $white-color;
+					}
+				}
+				
+				.started-icon{
+					background: url("#{$images-path}/icon-star-white.svg") no-repeat left top;
+					background-size: 16px;
+					opacity: 0.2;
+					
+					&.active{
+						background: url("#{$images-path}/icon-star-yellow.svg") no-repeat left top;
+						background-size: 16px;
+						opacity: 1;
+					}
+				}
+				
+				&.selected{
+					background: $dt-dark-gray-color;
+					
+					.mail-title{
+						color: $white-color !important;
+					}
+					
+					&:after{
+						background: $white-color;
+					}
+					
+					&:hover{
+						.inbox-list-top{
+							color: rgba(255, 255, 255,0.6);
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	.middle-pagination{
+		.pagibox{
+			border: 2px solid #4d4d53;
+			
+			button{
+				&.mail-prev{
+					background: url("#{$images-path}/icon-arrow-left-white.svg") no-repeat left top;
+					background-size: 24px;
+				}
+				
+				&.mail-next{
+					background: url("#{$images-path}/icon-arrow-right-white.svg") no-repeat left top;
+					background-size: 24px;
+				}
+			}
+		}
+	}
+}
+
+@media screen and (min-width: 1366px){
+	.middle-section{
+		.middle-content{
+			&::-webkit-scrollbar{
+				background-color: $white-color;
+			}
+		}
+	}
+}
+

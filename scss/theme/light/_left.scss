@@ -1,0 +1,92 @@
+.left-side{
+	.logo{
+		.dark-theme-logo{
+			display: none;
+		}
+	}
+	
+	.new-message-btn{
+		button{
+			background-color: $blue-color;
+			
+			&:hover{
+				background-color: $dark-blue-color;
+				box-shadow: 0 0 20px rgba(11, 77, 176, 0.5);
+			}
+		}
+	}
+}
+
+.left-acco-menu{
+	.accordion-button{
+		color: #415067;
+		
+		&:after{
+			background: url("#{$images-path}/icon-menu-arrow.svg") no-repeat left top;
+			background-size: 11px 17px;
+		}
+		
+		&:hover{
+			color: #415067;
+		}
+		
+		&.icon-profile{
+			background: url("#{$images-path}/icon-profile.svg") no-repeat left top;
+			background-size: 24px;
+		}
+		
+		&.icon-security{
+			background: url("#{$images-path}/icon-security.svg") no-repeat left top;
+			background-size: 24px;
+		}
+		
+		&.icon-mailbox{
+			background: url("#{$images-path}/icon-mailbox.svg") no-repeat left top;
+			background-size: 24px;
+		}
+		
+		&.icon-premium{
+			background: url("#{$images-path}/icon-premium.svg") no-repeat left top;
+			background-size: 24px;
+		}
+		
+		&.icon-setting{
+			background: url("#{$images-path}/icon-setting.svg") no-repeat left top;
+			background-size: 24px;
+		}
+		&:not(.collapsed){
+			color: #415067;
+		}
+	}
+	
+	.accordion-body{
+		&:after{
+			background: #F7F7F7;
+		}
+	}
+	
+	.acco-menu-list{
+		ul{
+			li{
+				a{
+					color: #415067;
+					
+					&:hover{
+						color: #415067;
+					}
+				}
+				
+				&.active{
+					a{
+						color: $blue-color;
+						background: rgba(34, 119, 247, 0.1);
+						
+						&:hover{
+							color: $blue-color;
+						}
+					}
+				}
+			}
+		}
+	}
+}
