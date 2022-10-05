@@ -315,8 +315,8 @@ define(["react", "app"], function (React, app) {
                             "span",
                             {
                                 key: index,
-                                className: "badge light email-head",
-                                "data-placement": "bottom",
+                                className: "" // badge light email-head
+                                , "data-placement": "bottom",
                                 "data-toggle": "popover-hover",
                                 title: "",
                                 "data-content": title
@@ -335,8 +335,8 @@ define(["react", "app"], function (React, app) {
                             "span",
                             {
                                 key: index,
-                                className: "badge light email-head",
-                                "data-placement": "bottom",
+                                className: "" // badge light email-head
+                                , "data-placement": "bottom",
                                 "data-toggle": "popover-hover",
                                 title: "",
                                 "data-content": title
@@ -365,8 +365,8 @@ define(["react", "app"], function (React, app) {
                                 "span",
                                 {
                                     key: index,
-                                    className: "badge light email-head",
-                                    "data-placement": "bottom",
+                                    className: "" // badge light email-head
+                                    , "data-placement": "bottom",
                                     "data-toggle": "popover-hover",
                                     title: "",
                                     "data-content": title
@@ -385,8 +385,8 @@ define(["react", "app"], function (React, app) {
                                 "span",
                                 {
                                     key: index,
-                                    className: "badge light email-head",
-                                    "data-placement": "bottom",
+                                    className: "" // badge light email-head
+                                    , "data-placement": "bottom",
                                     "data-toggle": "popover-hover",
                                     title: "",
                                     "data-content": title
@@ -416,8 +416,8 @@ define(["react", "app"], function (React, app) {
                                 "span",
                                 {
                                     key: index,
-                                    className: "badge light email-head",
-                                    "data-placement": "bottom",
+                                    className: "" // badge light email-head
+                                    , "data-placement": "bottom",
                                     "data-toggle": "popover-hover",
                                     title: "",
                                     "data-content": title
@@ -436,8 +436,8 @@ define(["react", "app"], function (React, app) {
                                 "span",
                                 {
                                     key: index,
-                                    className: "badge light email-head",
-                                    "data-placement": "bottom",
+                                    className: "" // badge light email-head
+                                    , "data-placement": "bottom",
                                     "data-toggle": "popover-hover",
                                     title: "",
                                     "data-content": title
@@ -1074,10 +1074,14 @@ define(["react", "app"], function (React, app) {
             });
         },
 
+        handleBackToEmailList: function () {
+            $("#appRightSide").css("display", "none");
+        },
+
         render: function () {
             return React.createElement(
                 "div",
-                { className: "right-side" },
+                { className: "right-side", id: "appRightSide" },
                 React.createElement(
                     "div",
                     { className: "email-conetent-wrp" },
@@ -1128,7 +1132,10 @@ define(["react", "app"], function (React, app) {
                         React.createElement(
                             "div",
                             { className: "email-content-top-right" },
-                            React.createElement("div", { className: "mail-back" }),
+                            React.createElement("div", {
+                                className: "mail-back",
+                                onClick: this.handleBackToEmailList.bind(this)
+                            }),
                             React.createElement(
                                 "div",
                                 { className: "right-menus" },
@@ -1293,7 +1300,7 @@ define(["react", "app"], function (React, app) {
                                             React.createElement(
                                                 "div",
                                                 null,
-                                                this.state.fromExtra
+                                                this.state.from
                                             )
                                         ),
                                         React.createElement(
@@ -1312,7 +1319,7 @@ define(["react", "app"], function (React, app) {
                                         ),
                                         React.createElement(
                                             "li",
-                                            null,
+                                            { className: "sent_date_time" },
                                             React.createElement(
                                                 "span",
                                                 null,

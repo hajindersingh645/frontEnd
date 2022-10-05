@@ -34,8 +34,8 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
         },
 
         removeClassesActive: function () {
-            $("#folderul>li").removeClass("active");
-            $("#folderulcustom>li").removeClass("active");
+            $("#folderul > li").removeClass("active");
+            $("#folderulcustom > li").removeClass("active");
         },
 
         handleChange: function (i, event) {
@@ -172,17 +172,23 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
         },
         boxSize: function () {
             return (
-                <span>
-                    {accounting.toFixed(
-                        app.user.get("mailboxSize") / 1024 / 1024 / 1024,
-                        2
-                    )}{" "}
-                    GB &nbsp;/&nbsp;
-                    <strong>
-                        {app.user.get("userPlan")["planData"]["bSize"] / 1000}{" "}
+                <div>
+                    <div className="used_one">
+                        {accounting.toFixed(
+                            app.user.get("mailboxSize") / 1024 / 1024 / 1024,
+                            2
+                        )}{" "}
                         GB
-                    </strong>
-                </span>
+                    </div>{" "}
+                    <span>
+                        &nbsp;/&nbsp;
+                        <strong>
+                            {app.user.get("userPlan")["planData"]["bSize"] /
+                                1000}{" "}
+                            GB
+                        </strong>
+                    </span>
+                </div>
             );
         },
 
@@ -199,6 +205,23 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                 return <span className="menu-icon trash"></span>;
             } else {
                 return <span className="menu-icon inbox"></span>;
+            }
+        },
+
+        unopenedBadge: function (
+            unOpenedIndex,
+            mainFoldersIndex,
+            sentFolderId,
+            trashFolderId
+        ) {
+            if (
+                unOpenedIndex == 0 ||
+                mainFoldersIndex == sentFolderId ||
+                mainFoldersIndex == trashFolderId
+            ) {
+                return null;
+            } else {
+                return <span className="number-badge">{unOpenedIndex}</span>;
             }
         },
 
@@ -221,245 +244,468 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
             };
 
             return (
-                <div className="left-side">
-                    <div className="left-container">
-                        <div className="logo">
-                            <a href="#">
-                                <img
-                                    src="images/logo.svg"
-                                    alt=""
-                                    className="light-theme-logo"
-                                />{" "}
-                                <img
-                                    src="images/logo-white.svg"
-                                    alt=""
-                                    className="dark-theme-logo"
-                                />
-                            </a>
-                        </div>
-                        <div className="new-message-btn">
-                            <button
-                                onClick={this.handleClick.bind(
-                                    this,
-                                    "composeEmail"
-                                )}
-                            >
-                                New message
-                            </button>
-                        </div>
-                        <div className="main-menu">
-                            <ul>
-                                {Object.keys(this.state.mainFolders).map(
-                                    function (folderData, i) {
-                                        return (
-                                            <li
-                                                key={
-                                                    "liM_" +
-                                                    this.state.mainFolders[
-                                                        folderData
-                                                    ]["index"]
-                                                }
-                                                className={
-                                                    " " +
-                                                    (this.state.mainFolders[
-                                                        folderData
-                                                    ]["role"] == "Inbox"
-                                                        ? "active"
-                                                        : this.state.unopened[
-                                                              this.state
-                                                                  .mainFolders[
-                                                                  folderData
-                                                              ]["index"]
-                                                          ] == 0
-                                                        ? ""
-                                                        : "active")
-                                                }
-                                            >
-                                                <a
-                                                    key={"aM_" + i}
-                                                    id={
+                <div>
+                    <div className="left-side">
+                        <div className="left-container">
+                            <div className="logo">
+                                <a href="#">
+                                    <img
+                                        src="images/logo.svg"
+                                        alt=""
+                                        className="light-theme-logo"
+                                    />{" "}
+                                    <img
+                                        src="images/logo-white.svg"
+                                        alt=""
+                                        className="dark-theme-logo"
+                                    />
+                                </a>
+                            </div>
+                            <div className="new-message-btn">
+                                <button
+                                    onClick={this.handleClick.bind(
+                                        this,
+                                        "composeEmail"
+                                    )}
+                                >
+                                    New message
+                                </button>
+                            </div>
+                            <div className="main-menu">
+                                <ul id="folderul">
+                                    {Object.keys(this.state.mainFolders).map(
+                                        function (folderData, i) {
+                                            return (
+                                                <li
+                                                    key={
+                                                        "liM_" +
                                                         this.state.mainFolders[
                                                             folderData
                                                         ]["index"]
                                                     }
-                                                    onClick={this.handleChange.bind(
-                                                        this,
-                                                        "switchFolder"
-                                                    )}
-                                                    data-name={
+                                                    className={`${
                                                         this.state.mainFolders[
                                                             folderData
-                                                        ]["name"]
-                                                    }
+                                                        ]["role"] == "Inbox"
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
                                                 >
-                                                    {this.systemFolderIcon(
-                                                        this.state.mainFolders[
-                                                            folderData
-                                                        ]["name"]
-                                                    )}
-                                                    {this.state.mainFolders[
-                                                        folderData
-                                                    ]["name"] +
-                                                        " " +
-                                                        (this.state.unopened[
+                                                    <a
+                                                        key={"aM_" + i}
+                                                        id={
                                                             this.state
                                                                 .mainFolders[
                                                                 folderData
                                                             ]["index"]
-                                                        ] == 0 ||
-                                                        this.state.mainFolders[
-                                                            folderData
-                                                        ]["index"] ==
+                                                        }
+                                                        onClick={this.handleChange.bind(
+                                                            this,
+                                                            "switchFolder"
+                                                        )}
+                                                        data-name={
+                                                            this.state
+                                                                .mainFolders[
+                                                                folderData
+                                                            ]["name"]
+                                                        }
+                                                    >
+                                                        {this.systemFolderIcon(
+                                                            this.state
+                                                                .mainFolders[
+                                                                folderData
+                                                            ]["name"]
+                                                        )}
+                                                        {
+                                                            this.state
+                                                                .mainFolders[
+                                                                folderData
+                                                            ]["name"]
+                                                        }{" "}
+                                                        {this.unopenedBadge(
+                                                            this.state.unopened[
+                                                                this.state
+                                                                    .mainFolders[
+                                                                    folderData
+                                                                ]["index"]
+                                                            ],
+                                                            this.state
+                                                                .mainFolders[
+                                                                folderData
+                                                            ]["index"],
                                                             app.user.get(
                                                                 "systemFolders"
-                                                            )["sentFolderId"] ||
-                                                        this.state.mainFolders[
-                                                            folderData
-                                                        ]["index"] ==
+                                                            )["sentFolderId"],
                                                             app.user.get(
                                                                 "systemFolders"
                                                             )["trashFolderId"]
-                                                            ? ""
-                                                            : '<span class="number-badge">' +
-                                                              this.state
-                                                                  .unopened[
-                                                                  this.state
-                                                                      .mainFolders[
-                                                                      folderData
-                                                                  ]["index"]
-                                                              ] +
-                                                              "</span>")}
-                                                </a>
-                                            </li>
-                                        );
-                                    },
-                                    this
-                                )}
-                            </ul>
-                        </div>
-                        <div className="folder-menu">
-                            <div className="add-folder">
-                                <button
-                                    onClick={this.handleClick.bind(
-                                        this,
-                                        "addFolder"
+                                                        )}
+                                                    </a>
+                                                </li>
+                                            );
+                                        },
+                                        this
                                     )}
-                                ></button>
+                                </ul>
                             </div>
-                            <div className="accordion" id="accordionExample">
-                                <div className="accordion-item">
-                                    <h2
-                                        className="accordion-header"
-                                        id="headingOne"
-                                    >
-                                        <button
-                                            className="accordion-button"
-                                            type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#collapseOne"
-                                            aria-expanded="true"
-                                            aria-controls="collapseOne"
+                            <div className="folder-menu">
+                                <div className="add-folder">
+                                    <button
+                                        onClick={this.handleClick.bind(
+                                            this,
+                                            "addFolder"
+                                        )}
+                                    ></button>
+                                </div>
+                                <div
+                                    className="accordion"
+                                    id="accordionExample"
+                                >
+                                    <div className="accordion-item">
+                                        <h2
+                                            className="accordion-header"
+                                            id="headingOne"
                                         >
-                                            {" "}
-                                            Folders{" "}
-                                        </button>
-                                    </h2>
-                                    <div
-                                        id="collapseOne"
-                                        className="accordion-collapse collapse show"
-                                        aria-labelledby="headingOne"
-                                        data-bs-parent="#accordionExample"
-                                    >
-                                        <div className="accordion-body">
-                                            <ul>
-                                                {this.state.customFolders.map(
-                                                    function (folderData, i) {
-                                                        <li
-                                                            key={
-                                                                "li_" +
-                                                                folderData[
-                                                                    "index"
-                                                                ]
-                                                            }
-                                                            className={
-                                                                " " +
-                                                                (folderData[
-                                                                    "role"
-                                                                ] == "Inbox"
-                                                                    ? "active"
-                                                                    : this.state
-                                                                          .unopened[
-                                                                          folderData[
-                                                                              "index"
-                                                                          ]
-                                                                      ] == 0
-                                                                    ? ""
-                                                                    : "active")
-                                                            }
-                                                        >
-                                                            <a
-                                                                key={"a_" + i}
-                                                                id={
+                                            <button
+                                                className="accordion-button"
+                                                type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#collapseOne"
+                                                aria-expanded="true"
+                                                aria-controls="collapseOne"
+                                            >
+                                                {" "}
+                                                Folders{" "}
+                                            </button>
+                                        </h2>
+                                        <div
+                                            id="collapseOne"
+                                            className="accordion-collapse collapse show"
+                                            aria-labelledby="headingOne"
+                                            data-bs-parent="#accordionExample"
+                                        >
+                                            <div className="accordion-body">
+                                                <ul id="folderulcustom">
+                                                    {this.state.customFolders.map(
+                                                        function (
+                                                            folderData,
+                                                            i
+                                                        ) {
+                                                            <li
+                                                                key={
+                                                                    "li_" +
                                                                     folderData[
                                                                         "index"
                                                                     ]
                                                                 }
-                                                                onClick={this.handleChange.bind(
-                                                                    this,
-                                                                    "switchFolder"
-                                                                )}
-                                                            >
-                                                                {folderData[
-                                                                    "name"
-                                                                ] +
+                                                                className={
                                                                     " " +
-                                                                    (this.state
-                                                                        .unopened[
-                                                                        folderData[
-                                                                            "index"
-                                                                        ]
-                                                                    ] == 0
-                                                                        ? ""
-                                                                        : '<span className="number-badge">' +
-                                                                          this
+                                                                    (folderData[
+                                                                        "role"
+                                                                    ] == "Inbox"
+                                                                        ? "active"
+                                                                        : this
                                                                               .state
                                                                               .unopened[
                                                                               folderData[
                                                                                   "index"
                                                                               ]
-                                                                          ] +
-                                                                          "</span>")}
-                                                            </a>
-                                                        </li>;
-                                                    },
-                                                    this
-                                                )}
-                                            </ul>
+                                                                          ] == 0
+                                                                        ? ""
+                                                                        : "active")
+                                                                }
+                                                            >
+                                                                <a
+                                                                    key={
+                                                                        "a_" + i
+                                                                    }
+                                                                    id={
+                                                                        folderData[
+                                                                            "index"
+                                                                        ]
+                                                                    }
+                                                                    onClick={this.handleChange.bind(
+                                                                        this,
+                                                                        "switchFolder"
+                                                                    )}
+                                                                >
+                                                                    {folderData[
+                                                                        "name"
+                                                                    ] +
+                                                                        " " +
+                                                                        (this
+                                                                            .state
+                                                                            .unopened[
+                                                                            folderData[
+                                                                                "index"
+                                                                            ]
+                                                                        ] == 0
+                                                                            ? ""
+                                                                            : '<span className="number-badge">' +
+                                                                              this
+                                                                                  .state
+                                                                                  .unopened[
+                                                                                  folderData[
+                                                                                      "index"
+                                                                                  ]
+                                                                              ] +
+                                                                              "</span>")}
+                                                                </a>
+                                                            </li>;
+                                                        },
+                                                        this
+                                                    )}
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="left-bottom">
-                        <div className="left-cta">
-                            <div className="call-to-action">
-                                <div className="cta-title">
-                                    Let's explore the full
-                                    <br />
-                                    version of your mailbox
+                        <div className="left-bottom">
+                            <div className="left-cta">
+                                <div className="call-to-action">
+                                    <div className="cta-title">
+                                        Let's explore the full
+                                        <br />
+                                        version of your mailbox
+                                    </div>
+                                    <div className="white-btn">
+                                        <a href="#">Discover Pro</a>
+                                    </div>
                                 </div>
-                                <div className="white-btn">
-                                    <a href="#">Discover Pro</a>
+                            </div>
+                            <div className="storage">
+                                <div className="storage-count">
+                                    {this.boxSize()}
+                                </div>
+                                <div className="storage-bar">
+                                    <span style={st3}></span>
                                 </div>
                             </div>
                         </div>
-                        <div className="storage">
-                            <div className="storage-count">
-                                {this.boxSize()}
+                    </div>
+                    <div
+                        className="offcanvas offcanvas-start"
+                        tabIndex="-1"
+                        id="offcanvasLeft"
+                        aria-label="offcanvasLeftLabel"
+                    >
+                        <div className="offcanvas-header">
+                            <div className="logo">
+                                <a href="#">
+                                    <img
+                                        src="images/logo.svg"
+                                        alt=""
+                                        className="light-theme-logo"
+                                    />
+                                </a>
                             </div>
-                            <div className="storage-bar">
-                                <span style={st3}></span>
+                            <button
+                                type="button"
+                                className="btn-close text-reset"
+                                data-bs-dismiss="offcanvas"
+                                aria-label="Close"
+                            ></button>
+                        </div>
+                        <div className="offcanvas-body">
+                            <div className="main-menu">
+                                <ul id="folderul">
+                                    {Object.keys(this.state.mainFolders).map(
+                                        function (folderData, i) {
+                                            return (
+                                                <li
+                                                    key={
+                                                        "liM_" +
+                                                        this.state.mainFolders[
+                                                            folderData
+                                                        ]["index"]
+                                                    }
+                                                    className={`${
+                                                        this.state.mainFolders[
+                                                            folderData
+                                                        ]["role"] == "Inbox"
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
+                                                >
+                                                    <a
+                                                        key={"aM_" + i}
+                                                        id={
+                                                            this.state
+                                                                .mainFolders[
+                                                                folderData
+                                                            ]["index"]
+                                                        }
+                                                        onClick={this.handleChange.bind(
+                                                            this,
+                                                            "switchFolder"
+                                                        )}
+                                                        data-name={
+                                                            this.state
+                                                                .mainFolders[
+                                                                folderData
+                                                            ]["name"]
+                                                        }
+                                                    >
+                                                        {this.systemFolderIcon(
+                                                            this.state
+                                                                .mainFolders[
+                                                                folderData
+                                                            ]["name"]
+                                                        )}
+                                                        {
+                                                            this.state
+                                                                .mainFolders[
+                                                                folderData
+                                                            ]["name"]
+                                                        }{" "}
+                                                        {this.unopenedBadge(
+                                                            this.state.unopened[
+                                                                this.state
+                                                                    .mainFolders[
+                                                                    folderData
+                                                                ]["index"]
+                                                            ],
+                                                            this.state
+                                                                .mainFolders[
+                                                                folderData
+                                                            ]["index"],
+                                                            app.user.get(
+                                                                "systemFolders"
+                                                            )["sentFolderId"],
+                                                            app.user.get(
+                                                                "systemFolders"
+                                                            )["trashFolderId"]
+                                                        )}
+                                                    </a>
+                                                </li>
+                                            );
+                                        },
+                                        this
+                                    )}
+                                </ul>
+                            </div>
+                            <div className="folder-menu">
+                                <div className="add-folder">
+                                    <button
+                                        onClick={this.handleClick.bind(
+                                            this,
+                                            "addFolder"
+                                        )}
+                                    ></button>
+                                </div>
+                                <div
+                                    className="accordion"
+                                    id="accordionExample"
+                                >
+                                    <div className="accordion-item">
+                                        <h2
+                                            className="accordion-header"
+                                            id="headingOne"
+                                        >
+                                            <button
+                                                className="accordion-button"
+                                                type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#collapseOne"
+                                                aria-expanded="true"
+                                                aria-controls="collapseOne"
+                                            >
+                                                {" "}
+                                                Folders{" "}
+                                            </button>
+                                        </h2>
+                                        <div
+                                            id="collapseOne"
+                                            className="accordion-collapse collapse show"
+                                            aria-labelledby="headingOne"
+                                            data-bs-parent="#accordionExample"
+                                        >
+                                            <div className="accordion-body">
+                                                <ul id="folderulcustom">
+                                                    {this.state.customFolders.map(
+                                                        function (
+                                                            folderData,
+                                                            i
+                                                        ) {
+                                                            <li
+                                                                key={
+                                                                    "li_" +
+                                                                    folderData[
+                                                                        "index"
+                                                                    ]
+                                                                }
+                                                                className={
+                                                                    " " +
+                                                                    (folderData[
+                                                                        "role"
+                                                                    ] == "Inbox"
+                                                                        ? "active"
+                                                                        : this
+                                                                              .state
+                                                                              .unopened[
+                                                                              folderData[
+                                                                                  "index"
+                                                                              ]
+                                                                          ] == 0
+                                                                        ? ""
+                                                                        : "active")
+                                                                }
+                                                            >
+                                                                <a
+                                                                    key={
+                                                                        "a_" + i
+                                                                    }
+                                                                    id={
+                                                                        folderData[
+                                                                            "index"
+                                                                        ]
+                                                                    }
+                                                                    onClick={this.handleChange.bind(
+                                                                        this,
+                                                                        "switchFolder"
+                                                                    )}
+                                                                >
+                                                                    {folderData[
+                                                                        "name"
+                                                                    ] +
+                                                                        " " +
+                                                                        (this
+                                                                            .state
+                                                                            .unopened[
+                                                                            folderData[
+                                                                                "index"
+                                                                            ]
+                                                                        ] == 0
+                                                                            ? ""
+                                                                            : '<span className="number-badge">' +
+                                                                              this
+                                                                                  .state
+                                                                                  .unopened[
+                                                                                  folderData[
+                                                                                      "index"
+                                                                                  ]
+                                                                              ] +
+                                                                              "</span>")}
+                                                                </a>
+                                                            </li>;
+                                                        },
+                                                        this
+                                                    )}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="storage">
+                                <div className="storage-count">
+                                    {this.boxSize()}
+                                </div>
+                                <div className="storage-bar">
+                                    <span style={st3}></span>
+                                </div>
                             </div>
                         </div>
                     </div>

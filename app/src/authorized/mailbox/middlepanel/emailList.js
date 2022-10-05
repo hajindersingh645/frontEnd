@@ -289,7 +289,7 @@ define(["react", "app"], function (React, app) {
                     var checkBpart =
                         '<label><input class="emailchk hidden-xs" type="checkbox" /></label>';
 
-                    var fromPart = fromTitle + trust + fromEmail;
+                    var fromPart = fromTitle; //  + trust + fromEmail
 
                     var dateAtPart = attch + encrypted2 + dispTime;
 
@@ -410,6 +410,8 @@ define(["react", "app"], function (React, app) {
                                     //     .parents("li")
                                     //     .toggleClass("selected");
 
+                                    $("#appRightSide").css("display", "block");
+
                                     $("#inboxList")
                                         .find("li")
                                         .removeClass("selected");
@@ -433,9 +435,19 @@ define(["react", "app"], function (React, app) {
                     break;
             }
         },
+        handleRefreshButton: function (event) {
+            const _event = event;
+            _event.target.children[0].classList.add("spin-animation");
+            this.removeRefreshClass(_event.target.children[0]);
+        },
+        removeRefreshClass: function (_element) {
+            setTimeout(function () {
+                _element.classList.remove("spin-animation");
+            }, 500);
+        },
         render: function () {
             return (
-                <div className="middle-section">
+                <div className="middle-section" id="appMiddleSection">
                     <div className="middle-top">
                         <div className="desktop-search">
                             <input type="search" placeholder="Search..." />
@@ -509,9 +521,11 @@ define(["react", "app"], function (React, app) {
                                     <button
                                         id="referesh-btn"
                                         className="icon-btn"
+                                        onClick={this.handleRefreshButton.bind(
+                                            this
+                                        )}
                                     >
-                                        {" "}
-                                        <i></i>{" "}
+                                        <i></i>
                                     </button>
                                 </div>
                                 <div className="ellipsis-dropdown">

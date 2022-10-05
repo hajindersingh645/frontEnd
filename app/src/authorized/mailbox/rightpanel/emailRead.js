@@ -370,7 +370,7 @@ define(["react", "app"], function (React, app) {
                         to.push(
                             <span
                                 key={index}
-                                className="badge light email-head"
+                                className="" // badge light email-head
                                 data-placement="bottom"
                                 data-toggle="popover-hover"
                                 title=""
@@ -393,7 +393,7 @@ define(["react", "app"], function (React, app) {
                         to.push(
                             <span
                                 key={index}
-                                className="badge light email-head"
+                                className="" // badge light email-head
                                 data-placement="bottom"
                                 data-toggle="popover-hover"
                                 title=""
@@ -429,7 +429,7 @@ define(["react", "app"], function (React, app) {
                             cc.push(
                                 <span
                                     key={index}
-                                    className="badge light email-head"
+                                    className="" // badge light email-head
                                     data-placement="bottom"
                                     data-toggle="popover-hover"
                                     title=""
@@ -456,7 +456,7 @@ define(["react", "app"], function (React, app) {
                             cc.push(
                                 <span
                                     key={index}
-                                    className="badge light email-head"
+                                    className="" // badge light email-head
                                     data-placement="bottom"
                                     data-toggle="popover-hover"
                                     title=""
@@ -497,7 +497,7 @@ define(["react", "app"], function (React, app) {
                             bcc.push(
                                 <span
                                     key={index}
-                                    className="badge light email-head"
+                                    className="" // badge light email-head
                                     data-placement="bottom"
                                     data-toggle="popover-hover"
                                     title=""
@@ -524,7 +524,7 @@ define(["react", "app"], function (React, app) {
                             bcc.push(
                                 <span
                                     key={index}
-                                    className="badge light email-head"
+                                    className="" // badge light email-head
                                     data-placement="bottom"
                                     data-toggle="popover-hover"
                                     title=""
@@ -1333,9 +1333,13 @@ define(["react", "app"], function (React, app) {
             );
         },
 
+        handleBackToEmailList: function () {
+            $("#appRightSide").css("display", "none");
+        },
+
         render: function () {
             return (
-                <div className="right-side">
+                <div className="right-side" id="appRightSide">
                     <div className="email-conetent-wrp">
                         <div
                             className={`mail-data emailNo ${
@@ -1364,7 +1368,12 @@ define(["react", "app"], function (React, app) {
                             }`}
                         >
                             <div className="email-content-top-right">
-                                <div className="mail-back"></div>
+                                <div
+                                    className="mail-back"
+                                    onClick={this.handleBackToEmailList.bind(
+                                        this
+                                    )}
+                                ></div>
                                 <div className="right-menus">
                                     <div className="button-group">
                                         <button
@@ -1461,15 +1470,13 @@ define(["react", "app"], function (React, app) {
                                             </li>
                                             <li>
                                                 <span>reply-to:</span>
-                                                <div>
-                                                    {this.state.fromExtra}
-                                                </div>
+                                                <div>{this.state.from}</div>
                                             </li>
                                             <li>
                                                 <span>to:</span>
                                                 <div>{this.state.to}</div>
                                             </li>
-                                            <li>
+                                            <li className="sent_date_time">
                                                 <span>date:</span>
                                                 <div>{this.state.timeSent}</div>
                                             </li>

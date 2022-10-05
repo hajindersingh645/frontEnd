@@ -32,8 +32,8 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
         },
 
         removeClassesActive: function () {
-            $("#folderul>li").removeClass("active");
-            $("#folderulcustom>li").removeClass("active");
+            $("#folderul > li").removeClass("active");
+            $("#folderulcustom > li").removeClass("active");
         },
 
         handleChange: function (i, event) {
@@ -142,17 +142,27 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
         },
         boxSize: function () {
             return React.createElement(
-                "span",
+                "div",
                 null,
-                accounting.toFixed(app.user.get("mailboxSize") / 1024 / 1024 / 1024, 2),
-                " ",
-                "GB \xA0/\xA0",
                 React.createElement(
-                    "strong",
-                    null,
-                    app.user.get("userPlan")["planData"]["bSize"] / 1000,
+                    "div",
+                    { className: "used_one" },
+                    accounting.toFixed(app.user.get("mailboxSize") / 1024 / 1024 / 1024, 2),
                     " ",
                     "GB"
+                ),
+                " ",
+                React.createElement(
+                    "span",
+                    null,
+                    "\xA0/\xA0",
+                    React.createElement(
+                        "strong",
+                        null,
+                        app.user.get("userPlan")["planData"]["bSize"] / 1000,
+                        " ",
+                        "GB"
+                    )
                 )
             );
         },
@@ -173,6 +183,18 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
             }
         },
 
+        unopenedBadge: function (unOpenedIndex, mainFoldersIndex, sentFolderId, trashFolderId) {
+            if (unOpenedIndex == 0 || mainFoldersIndex == sentFolderId || mainFoldersIndex == trashFolderId) {
+                return null;
+            } else {
+                return React.createElement(
+                    "span",
+                    { className: "number-badge" },
+                    unOpenedIndex
+                );
+            }
+        },
+
         render: function () {
             var st1 = {
                 height: "10px",
@@ -186,183 +208,350 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
 
             return React.createElement(
                 "div",
-                { className: "left-side" },
+                null,
                 React.createElement(
                     "div",
-                    { className: "left-container" },
+                    { className: "left-side" },
                     React.createElement(
                         "div",
-                        { className: "logo" },
-                        React.createElement(
-                            "a",
-                            { href: "#" },
-                            React.createElement("img", {
-                                src: "images/logo.svg",
-                                alt: "",
-                                className: "light-theme-logo"
-                            }),
-                            " ",
-                            React.createElement("img", {
-                                src: "images/logo-white.svg",
-                                alt: "",
-                                className: "dark-theme-logo"
-                            })
-                        )
-                    ),
-                    React.createElement(
-                        "div",
-                        { className: "new-message-btn" },
-                        React.createElement(
-                            "button",
-                            {
-                                onClick: this.handleClick.bind(this, "composeEmail")
-                            },
-                            "New message"
-                        )
-                    ),
-                    React.createElement(
-                        "div",
-                        { className: "main-menu" },
-                        React.createElement(
-                            "ul",
-                            null,
-                            Object.keys(this.state.mainFolders).map(function (folderData, i) {
-                                return React.createElement(
-                                    "li",
-                                    {
-                                        key: "liM_" + this.state.mainFolders[folderData]["index"],
-                                        className: " " + (this.state.mainFolders[folderData]["role"] == "Inbox" ? "active" : this.state.unopened[this.state.mainFolders[folderData]["index"]] == 0 ? "" : "active")
-                                    },
-                                    React.createElement(
-                                        "a",
-                                        {
-                                            key: "aM_" + i,
-                                            id: this.state.mainFolders[folderData]["index"],
-                                            onClick: this.handleChange.bind(this, "switchFolder"),
-                                            "data-name": this.state.mainFolders[folderData]["name"]
-                                        },
-                                        this.systemFolderIcon(this.state.mainFolders[folderData]["name"]),
-                                        this.state.mainFolders[folderData]["name"] + " " + (this.state.unopened[this.state.mainFolders[folderData]["index"]] == 0 || this.state.mainFolders[folderData]["index"] == app.user.get("systemFolders")["sentFolderId"] || this.state.mainFolders[folderData]["index"] == app.user.get("systemFolders")["trashFolderId"] ? "" : '<span class="number-badge">' + this.state.unopened[this.state.mainFolders[folderData]["index"]] + "</span>")
-                                    )
-                                );
-                            }, this)
-                        )
-                    ),
-                    React.createElement(
-                        "div",
-                        { className: "folder-menu" },
+                        { className: "left-container" },
                         React.createElement(
                             "div",
-                            { className: "add-folder" },
-                            React.createElement("button", {
-                                onClick: this.handleClick.bind(this, "addFolder")
-                            })
+                            { className: "logo" },
+                            React.createElement(
+                                "a",
+                                { href: "#" },
+                                React.createElement("img", {
+                                    src: "images/logo.svg",
+                                    alt: "",
+                                    className: "light-theme-logo"
+                                }),
+                                " ",
+                                React.createElement("img", {
+                                    src: "images/logo-white.svg",
+                                    alt: "",
+                                    className: "dark-theme-logo"
+                                })
+                            )
                         ),
                         React.createElement(
                             "div",
-                            { className: "accordion", id: "accordionExample" },
+                            { className: "new-message-btn" },
+                            React.createElement(
+                                "button",
+                                {
+                                    onClick: this.handleClick.bind(this, "composeEmail")
+                                },
+                                "New message"
+                            )
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "main-menu" },
+                            React.createElement(
+                                "ul",
+                                { id: "folderul" },
+                                Object.keys(this.state.mainFolders).map(function (folderData, i) {
+                                    return React.createElement(
+                                        "li",
+                                        {
+                                            key: "liM_" + this.state.mainFolders[folderData]["index"],
+                                            className: `${ this.state.mainFolders[folderData]["role"] == "Inbox" ? "active" : "" }`
+                                        },
+                                        React.createElement(
+                                            "a",
+                                            {
+                                                key: "aM_" + i,
+                                                id: this.state.mainFolders[folderData]["index"],
+                                                onClick: this.handleChange.bind(this, "switchFolder"),
+                                                "data-name": this.state.mainFolders[folderData]["name"]
+                                            },
+                                            this.systemFolderIcon(this.state.mainFolders[folderData]["name"]),
+                                            this.state.mainFolders[folderData]["name"],
+                                            " ",
+                                            this.unopenedBadge(this.state.unopened[this.state.mainFolders[folderData]["index"]], this.state.mainFolders[folderData]["index"], app.user.get("systemFolders")["sentFolderId"], app.user.get("systemFolders")["trashFolderId"])
+                                        )
+                                    );
+                                }, this)
+                            )
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "folder-menu" },
                             React.createElement(
                                 "div",
-                                { className: "accordion-item" },
-                                React.createElement(
-                                    "h2",
-                                    {
-                                        className: "accordion-header",
-                                        id: "headingOne"
-                                    },
-                                    React.createElement(
-                                        "button",
-                                        {
-                                            className: "accordion-button",
-                                            type: "button",
-                                            "data-bs-toggle": "collapse",
-                                            "data-bs-target": "#collapseOne",
-                                            "aria-expanded": "true",
-                                            "aria-controls": "collapseOne"
-                                        },
-                                        " ",
-                                        "Folders",
-                                        " "
-                                    )
-                                ),
+                                { className: "add-folder" },
+                                React.createElement("button", {
+                                    onClick: this.handleClick.bind(this, "addFolder")
+                                })
+                            ),
+                            React.createElement(
+                                "div",
+                                {
+                                    className: "accordion",
+                                    id: "accordionExample"
+                                },
                                 React.createElement(
                                     "div",
-                                    {
-                                        id: "collapseOne",
-                                        className: "accordion-collapse collapse show",
-                                        "aria-labelledby": "headingOne",
-                                        "data-bs-parent": "#accordionExample"
-                                    },
+                                    { className: "accordion-item" },
+                                    React.createElement(
+                                        "h2",
+                                        {
+                                            className: "accordion-header",
+                                            id: "headingOne"
+                                        },
+                                        React.createElement(
+                                            "button",
+                                            {
+                                                className: "accordion-button",
+                                                type: "button",
+                                                "data-bs-toggle": "collapse",
+                                                "data-bs-target": "#collapseOne",
+                                                "aria-expanded": "true",
+                                                "aria-controls": "collapseOne"
+                                            },
+                                            " ",
+                                            "Folders",
+                                            " "
+                                        )
+                                    ),
                                     React.createElement(
                                         "div",
-                                        { className: "accordion-body" },
+                                        {
+                                            id: "collapseOne",
+                                            className: "accordion-collapse collapse show",
+                                            "aria-labelledby": "headingOne",
+                                            "data-bs-parent": "#accordionExample"
+                                        },
                                         React.createElement(
-                                            "ul",
-                                            null,
-                                            this.state.customFolders.map(function (folderData, i) {
-                                                React.createElement(
-                                                    "li",
-                                                    {
-                                                        key: "li_" + folderData["index"],
-                                                        className: " " + (folderData["role"] == "Inbox" ? "active" : this.state.unopened[folderData["index"]] == 0 ? "" : "active")
-                                                    },
+                                            "div",
+                                            { className: "accordion-body" },
+                                            React.createElement(
+                                                "ul",
+                                                { id: "folderulcustom" },
+                                                this.state.customFolders.map(function (folderData, i) {
                                                     React.createElement(
-                                                        "a",
+                                                        "li",
                                                         {
-                                                            key: "a_" + i,
-                                                            id: folderData["index"],
-                                                            onClick: this.handleChange.bind(this, "switchFolder")
+                                                            key: "li_" + folderData["index"],
+                                                            className: " " + (folderData["role"] == "Inbox" ? "active" : this.state.unopened[folderData["index"]] == 0 ? "" : "active")
                                                         },
-                                                        folderData["name"] + " " + (this.state.unopened[folderData["index"]] == 0 ? "" : '<span className="number-badge">' + this.state.unopened[folderData["index"]] + "</span>")
-                                                    )
-                                                );
-                                            }, this)
+                                                        React.createElement(
+                                                            "a",
+                                                            {
+                                                                key: "a_" + i,
+                                                                id: folderData["index"],
+                                                                onClick: this.handleChange.bind(this, "switchFolder")
+                                                            },
+                                                            folderData["name"] + " " + (this.state.unopened[folderData["index"]] == 0 ? "" : '<span className="number-badge">' + this.state.unopened[folderData["index"]] + "</span>")
+                                                        )
+                                                    );
+                                                }, this)
+                                            )
                                         )
                                     )
                                 )
+                            )
+                        )
+                    ),
+                    React.createElement(
+                        "div",
+                        { className: "left-bottom" },
+                        React.createElement(
+                            "div",
+                            { className: "left-cta" },
+                            React.createElement(
+                                "div",
+                                { className: "call-to-action" },
+                                React.createElement(
+                                    "div",
+                                    { className: "cta-title" },
+                                    "Let's explore the full",
+                                    React.createElement("br", null),
+                                    "version of your mailbox"
+                                ),
+                                React.createElement(
+                                    "div",
+                                    { className: "white-btn" },
+                                    React.createElement(
+                                        "a",
+                                        { href: "#" },
+                                        "Discover Pro"
+                                    )
+                                )
+                            )
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "storage" },
+                            React.createElement(
+                                "div",
+                                { className: "storage-count" },
+                                this.boxSize()
+                            ),
+                            React.createElement(
+                                "div",
+                                { className: "storage-bar" },
+                                React.createElement("span", { style: st3 })
                             )
                         )
                     )
                 ),
                 React.createElement(
                     "div",
-                    { className: "left-bottom" },
+                    {
+                        className: "offcanvas offcanvas-start",
+                        tabIndex: "-1",
+                        id: "offcanvasLeft",
+                        "aria-label": "offcanvasLeftLabel"
+                    },
                     React.createElement(
                         "div",
-                        { className: "left-cta" },
+                        { className: "offcanvas-header" },
                         React.createElement(
                             "div",
-                            { className: "call-to-action" },
+                            { className: "logo" },
                             React.createElement(
-                                "div",
-                                { className: "cta-title" },
-                                "Let's explore the full",
-                                React.createElement("br", null),
-                                "version of your mailbox"
-                            ),
-                            React.createElement(
-                                "div",
-                                { className: "white-btn" },
-                                React.createElement(
-                                    "a",
-                                    { href: "#" },
-                                    "Discover Pro"
-                                )
+                                "a",
+                                { href: "#" },
+                                React.createElement("img", {
+                                    src: "images/logo.svg",
+                                    alt: "",
+                                    className: "light-theme-logo"
+                                })
                             )
-                        )
+                        ),
+                        React.createElement("button", {
+                            type: "button",
+                            className: "btn-close text-reset",
+                            "data-bs-dismiss": "offcanvas",
+                            "aria-label": "Close"
+                        })
                     ),
                     React.createElement(
                         "div",
-                        { className: "storage" },
+                        { className: "offcanvas-body" },
                         React.createElement(
                             "div",
-                            { className: "storage-count" },
-                            this.boxSize()
+                            { className: "main-menu" },
+                            React.createElement(
+                                "ul",
+                                { id: "folderul" },
+                                Object.keys(this.state.mainFolders).map(function (folderData, i) {
+                                    return React.createElement(
+                                        "li",
+                                        {
+                                            key: "liM_" + this.state.mainFolders[folderData]["index"],
+                                            className: `${ this.state.mainFolders[folderData]["role"] == "Inbox" ? "active" : "" }`
+                                        },
+                                        React.createElement(
+                                            "a",
+                                            {
+                                                key: "aM_" + i,
+                                                id: this.state.mainFolders[folderData]["index"],
+                                                onClick: this.handleChange.bind(this, "switchFolder"),
+                                                "data-name": this.state.mainFolders[folderData]["name"]
+                                            },
+                                            this.systemFolderIcon(this.state.mainFolders[folderData]["name"]),
+                                            this.state.mainFolders[folderData]["name"],
+                                            " ",
+                                            this.unopenedBadge(this.state.unopened[this.state.mainFolders[folderData]["index"]], this.state.mainFolders[folderData]["index"], app.user.get("systemFolders")["sentFolderId"], app.user.get("systemFolders")["trashFolderId"])
+                                        )
+                                    );
+                                }, this)
+                            )
                         ),
                         React.createElement(
                             "div",
-                            { className: "storage-bar" },
-                            React.createElement("span", { style: st3 })
+                            { className: "folder-menu" },
+                            React.createElement(
+                                "div",
+                                { className: "add-folder" },
+                                React.createElement("button", {
+                                    onClick: this.handleClick.bind(this, "addFolder")
+                                })
+                            ),
+                            React.createElement(
+                                "div",
+                                {
+                                    className: "accordion",
+                                    id: "accordionExample"
+                                },
+                                React.createElement(
+                                    "div",
+                                    { className: "accordion-item" },
+                                    React.createElement(
+                                        "h2",
+                                        {
+                                            className: "accordion-header",
+                                            id: "headingOne"
+                                        },
+                                        React.createElement(
+                                            "button",
+                                            {
+                                                className: "accordion-button",
+                                                type: "button",
+                                                "data-bs-toggle": "collapse",
+                                                "data-bs-target": "#collapseOne",
+                                                "aria-expanded": "true",
+                                                "aria-controls": "collapseOne"
+                                            },
+                                            " ",
+                                            "Folders",
+                                            " "
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "div",
+                                        {
+                                            id: "collapseOne",
+                                            className: "accordion-collapse collapse show",
+                                            "aria-labelledby": "headingOne",
+                                            "data-bs-parent": "#accordionExample"
+                                        },
+                                        React.createElement(
+                                            "div",
+                                            { className: "accordion-body" },
+                                            React.createElement(
+                                                "ul",
+                                                { id: "folderulcustom" },
+                                                this.state.customFolders.map(function (folderData, i) {
+                                                    React.createElement(
+                                                        "li",
+                                                        {
+                                                            key: "li_" + folderData["index"],
+                                                            className: " " + (folderData["role"] == "Inbox" ? "active" : this.state.unopened[folderData["index"]] == 0 ? "" : "active")
+                                                        },
+                                                        React.createElement(
+                                                            "a",
+                                                            {
+                                                                key: "a_" + i,
+                                                                id: folderData["index"],
+                                                                onClick: this.handleChange.bind(this, "switchFolder")
+                                                            },
+                                                            folderData["name"] + " " + (this.state.unopened[folderData["index"]] == 0 ? "" : '<span className="number-badge">' + this.state.unopened[folderData["index"]] + "</span>")
+                                                        )
+                                                    );
+                                                }, this)
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "storage" },
+                            React.createElement(
+                                "div",
+                                { className: "storage-count" },
+                                this.boxSize()
+                            ),
+                            React.createElement(
+                                "div",
+                                { className: "storage-bar" },
+                                React.createElement("span", { style: st3 })
+                            )
                         )
                     )
                 )

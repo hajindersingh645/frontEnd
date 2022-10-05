@@ -1,21 +1,37 @@
 define(["react", "app", "accounting"], function (React, app, accounting) {
     return React.createClass({
+        handleCopyEmail: function () {
+            const _this = this;
+            if (!navigator.clipboard) {} else {
+                const emailElement = document.getElementsByClassName("user-email")[0];
+                navigator.clipboard.writeText(emailElement.innerHTML).then(function () {
+                    $("#email-copy").removeClass("hide").addClass("show");
+                    _this.hideCopyEmailNotification();
+                });
+            }
+        },
+        hideCopyEmailNotification: function () {
+            setTimeout(function () {
+                $("#email-copy").removeClass("show").addClass("hide");
+            }, 1500);
+        },
         render: function () {
             return React.createElement(
                 "div",
                 null,
                 React.createElement(
                     "div",
-                    { className: "position-fixed  end-0 toast-index show" },
+                    { className: "position-fixed end-0 toast-index show" },
                     React.createElement(
                         "div",
                         {
-                            className: "toast align-items-center text-white bg-primary border-0",
+                            className: "toast align-items-center text-white bg-primary border-0 fade hide",
                             role: "alert",
                             "aria-live": "assertive",
                             "aria-atomic": "true",
                             autohide: "true",
-                            "data-bs-delay": "1500"
+                            "data-bs-delay": "1500",
+                            id: "email-copy"
                         },
                         React.createElement(
                             "div",
@@ -23,12 +39,11 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                             React.createElement(
                                 "div",
                                 { className: "toast-body" },
-                                " ",
                                 React.createElement("span", { className: "toast-icon" }),
                                 React.createElement(
                                     "div",
-                                    null,
-                                    "Email Copy "
+                                    { className: "d-inline-block" },
+                                    "Email Copy"
                                 )
                             )
                         )
@@ -43,6 +58,15 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                         React.createElement(
                             "a",
                             { href: "#" },
+                            React.createElement(
+                                "div",
+                                { className: "menu-icon on-left-side" },
+                                React.createElement("button", {
+                                    "data-bs-toggle": "offcanvas",
+                                    "data-bs-target": "#offcanvasLeft",
+                                    "aria-controls": "offcanvasLeft"
+                                })
+                            ),
                             React.createElement("img", {
                                 src: "images/logo.svg",
                                 alt: "",
@@ -96,7 +120,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                     React.createElement(
                                         "span",
                                         { className: "user-email" },
-                                        "Sepide_moqadasi@y.."
+                                        "Sepide_moqadasi@yahoo.co.in"
                                     ),
                                     " "
                                 ),
@@ -113,7 +137,8 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                             "button",
                                             {
                                                 className: "copy-icon",
-                                                id: "email-copy"
+                                                id: "email-copy",
+                                                onClick: this.handleCopyEmail.bind(this)
                                             },
                                             "Copy my email address"
                                         )

@@ -1,22 +1,43 @@
 define(["react", "app", "accounting"], function (React, app, accounting) {
     return React.createClass({
+        handleCopyEmail: function () {
+            const _this = this;
+            if (!navigator.clipboard) {
+            } else {
+                const emailElement =
+                    document.getElementsByClassName("user-email")[0];
+                navigator.clipboard
+                    .writeText(emailElement.innerHTML)
+                    .then(function () {
+                        $("#email-copy").removeClass("hide").addClass("show");
+                        _this.hideCopyEmailNotification();
+                    });
+            }
+        },
+        hideCopyEmailNotification: function () {
+            setTimeout(function () {
+                $("#email-copy").removeClass("show").addClass("hide");
+            }, 1500);
+        },
         render: function () {
             return (
                 <div>
-                    <div className="position-fixed  end-0 toast-index show">
+                    <div className="position-fixed end-0 toast-index show">
                         <div
-                            className="toast align-items-center text-white bg-primary border-0"
+                            className="toast align-items-center text-white bg-primary border-0 fade hide"
                             role="alert"
                             aria-live="assertive"
                             aria-atomic="true"
                             autohide="true"
                             data-bs-delay="1500"
+                            id="email-copy"
                         >
                             <div className="d-flex">
                                 <div className="toast-body">
-                                    {" "}
                                     <span className="toast-icon"></span>
-                                    <div>Email Copy </div>
+                                    <div className="d-inline-block">
+                                        Email Copy
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -24,6 +45,13 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                     <header>
                         <div className="logo-2">
                             <a href="#">
+                                <div className="menu-icon on-left-side">
+                                    <button
+                                        data-bs-toggle="offcanvas"
+                                        data-bs-target="#offcanvasLeft"
+                                        aria-controls="offcanvasLeft"
+                                    ></button>
+                                </div>
                                 <img
                                     src="images/logo.svg"
                                     alt=""
@@ -60,7 +88,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                         <span className="arrow"></span>
                                         <br />
                                         <span className="user-email">
-                                            Sepide_moqadasi@y..
+                                            Sepide_moqadasi@yahoo.co.in
                                         </span>{" "}
                                     </button>
                                     <ul
@@ -71,6 +99,9 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                             <button
                                                 className="copy-icon"
                                                 id="email-copy"
+                                                onClick={this.handleCopyEmail.bind(
+                                                    this
+                                                )}
                                             >
                                                 Copy my email address
                                             </button>

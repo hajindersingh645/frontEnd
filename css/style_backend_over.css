@@ -370,11 +370,37 @@ progress {
     }
 }
 /* CUSTOM - CSS */
-.left-side .main-menu ul li a {
+.main-menu ul li a:hover {
+    color: #2277f6 !important;
+}
+.mail-data.emailNo {
+    padding-top: 0px;
+}
+header {
+    border-bottom: 0px;
+}
+.storage-count .used_one {
+    display: inline-block;
+}
+.storage-count .used_one,
+.storage-count .used_one span {
+    color: #415067 !important;
+    opacity: 1;
+    font-weight: 700;
+}
+.left-side .main-menu ul li a,
+.offcanvas-body .main-menu ul li a {
     cursor: pointer;
 }
-.left-side .main-menu ul li a > * {
+.left-side .main-menu ul li a > *,
+.offcanvas-body .main-menu ul li a > * {
     pointer-events: none;
+}
+.offcanvas-start {
+    width: 290px;
+}
+.offcanvas-start .offcanvas-header .btn-close {
+    top: 20px;
 }
 #inboxList > li > * {
     pointer-events: none;
@@ -412,4 +438,77 @@ progress {
     right: 0;
     bottom: 0;
     z-index: 1000;
+}
+.right-side
+    .email-conetent-wrp
+    .email-content-top-left
+    .sender-detail-dropdown
+    .dropdown-menu
+    li
+    span {
+    opacity: 1;
+    position: static;
+    font-size: 12px;
+    padding: 0;
+    font-weight: normal;
+}
+.right-side
+    .email-conetent-wrp
+    .email-content-top-left
+    .sender-detail-dropdown
+    .dropdown-menu
+    li.sent_date_time
+    > div {
+    font-size: 11px;
+}
+.right-side
+    .email-conetent-wrp
+    .email-content-top-left
+    .sender-detail-dropdown
+    .dropdown-menu
+    li
+    > span {
+    opacity: 0.6;
+    position: absolute;
+}
+#referesh-btn > * {
+    pointer-events: none;
+}
+.offcanvas {
+    visibility: visible;
+}
+header .menu-icon.on-left-side {
+    padding: 1px 32px 0 0;
+}
+@media screen and (min-width: 1366px) {
+    .middle-section .middle-content {
+        height: calc(100vh - 171px);
+    }
+    .right-side {
+        display: block !important;
+    }
+}
+@media screen and (min-width: 992px) {
+    header,
+    header .user-dropdown .btn-secondary {
+        background-color: transparent;
+    }
+    .offcanvas-header .user-name-side-menu,
+    .offcanvas-header .user-side-menu {
+        display: block;
+    }
+}
+@media screen and (min-width: 992px) and (max-width: 1365px) {
+    .middle-section .middle-top {
+        padding-top: 18px;
+    }
+    .middle-section .middle-top .desktop-search {
+        position: absolute;
+        top: 33px;
+        width: 39%;
+        z-index: 999999999;
+    }
+    .middle-section .middle-top .info-row {
+        padding-top: 0px;
+    }
 }

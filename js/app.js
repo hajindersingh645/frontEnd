@@ -167,6 +167,16 @@ var App = (function () {
         }
     };
 
+    const refresh = function () {
+        try {
+            $("body").on("click", "referesh-btn", function () {
+                console.log(`clicked refresh`);
+            });
+        } catch (e) {
+            console.log(`well`);
+        }
+    };
+
     return {
         init: function () {
             loadSlider();
@@ -174,6 +184,7 @@ var App = (function () {
             ToolTip();
             mailToggleMobile();
             copyEmail();
+            refresh();
         },
     };
 })();
