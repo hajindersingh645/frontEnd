@@ -51,9 +51,10 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
 
                         app.mixins.canNavigate(function (decision) {
                             if (decision) {
-                                $("#mMiddlePanelTop").removeClass(
-                                    " hidden-xs hidden-sm hidden-md"
-                                );
+                                // $("#mMiddlePanelTop").removeClass(
+                                //     " hidden-xs hidden-sm hidden-md"
+                                // );
+                                $("#appRightSide").css("display", "none");
                                 var folder =
                                     app.user.get("folders")[
                                         $(event.target).attr("id")

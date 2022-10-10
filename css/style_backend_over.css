@@ -480,6 +480,174 @@ header {
 header .menu-icon.on-left-side {
     padding: 1px 32px 0 0;
 }
+/* DataTables Styles */
+#emailListTable_info {
+    font-size: 12px;
+}
+#emailListNavigation {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 10px;
+    border-bottom: 1px solid #fff;
+}
+.dataTables_paginate.paging_simple .pagination {
+    border: 2px solid #fff;
+    border-radius: 10px;
+    padding: 5px 10px;
+    position: relative;
+    overflow: hidden;
+}
+.dataTables_paginate.paging_simple .pagination li {
+    border: 0;
+    width: auto;
+    padding: 0;
+}
+.paging_simple .pagination a {
+    display: block;
+    border: none;
+    padding: 0;
+    height: 24px;
+    width: 24px;
+    opacity: 0.6;
+}
+.paging_simple .pagination .previous a {
+    background: url(../images/icon-arrow-left.svg) no-repeat left top;
+    background-size: 24px;
+}
+.paging_simple .pagination .next a {
+    background: url(../images/icon-arrow-right.svg) no-repeat left top;
+    background-size: 24px;
+}
+.middle-section .inbox-list table tr:hover {
+    background-color: #f1f6fd;
+}
+.middle-section .inbox-list table td {
+    padding: 0;
+    border-bottom: 1px solid #fff;
+}
+.middle-section .inbox-list table td > .email {
+    width: 100%;
+    float: left;
+    padding: 20px 60px 20px 50px;
+    position: relative;
+    cursor: pointer;
+}
+.middle-section .inbox-list table .date-time {
+    width: auto;
+    float: right;
+    position: absolute;
+    right: 15px;
+    top: 23px;
+    font-size: 12px;
+    opacity: 0.6;
+}
+.middle-section .inbox-list table .select-checkbox {
+    width: auto;
+    position: absolute;
+    left: 15px;
+    top: 23px;
+}
+.middle-section .inbox-list table .inbox-list-top {
+    width: 100%;
+    float: left;
+    font-size: 12px;
+}
+.middle-section .inbox-list table .inbox-list-top {
+    color: rgba(8, 13, 19, 0.6);
+}
+.middle-section .inbox-list table .mail-title {
+    width: 100%;
+    float: left;
+    font-size: 13px;
+    line-height: 18px;
+    padding: 7px 0 0 0;
+    letter-spacing: -0.02em;
+}
+.middle-section .inbox-list table .inbox-list-top .unread-bullet {
+    width: 8px;
+    height: 8px;
+    display: inline-block;
+    background: #f05e30;
+    border-radius: 50%;
+    margin: 0 0 0 8px;
+    position: relative;
+    top: 0px;
+    display: none;
+}
+.middle-section .inbox-list table .email.unread .inbox-list-top .unread-bullet {
+    display: inline-block;
+}
+.middle-section .inbox-list table p {
+    width: 100%;
+    float: left;
+    padding: 5px 0 0 0;
+    margin: 0;
+    font-size: 12px;
+    line-height: 140%;
+    letter-spacing: -0.02em;
+    opacity: 0.6;
+}
+.middle-section .inbox-list table .email.unread {
+    font-weight: 700;
+}
+
+.middle-section .inbox-list table tr:hover .inbox-list-top {
+    color: #080d13;
+}
+.middle-section .inbox-list table tr:hover p {
+    opacity: 1;
+}
+.middle-section .inbox-list table tr.selected:hover {
+    background: #fff;
+}
+#emailListTable tr.selected {
+    background: #fff;
+    box-shadow: -24px 40px 96px rgb(34 91 175 / 10%);
+    border-radius: 16px;
+    position: relative;
+}
+#emailListTable tr.selected::after {
+    width: 4px;
+    height: 70px;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin: -35px 0 0 0;
+    border-radius: 0 5px 5px 0;
+    content: "";
+    background: #2277f6;
+}
+.table-hover > tbody > tr:hover > * {
+    --bs-table-accent-bg: inherit;
+}
+/* DataTables Styles */
+.ellipsis-dropdown button {
+    width: auto;
+    height: auto;
+    float: none;
+    clear: both;
+}
+.arrow-btn.ellipsis-dropdown {
+    margin: 0;
+}
+.arrow-btn.ellipsis-dropdown .dropdown > button {
+    background: url(../images/icon-ellipsis.svg) no-repeat left top;
+    background-size: 24px;
+}
+.arrow-btn.ellipsis-dropdown .dropdown > button {
+    width: 24px;
+    height: 24px;
+    float: left;
+    border: none;
+    padding: 0;
+}
+.dropstart .dropdown-toggle:before {
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+}
 @media screen and (min-width: 1366px) {
     .middle-section .middle-content {
         height: calc(100vh - 171px);
@@ -496,6 +664,15 @@ header .menu-icon.on-left-side {
     .offcanvas-header .user-name-side-menu,
     .offcanvas-header .user-side-menu {
         display: block;
+    }
+    .middle-section .inbox-list table .date-time {
+        right: 33px;
+    }
+    .middle-section .inbox-list table td > .email {
+        padding: 20px 80px 20px 60px;
+    }
+    .middle-section .inbox-list table .select-checkbox {
+        left: 24px;
     }
 }
 @media screen and (min-width: 992px) and (max-width: 1365px) {
