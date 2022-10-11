@@ -22,6 +22,7 @@ define(["react", "app"], function (React, app) {
                 renderFull: false,
                 pgpEncrypted: false,
                 decryptedEmail: false,
+                emailLoading: false,
                 //emailHasPin
             };
         },
@@ -57,6 +58,7 @@ define(["react", "app"], function (React, app) {
                         renderFull: false,
                         pgpEncrypted: false,
                         decryptedEmail: false,
+                        emailLoading: false,
                     });
 
                     this.renderEmail();
@@ -222,6 +224,10 @@ define(["react", "app"], function (React, app) {
             }
         },
         renderEmail: function () {
+            this.setState({
+                emailLoading: true,
+                hideEmailRead: true,
+            });
             if (
                 app.user.get("currentMessageView")["id"] !== undefined &&
                 app.user.get("currentMessageView")["id"] != ""
@@ -612,6 +618,9 @@ define(["react", "app"], function (React, app) {
 
                 thisComp.setState({
                     hideEmailRead: false,
+                });
+                thisComp.setState({
+                    emailLoading: false,
                 });
                 this.verifySignature();
             }
@@ -1343,7 +1352,10 @@ define(["react", "app"], function (React, app) {
                     <div className="email-conetent-wrp">
                         <div
                             className={`mail-data emailNo ${
-                                this.state.hideEmailRead ? "" : "d-none"
+                                this.state.hideEmailRead &&
+                                this.state.emailLoading === false
+                                    ? ""
+                                    : "d-none"
                             }`}
                         >
                             <h1>{`Please Select Email`}</h1>
@@ -1361,6 +1373,18 @@ define(["react", "app"], function (React, app) {
                                 Comments or question? <br /> Please contact us
                                 at <strong>cyberfear@cyberfear.com</strong>
                             </p>
+                        </div>
+                        <div
+                            className={
+                                this.state.emailLoading &&
+                                this.state.hideEmailRead
+                                    ? ""
+                                    : "d-none"
+                            }
+                        >
+                            <h3 style={{ textAlign: "center" }}>
+                                Decrypting...
+                            </h3>
                         </div>
                         <div
                             className={`email-content-top ${

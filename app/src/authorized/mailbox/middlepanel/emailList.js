@@ -13,6 +13,7 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                 allChecked: false,
                 emailList: [],
                 showPreview: true,
+                checkNewMails: false,
             };
         },
         componentWillReceiveProps: function (nextProps) {
@@ -428,9 +429,18 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                 showPreview: !thisComp.state.showPreview,
             });
         },
+        componentWillUnmount: function () {
+            app.user.off("change:checkNewEmails");
+        },
         componentDidMount: function () {
             var dtSet = this.state.dataSet;
             var thisComp = this;
+
+            app.user.on("change:checkNewEmails", function () {
+                thisComp.setState({
+                    checkNewMails: app.user.get("checkNewEmails"),
+                });
+            });
 
             $("#emailListTable").dataTable({
                 dom: '<"#checkAll"><"#emailListNavigation"pi>rt<"pull-right"p><"pull-right"i>',
@@ -594,6 +604,8 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
             }
         },
         handleRefreshButton: function (event) {
+            app.mailMan.startShift();
+
             const _event = event;
             _event.target.children[0].classList.add("spin-animation");
             this.removeRefreshClass(_event.target.children[0]);

@@ -21,7 +21,8 @@ define(["react", "app"], function (React, app) {
                 toggleHTMLtext: "html",
                 renderFull: false,
                 pgpEncrypted: false,
-                decryptedEmail: false
+                decryptedEmail: false,
+                emailLoading: false
             };
         },
         componentWillUnmount: function () {
@@ -53,7 +54,8 @@ define(["react", "app"], function (React, app) {
                     toggleHTMLtext: "html",
                     renderFull: false,
                     pgpEncrypted: false,
-                    decryptedEmail: false
+                    decryptedEmail: false,
+                    emailLoading: false
                 });
 
                 this.renderEmail();
@@ -213,6 +215,10 @@ define(["react", "app"], function (React, app) {
             }
         },
         renderEmail: function () {
+            this.setState({
+                emailLoading: true,
+                hideEmailRead: true
+            });
             if (app.user.get("currentMessageView")["id"] !== undefined && app.user.get("currentMessageView")["id"] != "") {
                 clearTimeout(app.user.get("emailOpenTimeOut"));
 
@@ -501,6 +507,9 @@ define(["react", "app"], function (React, app) {
 
                 thisComp.setState({
                     hideEmailRead: false
+                });
+                thisComp.setState({
+                    emailLoading: false
                 });
                 this.verifySignature();
             }
@@ -1088,7 +1097,7 @@ define(["react", "app"], function (React, app) {
                     React.createElement(
                         "div",
                         {
-                            className: `mail-data emailNo ${ this.state.hideEmailRead ? "" : "d-none" }`
+                            className: `mail-data emailNo ${ this.state.hideEmailRead && this.state.emailLoading === false ? "" : "d-none" }`
                         },
                         React.createElement(
                             "h1",
@@ -1122,6 +1131,17 @@ define(["react", "app"], function (React, app) {
                                 null,
                                 "cyberfear@cyberfear.com"
                             )
+                        )
+                    ),
+                    React.createElement(
+                        "div",
+                        {
+                            className: this.state.emailLoading && this.state.hideEmailRead ? "" : "d-none"
+                        },
+                        React.createElement(
+                            "h3",
+                            { style: { textAlign: "center" } },
+                            "Decrypting..."
                         )
                     ),
                     React.createElement(

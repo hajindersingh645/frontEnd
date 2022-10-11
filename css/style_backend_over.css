@@ -426,6 +426,7 @@ header {
     border-radius: 0;
     color: #ff0000;
     text-decoration: underline;
+    vertical-align: top;
 }
 #overlay {
     position: fixed;
