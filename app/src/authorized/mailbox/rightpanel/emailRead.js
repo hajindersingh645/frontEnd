@@ -1513,7 +1513,9 @@ define(["react", "app"], function (React, app) {
                                 </div>
                             </div>
                         </div>
-                        <div className={`real-sender`}>
+                        <div className={`real-sender ${
+                                this.state.hideEmailRead ? "d-none" : ""
+                            }`}>
                             <div>sender: {this.state.from}</div>
                         </div>
                         <div

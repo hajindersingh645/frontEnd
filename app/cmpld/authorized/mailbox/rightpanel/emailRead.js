@@ -1372,7 +1372,7 @@ define(["react", "app"], function (React, app) {
                     ),
                     React.createElement(
                         "div",
-                        { className: `real-sender` },
+                        { className: `real-sender ${ this.state.hideEmailRead ? "d-none" : "" }` },
                         React.createElement(
                             "div",
                             null,

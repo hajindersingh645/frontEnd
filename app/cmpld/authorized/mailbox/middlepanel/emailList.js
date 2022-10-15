@@ -405,40 +405,49 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                     break;
 
                 case "readEmail":
-                    var thisComp = this;
+                    if ($(event.target).prop("tagName").toUpperCase() !== "INPUT" && $(event.target).prop("tagName").toUpperCase() !== "SPAN") {
+                        var thisComp = this;
 
-                    var folder = app.user.get("folders")[this.props.folderId]["name"];
+                        var folder = app.user.get("folders")[this.props.folderId]["name"];
 
-                    app.mixins.canNavigate(function (decision) {
-                        if (decision) {
-                            var id = $(event.target).parents("tr").attr("id");
-                            if ($(event.target).prop("tagName") !== "INPUT" || $(event.target).prop("tagName") !== "SPAN") {
-                                app.globalF.resetCurrentMessage();
-                                app.globalF.resetDraftMessage();
+                        app.mixins.canNavigate(function (decision) {
+                            if (decision) {
+                                var id = $(event.target).parents("tr").attr("id");
+                                if ($(event.target).prop("tagName") !== "INPUT" || $(event.target).prop("tagName") !== "SPAN") {
+                                    app.globalF.resetCurrentMessage();
+                                    app.globalF.resetDraftMessage();
 
-                                Backbone.history.navigate("/mail/" + app.transform.from64str(folder), {
-                                    trigger: true
-                                });
-                                if (id != undefined && ($(event.target).attr("type") !== "checkbox" || $(event.target).prop("tagName") !== "LABEL" || $(event.target).prop("tagName") !== "SPAN") || $(event.target).prop("tagName") !== "INPUT") {
-                                    var table = $("#emailListTable").DataTable();
-                                    table.$("tr.selected").removeClass("selected");
-
-                                    $(event.target).parents("tr").toggleClass("selected");
-
-                                    $("#appRightSide").css("display", "block");
-
-                                    thisComp.setState({
-                                        messsageId: id
+                                    Backbone.history.navigate("/mail/" + app.transform.from64str(folder), {
+                                        trigger: true
                                     });
+                                    if (id != undefined && ($(event.target).attr("type") !== "checkbox" || $(event.target).prop("tagName") !== "LABEL" || $(event.target).prop("tagName") !== "SPAN") || $(event.target).prop("tagName") !== "INPUT") {
+                                        var table = $("#emailListTable").DataTable();
+                                        table.$("tr.selected").removeClass("selected");
 
-                                    app.globalF.renderEmail(id);
+                                        $(event.target).parents("tr").toggleClass("selected");
 
-                                    app.mixins.hidePopHover();
+                                        $("#appRightSide").css("display", "block");
+
+                                        thisComp.setState({
+                                            messsageId: id
+                                        });
+
+                                        app.globalF.renderEmail(id);
+
+                                        app.mixins.hidePopHover();
+                                    }
                                 }
-                            }
-                        } else {}
-                    });
-
+                            } else {}
+                        });
+                    } else {
+                        var thisComp = this;
+                        var table = $("#emailListTable").DataTable();
+                        $(event.target).parents("tr").toggleClass("selected");
+                        $("#appRightSide").css("display", "none");
+                        thisComp.setState({
+                            messsageId: ""
+                        });
+                    }
                     break;
             }
         },

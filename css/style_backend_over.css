@@ -565,6 +565,9 @@ header .menu-icon.on-left-side {
     line-height: 18px;
     padding: 7px 0 0 0;
     letter-spacing: -0.02em;
+    height: 25px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .middle-section .inbox-list table .inbox-list-top .unread-bullet {
     width: 8px;
@@ -722,6 +725,9 @@ header .menu-icon.on-left-side {
     padding-top: 13px;
     padding-bottom: 13px;
     color: #ff0000;
+}
+.middle-section .middle-content {
+    overflow-x: hidden !important;
 }
 @media screen and (min-width: 1366px) {
     .middle-section .middle-content {
