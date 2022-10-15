@@ -13,7 +13,16 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                 allChecked: false,
                 emailList: [],
                 showPreview: true,
+
+                moveFolderMain: [],
+                moveFolderCust: [],
                 checkNewMails: false,
+                trashStatus: false,
+                spamStatus: false,
+                blackList: false,
+                pastDue: false,
+                balanceShort: false,
+                hidden: true,
             };
         },
         componentWillReceiveProps: function (nextProps) {
@@ -72,7 +81,9 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                             : folderData["st"] == 2
                             ? "fa fa-mail-forward"
                             : "";
-
+                    var showPreview = thisComp.state.showPreview
+                        ? ""
+                        : "d-none";
                     var row = {
                         DT_RowId: index,
                         email: {
@@ -83,7 +94,9 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                 emailListCopy[folderId][index]["checkBpart"] +
                                 emailListCopy[folderId][index]["dateAtPart"] +
                                 emailListCopy[folderId][index]["fromPart"] +
-                                '<div class="mail-toggle"><div class="mail-title">' +
+                                '<div class="mail-toggle ' +
+                                showPreview +
+                                '"><div class="mail-title">' +
                                 emailListCopy[folderId][index]["sb"] +
                                 "</div> <p>" +
                                 emailListCopy[folderId][index]["bd"] +
@@ -359,7 +372,9 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                         tagPart: tagPart,
                         timestamp: time,
                     };
-
+                    var showPreview = thisComp.state.showPreview
+                        ? ""
+                        : "d-none";
                     var row = {
                         DT_RowId: index,
                         email: {
@@ -370,7 +385,9 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                 emailListCopy[folderId][index]["checkBpart"] +
                                 emailListCopy[folderId][index]["dateAtPart"] +
                                 emailListCopy[folderId][index]["fromPart"] +
-                                '<div class="mail-toggle"><div class="mail-title">' +
+                                '<div class="mail-toggle ' +
+                                showPreview +
+                                '"><div class="mail-title">' +
                                 emailListCopy[folderId][index]["sb"] +
                                 "</div> <p>" +
                                 emailListCopy[folderId][index]["bd"] +
@@ -400,6 +417,7 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                     },
                     function () {
                         $("#selectAll>input").prop("checked", false);
+                        $("#selectAllAlt > input").prop("checked", false);
                     }
                 );
             }
@@ -433,6 +451,9 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
             app.user.off("change:checkNewEmails");
         },
         componentDidMount: function () {
+            this.getMainFolderList();
+            this.getCustomFolderList();
+
             var dtSet = this.state.dataSet;
             var thisComp = this;
 
@@ -547,10 +568,11 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
 
                     app.mixins.canNavigate(function (decision) {
                         if (decision) {
-                            // console.log($(event.target).is("li"));
-                            // var id = $(event.target).parents("li").attr("id");
                             var id = $(event.target).parents("tr").attr("id");
-                            if (!$(event.target).is("input")) {
+                            if (
+                                $(event.target).prop("tagName") !== "INPUT" ||
+                                $(event.target).prop("tagName") !== "SPAN"
+                            ) {
                                 app.globalF.resetCurrentMessage();
                                 app.globalF.resetDraftMessage();
 
@@ -560,21 +582,16 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                         trigger: true,
                                     }
                                 );
-
                                 if (
-                                    id != undefined &&
-                                    $(event.target).attr("type") !=
-                                        "checkbox" &&
-                                    $(event.target).prop("tagName") != "LABEL"
+                                    (id != undefined &&
+                                        ($(event.target).attr("type") !==
+                                            "checkbox" ||
+                                            $(event.target).prop("tagName") !==
+                                                "LABEL" ||
+                                            $(event.target).prop("tagName") !==
+                                                "SPAN")) ||
+                                    $(event.target).prop("tagName") !== "INPUT"
                                 ) {
-                                    // $("#sdasdasd").removeClass("hidden"); - [NEW VERSION AVAILABLE BUTTON]
-                                    // TODO: check if following is needed, otherwise remove it
-                                    // $("#mMiddlePanelTop").addClass(
-                                    //     " hidden-xs hidden-sm hidden-md"
-                                    // );
-                                    // $("#mRightPanel").removeClass(
-                                    //     " hidden-xs hidden-sm hidden-md"
-                                    // );
                                     var table =
                                         $("#emailListTable").DataTable();
                                     table
@@ -609,6 +626,9 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
             const _event = event;
             _event.target.children[0].classList.add("spin-animation");
             this.removeRefreshClass(_event.target.children[0]);
+
+            $("#selectAll>input").prop("checked", false);
+            $("#selectAllAlt > input").prop("checked", false);
         },
         handleSearchChange: function (event) {
             $("#emailListTable")
@@ -622,6 +642,569 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                 _element.classList.remove("spin-animation");
             }, 500);
         },
+        handleChange: function (i, event) {
+            switch (i) {
+                case "moveToFolder":
+                    var destFolderId = $(event.target).attr("id");
+
+                    var selected = this.getSelected();
+
+                    if (selected.length > 0) {
+                        app.user.set({ currentMessageView: {} });
+
+                        app.globalF.move2Folder(
+                            destFolderId,
+                            selected,
+                            function () {
+                                app.userObjects.updateObjects(
+                                    "folderUpdate",
+                                    "",
+                                    function (result) {
+                                        $("#selectAll>input").prop(
+                                            "checked",
+                                            false
+                                        );
+                                        $("#selectAllAlt > input").prop(
+                                            "checked",
+                                            false
+                                        );
+                                        app.user.set({
+                                            resetSelectedItems: true,
+                                        });
+                                        app.globalF.syncUpdates();
+                                    }
+                                );
+                            }
+                        );
+                    } else {
+                        app.notifications.systemMessage("selectMsg");
+                    }
+
+                    break;
+                case "moveToTrash":
+                    var thisComp = this;
+                    this.setState({
+                        trashStatus: true,
+                    });
+                    var target = {};
+                    if ($(event.target).is("i")) {
+                        target = $(event.target);
+                    } else {
+                        target = $(event.target).find("i");
+                    }
+
+                    target
+                        .removeClass("fa-trash-o")
+                        .addClass("fa-refresh fa-spin");
+
+                    if (
+                        this.props.folderId ==
+                            app.user.get("systemFolders")["spamFolderId"] ||
+                        this.props.folderId ==
+                            app.user.get("systemFolders")["trashFolderId"] ||
+                        this.props.folderId ==
+                            app.user.get("systemFolders")["draftFolderId"]
+                    ) {
+                        var selected = this.getSelected();
+
+                        if (selected.length > 0) {
+                            //console.log(selected);
+                            //delete email physically;
+                            app.user.set({ currentMessageView: {} });
+
+                            app.globalF.deleteEmailsFromFolder(
+                                selected,
+                                function (emails2Delete) {
+                                    //console.log(emails2Delete);
+                                    if (emails2Delete.length > 0) {
+                                        app.userObjects.updateObjects(
+                                            "deleteEmail",
+                                            emails2Delete,
+                                            function (result) {
+                                                $("#selectAll>input").prop(
+                                                    "checked",
+                                                    false
+                                                );
+                                                $("#selectAllAlt > input").prop(
+                                                    "checked",
+                                                    false
+                                                );
+                                                app.user.set({
+                                                    resetSelectedItems: true,
+                                                });
+                                                app.globalF.syncUpdates();
+                                                app.layout.display("viewBox");
+
+                                                target
+                                                    .removeClass(
+                                                        "fa-refresh fa-spin"
+                                                    )
+                                                    .addClass("fa-trash-o");
+
+                                                thisComp.setState({
+                                                    trashStatus: false,
+                                                });
+                                            }
+                                        );
+                                    }
+                                }
+                            );
+                        } else {
+                            app.notifications.systemMessage("selectMsg");
+                            target
+                                .removeClass("fa-refresh fa-spin")
+                                .addClass("fa-trash-o");
+                            thisComp.setState({
+                                trashStatus: false,
+                            });
+                        }
+                    } else {
+                        var destFolderId =
+                            app.user.get("systemFolders")["trashFolderId"];
+                        var selected = this.getSelected();
+
+                        if (selected.length > 0) {
+                            app.user.set({ currentMessageView: {} });
+                            app.globalF.move2Folder(
+                                destFolderId,
+                                selected,
+                                function () {
+                                    app.userObjects.updateObjects(
+                                        "folderUpdate",
+                                        "",
+                                        function (result) {
+                                            $("#selectAll>input").prop(
+                                                "checked",
+                                                false
+                                            );
+                                            $("#selectAllAlt > input").prop(
+                                                "checked",
+                                                false
+                                            );
+                                            app.user.set({
+                                                resetSelectedItems: true,
+                                            });
+                                            app.globalF.syncUpdates();
+                                            app.layout.display("viewBox");
+
+                                            target
+                                                .removeClass(
+                                                    "fa-refresh fa-spin"
+                                                )
+                                                .addClass("fa-trash-o");
+
+                                            thisComp.setState({
+                                                trashStatus: false,
+                                            });
+                                        }
+                                    );
+                                }
+                            );
+                        } else {
+                            app.notifications.systemMessage("selectMsg");
+                            target
+                                .removeClass("fa-refresh fa-spin")
+                                .addClass("fa-trash-o");
+                            thisComp.setState({
+                                trashStatus: false,
+                            });
+                        }
+                    }
+
+                    break;
+
+                case "blackList":
+                    var thisComp = this;
+
+                    console.log("blacklisting");
+                    thisComp.setState({
+                        blackList: true,
+                    });
+
+                    var target = {};
+
+                    if ($(event.target).is("i")) {
+                        target = $(event.target);
+                    } else {
+                        target = $(event.target).find("i");
+                    }
+                    target
+                        .removeClass("fa-stop")
+                        .addClass("fa-refresh fa-spin");
+
+                    console.log(app.user.get("systemFolders"));
+                    var destFolderId =
+                        app.user.get("systemFolders")["trashFolderId"];
+                    var selected = this.getSelected();
+
+                    if (selected.length > 0) {
+                        var emailpromises = [];
+
+                        app.user.set({ currentMessageView: {} });
+
+                        app.globalF.move2Folder(
+                            destFolderId,
+                            selected,
+                            function () {
+                                app.userObjects.updateObjects(
+                                    "folderUpdate",
+                                    "",
+                                    function (result) {
+                                        $.each(
+                                            selected,
+                                            function (index, emailId) {
+                                                var emailMetaPromise =
+                                                    $.Deferred();
+
+                                                var email =
+                                                    app.globalF.getEmailsFromString(
+                                                        app.transform
+                                                            .from64str(
+                                                                app.user.get(
+                                                                    "emails"
+                                                                )["messages"][
+                                                                    emailId
+                                                                ]["fr"]
+                                                            )
+                                                            .toLowerCase()
+                                                    );
+                                                console.log(email);
+
+                                                var post = {
+                                                    ruleId: "",
+                                                    matchField: "emailM",
+                                                    text: email,
+                                                    destination: 0,
+                                                };
+
+                                                app.serverCall.ajaxRequest(
+                                                    "saveBlockedEmails",
+                                                    post,
+                                                    function (result) {
+                                                        if (
+                                                            result[
+                                                                "response"
+                                                            ] == "success"
+                                                        ) {
+                                                            emailMetaPromise.resolve();
+                                                        }
+                                                    }
+                                                );
+
+                                                emailpromises.push(
+                                                    emailMetaPromise
+                                                );
+                                            }
+                                        );
+
+                                        Promise.all(emailpromises).then(
+                                            function () {
+                                                app.notifications.systemMessage(
+                                                    "saved"
+                                                );
+                                                $("#selectAll>input").prop(
+                                                    "checked",
+                                                    false
+                                                );
+                                                $("#selectAllAlt > input").prop(
+                                                    "checked",
+                                                    false
+                                                );
+                                                app.user.set({
+                                                    resetSelectedItems: true,
+                                                });
+                                                app.globalF.syncUpdates();
+                                                app.layout.display("viewBox");
+
+                                                target
+                                                    .removeClass(
+                                                        "fa-spin fa-refresh"
+                                                    )
+                                                    .addClass("fa-stop");
+
+                                                thisComp.setState({
+                                                    blackList: false,
+                                                });
+                                            }
+                                        );
+                                    }
+                                );
+                            }
+                        );
+                    } else {
+                        app.notifications.systemMessage("selectMsg");
+                        target
+                            .removeClass("fa-spin fa-refresh")
+                            .addClass("fa-stop");
+
+                        thisComp.setState({
+                            blackList: false,
+                        });
+                    }
+
+                    break;
+
+                case "moveToSpam":
+                    // console.log('move to spam');
+
+                    var thisComp = this;
+
+                    thisComp.setState({
+                        spamStatus: true,
+                    });
+                    var target = {};
+
+                    if ($(event.target).is("i")) {
+                        target = $(event.target);
+                    } else {
+                        target = $(event.target).find("i");
+                    }
+
+                    target.addClass("fa-spin");
+
+                    var destFolderId =
+                        app.user.get("systemFolders")["spamFolderId"];
+                    var selected = this.getSelected();
+
+                    if (selected.length > 0) {
+                        app.user.set({ currentMessageView: {} });
+                        app.globalF.move2Folder(
+                            destFolderId,
+                            selected,
+                            function () {
+                                $.each(selected, function (index, emailId) {
+                                    var email = app.transform.from64str(
+                                        app.user.get("emails")["messages"][
+                                            emailId
+                                        ]["fr"]
+                                    );
+                                    app.globalF.createFilterRule(
+                                        "",
+                                        "sender",
+                                        "strict",
+                                        destFolderId,
+                                        app.globalF.parseEmail(email)["email"],
+                                        function () {}
+                                    );
+                                });
+
+                                app.userObjects.updateObjects(
+                                    "folderSettings",
+                                    "",
+                                    function (result) {
+                                        if (
+                                            result["response"] == "success" &&
+                                            result["data"] == "saved"
+                                        ) {
+                                            $("#selectAll>input").prop(
+                                                "checked",
+                                                false
+                                            );
+                                            $("#selectAllAlt > input").prop(
+                                                "checked",
+                                                false
+                                            );
+                                            app.user.set({
+                                                resetSelectedItems: true,
+                                            });
+                                            app.globalF.syncUpdates();
+                                            app.layout.display("viewBox");
+
+                                            target.removeClass("fa-spin");
+
+                                            thisComp.setState({
+                                                spamStatus: false,
+                                            });
+                                        }
+                                    }
+                                );
+                            }
+                        );
+                    } else {
+                        app.notifications.systemMessage("selectMsg");
+                        target.removeClass("fa-spin");
+
+                        thisComp.setState({
+                            spamStatus: false,
+                        });
+                    }
+
+                    break;
+
+                case "markAsRead":
+                    var selected = this.getSelected();
+
+                    if (selected.length > 0) {
+                        var messages = app.user.get("emails")["messages"];
+                        //var folders=app.user.get('emails')['folders'];
+
+                        $.each(selected, function (index, emailId) {
+                            //folders[messages[emailId]['f']][emailId]['st']==0?folders[messages[emailId]['f']][emailId]['st']=3:folders[messages[emailId]['f']][emailId]['st'];
+                            messages[emailId]["st"] == 0
+                                ? (messages[emailId]["st"] = 3)
+                                : messages[emailId]["st"];
+                        });
+
+                        app.userObjects.updateObjects(
+                            "folderUpdate",
+                            "",
+                            function (result) {
+                                $("#selectAll>input").prop("checked", false);
+                                $("#selectAllAlt > input").prop(
+                                    "checked",
+                                    false
+                                );
+                                app.user.set({ resetSelectedItems: true });
+                                app.globalF.syncUpdates();
+                            }
+                        );
+
+                        //app.userObjects.saveMailBox('emailsRead',{});
+                    } else {
+                        app.notifications.systemMessage("selectMsg");
+                    }
+
+                    break;
+
+                case "markAsUnread":
+                    var selected = this.getSelected();
+
+                    if (selected.length > 0) {
+                        var messages = app.user.get("emails")["messages"];
+                        //var folders=app.user.get('emails')['folders'];
+
+                        $.each(selected, function (index, emailId) {
+                            //folders[messages[emailId]['f']][emailId]['st']=0;
+                            messages[emailId]["st"] = 0;
+                        });
+
+                        app.userObjects.updateObjects(
+                            "folderUpdate",
+                            "",
+                            function (result) {
+                                $("#selectAll>input").prop("checked", false);
+                                $("#selectAllAlt > input").prop(
+                                    "checked",
+                                    false
+                                );
+                                app.user.set({ resetSelectedItems: true });
+                                app.globalF.syncUpdates();
+                            }
+                        );
+
+                        //app.userObjects.saveMailBox('emailsRead',{});
+                    } else {
+                        app.notifications.systemMessage("selectMsg");
+                    }
+
+                    break;
+            }
+        },
+        getSelected: function () {
+            var selected = [];
+
+            selected = Object.keys(app.user.get("selectedEmails"));
+
+            if (selected.length == 0) {
+                var elem = {};
+                var item = $("#emailListTable tr.selected").attr("id");
+                if (item != undefined) {
+                    selected.push(item);
+                }
+            }
+            return selected;
+        },
+        getMainFolderList: function () {
+            var mainFolderList = app.globalF.getMainFolderList();
+            var thisComp = this;
+
+            var options = [];
+            $.each(mainFolderList, function (index, folderData) {
+                if (
+                    ["Inbox", "Spam", "Trash"].indexOf(folderData["role"]) > -1
+                ) {
+                    options.push(
+                        <li key={folderData["index"]}>
+                            <a
+                                id={folderData["index"]}
+                                onClick={thisComp.handleChange.bind(
+                                    thisComp,
+                                    "moveToFolder"
+                                )}
+                            >
+                                {folderData["name"]}
+                            </a>
+                        </li>
+                    );
+                }
+            });
+
+            this.setState({
+                moveFolderMain: options,
+            });
+        },
+        getCustomFolderList: function () {
+            var folderList = app.globalF.getCustomFolderList();
+            var thisComp = this;
+
+            var options = [];
+            $.each(folderList, function (index, folderData) {
+                options.push(
+                    <li key={index}>
+                        <a
+                            id={folderData["index"]}
+                            onClick={thisComp.handleChange.bind(
+                                thisComp,
+                                "moveToFolder"
+                            )}
+                        >
+                            {folderData["name"]}
+                        </a>
+                    </li>
+                );
+            });
+            this.setState({
+                moveFolderCust: options,
+            });
+        },
+        handleSelectAll: function (event) {
+            var thisComp = this;
+            var selectedEmails = app.user.get("selectedEmails");
+            if (event.target.checked) {
+                thisComp.setState({
+                    allChecked: true,
+                });
+                $(".select-checkbox input").prop("checked", true);
+                $(".select-checkbox").each(function (index) {
+                    var messageId = $(this).closest("tr").attr("id");
+                    selectedEmails[messageId] = true;
+                });
+            } else {
+                $(".select-checkbox input").prop("checked", false);
+                thisComp.setState({
+                    allChecked: false,
+                });
+                app.user.set({ selectedEmails: {} });
+            }
+        },
+        handleShowRead: function (event) {
+            $("#emailListTable td > div").removeClass("d-none");
+            $("#emailListTable td > div").each(function () {
+                jElement = $(this);
+                if (jElement.hasClass("unread")) {
+                    jElement.addClass("d-none");
+                }
+            });
+        },
+        handleShowUnRead: function (event) {
+            $("#emailListTable td > div").addClass("d-none");
+            $("#emailListTable td > div").each(function () {
+                jElement = $(this);
+                if (jElement.hasClass("unread")) {
+                    jElement.removeClass("d-none");
+                }
+            });
+        },
         render: function () {
             return (
                 <div className="middle-section" id="appMiddleSection">
@@ -633,12 +1216,18 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                 onChange={this.handleSearchChange.bind(this)}
                             />
                         </div>
-                        <div className="info-row">
+                        <div className="info-row" id="checkAll">
                             <div className="all-check">
-                                <label className="container-checkbox">
+                                <label
+                                    className="container-checkbox"
+                                    id="selectAll"
+                                >
                                     <input
                                         type="checkbox"
-                                        // onClick="toggle(this)"
+                                        onChange={this.handleSelectAll.bind(
+                                            this
+                                        )}
+                                        checked={this.state.allChecked}
                                     />
                                     <span className="checkmark"></span>{" "}
                                 </label>
@@ -657,10 +1246,18 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                         aria-labelledby="mail-sort"
                                     >
                                         <li>
-                                            <label className="container-checkbox">
+                                            <label
+                                                id="selectAllAlt"
+                                                className="container-checkbox"
+                                            >
                                                 <input
                                                     type="checkbox"
-                                                    // onClick="toggle(this)"
+                                                    onChange={this.handleSelectAll.bind(
+                                                        this
+                                                    )}
+                                                    checked={
+                                                        this.state.allChecked
+                                                    }
                                                 />
                                                 <span className="checkmark"></span>{" "}
                                                 <div>Select all</div>
@@ -681,14 +1278,22 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                             </button>
                                         </li>
                                         <li>
-                                            <button>
+                                            <button
+                                                onClick={this.handleShowRead.bind(
+                                                    this
+                                                )}
+                                            >
                                                 {" "}
                                                 <span className="eye"></span>{" "}
                                                 <div>Show all read</div>
                                             </button>
                                         </li>
                                         <li>
-                                            <button>
+                                            <button
+                                                onClick={this.handleShowUnRead.bind(
+                                                    this
+                                                )}
+                                            >
                                                 {" "}
                                                 <span className="eye-close"></span>{" "}
                                                 <div>Show all unread</div>
@@ -743,31 +1348,73 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                         >
                                             <li>
                                                 <button>
+                                                    <span className="icon-moveto"></span>
                                                     <div>Move To</div>
                                                 </button>
+                                                <ul className="dd-inner">
+                                                    {this.state.moveFolderMain}
+                                                    <li className="divider"></li>
+                                                    {this.state.moveFolderCust}
+                                                </ul>
                                             </li>
                                             <li>
-                                                <button>
+                                                <button
+                                                    onClick={this.handleChange.bind(
+                                                        this,
+                                                        "moveToTrash"
+                                                    )}
+                                                    disabled={
+                                                        this.state.trashStatus
+                                                    }
+                                                >
+                                                    <span className="icon-trash"></span>
                                                     <div>Delete</div>
                                                 </button>
                                             </li>
                                             <li>
-                                                <button>
+                                                <button
+                                                    onClick={this.handleChange.bind(
+                                                        this,
+                                                        "moveToSpam"
+                                                    )}
+                                                    disabled={
+                                                        this.state.spamStatus
+                                                    }
+                                                >
+                                                    <span className="icon-spam"></span>
                                                     <div>Spam</div>
                                                 </button>
                                             </li>
                                             <li>
-                                                <button>
+                                                <button
+                                                    onClick={this.handleChange.bind(
+                                                        this,
+                                                        "markAsRead"
+                                                    )}
+                                                >
+                                                    <span className="icon-read"></span>
                                                     <div>Mark as Read</div>
                                                 </button>
                                             </li>
                                             <li>
-                                                <button>
+                                                <button
+                                                    onClick={this.handleChange.bind(
+                                                        this,
+                                                        "markAsUnread"
+                                                    )}
+                                                >
+                                                    <span className="icon-unread"></span>
                                                     <div>Mark as Unead</div>
                                                 </button>
                                             </li>
                                             <li>
-                                                <button>
+                                                <button
+                                                    onClick={this.handleChange.bind(
+                                                        this,
+                                                        "blackList"
+                                                    )}
+                                                >
+                                                    <span className="icon-block"></span>
                                                     <div>Block Sender</div>
                                                 </button>
                                             </li>

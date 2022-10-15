@@ -1372,6 +1372,16 @@ define(["react", "app"], function (React, app) {
                     ),
                     React.createElement(
                         "div",
+                        { className: `real-sender` },
+                        React.createElement(
+                            "div",
+                            null,
+                            "sender: ",
+                            this.state.from
+                        )
+                    ),
+                    React.createElement(
+                        "div",
                         {
                             className: `image-disabled ${ this.state.hideEmailRead ? "d-none" : "" }`
                         },

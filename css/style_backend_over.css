@@ -649,6 +649,80 @@ header .menu-icon.on-left-side {
     border-right-width: 0;
     border-bottom-width: 0;
 }
+
+/* removing top navigation */
+#emailListTable_wrapper > #emailListNavigation {
+    display: none !important;
+}
+#emailListTable + .pull-right {
+    float: right;
+    margin: 0 10px;
+    margin-bottom: 1rem;
+}
+#emailListTable + .pull-right + .pull-right {
+    float: left;
+    margin: 5px 10px;
+    font-size: 12px;
+}
+.pull-right .dataTables_info {
+    margin-top: 5px;
+    letter-spacing: 0.1rem;
+}
+.dataTables_empty {
+    padding: 10px 23px !important;
+    font-size: 14px;
+    color: #f05e30;
+    text-transform: uppercase;
+}
+.dropdown-menu .dd-inner li {
+    list-style: none;
+}
+.dropdown-menu .dd-inner li a {
+    cursor: pointer;
+    opacity: 0.6;
+    font-size: 14px;
+}
+.dropdown-menu .dd-inner li a:hover,
+.dropdown-menu .dd-inner li a:focus {
+    opacity: 1;
+}
+.dropdown-menu .dd-inner li.divider {
+    border-top: solid 1px rgba(0, 0, 0, 0.35);
+}
+.arrow-btn .dropdown-menu li button span.icon-moveto {
+    background: url(../images/icon-move-to-folder.svg) no-repeat left top;
+    background-size: 18px;
+}
+.arrow-btn .dropdown-menu li button span.icon-trash {
+    background: url(../images/icon-delete.svg) no-repeat left top;
+    background-size: 18px;
+}
+.arrow-btn .dropdown-menu li button span.icon-spam {
+    background: url(../images/icon-spam.svg) no-repeat left top;
+    background-size: 18px;
+}
+.arrow-btn .dropdown-menu li button span.icon-read {
+    background: url(../images/icon-read.svg) no-repeat left top;
+    background-size: 15px;
+}
+.arrow-btn .dropdown-menu li button span.icon-unread {
+    background: url(../images/icon-unread.svg) no-repeat left top;
+    background-size: 15px;
+}
+.arrow-btn .dropdown-menu li button span.icon-block {
+    background: url(../images/icon-block.svg) no-repeat left top;
+    background-size: 15px;
+}
+.real-sender > div {
+    clear: both;
+    font-size: 14px;
+    line-height: 1;
+    border-top: 1px solid #f2f2f2;
+    border-bottom: 1px solid #f2f2f2;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    color: #ff0000;
+}
 @media screen and (min-width: 1366px) {
     .middle-section .middle-content {
         height: calc(100vh - 171px);
