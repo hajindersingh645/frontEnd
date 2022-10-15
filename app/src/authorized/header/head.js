@@ -1,5 +1,10 @@
 define(["react", "app", "accounting"], function (React, app, accounting) {
     return React.createClass({
+        getInitialState: function () {
+            return {
+                userEmail: "",
+            };
+        },
         handleCopyEmail: function () {
             const _this = this;
             if (!navigator.clipboard) {
@@ -18,6 +23,13 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
             setTimeout(function () {
                 $("#email-copy").removeClass("show").addClass("hide");
             }, 1500);
+        },
+        handleClick: function (i) {
+            switch (i) {
+                case "logOut":
+                    app.auth.logout();
+                    break;
+            }
         },
         render: function () {
             return (
@@ -88,7 +100,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                         <span className="arrow"></span>
                                         <br />
                                         <span className="user-email">
-                                            Sepide_moqadasi@yahoo.co.in
+                                            {app.user.get("email")}
                                         </span>{" "}
                                     </button>
                                     <ul
@@ -107,7 +119,13 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                             </button>
                                         </li>
                                         <li>
-                                            <a href="#" className="logout-icon">
+                                            <a
+                                                onClick={this.handleClick.bind(
+                                                    this,
+                                                    "logOut"
+                                                )}
+                                                className="logout-icon"
+                                            >
                                                 Log out
                                             </a>
                                         </li>

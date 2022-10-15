@@ -551,23 +551,26 @@ header .menu-icon.on-left-side {
     top: 23px;
 }
 .middle-section .inbox-list table .inbox-list-top {
-    width: 100%;
-    float: left;
+    width: auto;
+    float: none;
     font-size: 12px;
+    display: inline-block;
 }
 .middle-section .inbox-list table .inbox-list-top {
     color: rgba(8, 13, 19, 0.6);
 }
 .middle-section .inbox-list table .mail-title {
     width: 100%;
-    float: left;
+    float: none;
     font-size: 13px;
     line-height: 18px;
     padding: 7px 0 0 0;
     letter-spacing: -0.02em;
-    height: 25px;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    width: 80%;
+    display: inline-block;
 }
 .middle-section .inbox-list table .inbox-list-top .unread-bullet {
     width: 8px;
@@ -579,13 +582,15 @@ header .menu-icon.on-left-side {
     position: relative;
     top: 0px;
     display: none;
+    position: relative;
+    top: -4px;
 }
 .middle-section .inbox-list table .email.unread .inbox-list-top .unread-bullet {
     display: inline-block;
 }
 .middle-section .inbox-list table p {
     width: 100%;
-    float: left;
+    float: none;
     padding: 5px 0 0 0;
     margin: 0;
     font-size: 12px;
@@ -605,6 +610,13 @@ header .menu-icon.on-left-side {
 }
 .middle-section .inbox-list table tr.selected:hover {
     background: #fff;
+}
+.middle-section .inbox-list-top-content {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 80%;
+    display: inline-block;
 }
 #emailListTable tr.selected {
     background: #fff;
@@ -729,12 +741,34 @@ header .menu-icon.on-left-side {
 .middle-section .middle-content {
     overflow-x: hidden !important;
 }
+.logout-icon {
+    cursor: pointer;
+}
+.toast-index {
+    z-index: 1000005;
+}
+
+#emailListTable_wrapper table,
+#emailListTable_wrapper table tbody,
+#emailListTable_wrapper table tr,
+#emailListTable_wrapper table td,
+#emailListTable_wrapper table td.email.no-padding {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+.middle-section .inbox-list table td > .email {
+    float: none;
+}
 @media screen and (min-width: 1366px) {
     .middle-section .middle-content {
         height: calc(100vh - 171px);
     }
     .right-side {
         display: block !important;
+    }
+    .middle-section .inbox-list-top-content {
+        width: 35%;
     }
 }
 @media screen and (min-width: 992px) {

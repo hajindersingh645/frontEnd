@@ -326,11 +326,11 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                     var fromPart =
                         '<div class="inbox-list-top" data-content="' +
                         fromTitle +
-                        '">' +
+                        '"><span class="inbox-list-top-content">' +
                         trust +
                         " " +
                         fromEmail +
-                        '<span class="unread-bullet"></span> </div>';
+                        '</span><span class="unread-bullet"></span> </div>';
 
                     // var dateAtPart =
                     //     '<span class="no-padding date col-xs-3 col-sm-2">' +

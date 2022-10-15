@@ -15,6 +15,13 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                 $("#email-copy").removeClass("show").addClass("hide");
             }, 1500);
         },
+        handleClick: function (i) {
+            switch (i) {
+                case "logOut":
+                    app.auth.logout();
+                    break;
+            }
+        },
         render: function () {
             return React.createElement(
                 "div",
@@ -37,7 +44,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                         React.createElement(
                             "span",
                             { className: "user-email" },
-                            "Sepide_moqadasi@yahoo.co.in"
+                            app.user.get("email")
                         ),
                         " "
                     ),
@@ -65,7 +72,10 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                 null,
                                 React.createElement(
                                     "a",
-                                    { href: "#", className: "logout-icon" },
+                                    {
+                                        onClick: this.handleClick.bind(this, "logOut"),
+                                        className: "logout-icon"
+                                    },
                                     "Log out"
                                 )
                             )
