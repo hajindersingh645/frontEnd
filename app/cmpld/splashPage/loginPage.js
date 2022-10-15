@@ -16,7 +16,8 @@ define(["react", "app", "validation", "cmpld/modals/paymentGate"], function (Rea
 
                 working: false,
                 buttonTag: "",
-                buttonText: "SIGN IN"
+                buttonText: "SIGN IN",
+                inPasswordViewMode: false
             };
         },
         componentWillUnmount: function () {
@@ -207,6 +208,20 @@ define(["react", "app", "validation", "cmpld/modals/paymentGate"], function (Rea
                 });
             }
         },
+        handlePasswordView: function (event) {
+            event.preventDefault();
+            let _inPasswordViewMode = false;
+            if (this.state.inPasswordViewMode) {
+                $("#LoginUser_password").prop("type", "password");
+                _inPasswordViewMode = false;
+            } else {
+                $("#LoginUser_password").prop("type", "text");
+                _inPasswordViewMode = true;
+            }
+            this.setState({
+                inPasswordViewMode: _inPasswordViewMode
+            });
+        },
         render: function () {
             var styleYes = {
                 color: "#006600"
@@ -310,7 +325,10 @@ define(["react", "app", "validation", "cmpld/modals/paymentGate"], function (Rea
                                 React.createElement(
                                     "div",
                                     { className: "form-group" },
-                                    React.createElement("button", { className: "form-icon eye" }),
+                                    React.createElement("button", {
+                                        className: `form-icon ${ this.state.inPasswordViewMode ? "eye-close" : "eye" }`,
+                                        onClick: this.handlePasswordView.bind(this)
+                                    }),
                                     React.createElement("input", {
                                         type: "password",
                                         className: "form-control with-icon",

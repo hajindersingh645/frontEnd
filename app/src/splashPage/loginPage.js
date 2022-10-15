@@ -22,6 +22,7 @@ define(["react", "app", "validation", "cmpld/modals/paymentGate"], function (
                 working: false,
                 buttonTag: "",
                 buttonText: "SIGN IN",
+                inPasswordViewMode: false,
             };
         },
         componentWillUnmount: function () {
@@ -219,6 +220,20 @@ define(["react", "app", "validation", "cmpld/modals/paymentGate"], function (
                 });
             }
         },
+        handlePasswordView: function (event) {
+            event.preventDefault();
+            let _inPasswordViewMode = false;
+            if (this.state.inPasswordViewMode) {
+                $("#LoginUser_password").prop("type", "password");
+                _inPasswordViewMode = false;
+            } else {
+                $("#LoginUser_password").prop("type", "text");
+                _inPasswordViewMode = true;
+            }
+            this.setState({
+                inPasswordViewMode: _inPasswordViewMode,
+            });
+        },
         render: function () {
             var styleYes = {
                 color: "#006600",
@@ -291,7 +306,16 @@ define(["react", "app", "validation", "cmpld/modals/paymentGate"], function (
                                 </div>
                                 <div className="col-sm-12">
                                     <div className="form-group">
-                                        <button className="form-icon eye"></button>
+                                        <button
+                                            className={`form-icon ${
+                                                this.state.inPasswordViewMode
+                                                    ? "eye-close"
+                                                    : "eye"
+                                            }`}
+                                            onClick={this.handlePasswordView.bind(
+                                                this
+                                            )}
+                                        ></button>
                                         <input
                                             type="password"
                                             className="form-control with-icon"
