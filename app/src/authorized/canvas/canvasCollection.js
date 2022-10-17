@@ -37,7 +37,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                     <div className="offcanvas-header">
                         <div className="user-name-side-menu">
                             {" "}
-                            <img src="images/user.jpg" alt="" /> Sepide Moqadasi
+                            <img src="images/user.jpg" alt="" /> {"Me"}
                             <br />
                             <span className="user-email">
                                 {app.user.get("email")}

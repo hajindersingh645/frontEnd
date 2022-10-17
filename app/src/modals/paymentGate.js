@@ -11,6 +11,7 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                 butDis: false,
                 stripeId: "",
                 currentTab: "monthly",
+                paymentPackagesModalActive: true,
             };
         },
 
@@ -284,6 +285,9 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
         },
 
         handleClick: function (action, event) {
+            this.setState({
+                paymentPackagesModalActive: false,
+            });
             switch (action) {
                 case "pay":
                     if (this.state.paym !== "perfectm") {
@@ -377,7 +381,12 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                     onClick={this.handleClick.bind(this, "freemium")}
                 >
                     <div className="modal-dialog modal-pricing" role="document">
-                        <div className="modal-content rounded-4 shadow px-4 py-4">
+                        <div
+                            id="paymentPackagesModalContent"
+                            className={`modal-content rounded-4 shadow px-4 py-4 ${
+                                paymentPackagesModalActive ? "" : "d-none"
+                            }`}
+                        >
                             <div
                                 className="pricing-top horizontal-center"
                                 style={{ paddingTop: "10px" }}
@@ -562,7 +571,13 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                                                         {discm} / month
                                                     </div>
                                                     <div className="btn-row">
-                                                        <button className="btn-blue">
+                                                        <button
+                                                            className="btn-blue"
+                                                            onClick={this.handleClick.bind(
+                                                                this,
+                                                                "monthly"
+                                                            )}
+                                                        >
                                                             Choose plan
                                                         </button>
                                                     </div>
@@ -609,7 +624,13 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                                                         {discm} / month
                                                     </div>
                                                     <div className="btn-row">
-                                                        <button className="btn-blue">
+                                                        <button
+                                                            className="btn-blue"
+                                                            onClick={this.handleClick.bind(
+                                                                this,
+                                                                "monthly"
+                                                            )}
+                                                        >
                                                             Choose plan
                                                         </button>
                                                     </div>
@@ -657,7 +678,13 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                                                         {discy} / year
                                                     </div>
                                                     <div className="btn-row">
-                                                        <button className="btn-blue">
+                                                        <button
+                                                            className="btn-blue"
+                                                            onClick={this.handleClick.bind(
+                                                                this,
+                                                                "yearly"
+                                                            )}
+                                                        >
                                                             Choose plan
                                                         </button>
                                                     </div>
@@ -768,7 +795,13 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                                                         {discm} / month
                                                     </div>
                                                     <div className="btn-row">
-                                                        <button className="btn-blue">
+                                                        <button
+                                                            className="btn-blue"
+                                                            onClick={this.handleClick.bind(
+                                                                this,
+                                                                "monthly"
+                                                            )}
+                                                        >
                                                             Choose plan
                                                         </button>
                                                     </div>
@@ -816,7 +849,13 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                                                         {discy} / year
                                                     </div>
                                                     <div className="btn-row">
-                                                        <button className="btn-blue">
+                                                        <button
+                                                            className="btn-blue"
+                                                            onClick={this.handleClick.bind(
+                                                                this,
+                                                                "yearly"
+                                                            )}
+                                                        >
                                                             Choose plan
                                                         </button>
                                                     </div>
@@ -931,7 +970,13 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                                                         {discm} / month
                                                     </div>
                                                     <div className="btn-row">
-                                                        <button className="btn-blue">
+                                                        <button
+                                                            className="btn-blue"
+                                                            onClick={this.handleClick.bind(
+                                                                this,
+                                                                "monthly"
+                                                            )}
+                                                        >
                                                             Choose plan
                                                         </button>
                                                     </div>
@@ -979,7 +1024,13 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                                                         {discy} / year
                                                     </div>
                                                     <div className="btn-row">
-                                                        <button className="btn-blue">
+                                                        <button
+                                                            className="btn-blue"
+                                                            onClick={this.handleClick.bind(
+                                                                this,
+                                                                "yearly"
+                                                            )}
+                                                        >
                                                             Choose plan
                                                         </button>
                                                     </div>
@@ -1383,65 +1434,70 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                                         </button>
                                     </div>
                                 </div>
-
-                                <div
-                                    className={
-                                        this.state.membr == "free"
-                                            ? "d-none"
-                                            : "panel panel-default"
-                                    }
-                                >
-                                    <div className="text-center">
-                                        Payment Method:
-                                    </div>
-                                    <div className="panel-body">
-                                        <div className="form-inline text-center">
-                                            <div className="form-group col-lg-offset-0 text-left">
-                                                <div className="radio">
-                                                    <label>
-                                                        <input
-                                                            className="margin-right-10"
-                                                            type="radio"
-                                                            name="optionsRadios"
-                                                            id="optionsRadios1"
-                                                            value="option1"
-                                                            checked={
-                                                                this.state
-                                                                    .paym ==
-                                                                "bitc"
-                                                            }
-                                                            onChange={this.handleChange.bind(
-                                                                this,
-                                                                "bitc"
-                                                            )}
-                                                        />
-                                                        &nbsp;Bitcoin & other
-                                                        Crypto Currency
-                                                    </label>
-                                                </div>
-                                                <div className="clearfix"></div>
-                                                <div className="radio">
-                                                    <label>
-                                                        <input
-                                                            className="margin-right-10"
-                                                            type="radio"
-                                                            name="optionsRadios"
-                                                            id="optionsRadios2"
-                                                            value="option2"
-                                                            checked={
-                                                                this.state
-                                                                    .paym ==
-                                                                "perfectm"
-                                                            }
-                                                            onChange={this.handleChange.bind(
-                                                                this,
-                                                                "perfectm"
-                                                            )}
-                                                        />
-                                                        &nbsp;Perfect Money
-                                                    </label>
-                                                </div>
-                                                {/*
+                            </div>
+                        </div>
+                        <div
+                            id="paymentMethodsModalContent"
+                            className={`modal-content rounded-4 shadow px-4 py-4 ${
+                                paymentPackagesModalActive ? "" : "d-block"
+                            }`}
+                        >
+                            <div
+                                className={
+                                    this.state.membr == "free"
+                                        ? "d-none"
+                                        : "panel panel-default"
+                                }
+                            >
+                                <div className="text-center">
+                                    Payment Method:
+                                </div>
+                                <div className="panel-body">
+                                    <div className="form-inline text-center">
+                                        <div className="form-group col-lg-offset-0 text-left">
+                                            <div className="radio">
+                                                <label>
+                                                    <input
+                                                        className="margin-right-10"
+                                                        type="radio"
+                                                        name="optionsRadios"
+                                                        id="optionsRadios1"
+                                                        value="option1"
+                                                        checked={
+                                                            this.state.paym ==
+                                                            "bitc"
+                                                        }
+                                                        onChange={this.handleChange.bind(
+                                                            this,
+                                                            "bitc"
+                                                        )}
+                                                    />
+                                                    &nbsp;Bitcoin & other Crypto
+                                                    Currency
+                                                </label>
+                                            </div>
+                                            <div className="clearfix"></div>
+                                            <div className="radio">
+                                                <label>
+                                                    <input
+                                                        className="margin-right-10"
+                                                        type="radio"
+                                                        name="optionsRadios"
+                                                        id="optionsRadios2"
+                                                        value="option2"
+                                                        checked={
+                                                            this.state.paym ==
+                                                            "perfectm"
+                                                        }
+                                                        onChange={this.handleChange.bind(
+                                                            this,
+                                                            "perfectm"
+                                                        )}
+                                                    />
+                                                    &nbsp;Perfect Money
+                                                </label>
+                                            </div>
+                                            {/*
                                                 <div className="clearfix"></div>
                                                 <div className="radio">
                                                 <label>
@@ -1453,307 +1509,296 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                                                 </label>
                                                 </div>
                                             */}
-                                                <div className="clearfix"></div>
-                                                <div className="radio">
-                                                    <label>
-                                                        <input
-                                                            className="margin-right-10"
-                                                            type="radio"
-                                                            name="optionsRadios"
-                                                            id="optionsRadios4"
-                                                            value="option4"
-                                                            checked={
-                                                                this.state
-                                                                    .paym ==
-                                                                "stripe"
-                                                            }
-                                                            onChange={this.handleChange.bind(
-                                                                this,
-                                                                "stripe"
-                                                            )}
-                                                        />
-                                                        &nbsp;Credit / Debit
-                                                        Card (Stripe)
-                                                    </label>
-                                                </div>
-                                            </div>
-
-                                            <form
-                                                onSubmit={this.handleSubmit}
-                                                className="d-none"
-                                                id="perfMF"
-                                                action="https://perfectmoney.com/api/step1.asp"
-                                                method="POST"
-                                                target="_blank"
-                                            >
-                                                <input
-                                                    type="hidden"
-                                                    name="PAYEE_ACCOUNT"
-                                                    value={app.defaults.get(
-                                                        "perfectMecrh"
-                                                    )}
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="PAYEE_NAME"
-                                                    value="Cyber Fear"
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="PAYMENT_AMOUNT"
-                                                    value={this.state.mCharge}
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="PAYMENT_UNITS"
-                                                    value="USD"
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="STATUS_URL"
-                                                    value="https://cyberfear.com/api/PerfectPaidstatus"
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="PAYMENT_URL"
-                                                    value="https://cyberfear.com/api/Pe"
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="PAYMENT_URL_METHOD"
-                                                    value="POST"
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="NOPAYMENT_URL"
-                                                    value="https://cyberfear.com/api/Pe"
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="NOPAYMENT_URL_METHOD"
-                                                    value="LINK"
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="SUGGESTED_MEMO"
-                                                    value=""
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="userId"
-                                                    value={app.user.get(
-                                                        "userId"
-                                                    )}
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="paymentFor"
-                                                    value="NewMembership"
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="howMuch"
-                                                    value="1"
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="BAGGAGE_FIELDS"
-                                                    value="userId paymentFor howMuch"
-                                                />
-                                            </form>
-
-                                            <form
-                                                onSubmit={this.handleSubmit}
-                                                className="d-none"
-                                                id="cryptF"
-                                                action="https://www.coinpayments.net/index.php"
-                                                method="post"
-                                                target="_blank"
-                                                ref="crypto"
-                                            >
-                                                <input
-                                                    type="hidden"
-                                                    name="cmd"
-                                                    value="_pay_simple"
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="reset"
-                                                    value="1"
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="merchant"
-                                                    value={app.defaults.get(
-                                                        "coinMecrh"
-                                                    )}
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="item_amount"
-                                                    value="1"
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="first_name"
-                                                    value="anonymous"
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="last_name"
-                                                    value="anonymous"
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="email"
-                                                    value="anonymous@cyberfear.com"
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="item_name"
-                                                    value="Premium Membership"
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="item_desc"
-                                                    value={
-                                                        this.state.membr ==
-                                                        "year"
-                                                            ? "1 Year Subscription"
-                                                            : "1 Month Subscription"
-                                                    }
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="custom"
-                                                    value={app.user.get(
-                                                        "userId"
-                                                    )}
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="currency"
-                                                    value="USD"
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="amountf"
-                                                    value={this.state.mCharge}
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="want_shipping"
-                                                    value="0"
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="success_url"
-                                                    value="https://cyberfear.com/api/Pe"
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="cancel_url"
-                                                    value="https://cyberfear.com/api/Pe"
-                                                />
-                                            </form>
                                             <div className="clearfix"></div>
-
-                                            <div
-                                                className={
-                                                    this.state.paym == "stripe"
-                                                        ? ""
-                                                        : "d-none"
-                                                }
-                                                id="stripe-container"
-                                            >
-                                                <form id="payment-form">
-                                                    <div id="payment-element"></div>
-                                                    <button id="submit">
-                                                        <div
-                                                            className="spinner d-none"
-                                                            id="spinner"
-                                                        ></div>
-                                                        <span id="button-text">
-                                                            Pay now
-                                                        </span>
-                                                    </button>
-                                                    <div
-                                                        id="payment-message"
-                                                        className="d-none"
-                                                    ></div>
-                                                </form>
+                                            <div className="radio">
+                                                <label>
+                                                    <input
+                                                        className="margin-right-10"
+                                                        type="radio"
+                                                        name="optionsRadios"
+                                                        id="optionsRadios4"
+                                                        value="option4"
+                                                        checked={
+                                                            this.state.paym ==
+                                                            "stripe"
+                                                        }
+                                                        onChange={this.handleChange.bind(
+                                                            this,
+                                                            "stripe"
+                                                        )}
+                                                    />
+                                                    &nbsp;Credit / Debit Card
+                                                    (Stripe)
+                                                </label>
                                             </div>
-
-                                            <div
-                                                className={
-                                                    this.state.paym == "paypal"
-                                                        ? ""
-                                                        : "d-none"
-                                                }
-                                                id="paypal-button-container"
-                                            ></div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div style={{ textAlign: "center" }}>
-                                        <button
-                                            type="submit"
-                                            form={
-                                                this.state.paym === "perfectm"
-                                                    ? "perfMF"
-                                                    : "cryptF"
-                                            }
-                                            onClick={this.handleClick.bind(
-                                                this,
-                                                "pay"
-                                            )}
+
+                                        <form
+                                            onSubmit={this.handleSubmit}
+                                            className="d-none"
+                                            id="perfMF"
+                                            action="https://perfectmoney.com/api/step1.asp"
+                                            method="POST"
+                                            target="_blank"
+                                        >
+                                            <input
+                                                type="hidden"
+                                                name="PAYEE_ACCOUNT"
+                                                value={app.defaults.get(
+                                                    "perfectMecrh"
+                                                )}
+                                            />
+                                            <input
+                                                type="hidden"
+                                                name="PAYEE_NAME"
+                                                value="Cyber Fear"
+                                            />
+                                            <input
+                                                type="hidden"
+                                                name="PAYMENT_AMOUNT"
+                                                value={this.state.mCharge}
+                                            />
+                                            <input
+                                                type="hidden"
+                                                name="PAYMENT_UNITS"
+                                                value="USD"
+                                            />
+                                            <input
+                                                type="hidden"
+                                                name="STATUS_URL"
+                                                value="https://cyberfear.com/api/PerfectPaidstatus"
+                                            />
+                                            <input
+                                                type="hidden"
+                                                name="PAYMENT_URL"
+                                                value="https://cyberfear.com/api/Pe"
+                                            />
+                                            <input
+                                                type="hidden"
+                                                name="PAYMENT_URL_METHOD"
+                                                value="POST"
+                                            />
+                                            <input
+                                                type="hidden"
+                                                name="NOPAYMENT_URL"
+                                                value="https://cyberfear.com/api/Pe"
+                                            />
+                                            <input
+                                                type="hidden"
+                                                name="NOPAYMENT_URL_METHOD"
+                                                value="LINK"
+                                            />
+                                            <input
+                                                type="hidden"
+                                                name="SUGGESTED_MEMO"
+                                                value=""
+                                            />
+                                            <input
+                                                type="hidden"
+                                                name="userId"
+                                                value={app.user.get("userId")}
+                                            />
+                                            <input
+                                                type="hidden"
+                                                name="paymentFor"
+                                                value="NewMembership"
+                                            />
+                                            <input
+                                                type="hidden"
+                                                name="howMuch"
+                                                value="1"
+                                            />
+                                            <input
+                                                type="hidden"
+                                                name="BAGGAGE_FIELDS"
+                                                value="userId paymentFor howMuch"
+                                            />
+                                        </form>
+
+                                        <form
+                                            onSubmit={this.handleSubmit}
+                                            className="d-none"
+                                            id="cryptF"
+                                            action="https://www.coinpayments.net/index.php"
+                                            method="post"
+                                            target="_blank"
+                                            ref="crypto"
+                                        >
+                                            <input
+                                                type="hidden"
+                                                name="cmd"
+                                                value="_pay_simple"
+                                            />
+                                            <input
+                                                type="hidden"
+                                                name="reset"
+                                                value="1"
+                                            />
+                                            <input
+                                                type="hidden"
+                                                name="merchant"
+                                                value={app.defaults.get(
+                                                    "coinMecrh"
+                                                )}
+                                            />
+                                            <input
+                                                type="hidden"
+                                                name="item_amount"
+                                                value="1"
+                                            />
+                                            <input
+                                                type="hidden"
+                                                name="first_name"
+                                                value="anonymous"
+                                            />
+                                            <input
+                                                type="hidden"
+                                                name="last_name"
+                                                value="anonymous"
+                                            />
+                                            <input
+                                                type="hidden"
+                                                name="email"
+                                                value="anonymous@cyberfear.com"
+                                            />
+                                            <input
+                                                type="hidden"
+                                                name="item_name"
+                                                value="Premium Membership"
+                                            />
+                                            <input
+                                                type="hidden"
+                                                name="item_desc"
+                                                value={
+                                                    this.state.membr == "year"
+                                                        ? "1 Year Subscription"
+                                                        : "1 Month Subscription"
+                                                }
+                                            />
+                                            <input
+                                                type="hidden"
+                                                name="custom"
+                                                value={app.user.get("userId")}
+                                            />
+                                            <input
+                                                type="hidden"
+                                                name="currency"
+                                                value="USD"
+                                            />
+                                            <input
+                                                type="hidden"
+                                                name="amountf"
+                                                value={this.state.mCharge}
+                                            />
+                                            <input
+                                                type="hidden"
+                                                name="want_shipping"
+                                                value="0"
+                                            />
+                                            <input
+                                                type="hidden"
+                                                name="success_url"
+                                                value="https://cyberfear.com/api/Pe"
+                                            />
+                                            <input
+                                                type="hidden"
+                                                name="cancel_url"
+                                                value="https://cyberfear.com/api/Pe"
+                                            />
+                                        </form>
+                                        <div className="clearfix"></div>
+
+                                        <div
                                             className={
-                                                (this.state.paym ==
-                                                    "perfectm" ||
-                                                    this.state.paym ==
-                                                        "bitc") &&
-                                                this.state.membr != "free" &&
-                                                !this.state.butDis
-                                                    ? "white-btn"
+                                                this.state.paym == "stripe"
+                                                    ? ""
                                                     : "d-none"
                                             }
-                                            disabled={
-                                                this.state.paym == "" ||
-                                                this.state.butDis
-                                            }
-                                            style={{
-                                                float: "none",
-                                                display: "initial",
-                                            }}
+                                            id="stripe-container"
                                         >
-                                            Pay Now
-                                        </button>
+                                            <form id="payment-form">
+                                                <div id="payment-element"></div>
+                                                <button id="submit">
+                                                    <div
+                                                        className="spinner d-none"
+                                                        id="spinner"
+                                                    ></div>
+                                                    <span id="button-text">
+                                                        Pay now
+                                                    </span>
+                                                </button>
+                                                <div
+                                                    id="payment-message"
+                                                    className="d-none"
+                                                ></div>
+                                            </form>
+                                        </div>
+
+                                        <div
+                                            className={
+                                                this.state.paym == "paypal"
+                                                    ? ""
+                                                    : "d-none"
+                                            }
+                                            id="paypal-button-container"
+                                        ></div>
                                     </div>
                                 </div>
-
-                                <div
-                                    className={
-                                        this.state.membr == "free"
-                                            ? ""
-                                            : "d-none"
-                                    }
-                                    style={{ textAlign: "center" }}
-                                >
+                            </div>
+                            <div>
+                                <div style={{ textAlign: "center" }}>
                                     <button
+                                        type="submit"
+                                        form={
+                                            this.state.paym === "perfectm"
+                                                ? "perfMF"
+                                                : "cryptF"
+                                        }
                                         onClick={this.handleClick.bind(
                                             this,
-                                            "freemium"
+                                            "pay"
                                         )}
-                                        className="white-btn"
+                                        className={
+                                            (this.state.paym == "perfectm" ||
+                                                this.state.paym == "bitc") &&
+                                            this.state.membr != "free" &&
+                                            !this.state.butDis
+                                                ? "white-btn"
+                                                : "d-none"
+                                        }
+                                        disabled={
+                                            this.state.paym == "" ||
+                                            this.state.butDis
+                                        }
                                         style={{
                                             float: "none",
                                             display: "initial",
                                         }}
                                     >
-                                        Log In
+                                        Pay Now
                                     </button>
                                 </div>
+                            </div>
+
+                            <div
+                                className={
+                                    this.state.membr == "free" ? "" : "d-none"
+                                }
+                                style={{ textAlign: "center" }}
+                            >
+                                <button
+                                    onClick={this.handleClick.bind(
+                                        this,
+                                        "freemium"
+                                    )}
+                                    className="white-btn"
+                                    style={{
+                                        float: "none",
+                                        display: "initial",
+                                    }}
+                                >
+                                    Log In
+                                </button>
                             </div>
                         </div>
                     </div>

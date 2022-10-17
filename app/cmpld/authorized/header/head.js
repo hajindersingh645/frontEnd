@@ -125,7 +125,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                         alt: ""
                                     }),
                                     " ",
-                                    "Sepide Moqadasi",
+                                    "Me",
                                     " ",
                                     React.createElement("span", { className: "arrow" }),
                                     React.createElement("br", null),

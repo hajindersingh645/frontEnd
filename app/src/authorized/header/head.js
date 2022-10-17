@@ -96,8 +96,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                             src="images/user.jpg"
                                             alt=""
                                         />{" "}
-                                        Sepide Moqadasi{" "}
-                                        <span className="arrow"></span>
+                                        {"Me"} <span className="arrow"></span>
                                         <br />
                                         <span className="user-email">
                                             {app.user.get("email")}

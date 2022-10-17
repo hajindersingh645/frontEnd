@@ -39,7 +39,8 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                         { className: "user-name-side-menu" },
                         " ",
                         React.createElement("img", { src: "images/user.jpg", alt: "" }),
-                        " Sepide Moqadasi",
+                        " ",
+                        "Me",
                         React.createElement("br", null),
                         React.createElement(
                             "span",

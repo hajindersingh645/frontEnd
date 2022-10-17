@@ -750,7 +750,6 @@ define(["app", "react"], function (app, React) {
                                     <a
                                         href="#login"
                                         className="btn btn-lg btn-primary w-100 mx-0 fs-6"
-                                        data-bs-dismiss="modal"
                                     >
                                         Login
                                     </a>
