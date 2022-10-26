@@ -96,7 +96,8 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                             src="images/user.jpg"
                                             alt=""
                                         />{" "}
-                                        {"Me"} <span className="arrow"></span>
+                                        {app.user.get("displayName")}{" "}
+                                        <span className="arrow"></span>
                                         <br />
                                         <span className="user-email">
                                             {app.user.get("email")}

@@ -26,6 +26,10 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                     break;
             }
         },
+        componentDidMount: function () {
+            // console.log(app.user.get("showDisplayName"));
+            // console.log(app.user.get("displayName"));
+        },
         render: function () {
             return (
                 <div
@@ -37,7 +41,8 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                     <div className="offcanvas-header">
                         <div className="user-name-side-menu">
                             {" "}
-                            <img src="images/user.jpg" alt="" /> {"Me"}
+                            <img src="images/user.jpg" alt="" />{" "}
+                            {app.user.get("displayName")}
                             <br />
                             <span className="user-email">
                                 {app.user.get("email")}

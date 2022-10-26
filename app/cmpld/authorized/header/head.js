@@ -125,7 +125,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                         alt: ""
                                     }),
                                     " ",
-                                    "Me",
+                                    app.user.get("displayName"),
                                     " ",
                                     React.createElement("span", { className: "arrow" }),
                                     React.createElement("br", null),

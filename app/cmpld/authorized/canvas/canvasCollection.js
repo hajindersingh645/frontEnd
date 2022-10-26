@@ -22,6 +22,10 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                     break;
             }
         },
+        componentDidMount: function () {
+            // console.log(app.user.get("showDisplayName"));
+            // console.log(app.user.get("displayName"));
+        },
         render: function () {
             return React.createElement(
                 "div",
@@ -40,7 +44,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                         " ",
                         React.createElement("img", { src: "images/user.jpg", alt: "" }),
                         " ",
-                        "Me",
+                        app.user.get("displayName"),
                         React.createElement("br", null),
                         React.createElement(
                             "span",

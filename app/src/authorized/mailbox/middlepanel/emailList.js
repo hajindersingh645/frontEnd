@@ -429,7 +429,8 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
 
             $("#emailListTable td").click(function () {
                 var selectedEmails = app.user.get("selectedEmails");
-                if ($(this).find(".emailchk").prop("checked")) {
+                // ".emailchk"
+                if ($(this).find('[name="inbox-email"]').prop("checked")) {
                     selectedEmails[$(this).parents("tr").attr("id")] = true;
                 } else {
                     delete selectedEmails[$(this).parents("tr").attr("id")];
@@ -520,7 +521,10 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                         app.user.get("selectedEmails")[$(nRow).attr("id")] !==
                         undefined
                     ) {
-                        $(nRow).find(".emailchk").prop("checked", true);
+                        // ".emailchk"
+                        $(nRow)
+                            .find('[name="inbox-email"]')
+                            .prop("checked", true);
                     }
                     //$(nRow).attr('id', aData[0]);
 

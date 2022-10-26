@@ -312,6 +312,7 @@ define(["react", "app", "validation", "cmpld/modals/paymentGate"], function (
                                                     ? "eye-close"
                                                     : "eye"
                                             }`}
+                                            type="button"
                                             onClick={this.handlePasswordView.bind(
                                                 this
                                             )}
@@ -430,9 +431,7 @@ define(["react", "app", "validation", "cmpld/modals/paymentGate"], function (
                         </form>
                     </div>
 
-                    {
-                        // this.state.firstTimeUser ? <PaymentGate/> : null
-                    }
+                    {this.state.firstTimeUser ? <PaymentGate /> : null}
                 </div>
             );
         },

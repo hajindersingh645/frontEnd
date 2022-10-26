@@ -327,6 +327,7 @@ define(["react", "app", "validation", "cmpld/modals/paymentGate"], function (Rea
                                     { className: "form-group" },
                                     React.createElement("button", {
                                         className: `form-icon ${ this.state.inPasswordViewMode ? "eye-close" : "eye" }`,
+                                        type: "button",
                                         onClick: this.handlePasswordView.bind(this)
                                     }),
                                     React.createElement("input", {
@@ -442,7 +443,8 @@ define(["react", "app", "validation", "cmpld/modals/paymentGate"], function (Rea
                             )
                         )
                     )
-                )
+                ),
+                this.state.firstTimeUser ? React.createElement(PaymentGate, null) : null
             );
         }
     });
