@@ -760,6 +760,22 @@ header .menu-icon.on-left-side {
 .middle-section .inbox-list table td > .email {
     float: none;
 }
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fddecc;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 50%;
+}
+.user-letter {
+    text-transform: uppercase;
+    font-weight: bolder;
+}
 @media screen and (min-width: 1366px) {
     .middle-section .middle-content {
         height: calc(100vh - 171px);

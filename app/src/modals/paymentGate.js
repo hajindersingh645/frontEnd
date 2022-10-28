@@ -384,7 +384,9 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                         <div
                             id="paymentPackagesModalContent"
                             className={`modal-content rounded-4 shadow px-4 py-4 ${
-                                paymentPackagesModalActive ? "" : "d-none"
+                                this.state.paymentPackagesModalActive
+                                    ? "d-block"
+                                    : "d-none"
                             }`}
                         >
                             <div
@@ -1439,7 +1441,9 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                         <div
                             id="paymentMethodsModalContent"
                             className={`modal-content rounded-4 shadow px-4 py-4 ${
-                                paymentPackagesModalActive ? "" : "d-block"
+                                this.state.paymentPackagesModalActive
+                                    ? "d-none"
+                                    : "d-block"
                             }`}
                         >
                             <div

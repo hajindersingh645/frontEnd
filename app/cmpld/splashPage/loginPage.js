@@ -81,7 +81,7 @@ define(["react", "app", "validation", "cmpld/modals/paymentGate"], function (Rea
          */
         handleClick: function (action, event) {
             //app.user.set({id:10});
-
+            // event.preventDefault();
             switch (action) {
                 case "makePayment":
                     $("#loginUser").modal("hide");
@@ -182,7 +182,8 @@ define(["react", "app", "validation", "cmpld/modals/paymentGate"], function (Rea
                     break;
                 case "enterLogin":
                     if (event.keyCode == 13) {
-                        this.handleClick("login");
+                        event.preventDefault();
+                        this.handleClick("login", event);
                     }
                     break;
                 case "forgotPassword":

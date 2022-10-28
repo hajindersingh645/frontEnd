@@ -92,10 +92,14 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                         aria-expanded="false"
                                     >
                                         {" "}
-                                        <img
-                                            src="images/user.jpg"
-                                            alt=""
-                                        />{" "}
+                                        {/* <img src="images/user.jpg" alt="" /> */}
+                                        <div className="user-avatar">
+                                            <label className="user-letter">
+                                                {app.user
+                                                    .get("email")
+                                                    .charAt(0)}
+                                            </label>
+                                        </div>{" "}
                                         {app.user.get("displayName")}{" "}
                                         <span className="arrow"></span>
                                         <br />

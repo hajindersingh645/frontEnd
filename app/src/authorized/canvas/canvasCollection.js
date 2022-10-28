@@ -41,7 +41,12 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                     <div className="offcanvas-header">
                         <div className="user-name-side-menu">
                             {" "}
-                            <img src="images/user.jpg" alt="" />{" "}
+                            {/* <img src="images/user.jpg" alt="" />{" "} */}
+                            <div className="user-avatar">
+                                <label className="user-letter">
+                                    {app.user.get("email").charAt(0)}
+                                </label>
+                            </div>
                             {app.user.get("displayName")}
                             <br />
                             <span className="user-email">

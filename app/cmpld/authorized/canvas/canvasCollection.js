@@ -42,8 +42,15 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                         "div",
                         { className: "user-name-side-menu" },
                         " ",
-                        React.createElement("img", { src: "images/user.jpg", alt: "" }),
-                        " ",
+                        React.createElement(
+                            "div",
+                            { className: "user-avatar" },
+                            React.createElement(
+                                "label",
+                                { className: "user-letter" },
+                                app.user.get("email").charAt(0)
+                            )
+                        ),
                         app.user.get("displayName"),
                         React.createElement("br", null),
                         React.createElement(
