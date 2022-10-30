@@ -100,7 +100,9 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                     .charAt(0)}
                                             </label>
                                         </div>{" "}
-                                        {app.user.get("displayName")}{" "}
+                                        {app.user.get("displayName") !== ""
+                                            ? app.user.get("displayName")
+                                            : "Me"}{" "}
                                         <span className="arrow"></span>
                                         <br />
                                         <span className="user-email">

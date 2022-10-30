@@ -22,7 +22,8 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                 blackList: false,
                 pastDue: false,
                 balanceShort: false,
-                hidden: true
+                hidden: true,
+                isWorkingFlag: false
             };
         },
         componentWillReceiveProps: function (nextProps) {
@@ -472,6 +473,8 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
             }, 500);
         },
         handleChange: function (i, event) {
+            var thisComp = this;
+
             switch (i) {
                 case "moveToFolder":
                     var destFolderId = $(event.target).attr("id");
@@ -479,6 +482,10 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                     var selected = this.getSelected();
 
                     if (selected.length > 0) {
+                        thisComp.setState({
+                            isWorkingFlag: true
+                        });
+
                         app.user.set({ currentMessageView: {} });
 
                         app.globalF.move2Folder(destFolderId, selected, function () {
@@ -489,6 +496,9 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                     resetSelectedItems: true
                                 });
                                 app.globalF.syncUpdates();
+                                thisComp.setState({
+                                    isWorkingFlag: false
+                                });
                             });
                         });
                     } else {
@@ -499,7 +509,8 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                 case "moveToTrash":
                     var thisComp = this;
                     this.setState({
-                        trashStatus: true
+                        trashStatus: true,
+                        isWorkingFlag: true
                     });
                     var target = {};
                     if ($(event.target).is("i")) {
@@ -533,7 +544,8 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                         target.removeClass("fa-refresh fa-spin").addClass("fa-trash-o");
 
                                         thisComp.setState({
-                                            trashStatus: false
+                                            trashStatus: false,
+                                            isWorkingFlag: false
                                         });
                                     });
                                 }
@@ -542,7 +554,8 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                             app.notifications.systemMessage("selectMsg");
                             target.removeClass("fa-refresh fa-spin").addClass("fa-trash-o");
                             thisComp.setState({
-                                trashStatus: false
+                                trashStatus: false,
+                                isWorkingFlag: false
                             });
                         }
                     } else {
@@ -564,7 +577,8 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                     target.removeClass("fa-refresh fa-spin").addClass("fa-trash-o");
 
                                     thisComp.setState({
-                                        trashStatus: false
+                                        trashStatus: false,
+                                        isWorkingFlag: false
                                     });
                                 });
                             });
@@ -572,7 +586,8 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                             app.notifications.systemMessage("selectMsg");
                             target.removeClass("fa-refresh fa-spin").addClass("fa-trash-o");
                             thisComp.setState({
-                                trashStatus: false
+                                trashStatus: false,
+                                isWorkingFlag: false
                             });
                         }
                     }
@@ -584,7 +599,8 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
 
                     console.log("blacklisting");
                     thisComp.setState({
-                        blackList: true
+                        blackList: true,
+                        isWorkingFlag: true
                     });
 
                     var target = {};
@@ -642,7 +658,8 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                     target.removeClass("fa-spin fa-refresh").addClass("fa-stop");
 
                                     thisComp.setState({
-                                        blackList: false
+                                        blackList: false,
+                                        isWorkingFlag: false
                                     });
                                 });
                             });
@@ -652,7 +669,8 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                         target.removeClass("fa-spin fa-refresh").addClass("fa-stop");
 
                         thisComp.setState({
-                            blackList: false
+                            blackList: false,
+                            isWorkingFlag: false
                         });
                     }
 
@@ -664,7 +682,8 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                     var thisComp = this;
 
                     thisComp.setState({
-                        spamStatus: true
+                        spamStatus: true,
+                        isWorkingFlag: true
                     });
                     var target = {};
 
@@ -700,7 +719,8 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                     target.removeClass("fa-spin");
 
                                     thisComp.setState({
-                                        spamStatus: false
+                                        spamStatus: false,
+                                        isWorkingFlag: false
                                     });
                                 }
                             });
@@ -710,7 +730,8 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                         target.removeClass("fa-spin");
 
                         thisComp.setState({
-                            spamStatus: false
+                            spamStatus: false,
+                            isWorkingFlag: false
                         });
                     }
 
@@ -720,6 +741,9 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                     var selected = this.getSelected();
 
                     if (selected.length > 0) {
+                        thisComp.setState({
+                            isWorkingFlag: true
+                        });
                         var messages = app.user.get("emails")["messages"];
                         //var folders=app.user.get('emails')['folders'];
 
@@ -733,11 +757,17 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                             $("#selectAllAlt > input").prop("checked", false);
                             app.user.set({ resetSelectedItems: true });
                             app.globalF.syncUpdates();
+                            thisComp.setState({
+                                isWorkingFlag: false
+                            });
                         });
 
                         //app.userObjects.saveMailBox('emailsRead',{});
                     } else {
                         app.notifications.systemMessage("selectMsg");
+                        thisComp.setState({
+                            isWorkingFlag: false
+                        });
                     }
 
                     break;
@@ -746,6 +776,9 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                     var selected = this.getSelected();
 
                     if (selected.length > 0) {
+                        thisComp.setState({
+                            isWorkingFlag: true
+                        });
                         var messages = app.user.get("emails")["messages"];
                         //var folders=app.user.get('emails')['folders'];
 
@@ -759,13 +792,18 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                             $("#selectAllAlt > input").prop("checked", false);
                             app.user.set({ resetSelectedItems: true });
                             app.globalF.syncUpdates();
+                            thisComp.setState({
+                                isWorkingFlag: false
+                            });
                         });
 
                         //app.userObjects.saveMailBox('emailsRead',{});
                     } else {
                         app.notifications.systemMessage("selectMsg");
+                        thisComp.setState({
+                            isWorkingFlag: false
+                        });
                     }
-
                     break;
             }
         },
@@ -873,310 +911,25 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
         render: function () {
             return React.createElement(
                 "div",
-                { className: "middle-section", id: "appMiddleSection" },
+                null,
                 React.createElement(
                     "div",
-                    { className: "middle-top" },
+                    {
+                        className: this.state.isWorkingFlag ? "in-working popup d-block" : "in-working popup d-none"
+                    },
                     React.createElement(
                         "div",
-                        { className: "desktop-search" },
-                        React.createElement("input", {
-                            type: "search",
-                            placeholder: "Search...",
-                            onChange: this.handleSearchChange.bind(this)
-                        })
-                    ),
-                    React.createElement(
-                        "div",
-                        { className: "info-row", id: "checkAll" },
+                        { className: "wrapper" },
                         React.createElement(
                             "div",
-                            { className: "all-check" },
-                            React.createElement(
-                                "label",
-                                {
-                                    className: "container-checkbox",
-                                    id: "selectAll"
-                                },
-                                React.createElement("input", {
-                                    type: "checkbox",
-                                    onChange: this.handleSelectAll.bind(this),
-                                    checked: this.state.allChecked
-                                }),
-                                React.createElement("span", { className: "checkmark" }),
-                                " "
-                            )
-                        ),
-                        React.createElement(
-                            "div",
-                            { className: "arrow-btn" },
+                            { className: "inner" },
                             React.createElement(
                                 "div",
-                                { className: "dropdown" },
-                                React.createElement("button", {
-                                    className: "btn btn-secondary dropdown-toggle",
-                                    type: "button",
-                                    id: "mail-sort",
-                                    "data-bs-toggle": "dropdown",
-                                    "aria-expanded": "false"
-                                }),
+                                { className: "content" },
                                 React.createElement(
-                                    "ul",
-                                    {
-                                        className: "dropdown-menu",
-                                        "aria-labelledby": "mail-sort"
-                                    },
-                                    React.createElement(
-                                        "li",
-                                        null,
-                                        React.createElement(
-                                            "label",
-                                            {
-                                                id: "selectAllAlt",
-                                                className: "container-checkbox"
-                                            },
-                                            React.createElement("input", {
-                                                type: "checkbox",
-                                                onChange: this.handleSelectAll.bind(this),
-                                                checked: this.state.allChecked
-                                            }),
-                                            React.createElement("span", { className: "checkmark" }),
-                                            " ",
-                                            React.createElement(
-                                                "div",
-                                                null,
-                                                "Select all"
-                                            )
-                                        )
-                                    ),
-                                    React.createElement(
-                                        "li",
-                                        null,
-                                        React.createElement(
-                                            "button",
-                                            null,
-                                            " ",
-                                            React.createElement("span", { className: "star-yellow" }),
-                                            " ",
-                                            React.createElement(
-                                                "div",
-                                                null,
-                                                "Show all starred"
-                                            )
-                                        )
-                                    ),
-                                    React.createElement(
-                                        "li",
-                                        null,
-                                        React.createElement(
-                                            "button",
-                                            null,
-                                            " ",
-                                            React.createElement("span", { className: "star-gray" }),
-                                            " ",
-                                            React.createElement(
-                                                "div",
-                                                null,
-                                                "Show unstarred"
-                                            )
-                                        )
-                                    ),
-                                    React.createElement(
-                                        "li",
-                                        null,
-                                        React.createElement(
-                                            "button",
-                                            {
-                                                onClick: this.handleShowRead.bind(this)
-                                            },
-                                            " ",
-                                            React.createElement("span", { className: "eye" }),
-                                            " ",
-                                            React.createElement(
-                                                "div",
-                                                null,
-                                                "Show all read"
-                                            )
-                                        )
-                                    ),
-                                    React.createElement(
-                                        "li",
-                                        null,
-                                        React.createElement(
-                                            "button",
-                                            {
-                                                onClick: this.handleShowUnRead.bind(this)
-                                            },
-                                            " ",
-                                            React.createElement("span", { className: "eye-close" }),
-                                            " ",
-                                            React.createElement(
-                                                "div",
-                                                null,
-                                                "Show all unread"
-                                            )
-                                        )
-                                    ),
-                                    React.createElement(
-                                        "li",
-                                        null,
-                                        React.createElement(
-                                            "button",
-                                            {
-                                                onClick: this.handleShowPreview.bind(this)
-                                            },
-                                            " ",
-                                            this.state.showPreview ? React.createElement("span", { className: "eye" }) : React.createElement("span", { className: "eye-close" }),
-                                            " ",
-                                            React.createElement(
-                                                "div",
-                                                null,
-                                                this.state.showPreview ? "Hide email preview" : "Show email preview"
-                                            )
-                                        )
-                                    )
-                                )
-                            )
-                        ),
-                        React.createElement(
-                            "div",
-                            { className: "info-row-right" },
-                            React.createElement(
-                                "div",
-                                { className: "referesh-btn" },
-                                React.createElement(
-                                    "button",
-                                    {
-                                        id: "referesh-btn",
-                                        className: "icon-btn",
-                                        onClick: this.handleRefreshButton.bind(this)
-                                    },
-                                    React.createElement("i", null)
-                                )
-                            ),
-                            React.createElement(
-                                "div",
-                                { className: "arrow-btn ellipsis-dropdown" },
-                                React.createElement(
-                                    "div",
-                                    { className: "dropdown dropstart" },
-                                    React.createElement("button", {
-                                        className: "btn btn-secondary dropdown-toggle",
-                                        type: "button",
-                                        id: "mail-extra-options",
-                                        "data-bs-toggle": "dropdown",
-                                        "aria-expanded": "false"
-                                    }),
-                                    React.createElement(
-                                        "ul",
-                                        {
-                                            className: "dropdown-menu",
-                                            id: "mail-extra-options"
-                                        },
-                                        React.createElement(
-                                            "li",
-                                            null,
-                                            React.createElement(
-                                                "button",
-                                                null,
-                                                React.createElement("span", { className: "icon-moveto" }),
-                                                React.createElement(
-                                                    "div",
-                                                    null,
-                                                    "Move To"
-                                                )
-                                            ),
-                                            React.createElement(
-                                                "ul",
-                                                { className: "dd-inner" },
-                                                this.state.moveFolderMain,
-                                                React.createElement("li", { className: "divider" }),
-                                                this.state.moveFolderCust
-                                            )
-                                        ),
-                                        React.createElement(
-                                            "li",
-                                            null,
-                                            React.createElement(
-                                                "button",
-                                                {
-                                                    onClick: this.handleChange.bind(this, "moveToTrash"),
-                                                    disabled: this.state.trashStatus
-                                                },
-                                                React.createElement("span", { className: "icon-trash" }),
-                                                React.createElement(
-                                                    "div",
-                                                    null,
-                                                    "Delete"
-                                                )
-                                            )
-                                        ),
-                                        React.createElement(
-                                            "li",
-                                            null,
-                                            React.createElement(
-                                                "button",
-                                                {
-                                                    onClick: this.handleChange.bind(this, "moveToSpam"),
-                                                    disabled: this.state.spamStatus
-                                                },
-                                                React.createElement("span", { className: "icon-spam" }),
-                                                React.createElement(
-                                                    "div",
-                                                    null,
-                                                    "Spam"
-                                                )
-                                            )
-                                        ),
-                                        React.createElement(
-                                            "li",
-                                            null,
-                                            React.createElement(
-                                                "button",
-                                                {
-                                                    onClick: this.handleChange.bind(this, "markAsRead")
-                                                },
-                                                React.createElement("span", { className: "icon-read" }),
-                                                React.createElement(
-                                                    "div",
-                                                    null,
-                                                    "Mark as Read"
-                                                )
-                                            )
-                                        ),
-                                        React.createElement(
-                                            "li",
-                                            null,
-                                            React.createElement(
-                                                "button",
-                                                {
-                                                    onClick: this.handleChange.bind(this, "markAsUnread")
-                                                },
-                                                React.createElement("span", { className: "icon-unread" }),
-                                                React.createElement(
-                                                    "div",
-                                                    null,
-                                                    "Mark as Unead"
-                                                )
-                                            )
-                                        ),
-                                        React.createElement(
-                                            "li",
-                                            null,
-                                            React.createElement(
-                                                "button",
-                                                {
-                                                    onClick: this.handleChange.bind(this, "blackList")
-                                                },
-                                                React.createElement("span", { className: "icon-block" }),
-                                                React.createElement(
-                                                    "div",
-                                                    null,
-                                                    "Block Sender"
-                                                )
-                                            )
-                                        )
-                                    )
+                                    "h2",
+                                    null,
+                                    "Working..."
                                 )
                             )
                         )
@@ -1184,15 +937,327 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                 ),
                 React.createElement(
                     "div",
-                    { className: "middle-content" },
+                    { className: "middle-section", id: "appMiddleSection" },
                     React.createElement(
                         "div",
-                        { className: "inbox-list" },
-                        React.createElement("table", {
-                            className: "table table-hover table-inbox row-border clickable",
-                            id: "emailListTable",
-                            onClick: this.handleClick.bind(this, "readEmail")
-                        })
+                        { className: "middle-top" },
+                        React.createElement(
+                            "div",
+                            { className: "desktop-search" },
+                            React.createElement("input", {
+                                type: "search",
+                                placeholder: "Search...",
+                                onChange: this.handleSearchChange.bind(this)
+                            })
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "info-row", id: "checkAll" },
+                            React.createElement(
+                                "div",
+                                { className: "all-check" },
+                                React.createElement(
+                                    "label",
+                                    {
+                                        className: "container-checkbox",
+                                        id: "selectAll"
+                                    },
+                                    React.createElement("input", {
+                                        type: "checkbox",
+                                        onChange: this.handleSelectAll.bind(this),
+                                        checked: this.state.allChecked
+                                    }),
+                                    React.createElement("span", { className: "checkmark" }),
+                                    " "
+                                )
+                            ),
+                            React.createElement(
+                                "div",
+                                { className: "arrow-btn" },
+                                React.createElement(
+                                    "div",
+                                    { className: "dropdown" },
+                                    React.createElement("button", {
+                                        className: "btn btn-secondary dropdown-toggle",
+                                        type: "button",
+                                        id: "mail-sort",
+                                        "data-bs-toggle": "dropdown",
+                                        "aria-expanded": "false"
+                                    }),
+                                    React.createElement(
+                                        "ul",
+                                        {
+                                            className: "dropdown-menu",
+                                            "aria-labelledby": "mail-sort"
+                                        },
+                                        React.createElement(
+                                            "li",
+                                            null,
+                                            React.createElement(
+                                                "label",
+                                                {
+                                                    id: "selectAllAlt",
+                                                    className: "container-checkbox"
+                                                },
+                                                React.createElement("input", {
+                                                    type: "checkbox",
+                                                    onChange: this.handleSelectAll.bind(this),
+                                                    checked: this.state.allChecked
+                                                }),
+                                                React.createElement("span", { className: "checkmark" }),
+                                                " ",
+                                                React.createElement(
+                                                    "div",
+                                                    null,
+                                                    "Select all"
+                                                )
+                                            )
+                                        ),
+                                        React.createElement(
+                                            "li",
+                                            null,
+                                            React.createElement(
+                                                "button",
+                                                null,
+                                                " ",
+                                                React.createElement("span", { className: "star-yellow" }),
+                                                " ",
+                                                React.createElement(
+                                                    "div",
+                                                    null,
+                                                    "Show all starred"
+                                                )
+                                            )
+                                        ),
+                                        React.createElement(
+                                            "li",
+                                            null,
+                                            React.createElement(
+                                                "button",
+                                                null,
+                                                " ",
+                                                React.createElement("span", { className: "star-gray" }),
+                                                " ",
+                                                React.createElement(
+                                                    "div",
+                                                    null,
+                                                    "Show unstarred"
+                                                )
+                                            )
+                                        ),
+                                        React.createElement(
+                                            "li",
+                                            null,
+                                            React.createElement(
+                                                "button",
+                                                {
+                                                    onClick: this.handleShowRead.bind(this)
+                                                },
+                                                " ",
+                                                React.createElement("span", { className: "eye" }),
+                                                " ",
+                                                React.createElement(
+                                                    "div",
+                                                    null,
+                                                    "Show all read"
+                                                )
+                                            )
+                                        ),
+                                        React.createElement(
+                                            "li",
+                                            null,
+                                            React.createElement(
+                                                "button",
+                                                {
+                                                    onClick: this.handleShowUnRead.bind(this)
+                                                },
+                                                " ",
+                                                React.createElement("span", { className: "eye-close" }),
+                                                " ",
+                                                React.createElement(
+                                                    "div",
+                                                    null,
+                                                    "Show all unread"
+                                                )
+                                            )
+                                        ),
+                                        React.createElement(
+                                            "li",
+                                            null,
+                                            React.createElement(
+                                                "button",
+                                                {
+                                                    onClick: this.handleShowPreview.bind(this)
+                                                },
+                                                " ",
+                                                this.state.showPreview ? React.createElement("span", { className: "eye" }) : React.createElement("span", { className: "eye-close" }),
+                                                " ",
+                                                React.createElement(
+                                                    "div",
+                                                    null,
+                                                    this.state.showPreview ? "Hide email preview" : "Show email preview"
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+                            ),
+                            React.createElement(
+                                "div",
+                                { className: "info-row-right" },
+                                React.createElement(
+                                    "div",
+                                    { className: "referesh-btn" },
+                                    React.createElement(
+                                        "button",
+                                        {
+                                            id: "referesh-btn",
+                                            className: "icon-btn",
+                                            onClick: this.handleRefreshButton.bind(this)
+                                        },
+                                        React.createElement("i", null)
+                                    )
+                                ),
+                                React.createElement(
+                                    "div",
+                                    { className: "arrow-btn ellipsis-dropdown" },
+                                    React.createElement(
+                                        "div",
+                                        { className: "dropdown dropstart" },
+                                        React.createElement("button", {
+                                            className: "btn btn-secondary dropdown-toggle",
+                                            type: "button",
+                                            id: "mail-extra-options",
+                                            "data-bs-toggle": "dropdown",
+                                            "aria-expanded": "false"
+                                        }),
+                                        React.createElement(
+                                            "ul",
+                                            {
+                                                className: "dropdown-menu",
+                                                id: "mail-extra-options"
+                                            },
+                                            React.createElement(
+                                                "li",
+                                                null,
+                                                React.createElement(
+                                                    "button",
+                                                    null,
+                                                    React.createElement("span", { className: "icon-moveto" }),
+                                                    React.createElement(
+                                                        "div",
+                                                        null,
+                                                        "Move To"
+                                                    )
+                                                ),
+                                                React.createElement(
+                                                    "ul",
+                                                    { className: "dd-inner" },
+                                                    this.state.moveFolderMain,
+                                                    React.createElement("li", { className: "divider" }),
+                                                    this.state.moveFolderCust
+                                                )
+                                            ),
+                                            React.createElement(
+                                                "li",
+                                                null,
+                                                React.createElement(
+                                                    "button",
+                                                    {
+                                                        onClick: this.handleChange.bind(this, "moveToTrash"),
+                                                        disabled: this.state.trashStatus
+                                                    },
+                                                    React.createElement("span", { className: "icon-trash" }),
+                                                    React.createElement(
+                                                        "div",
+                                                        null,
+                                                        "Delete"
+                                                    )
+                                                )
+                                            ),
+                                            React.createElement(
+                                                "li",
+                                                null,
+                                                React.createElement(
+                                                    "button",
+                                                    {
+                                                        onClick: this.handleChange.bind(this, "moveToSpam"),
+                                                        disabled: this.state.spamStatus
+                                                    },
+                                                    React.createElement("span", { className: "icon-spam" }),
+                                                    React.createElement(
+                                                        "div",
+                                                        null,
+                                                        "Spam"
+                                                    )
+                                                )
+                                            ),
+                                            React.createElement(
+                                                "li",
+                                                null,
+                                                React.createElement(
+                                                    "button",
+                                                    {
+                                                        onClick: this.handleChange.bind(this, "markAsRead")
+                                                    },
+                                                    React.createElement("span", { className: "icon-read" }),
+                                                    React.createElement(
+                                                        "div",
+                                                        null,
+                                                        "Mark as Read"
+                                                    )
+                                                )
+                                            ),
+                                            React.createElement(
+                                                "li",
+                                                null,
+                                                React.createElement(
+                                                    "button",
+                                                    {
+                                                        onClick: this.handleChange.bind(this, "markAsUnread")
+                                                    },
+                                                    React.createElement("span", { className: "icon-unread" }),
+                                                    React.createElement(
+                                                        "div",
+                                                        null,
+                                                        "Mark as Unead"
+                                                    )
+                                                )
+                                            ),
+                                            React.createElement(
+                                                "li",
+                                                null,
+                                                React.createElement(
+                                                    "button",
+                                                    {
+                                                        onClick: this.handleChange.bind(this, "blackList")
+                                                    },
+                                                    React.createElement("span", { className: "icon-block" }),
+                                                    React.createElement(
+                                                        "div",
+                                                        null,
+                                                        "Block Sender"
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    ),
+                    React.createElement(
+                        "div",
+                        { className: "middle-content" },
+                        React.createElement(
+                            "div",
+                            { className: "inbox-list" },
+                            React.createElement("table", {
+                                className: "table table-hover table-inbox row-border clickable",
+                                id: "emailListTable",
+                                onClick: this.handleClick.bind(this, "readEmail")
+                            })
+                        )
                     )
                 )
             );

@@ -47,7 +47,9 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                     {app.user.get("email").charAt(0)}
                                 </label>
                             </div>
-                            {app.user.get("displayName")}
+                            {app.user.get("displayName") !== ""
+                                ? app.user.get("displayName")
+                                : "Me"}
                             <br />
                             <span className="user-email">
                                 {app.user.get("email")}

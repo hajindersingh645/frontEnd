@@ -51,7 +51,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                 app.user.get("email").charAt(0)
                             )
                         ),
-                        app.user.get("displayName"),
+                        app.user.get("displayName") !== "" ? app.user.get("displayName") : "Me",
                         React.createElement("br", null),
                         React.createElement(
                             "span",

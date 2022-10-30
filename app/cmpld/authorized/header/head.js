@@ -130,7 +130,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                         )
                                     ),
                                     " ",
-                                    app.user.get("displayName"),
+                                    app.user.get("displayName") !== "" ? app.user.get("displayName") : "Me",
                                     " ",
                                     React.createElement("span", { className: "arrow" }),
                                     React.createElement("br", null),

@@ -23,6 +23,7 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                 pastDue: false,
                 balanceShort: false,
                 hidden: true,
+                isWorkingFlag: false,
             };
         },
         componentWillReceiveProps: function (nextProps) {
@@ -672,6 +673,8 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
             }, 500);
         },
         handleChange: function (i, event) {
+            var thisComp = this;
+
             switch (i) {
                 case "moveToFolder":
                     var destFolderId = $(event.target).attr("id");
@@ -679,6 +682,10 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                     var selected = this.getSelected();
 
                     if (selected.length > 0) {
+                        thisComp.setState({
+                            isWorkingFlag: true,
+                        });
+
                         app.user.set({ currentMessageView: {} });
 
                         app.globalF.move2Folder(
@@ -701,6 +708,9 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                             resetSelectedItems: true,
                                         });
                                         app.globalF.syncUpdates();
+                                        thisComp.setState({
+                                            isWorkingFlag: false,
+                                        });
                                     }
                                 );
                             }
@@ -714,6 +724,7 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                     var thisComp = this;
                     this.setState({
                         trashStatus: true,
+                        isWorkingFlag: true,
                     });
                     var target = {};
                     if ($(event.target).is("i")) {
@@ -772,6 +783,7 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
 
                                                 thisComp.setState({
                                                     trashStatus: false,
+                                                    isWorkingFlag: false,
                                                 });
                                             }
                                         );
@@ -785,6 +797,7 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                 .addClass("fa-trash-o");
                             thisComp.setState({
                                 trashStatus: false,
+                                isWorkingFlag: false,
                             });
                         }
                     } else {
@@ -824,6 +837,7 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
 
                                             thisComp.setState({
                                                 trashStatus: false,
+                                                isWorkingFlag: false,
                                             });
                                         }
                                     );
@@ -836,6 +850,7 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                 .addClass("fa-trash-o");
                             thisComp.setState({
                                 trashStatus: false,
+                                isWorkingFlag: false,
                             });
                         }
                     }
@@ -848,6 +863,7 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                     console.log("blacklisting");
                     thisComp.setState({
                         blackList: true,
+                        isWorkingFlag: true,
                     });
 
                     var target = {};
@@ -953,6 +969,7 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
 
                                                 thisComp.setState({
                                                     blackList: false,
+                                                    isWorkingFlag: false,
                                                 });
                                             }
                                         );
@@ -968,6 +985,7 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
 
                         thisComp.setState({
                             blackList: false,
+                            isWorkingFlag: false,
                         });
                     }
 
@@ -980,6 +998,7 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
 
                     thisComp.setState({
                         spamStatus: true,
+                        isWorkingFlag: true,
                     });
                     var target = {};
 
@@ -1043,6 +1062,7 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
 
                                             thisComp.setState({
                                                 spamStatus: false,
+                                                isWorkingFlag: false,
                                             });
                                         }
                                     }
@@ -1055,6 +1075,7 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
 
                         thisComp.setState({
                             spamStatus: false,
+                            isWorkingFlag: false,
                         });
                     }
 
@@ -1064,6 +1085,9 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                     var selected = this.getSelected();
 
                     if (selected.length > 0) {
+                        thisComp.setState({
+                            isWorkingFlag: true,
+                        });
                         var messages = app.user.get("emails")["messages"];
                         //var folders=app.user.get('emails')['folders'];
 
@@ -1085,12 +1109,18 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                 );
                                 app.user.set({ resetSelectedItems: true });
                                 app.globalF.syncUpdates();
+                                thisComp.setState({
+                                    isWorkingFlag: false,
+                                });
                             }
                         );
 
                         //app.userObjects.saveMailBox('emailsRead',{});
                     } else {
                         app.notifications.systemMessage("selectMsg");
+                        thisComp.setState({
+                            isWorkingFlag: false,
+                        });
                     }
 
                     break;
@@ -1099,6 +1129,9 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                     var selected = this.getSelected();
 
                     if (selected.length > 0) {
+                        thisComp.setState({
+                            isWorkingFlag: true,
+                        });
                         var messages = app.user.get("emails")["messages"];
                         //var folders=app.user.get('emails')['folders'];
 
@@ -1118,14 +1151,19 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                 );
                                 app.user.set({ resetSelectedItems: true });
                                 app.globalF.syncUpdates();
+                                thisComp.setState({
+                                    isWorkingFlag: false,
+                                });
                             }
                         );
 
                         //app.userObjects.saveMailBox('emailsRead',{});
                     } else {
                         app.notifications.systemMessage("selectMsg");
+                        thisComp.setState({
+                            isWorkingFlag: false,
+                        });
                     }
-
                     break;
             }
         },
@@ -1236,233 +1274,261 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
         },
         render: function () {
             return (
-                <div className="middle-section" id="appMiddleSection">
-                    <div className="middle-top">
-                        <div className="desktop-search">
-                            <input
-                                type="search"
-                                placeholder="Search..."
-                                onChange={this.handleSearchChange.bind(this)}
-                            />
+                <div>
+                    <div
+                        className={
+                            this.state.isWorkingFlag
+                                ? "in-working popup d-block"
+                                : "in-working popup d-none"
+                        }
+                    >
+                        <div className="wrapper">
+                            <div className="inner">
+                                <div className="content">
+                                    <h2>Working...</h2>
+                                </div>
+                            </div>
                         </div>
-                        <div className="info-row" id="checkAll">
-                            <div className="all-check">
-                                <label
-                                    className="container-checkbox"
-                                    id="selectAll"
-                                >
-                                    <input
-                                        type="checkbox"
-                                        onChange={this.handleSelectAll.bind(
-                                            this
-                                        )}
-                                        checked={this.state.allChecked}
-                                    />
-                                    <span className="checkmark"></span>{" "}
-                                </label>
+                    </div>
+                    <div className="middle-section" id="appMiddleSection">
+                        <div className="middle-top">
+                            <div className="desktop-search">
+                                <input
+                                    type="search"
+                                    placeholder="Search..."
+                                    onChange={this.handleSearchChange.bind(
+                                        this
+                                    )}
+                                />
                             </div>
-                            <div className="arrow-btn">
-                                <div className="dropdown">
-                                    <button
-                                        className="btn btn-secondary dropdown-toggle"
-                                        type="button"
-                                        id="mail-sort"
-                                        data-bs-toggle="dropdown"
-                                        aria-expanded="false"
-                                    ></button>
-                                    <ul
-                                        className="dropdown-menu"
-                                        aria-labelledby="mail-sort"
+                            <div className="info-row" id="checkAll">
+                                <div className="all-check">
+                                    <label
+                                        className="container-checkbox"
+                                        id="selectAll"
                                     >
-                                        <li>
-                                            <label
-                                                id="selectAllAlt"
-                                                className="container-checkbox"
-                                            >
-                                                <input
-                                                    type="checkbox"
-                                                    onChange={this.handleSelectAll.bind(
-                                                        this
-                                                    )}
-                                                    checked={
-                                                        this.state.allChecked
-                                                    }
-                                                />
-                                                <span className="checkmark"></span>{" "}
-                                                <div>Select all</div>
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <button>
-                                                {" "}
-                                                <span className="star-yellow"></span>{" "}
-                                                <div>Show all starred</div>
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button>
-                                                {" "}
-                                                <span className="star-gray"></span>{" "}
-                                                <div>Show unstarred</div>
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button
-                                                onClick={this.handleShowRead.bind(
-                                                    this
-                                                )}
-                                            >
-                                                {" "}
-                                                <span className="eye"></span>{" "}
-                                                <div>Show all read</div>
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button
-                                                onClick={this.handleShowUnRead.bind(
-                                                    this
-                                                )}
-                                            >
-                                                {" "}
-                                                <span className="eye-close"></span>{" "}
-                                                <div>Show all unread</div>
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button
-                                                onClick={this.handleShowPreview.bind(
-                                                    this
-                                                )}
-                                            >
-                                                {" "}
-                                                {this.state.showPreview ? (
-                                                    <span className="eye"></span>
-                                                ) : (
-                                                    <span className="eye-close"></span>
-                                                )}{" "}
-                                                <div>
-                                                    {this.state.showPreview
-                                                        ? "Hide email preview"
-                                                        : "Show email preview"}
-                                                </div>
-                                            </button>
-                                        </li>
-                                    </ul>
+                                        <input
+                                            type="checkbox"
+                                            onChange={this.handleSelectAll.bind(
+                                                this
+                                            )}
+                                            checked={this.state.allChecked}
+                                        />
+                                        <span className="checkmark"></span>{" "}
+                                    </label>
                                 </div>
-                            </div>
-                            <div className="info-row-right">
-                                <div className="referesh-btn">
-                                    <button
-                                        id="referesh-btn"
-                                        className="icon-btn"
-                                        onClick={this.handleRefreshButton.bind(
-                                            this
-                                        )}
-                                    >
-                                        <i></i>
-                                    </button>
-                                </div>
-                                <div className="arrow-btn ellipsis-dropdown">
-                                    <div className="dropdown dropstart">
+                                <div className="arrow-btn">
+                                    <div className="dropdown">
                                         <button
                                             className="btn btn-secondary dropdown-toggle"
                                             type="button"
-                                            id="mail-extra-options"
+                                            id="mail-sort"
                                             data-bs-toggle="dropdown"
                                             aria-expanded="false"
                                         ></button>
                                         <ul
                                             className="dropdown-menu"
-                                            id="mail-extra-options"
+                                            aria-labelledby="mail-sort"
                                         >
                                             <li>
+                                                <label
+                                                    id="selectAllAlt"
+                                                    className="container-checkbox"
+                                                >
+                                                    <input
+                                                        type="checkbox"
+                                                        onChange={this.handleSelectAll.bind(
+                                                            this
+                                                        )}
+                                                        checked={
+                                                            this.state
+                                                                .allChecked
+                                                        }
+                                                    />
+                                                    <span className="checkmark"></span>{" "}
+                                                    <div>Select all</div>
+                                                </label>
+                                            </li>
+                                            <li>
                                                 <button>
-                                                    <span className="icon-moveto"></span>
-                                                    <div>Move To</div>
+                                                    {" "}
+                                                    <span className="star-yellow"></span>{" "}
+                                                    <div>Show all starred</div>
                                                 </button>
-                                                <ul className="dd-inner">
-                                                    {this.state.moveFolderMain}
-                                                    <li className="divider"></li>
-                                                    {this.state.moveFolderCust}
-                                                </ul>
                                             </li>
                                             <li>
-                                                <button
-                                                    onClick={this.handleChange.bind(
-                                                        this,
-                                                        "moveToTrash"
-                                                    )}
-                                                    disabled={
-                                                        this.state.trashStatus
-                                                    }
-                                                >
-                                                    <span className="icon-trash"></span>
-                                                    <div>Delete</div>
+                                                <button>
+                                                    {" "}
+                                                    <span className="star-gray"></span>{" "}
+                                                    <div>Show unstarred</div>
                                                 </button>
                                             </li>
                                             <li>
                                                 <button
-                                                    onClick={this.handleChange.bind(
-                                                        this,
-                                                        "moveToSpam"
+                                                    onClick={this.handleShowRead.bind(
+                                                        this
                                                     )}
-                                                    disabled={
-                                                        this.state.spamStatus
-                                                    }
                                                 >
-                                                    <span className="icon-spam"></span>
-                                                    <div>Spam</div>
+                                                    {" "}
+                                                    <span className="eye"></span>{" "}
+                                                    <div>Show all read</div>
                                                 </button>
                                             </li>
                                             <li>
                                                 <button
-                                                    onClick={this.handleChange.bind(
-                                                        this,
-                                                        "markAsRead"
+                                                    onClick={this.handleShowUnRead.bind(
+                                                        this
                                                     )}
                                                 >
-                                                    <span className="icon-read"></span>
-                                                    <div>Mark as Read</div>
+                                                    {" "}
+                                                    <span className="eye-close"></span>{" "}
+                                                    <div>Show all unread</div>
                                                 </button>
                                             </li>
                                             <li>
                                                 <button
-                                                    onClick={this.handleChange.bind(
-                                                        this,
-                                                        "markAsUnread"
+                                                    onClick={this.handleShowPreview.bind(
+                                                        this
                                                     )}
                                                 >
-                                                    <span className="icon-unread"></span>
-                                                    <div>Mark as Unead</div>
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button
-                                                    onClick={this.handleChange.bind(
-                                                        this,
-                                                        "blackList"
-                                                    )}
-                                                >
-                                                    <span className="icon-block"></span>
-                                                    <div>Block Sender</div>
+                                                    {" "}
+                                                    {this.state.showPreview ? (
+                                                        <span className="eye"></span>
+                                                    ) : (
+                                                        <span className="eye-close"></span>
+                                                    )}{" "}
+                                                    <div>
+                                                        {this.state.showPreview
+                                                            ? "Hide email preview"
+                                                            : "Show email preview"}
+                                                    </div>
                                                 </button>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
+                                <div className="info-row-right">
+                                    <div className="referesh-btn">
+                                        <button
+                                            id="referesh-btn"
+                                            className="icon-btn"
+                                            onClick={this.handleRefreshButton.bind(
+                                                this
+                                            )}
+                                        >
+                                            <i></i>
+                                        </button>
+                                    </div>
+                                    <div className="arrow-btn ellipsis-dropdown">
+                                        <div className="dropdown dropstart">
+                                            <button
+                                                className="btn btn-secondary dropdown-toggle"
+                                                type="button"
+                                                id="mail-extra-options"
+                                                data-bs-toggle="dropdown"
+                                                aria-expanded="false"
+                                            ></button>
+                                            <ul
+                                                className="dropdown-menu"
+                                                id="mail-extra-options"
+                                            >
+                                                <li>
+                                                    <button>
+                                                        <span className="icon-moveto"></span>
+                                                        <div>Move To</div>
+                                                    </button>
+                                                    <ul className="dd-inner">
+                                                        {
+                                                            this.state
+                                                                .moveFolderMain
+                                                        }
+                                                        <li className="divider"></li>
+                                                        {
+                                                            this.state
+                                                                .moveFolderCust
+                                                        }
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <button
+                                                        onClick={this.handleChange.bind(
+                                                            this,
+                                                            "moveToTrash"
+                                                        )}
+                                                        disabled={
+                                                            this.state
+                                                                .trashStatus
+                                                        }
+                                                    >
+                                                        <span className="icon-trash"></span>
+                                                        <div>Delete</div>
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button
+                                                        onClick={this.handleChange.bind(
+                                                            this,
+                                                            "moveToSpam"
+                                                        )}
+                                                        disabled={
+                                                            this.state
+                                                                .spamStatus
+                                                        }
+                                                    >
+                                                        <span className="icon-spam"></span>
+                                                        <div>Spam</div>
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button
+                                                        onClick={this.handleChange.bind(
+                                                            this,
+                                                            "markAsRead"
+                                                        )}
+                                                    >
+                                                        <span className="icon-read"></span>
+                                                        <div>Mark as Read</div>
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button
+                                                        onClick={this.handleChange.bind(
+                                                            this,
+                                                            "markAsUnread"
+                                                        )}
+                                                    >
+                                                        <span className="icon-unread"></span>
+                                                        <div>Mark as Unead</div>
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button
+                                                        onClick={this.handleChange.bind(
+                                                            this,
+                                                            "blackList"
+                                                        )}
+                                                    >
+                                                        <span className="icon-block"></span>
+                                                        <div>Block Sender</div>
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="middle-content">
-                        <div className="inbox-list">
-                            <table
-                                className="table table-hover table-inbox row-border clickable"
-                                id="emailListTable"
-                                onClick={this.handleClick.bind(
-                                    this,
-                                    "readEmail"
-                                )}
-                            ></table>
+                        <div className="middle-content">
+                            <div className="inbox-list">
+                                <table
+                                    className="table table-hover table-inbox row-border clickable"
+                                    id="emailListTable"
+                                    onClick={this.handleClick.bind(
+                                        this,
+                                        "readEmail"
+                                    )}
+                                ></table>
+                            </div>
                         </div>
                     </div>
                 </div>

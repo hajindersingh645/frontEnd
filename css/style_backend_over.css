@@ -776,6 +776,51 @@ header .menu-icon.on-left-side {
     text-transform: uppercase;
     font-weight: bolder;
 }
+.popup {
+    background-color: rgba(0, 0, 0, 0.35);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999999;
+}
+.popup .wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.popup .wrapper .inner {
+    background-color: #ffffff;
+    border-radius: 9px;
+    width: 50%;
+    height: 120px;
+    text-align: center;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.popup .wrapper .inner .content {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+.popup .wrapper .inner .content h2 {
+    margin: 0;
+    line-height: 0;
+}
+@keyframes pulse {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
 @media screen and (min-width: 1366px) {
     .middle-section .middle-content {
         height: calc(100vh - 171px);
@@ -818,5 +863,10 @@ header .menu-icon.on-left-side {
     }
     .middle-section .middle-top .info-row {
         padding-top: 0px;
+    }
+}
+@media screen and (max-width: 767px) {
+    .popup .wrapper .inner {
+        width: 90%;
     }
 }
