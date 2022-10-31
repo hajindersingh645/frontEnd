@@ -812,6 +812,18 @@ header .menu-icon.on-left-side {
     margin: 0;
     line-height: 0;
 }
+.mobile-logo {
+    color: #080d13;
+    display: flex;
+    align-items: flex-start;
+    text-decoration: none;
+    font-weight: bold;
+    line-height: 1.4;
+    font-size: 23px;
+}
+.mobile-logo img {
+    display: none !important;
+}
 @keyframes pulse {
     0%,
     100% {
@@ -863,6 +875,14 @@ header .menu-icon.on-left-side {
     }
     .middle-section .middle-top .info-row {
         padding-top: 0px;
+    }
+
+    .middle-section {
+        position: fixed;
+        right: 0;
+    }
+    .middle-section .middle-content {
+        height: calc(100vh - 160px);
     }
 }
 @media screen and (max-width: 767px) {

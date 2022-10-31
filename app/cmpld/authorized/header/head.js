@@ -69,7 +69,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                         { className: "logo-2" },
                         React.createElement(
                             "a",
-                            { href: "#" },
+                            { href: "#", className: "mobile-logo" },
                             React.createElement(
                                 "div",
                                 { className: "menu-icon on-left-side" },
@@ -84,7 +84,11 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                 alt: "",
                                 className: "light-theme"
                             }),
-                            " ",
+                            React.createElement(
+                                "span",
+                                { className: "folder-name" },
+                                app.user.get("currentFolder") !== "" ? app.user.get("currentFolder") : "Inbox"
+                            ),
                             React.createElement("img", {
                                 src: "images/logo-white.svg",
                                 alt: "",

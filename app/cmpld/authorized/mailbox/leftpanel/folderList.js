@@ -58,6 +58,11 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                 Backbone.history.navigate("/mail/" + app.transform.from64str(folder), {
                                     trigger: true
                                 });
+
+                                app.user.set({
+                                    currentFolder: app.transform.from64str(folder)
+                                });
+
                                 app.user.set({ resetSelectedItems: true });
 
                                 app.globalF.resetCurrentMessage();

@@ -56,7 +56,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                     </div>
                     <header>
                         <div className="logo-2">
-                            <a href="#">
+                            <a href="#" className="mobile-logo">
                                 <div className="menu-icon on-left-side">
                                     <button
                                         data-bs-toggle="offcanvas"
@@ -68,7 +68,12 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                     src="images/logo.svg"
                                     alt=""
                                     className="light-theme"
-                                />{" "}
+                                />
+                                <span className="folder-name">
+                                    {app.user.get("currentFolder") !== ""
+                                        ? app.user.get("currentFolder")
+                                        : "Inbox"}
+                                </span>
                                 <img
                                     src="images/logo-white.svg"
                                     alt=""

@@ -371,6 +371,77 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                 var charge = true;
             }
 
+            const paymentTabs = [
+                {
+                    id: "monthly",
+                    label: "Monthly",
+                    tabId: "monthly",
+                    offDesc: null,
+                },
+                {
+                    id: "yearly",
+                    label: "1 Year",
+                    tabId: "yearly-one",
+                    offDesc: "Save 30%",
+                },
+                {
+                    id: "years2",
+                    label: "2 years",
+                    tabId: "yearly-two",
+                    offDesc: "Save 40%",
+                },
+            ];
+
+            const paymentTabContents = [
+                {
+                    id: "free",
+                    title: "Free",
+                    desc: "For most businesses that want to optimize web queries",
+                    price: "$0.00",
+                    per: "per month",
+                    methodType: "freemium",
+                    features: [
+                        "All Limited Links",
+                        "Own Analytics Platform",
+                        "Chat Support",
+                        "Optimize Hashtags",
+                        "Unlimited Users",
+                    ],
+                },
+                {
+                    id: "monthly",
+                    title: "Monthly",
+                    desc: "For most businesses that want to optimize web queries",
+                    price: `$
+                    ${app.user.get("userPlan")["trueMonthPrice"] / 100}`,
+                    per: `${discm} month`,
+                    methodType: "monthly",
+                    features: [
+                        "All Limited Links",
+                        "Own Analytics Platform",
+                        "Chat Support",
+                        "Optimize Hashtags",
+                        "Unlimited Users",
+                    ],
+                },
+                {
+                    id: "yearly",
+                    title: "Yearly",
+                    desc: "For most businesses that want to optimize web queries",
+                    price: `$
+                    ${app.user.get("userPlan")["trueYearPrice"] / 100}`,
+                    per: `${discy} month`,
+                    methodType: "yearly",
+                    features: [
+                        "All Limited Links",
+                        "Own Analytics Platform",
+                        "Chat Support",
+                        "Optimize Hashtags",
+                        "Unlimited Users",
+                    ],
+                },
+            ];
+
             return (
                 <div
                     className="modal modal-sheet position-fixed d-flex bg-secondary bg-opacity-75 py-0 overflow-hidden"
@@ -378,7 +449,6 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                     tabIndex="-1"
                     role="dialog"
                     aria-hidden="true"
-                    onClick={this.handleClick.bind(this, "freemium")}
                 >
                     <div className="modal-dialog modal-pricing" role="document">
                         <div
@@ -398,93 +468,53 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                                     id="myTab"
                                     role="tablist"
                                 >
-                                    <li role="presentation">
-                                        <button
-                                            className={`${
-                                                this.state.currentTab ===
-                                                "monthly"
-                                                    ? "active"
-                                                    : ""
-                                            }`}
-                                            id="monthly-tab"
-                                            data-bs-toggle="tab"
-                                            data-bs-target="#monthly-tab-pane"
-                                            type="button"
-                                            role="tab"
-                                            aria-controls="monthly-tab-pane"
-                                            aria-selected="true"
-                                            onClick={this.handleTabChange.bind(
-                                                this,
-                                                "monthly"
-                                            )}
-                                        >
-                                            Monthly
-                                        </button>
-                                    </li>
-                                    <li role="presentation">
-                                        <button
-                                            id="yearly-tab"
-                                            data-bs-toggle="tab"
-                                            data-bs-target="#yearly-tab-pane"
-                                            type="button"
-                                            role="tab"
-                                            aria-controls="yearly-tab-pane"
-                                            aria-selected="false"
-                                            className={`${
-                                                this.state.currentTab ===
-                                                "yearly-one"
-                                                    ? "active"
-                                                    : ""
-                                            }`}
-                                            tabindex="-1"
-                                            onClick={this.handleTabChange.bind(
-                                                this,
-                                                "yearly-one"
-                                            )}
-                                        >
-                                            <div
-                                                style={{
-                                                    display: "inline-block",
-                                                }}
+                                    {paymentTabs.map((paymentTab, index) => (
+                                        <li role="presentation" key={index}>
+                                            <button
+                                                className={`${
+                                                    this.state.currentTab ===
+                                                    paymentTab.tabId
+                                                        ? "active"
+                                                        : ""
+                                                }`}
+                                                id={`${paymentTab.id}-tab`}
+                                                data-bs-toggle="tab"
+                                                data-bs-target={`#${paymentTab.id}-tab-pane`}
+                                                type="button"
+                                                role="tab"
+                                                aria-controls={`${paymentTab.id}-tab-pane`}
+                                                aria-selected={
+                                                    this.state.currentTab ===
+                                                    paymentTab.tabId
+                                                        ? true
+                                                        : false
+                                                }
+                                                onClick={this.handleTabChange.bind(
+                                                    this,
+                                                    paymentTab.tabId
+                                                )}
                                             >
-                                                1 Year
-                                            </div>
-                                            <span>Save 30%</span>
-                                        </button>
-                                    </li>
-                                    <li role="presentation">
-                                        <button
-                                            id="years2-tab"
-                                            data-bs-toggle="tab"
-                                            data-bs-target="#years2-tab-pane"
-                                            type="button"
-                                            role="tab"
-                                            aria-controls="years2-tab-pane"
-                                            aria-selected="false"
-                                            className={`${
-                                                this.state.currentTab ===
-                                                "yearly-two"
-                                                    ? "active"
-                                                    : ""
-                                            }`}
-                                            tabindex="-1"
-                                            onClick={this.handleTabChange.bind(
-                                                this,
-                                                "yearly-two"
-                                            )}
-                                        >
-                                            <div
-                                                style={{
-                                                    display: "inline-block",
-                                                }}
-                                            >
-                                                2 years
-                                            </div>
-                                            <span className="dark">
-                                                Save 40%
-                                            </span>
-                                        </button>
-                                    </li>
+                                                <div
+                                                    style={{
+                                                        display:
+                                                            "d-inline-block",
+                                                    }}
+                                                >
+                                                    <div className="d-inline-block">
+                                                        {paymentTab.label}
+                                                    </div>
+                                                    {paymentTab.offDesc !==
+                                                    null ? (
+                                                        <span className="dark">
+                                                            {paymentTab.offDesc}
+                                                        </span>
+                                                    ) : (
+                                                        <span className="d-none"></span>
+                                                    )}
+                                                </div>
+                                            </button>
+                                        </li>
+                                    ))}
                                 </ul>
                             </div>
                             <div className="tab-content" id="myTabContent">
@@ -500,940 +530,72 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                                     tabindex="0"
                                 >
                                     <div className="row gx-4">
-                                        <div className="col-md-6 col-lg-3">
-                                            <div className="pricing-box">
-                                                <div className="pricing-box-top">
-                                                    <div className="pricing-title">
-                                                        Free
-                                                    </div>
-                                                    <p>
-                                                        For most businesses that
-                                                        want to optimize web
-                                                        queries
-                                                    </p>
-                                                </div>
-                                                <div className="pricing-box-middle">
-                                                    <div className="price">
-                                                        $0.00
-                                                    </div>
-                                                    <div className="per-month">
-                                                        per month
-                                                    </div>
-                                                    <div className="btn-row">
-                                                        <button
-                                                            className="btn-blue"
-                                                            onClick={this.handleClick.bind(
-                                                                this,
-                                                                "freemium"
-                                                            )}
-                                                        >
-                                                            Choose plan
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div className="pricing-bullets">
-                                                    <ul>
-                                                        <li>
-                                                            All Limited Links
-                                                        </li>
-                                                        <li>
-                                                            Own Analytics
-                                                            Platform
-                                                        </li>
-                                                        <li>Chat Support</li>
-                                                        <li>
-                                                            Optimize Hashtags
-                                                        </li>
-                                                        <li>Unlimited Users</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-md-6 col-lg-3">
-                                            <div className="pricing-box">
-                                                <div className="pricing-box-top">
-                                                    <div className="pricing-title">
-                                                        Monthly
-                                                    </div>
-                                                    <p>
-                                                        For most businesses that
-                                                        want to optimize web
-                                                        queries
-                                                    </p>
-                                                </div>
-                                                <div className="pricing-box-middle">
-                                                    <div className="price">
-                                                        $
-                                                        {app.user.get(
-                                                            "userPlan"
-                                                        )["trueMonthPrice"] /
-                                                            100}
-                                                    </div>
-                                                    <div className="per-month">
-                                                        {discm} / month
-                                                    </div>
-                                                    <div className="btn-row">
-                                                        <button
-                                                            className="btn-blue"
-                                                            onClick={this.handleClick.bind(
-                                                                this,
-                                                                "monthly"
-                                                            )}
-                                                        >
-                                                            Choose plan
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div className="pricing-bullets">
-                                                    <ul>
-                                                        <li>
-                                                            All Limited Links
-                                                        </li>
-                                                        <li>
-                                                            Own Analytics
-                                                            Platform
-                                                        </li>
-                                                        <li>Chat Support</li>
-                                                        <li>
-                                                            Optimize Hashtags
-                                                        </li>
-                                                        <li>Unlimited Users</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-md-6 col-lg-3">
-                                            <div className="pricing-box">
-                                                <div className="pricing-box-top">
-                                                    <div className="pricing-title">
-                                                        Monthly
-                                                    </div>
-                                                    <p>
-                                                        For most businesses that
-                                                        want to optimize web
-                                                        queries
-                                                    </p>
-                                                </div>
-                                                <div className="pricing-box-middle">
-                                                    <div className="price">
-                                                        $
-                                                        {app.user.get(
-                                                            "userPlan"
-                                                        )["trueMonthPrice"] /
-                                                            100}
-                                                    </div>
-                                                    <div className="per-month">
-                                                        {discm} / month
-                                                    </div>
-                                                    <div className="btn-row">
-                                                        <button
-                                                            className="btn-blue"
-                                                            onClick={this.handleClick.bind(
-                                                                this,
-                                                                "monthly"
-                                                            )}
-                                                        >
-                                                            Choose plan
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div className="pricing-bullets">
-                                                    <ul>
-                                                        <li>
-                                                            All Limited Links
-                                                        </li>
-                                                        <li>
-                                                            Own Analytics
-                                                            Platform
-                                                        </li>
-                                                        <li>Chat Support</li>
-                                                        <li>
-                                                            Optimize Hashtags
-                                                        </li>
-                                                        <li>Unlimited Users</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="col-md-6 col-lg-3">
-                                            <div className="pricing-box">
-                                                <div className="pricing-box-top">
-                                                    <div className="pricing-title">
-                                                        Yearly
-                                                    </div>
-                                                    <p>
-                                                        For most businesses that
-                                                        want to optimize web
-                                                        queries
-                                                    </p>
-                                                </div>
-                                                <div className="pricing-box-middle">
-                                                    <div className="price">
-                                                        $
-                                                        {app.user.get(
-                                                            "userPlan"
-                                                        )["trueYearPrice"] /
-                                                            100}
-                                                    </div>
-                                                    <div className="per-year">
-                                                        {discy} / year
-                                                    </div>
-                                                    <div className="btn-row">
-                                                        <button
-                                                            className="btn-blue"
-                                                            onClick={this.handleClick.bind(
-                                                                this,
-                                                                "yearly"
-                                                            )}
-                                                        >
-                                                            Choose plan
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div className="pricing-bullets">
-                                                    <ul>
-                                                        <li>
-                                                            All Limited Links
-                                                        </li>
-                                                        <li>
-                                                            Own Analytics
-                                                            Platform
-                                                        </li>
-                                                        <li>Chat Support</li>
-                                                        <li>
-                                                            Optimize Hashtags
-                                                        </li>
-                                                        <li>Unlimited Users</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div
-                                    className={`${
-                                        this.state.currentTab === "yearly-one"
-                                            ? "tab-pane fade show active"
-                                            : "tab-pane fade"
-                                    }`}
-                                    id="one-year-off-tab-pane"
-                                    role="tabpanel"
-                                    aria-labelledby="one-year-off-tab"
-                                    tabindex="0"
-                                >
-                                    <div className="row gx-4">
-                                        <div className="col-md-6 col-lg-4">
-                                            <div className="pricing-box">
-                                                <div className="pricing-box-top">
-                                                    <div className="pricing-title">
-                                                        Free
-                                                    </div>
-                                                    <p>
-                                                        For most businesses that
-                                                        want to optimize web
-                                                        queries
-                                                    </p>
-                                                </div>
-                                                <div className="pricing-box-middle">
-                                                    <div className="price">
-                                                        $0.00
-                                                    </div>
-                                                    <div className="per-month">
-                                                        per month
-                                                    </div>
-                                                    <div className="btn-row">
-                                                        <button
-                                                            className="btn-blue"
-                                                            onClick={this.handleClick.bind(
-                                                                this,
-                                                                "freemium"
-                                                            )}
-                                                        >
-                                                            Choose plan
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div className="pricing-bullets">
-                                                    <ul>
-                                                        <li>
-                                                            All Limited Links
-                                                        </li>
-                                                        <li>
-                                                            Own Analytics
-                                                            Platform
-                                                        </li>
-                                                        <li>Chat Support</li>
-                                                        <li>
-                                                            Optimize Hashtags
-                                                        </li>
-                                                        <li>Unlimited Users</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="col-md-6 col-lg-4">
-                                            <div className="pricing-box">
-                                                <div className="pricing-box-top">
-                                                    <div className="pricing-title">
-                                                        Monthly
-                                                    </div>
-                                                    <p>
-                                                        For most businesses that
-                                                        want to optimize web
-                                                        queries
-                                                    </p>
-                                                </div>
-                                                <div className="pricing-box-middle">
-                                                    <div className="price">
-                                                        $
-                                                        {app.user.get(
-                                                            "userPlan"
-                                                        )["trueMonthPrice"] /
-                                                            100}
-                                                    </div>
-                                                    <div className="per-month">
-                                                        {discm} / month
-                                                    </div>
-                                                    <div className="btn-row">
-                                                        <button
-                                                            className="btn-blue"
-                                                            onClick={this.handleClick.bind(
-                                                                this,
-                                                                "monthly"
-                                                            )}
-                                                        >
-                                                            Choose plan
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div className="pricing-bullets">
-                                                    <ul>
-                                                        <li>
-                                                            All Limited Links
-                                                        </li>
-                                                        <li>
-                                                            Own Analytics
-                                                            Platform
-                                                        </li>
-                                                        <li>Chat Support</li>
-                                                        <li>
-                                                            Optimize Hashtags
-                                                        </li>
-                                                        <li>Unlimited Users</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="col-md-6 col-lg-4">
-                                            <div className="pricing-box">
-                                                <div className="pricing-box-top">
-                                                    <div className="pricing-title">
-                                                        Yearly
-                                                    </div>
-                                                    <p>
-                                                        For most businesses that
-                                                        want to optimize web
-                                                        queries
-                                                    </p>
-                                                </div>
-                                                <div className="pricing-box-middle">
-                                                    <div className="price">
-                                                        $
-                                                        {app.user.get(
-                                                            "userPlan"
-                                                        )["trueYearPrice"] /
-                                                            100}
-                                                    </div>
-                                                    <div className="per-year">
-                                                        {discy} / year
-                                                    </div>
-                                                    <div className="btn-row">
-                                                        <button
-                                                            className="btn-blue"
-                                                            onClick={this.handleClick.bind(
-                                                                this,
-                                                                "yearly"
-                                                            )}
-                                                        >
-                                                            Choose plan
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div className="pricing-bullets">
-                                                    <ul>
-                                                        <li>
-                                                            All Limited Links
-                                                        </li>
-                                                        <li>
-                                                            Own Analytics
-                                                            Platform
-                                                        </li>
-                                                        <li>Chat Support</li>
-                                                        <li>
-                                                            Optimize Hashtags
-                                                        </li>
-                                                        <li>Unlimited Users</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div
-                                    className={`${
-                                        this.state.currentTab === "yearly-two"
-                                            ? "tab-pane fade show active"
-                                            : "tab-pane fade"
-                                    }`}
-                                    id="two-year-off-tab-pane"
-                                    role="tabpanel"
-                                    aria-labelledby="two-year-off-tab"
-                                    tabindex="0"
-                                >
-                                    <div className="row gx-4">
-                                        <div className="col-md-6 col-lg-4">
-                                            <div className="pricing-box">
-                                                <div className="pricing-box-top">
-                                                    <div className="pricing-title">
-                                                        Monthly
-                                                    </div>
-                                                    <p>
-                                                        For most businesses that
-                                                        want to optimize web
-                                                        queries
-                                                    </p>
-                                                </div>
-                                                <div className="pricing-box-middle">
-                                                    <div className="price">
-                                                        $
-                                                        {app.user.get(
-                                                            "userPlan"
-                                                        )["trueMonthPrice"] /
-                                                            100}
-                                                    </div>
-                                                    <div className="per-month">
-                                                        {discm} / month
-                                                    </div>
-                                                    <div className="btn-row">
-                                                        <button
-                                                            className="btn-blue"
-                                                            onClick={this.handleClick.bind(
-                                                                this,
-                                                                "freemium"
-                                                            )}
-                                                        >
-                                                            Choose plan
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div className="pricing-bullets">
-                                                    <ul>
-                                                        <li>
-                                                            All Limited Links
-                                                        </li>
-                                                        <li>
-                                                            Own Analytics
-                                                            Platform
-                                                        </li>
-                                                        <li>Chat Support</li>
-                                                        <li>
-                                                            Optimize Hashtags
-                                                        </li>
-                                                        <li>Unlimited Users</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="col-md-6 col-lg-4">
-                                            <div className="pricing-box">
-                                                <div className="pricing-box-top">
-                                                    <div className="pricing-title">
-                                                        Monthly
-                                                    </div>
-                                                    <p>
-                                                        For most businesses that
-                                                        want to optimize web
-                                                        queries
-                                                    </p>
-                                                </div>
-                                                <div className="pricing-box-middle">
-                                                    <div className="price">
-                                                        $
-                                                        {app.user.get(
-                                                            "userPlan"
-                                                        )["trueMonthPrice"] /
-                                                            100}
-                                                    </div>
-                                                    <div className="per-month">
-                                                        {discm} / month
-                                                    </div>
-                                                    <div className="btn-row">
-                                                        <button
-                                                            className="btn-blue"
-                                                            onClick={this.handleClick.bind(
-                                                                this,
-                                                                "monthly"
-                                                            )}
-                                                        >
-                                                            Choose plan
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div className="pricing-bullets">
-                                                    <ul>
-                                                        <li>
-                                                            All Limited Links
-                                                        </li>
-                                                        <li>
-                                                            Own Analytics
-                                                            Platform
-                                                        </li>
-                                                        <li>Chat Support</li>
-                                                        <li>
-                                                            Optimize Hashtags
-                                                        </li>
-                                                        <li>Unlimited Users</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="col-md-6 col-lg-4">
-                                            <div className="pricing-box">
-                                                <div className="pricing-box-top">
-                                                    <div className="pricing-title">
-                                                        Yearly
-                                                    </div>
-                                                    <p>
-                                                        For most businesses that
-                                                        want to optimize web
-                                                        queries
-                                                    </p>
-                                                </div>
-                                                <div className="pricing-box-middle">
-                                                    <div className="price">
-                                                        $
-                                                        {app.user.get(
-                                                            "userPlan"
-                                                        )["trueYearPrice"] /
-                                                            100}
-                                                    </div>
-                                                    <div className="per-year">
-                                                        {discy} / year
-                                                    </div>
-                                                    <div className="btn-row">
-                                                        <button
-                                                            className="btn-blue"
-                                                            onClick={this.handleClick.bind(
-                                                                this,
-                                                                "yearly"
-                                                            )}
-                                                        >
-                                                            Choose plan
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div className="pricing-bullets">
-                                                    <ul>
-                                                        <li>
-                                                            All Limited Links
-                                                        </li>
-                                                        <li>
-                                                            Own Analytics
-                                                            Platform
-                                                        </li>
-                                                        <li>Chat Support</li>
-                                                        <li>
-                                                            Optimize Hashtags
-                                                        </li>
-                                                        <li>Unlimited Users</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div
-                                        className={
-                                            this.state.membr == "free"
-                                                ? "d-none"
-                                                : "panel panel-default"
-                                        }
-                                    >
-                                        <div className="text-center">
-                                            Payment Method:
-                                        </div>
-                                        <div className="panel-body">
-                                            <div className="form-inline text-center">
-                                                <div className="form-group col-lg-offset-0 text-left">
-                                                    <div className="radio">
-                                                        <label>
-                                                            <input
-                                                                className="margin-right-10"
-                                                                type="radio"
-                                                                name="optionsRadios"
-                                                                id="optionsRadios1"
-                                                                value="option1"
-                                                                checked={
-                                                                    this.state
-                                                                        .paym ==
-                                                                    "bitc"
-                                                                }
-                                                                onChange={this.handleChange.bind(
-                                                                    this,
-                                                                    "bitc"
-                                                                )}
-                                                            />
-                                                            &nbsp;Bitcoin &
-                                                            other Crypto
-                                                            Currency
-                                                        </label>
-                                                    </div>
-                                                    <div className="clearfix"></div>
-                                                    <div className="radio">
-                                                        <label>
-                                                            <input
-                                                                className="margin-right-10"
-                                                                type="radio"
-                                                                name="optionsRadios"
-                                                                id="optionsRadios2"
-                                                                value="option2"
-                                                                checked={
-                                                                    this.state
-                                                                        .paym ==
-                                                                    "perfectm"
-                                                                }
-                                                                onChange={this.handleChange.bind(
-                                                                    this,
-                                                                    "perfectm"
-                                                                )}
-                                                            />
-                                                            &nbsp;Perfect Money
-                                                        </label>
-                                                    </div>
-                                                    {/*
-                                                <div className="clearfix"></div>
-                                                <div className="radio">
-                                                <label>
-                                                <input className="margin-right-10" type="radio" name="optionsRadios" id="optionsRadios3"
-                                                value="option3"
-                                                checked={this.state.paym=='paypal'}
-                                                onChange={this.handleChange.bind(this, 'paypal')} />
-                                                &nbsp;PayPal
-                                                </label>
-                                                </div>
-                                            */}
-                                                    <div className="clearfix"></div>
-                                                    <div className="radio">
-                                                        <label>
-                                                            <input
-                                                                className="margin-right-10"
-                                                                type="radio"
-                                                                name="optionsRadios"
-                                                                id="optionsRadios4"
-                                                                value="option4"
-                                                                checked={
-                                                                    this.state
-                                                                        .paym ==
-                                                                    "stripe"
-                                                                }
-                                                                onChange={this.handleChange.bind(
-                                                                    this,
-                                                                    "stripe"
-                                                                )}
-                                                            />
-                                                            &nbsp;Credit / Debit
-                                                            Card (Stripe)
-                                                        </label>
-                                                    </div>
-                                                </div>
-
-                                                <form
-                                                    onSubmit={this.handleSubmit}
-                                                    className="d-none"
-                                                    id="perfMF"
-                                                    action="https://perfectmoney.com/api/step1.asp"
-                                                    method="POST"
-                                                    target="_blank"
-                                                >
-                                                    <input
-                                                        type="hidden"
-                                                        name="PAYEE_ACCOUNT"
-                                                        value={app.defaults.get(
-                                                            "perfectMecrh"
-                                                        )}
-                                                    />
-                                                    <input
-                                                        type="hidden"
-                                                        name="PAYEE_NAME"
-                                                        value="Cyber Fear"
-                                                    />
-                                                    <input
-                                                        type="hidden"
-                                                        name="PAYMENT_AMOUNT"
-                                                        value={
-                                                            this.state.mCharge
-                                                        }
-                                                    />
-                                                    <input
-                                                        type="hidden"
-                                                        name="PAYMENT_UNITS"
-                                                        value="USD"
-                                                    />
-                                                    <input
-                                                        type="hidden"
-                                                        name="STATUS_URL"
-                                                        value="https://cyberfear.com/api/PerfectPaidstatus"
-                                                    />
-                                                    <input
-                                                        type="hidden"
-                                                        name="PAYMENT_URL"
-                                                        value="https://cyberfear.com/api/Pe"
-                                                    />
-                                                    <input
-                                                        type="hidden"
-                                                        name="PAYMENT_URL_METHOD"
-                                                        value="POST"
-                                                    />
-                                                    <input
-                                                        type="hidden"
-                                                        name="NOPAYMENT_URL"
-                                                        value="https://cyberfear.com/api/Pe"
-                                                    />
-                                                    <input
-                                                        type="hidden"
-                                                        name="NOPAYMENT_URL_METHOD"
-                                                        value="LINK"
-                                                    />
-                                                    <input
-                                                        type="hidden"
-                                                        name="SUGGESTED_MEMO"
-                                                        value=""
-                                                    />
-                                                    <input
-                                                        type="hidden"
-                                                        name="userId"
-                                                        value={app.user.get(
-                                                            "userId"
-                                                        )}
-                                                    />
-                                                    <input
-                                                        type="hidden"
-                                                        name="paymentFor"
-                                                        value="NewMembership"
-                                                    />
-                                                    <input
-                                                        type="hidden"
-                                                        name="howMuch"
-                                                        value="1"
-                                                    />
-                                                    <input
-                                                        type="hidden"
-                                                        name="BAGGAGE_FIELDS"
-                                                        value="userId paymentFor howMuch"
-                                                    />
-                                                </form>
-
-                                                <form
-                                                    onSubmit={this.handleSubmit}
-                                                    className="d-none"
-                                                    id="cryptF"
-                                                    action="https://www.coinpayments.net/index.php"
-                                                    method="post"
-                                                    target="_blank"
-                                                    ref="crypto"
-                                                >
-                                                    <input
-                                                        type="hidden"
-                                                        name="cmd"
-                                                        value="_pay_simple"
-                                                    />
-                                                    <input
-                                                        type="hidden"
-                                                        name="reset"
-                                                        value="1"
-                                                    />
-                                                    <input
-                                                        type="hidden"
-                                                        name="merchant"
-                                                        value={app.defaults.get(
-                                                            "coinMecrh"
-                                                        )}
-                                                    />
-                                                    <input
-                                                        type="hidden"
-                                                        name="item_amount"
-                                                        value="1"
-                                                    />
-                                                    <input
-                                                        type="hidden"
-                                                        name="first_name"
-                                                        value="anonymous"
-                                                    />
-                                                    <input
-                                                        type="hidden"
-                                                        name="last_name"
-                                                        value="anonymous"
-                                                    />
-                                                    <input
-                                                        type="hidden"
-                                                        name="email"
-                                                        value="anonymous@cyberfear.com"
-                                                    />
-                                                    <input
-                                                        type="hidden"
-                                                        name="item_name"
-                                                        value="Premium Membership"
-                                                    />
-                                                    <input
-                                                        type="hidden"
-                                                        name="item_desc"
-                                                        value={
-                                                            this.state.membr ==
-                                                            "year"
-                                                                ? "1 Year Subscription"
-                                                                : "1 Month Subscription"
-                                                        }
-                                                    />
-                                                    <input
-                                                        type="hidden"
-                                                        name="custom"
-                                                        value={app.user.get(
-                                                            "userId"
-                                                        )}
-                                                    />
-                                                    <input
-                                                        type="hidden"
-                                                        name="currency"
-                                                        value="USD"
-                                                    />
-                                                    <input
-                                                        type="hidden"
-                                                        name="amountf"
-                                                        value={
-                                                            this.state.mCharge
-                                                        }
-                                                    />
-                                                    <input
-                                                        type="hidden"
-                                                        name="want_shipping"
-                                                        value="0"
-                                                    />
-                                                    <input
-                                                        type="hidden"
-                                                        name="success_url"
-                                                        value="https://cyberfear.com/api/Pe"
-                                                    />
-                                                    <input
-                                                        type="hidden"
-                                                        name="cancel_url"
-                                                        value="https://cyberfear.com/api/Pe"
-                                                    />
-                                                </form>
-                                                <div className="clearfix"></div>
-
+                                        {paymentTabContents.map(
+                                            (paymentContentTab, index) => (
                                                 <div
-                                                    className={
-                                                        this.state.paym ==
-                                                        "stripe"
-                                                            ? ""
-                                                            : "d-none"
-                                                    }
-                                                    id="stripe-container"
+                                                    className="col-md-6 col-lg-4"
+                                                    key={index}
                                                 >
-                                                    <form id="payment-form">
-                                                        <div id="payment-element"></div>
-                                                        <button id="submit">
-                                                            <div
-                                                                className="spinner d-none"
-                                                                id="spinner"
-                                                            ></div>
-                                                            <span id="button-text">
-                                                                Pay now
-                                                            </span>
-                                                        </button>
-                                                        <div
-                                                            id="payment-message"
-                                                            className="d-none"
-                                                        ></div>
-                                                    </form>
+                                                    <div className="pricing-box">
+                                                        <div className="pricing-box-top">
+                                                            <div className="pricing-title">
+                                                                {
+                                                                    paymentContentTab.title
+                                                                }
+                                                            </div>
+                                                            <p>
+                                                                {
+                                                                    paymentContentTab.desc
+                                                                }
+                                                            </p>
+                                                        </div>
+                                                        <div className="pricing-box-middle">
+                                                            <div className="price">
+                                                                {
+                                                                    paymentContentTab.price
+                                                                }
+                                                            </div>
+                                                            <div className="per-month">
+                                                                {
+                                                                    paymentContentTab.per
+                                                                }
+                                                            </div>
+                                                            <div className="btn-row">
+                                                                <button
+                                                                    className="btn-blue"
+                                                                    onClick={this.handleClick.bind(
+                                                                        this,
+                                                                        paymentContentTab.methodType
+                                                                    )}
+                                                                >
+                                                                    Choose plan
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div className="pricing-bullets">
+                                                            <ul>
+                                                                {paymentContentTab.features.map(
+                                                                    (
+                                                                        paymentFeature,
+                                                                        _index
+                                                                    ) => (
+                                                                        <li
+                                                                            key={
+                                                                                _index
+                                                                            }
+                                                                        >
+                                                                            {
+                                                                                paymentFeature
+                                                                            }
+                                                                        </li>
+                                                                    )
+                                                                )}
+                                                            </ul>
+                                                        </div>
+                                                    </div>
                                                 </div>
-
-                                                <div
-                                                    className={
-                                                        this.state.paym ==
-                                                        "paypal"
-                                                            ? ""
-                                                            : "d-none"
-                                                    }
-                                                    id="paypal-button-container"
-                                                ></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div style={{ textAlign: "center" }}>
-                                            <button
-                                                type="submit"
-                                                form={
-                                                    this.state.paym ===
-                                                    "perfectm"
-                                                        ? "perfMF"
-                                                        : "cryptF"
-                                                }
-                                                onClick={this.handleClick.bind(
-                                                    this,
-                                                    "pay"
-                                                )}
-                                                className={
-                                                    (this.state.paym ==
-                                                        "perfectm" ||
-                                                        this.state.paym ==
-                                                            "bitc") &&
-                                                    this.state.membr !=
-                                                        "free" &&
-                                                    !this.state.butDis
-                                                        ? "white-btn"
-                                                        : "d-none"
-                                                }
-                                                disabled={
-                                                    this.state.paym == "" ||
-                                                    this.state.butDis
-                                                }
-                                                style={{
-                                                    float: "none",
-                                                    display: "initial",
-                                                }}
-                                            >
-                                                Pay Now
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <div
-                                        className={
-                                            this.state.membr == "free"
-                                                ? ""
-                                                : "d-none"
-                                        }
-                                        style={{ textAlign: "center" }}
-                                    >
-                                        <button
-                                            onClick={this.handleClick.bind(
-                                                this,
-                                                "freemium"
-                                            )}
-                                            className="white-btn"
-                                            style={{
-                                                float: "none",
-                                                display: "initial",
-                                            }}
-                                        >
-                                            Log In
-                                        </button>
+                                            )
+                                        )}
                                     </div>
                                 </div>
                             </div>

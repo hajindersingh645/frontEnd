@@ -68,6 +68,12 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                         trigger: true,
                                     }
                                 );
+
+                                app.user.set({
+                                    currentFolder:
+                                        app.transform.from64str(folder),
+                                });
+
                                 app.user.set({ resetSelectedItems: true });
 
                                 app.globalF.resetCurrentMessage();
