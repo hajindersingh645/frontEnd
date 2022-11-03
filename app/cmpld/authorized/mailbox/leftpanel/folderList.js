@@ -22,6 +22,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
         },
         componentWillUnmount: function () {
             app.user.off("change:unopenedEmails");
+            app.user.off("change:currentMessageView", function () {});
         },
 
         updateUnopened: function () {
@@ -40,6 +41,8 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
             switch (i) {
                 case "switchFolder":
                     var thisComp = this;
+
+                    app.user.on("change:currentMessageView", function () {}, this);
 
                     if (thisComp.props.activePage != $(event.target).attr("id")) {
                         $("#sdasdasd").addClass("hidden");
@@ -458,7 +461,9 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                 key: "aM_" + i,
                                                 id: this.state.mainFolders[folderData]["index"],
                                                 onClick: this.handleChange.bind(this, "switchFolder"),
-                                                "data-name": this.state.mainFolders[folderData]["name"]
+                                                "data-name": this.state.mainFolders[folderData]["name"],
+                                                "data-bs-dismiss": "offcanvas",
+                                                "aria-label": "Close"
                                             },
                                             this.systemFolderIcon(this.state.mainFolders[folderData]["name"]),
                                             this.state.mainFolders[folderData]["name"],
@@ -535,7 +540,9 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                             {
                                                                 key: "a_" + i,
                                                                 id: folderData["index"],
-                                                                onClick: this.handleChange.bind(this, "switchFolder")
+                                                                onClick: this.handleChange.bind(this, "switchFolder"),
+                                                                "data-bs-dismiss": "offcanvas",
+                                                                "aria-label": "Close"
                                                             },
                                                             folderData["name"] + " " + (this.state.unopened[folderData["index"]] == 0 ? "" : '<span className="number-badge">' + this.state.unopened[folderData["index"]] + "</span>")
                                                         )

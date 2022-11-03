@@ -308,6 +308,12 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
             });
         },
 
+        handleBackButton: function () {
+            this.setState({
+                paymentPackagesModalActive: true
+            });
+        },
+
         render: function () {
             if (app.user.get("userPlan")["discountApplied"] > 0) {
                 var discy = accounting.formatMoney(app.user.get("userPlan")["trueYearPrice"] * (100 - app.user.get("userPlan")["discountApplied"]) / 10000);
@@ -533,6 +539,14 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                             {
                                 className: this.state.membr == "free" ? "d-none" : "panel panel-default"
                             },
+                            React.createElement(
+                                "button",
+                                {
+                                    type: "button",
+                                    onClick: this.handleBackButton.bind(this)
+                                },
+                                "Back"
+                            ),
                             React.createElement(
                                 "div",
                                 { className: "text-center" },

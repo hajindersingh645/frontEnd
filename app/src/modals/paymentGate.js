@@ -346,6 +346,12 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
             });
         },
 
+        handleBackButton: function () {
+            this.setState({
+                paymentPackagesModalActive: true,
+            });
+        },
+
         render: function () {
             if (app.user.get("userPlan")["discountApplied"] > 0) {
                 var discy = accounting.formatMoney(
@@ -615,6 +621,12 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                                         : "panel panel-default"
                                 }
                             >
+                                <button
+                                    type="button"
+                                    onClick={this.handleBackButton.bind(this)}
+                                >
+                                    Back
+                                </button>
                                 <div className="text-center">
                                     Payment Method:
                                 </div>

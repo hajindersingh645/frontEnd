@@ -396,6 +396,14 @@ header {
 .offcanvas-body .main-menu ul li a > * {
     pointer-events: none;
 }
+/* .left-side .main-menu ul li a > .btn-close,
+.offcanvas-body .main-menu ul li a > .btn-close {
+    pointer-events: all;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+} */
 .offcanvas-start {
     width: 290px;
 }
@@ -824,6 +832,50 @@ header .menu-icon.on-left-side {
 .mobile-logo img {
     display: none !important;
 }
+.container-checkbox .checkmark::before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: rgba(34, 119, 246, 0.3);
+    /* box-shadow: 0 0 5px rgba(34, 119, 246, 0.5); */
+    top: -11px;
+    left: -11px;
+    opacity: 0;
+}
+.container-checkbox input:checked ~ .checkmark::before {
+    animation: ping 1s cubic-bezier(0, 0, 0.2, 1);
+}
+@keyframes ping {
+    0% {
+        opacity: 0.75;
+    }
+    75%,
+    to {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+/* @keyframes pulsen {
+    0% {
+        transform: scale(0.5);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+    75% {
+        transform: scale(0.5);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0.2);
+        opacity: 0;
+    }
+} */
 @keyframes pulse {
     0%,
     100% {
@@ -864,6 +916,9 @@ header .menu-icon.on-left-side {
     }
 }
 @media screen and (min-width: 992px) and (max-width: 1365px) {
+    header {
+        width: calc(70% - 291px);
+    }
     .middle-section .middle-top {
         padding-top: 18px;
     }

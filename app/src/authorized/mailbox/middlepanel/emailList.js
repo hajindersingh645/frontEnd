@@ -1325,6 +1325,7 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                             id="mail-sort"
                                             data-bs-toggle="dropdown"
                                             aria-expanded="false"
+                                            data-bs-auto-close="outside"
                                         ></button>
                                         <ul
                                             className="dropdown-menu"
@@ -1427,6 +1428,7 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                                 id="mail-extra-options"
                                                 data-bs-toggle="dropdown"
                                                 aria-expanded="false"
+                                                data-bs-auto-close="outside"
                                             ></button>
                                             <ul
                                                 className="dropdown-menu"

@@ -488,14 +488,6 @@ define(["app", "react"], function (app, React) {
                                         React.createElement(
                                             "div",
                                             { className: "form-group hidden" },
-                                            React.createElement(
-                                                "span",
-                                                {
-                                                    className: "mb-2",
-                                                    style: { display: "block" }
-                                                },
-                                                "Please type into field below"
-                                            ),
                                             React.createElement("input", {
                                                 className: "form-control input-lg",
                                                 name: "robotText",

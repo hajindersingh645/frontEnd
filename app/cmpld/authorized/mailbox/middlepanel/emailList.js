@@ -982,7 +982,8 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                         type: "button",
                                         id: "mail-sort",
                                         "data-bs-toggle": "dropdown",
-                                        "aria-expanded": "false"
+                                        "aria-expanded": "false",
+                                        "data-bs-auto-close": "outside"
                                     }),
                                     React.createElement(
                                         "ul",
@@ -1129,7 +1130,8 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                             type: "button",
                                             id: "mail-extra-options",
                                             "data-bs-toggle": "dropdown",
-                                            "aria-expanded": "false"
+                                            "aria-expanded": "false",
+                                            "data-bs-auto-close": "outside"
                                         }),
                                         React.createElement(
                                             "ul",

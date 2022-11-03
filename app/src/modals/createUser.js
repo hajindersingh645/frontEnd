@@ -536,13 +536,6 @@ define(["app", "react"], function (app, React) {
                                         </div>
                                         <div className="col-sm-12">
                                             <div className="form-group hidden">
-                                                <span
-                                                    className="mb-2"
-                                                    style={{ display: "block" }}
-                                                >
-                                                    Please type into field below
-                                                </span>
-
                                                 <input
                                                     className="form-control input-lg"
                                                     name="robotText"
