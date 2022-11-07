@@ -27,6 +27,9 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                     break;
             }
         },
+        handleSearchChange: function (event) {
+            $("#emailListTable").DataTable().column(0).search(event.target.value, 0, 1).draw();
+        },
         render: function () {
             return React.createElement(
                 "div",
@@ -193,7 +196,11 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                 React.createElement(
                     "div",
                     { className: "mobile-search" },
-                    React.createElement("input", { type: "search", placeholder: "Search..." })
+                    React.createElement("input", {
+                        type: "search",
+                        placeholder: "Search...",
+                        onChange: this.handleSearchChange.bind(this)
+                    })
                 )
             );
         }

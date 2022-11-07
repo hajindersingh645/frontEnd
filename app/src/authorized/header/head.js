@@ -31,6 +31,13 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                     break;
             }
         },
+        handleSearchChange: function (event) {
+            $("#emailListTable")
+                .DataTable()
+                .column(0)
+                .search(event.target.value, 0, 1)
+                .draw();
+        },
         render: function () {
             return (
                 <div>
@@ -153,7 +160,11 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                         </div>
                     </header>
                     <div className="mobile-search">
-                        <input type="search" placeholder="Search..." />
+                        <input
+                            type="search"
+                            placeholder="Search..."
+                            onChange={this.handleSearchChange.bind(this)}
+                        />
                     </div>
                 </div>
             );

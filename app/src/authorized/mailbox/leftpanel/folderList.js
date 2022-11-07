@@ -523,6 +523,16 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                             ></button>
                         </div>
                         <div className="offcanvas-body">
+                            <div className="new-message-btn">
+                                <button
+                                    onClick={this.handleClick.bind(
+                                        this,
+                                        "composeEmail"
+                                    )}
+                                >
+                                    New message
+                                </button>
+                            </div>
                             <div className="main-menu">
                                 <ul id="folderul">
                                     {Object.keys(this.state.mainFolders).map(

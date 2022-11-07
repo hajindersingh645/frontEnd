@@ -559,7 +559,7 @@ header .menu-icon.on-left-side {
     top: 23px;
 }
 .middle-section .inbox-list table .inbox-list-top {
-    width: auto;
+    width: 100%;
     float: none;
     font-size: 12px;
     display: inline-block;
@@ -623,7 +623,7 @@ header .menu-icon.on-left-side {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 80%;
+    width: auto;
     display: inline-block;
 }
 #emailListTable tr.selected {
@@ -832,7 +832,14 @@ header .menu-icon.on-left-side {
 .mobile-logo img {
     display: none !important;
 }
-.container-checkbox .checkmark::before {
+.dropdown-menu a,
+.dropdown-menu button {
+    position: relative;
+    display: block;
+}
+.container-checkbox .checkmark::before,
+.dropdown-menu a::before,
+.dropdown-menu button::before {
     content: "";
     display: block;
     position: absolute;
@@ -845,8 +852,38 @@ header .menu-icon.on-left-side {
     left: -11px;
     opacity: 0;
 }
-.container-checkbox input:checked ~ .checkmark::before {
+.container-checkbox input:checked ~ .checkmark::before,
+.dropdown-menu a:active::before,
+.dropdown-menu button:active:before {
     animation: ping 1s cubic-bezier(0, 0, 0.2, 1);
+}
+.dropdown-menu a::before,
+.dropdown-menu button::before {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    top: 0;
+    left: 0;
+}
+
+/* Folder List Offside Canvas */
+.offcanvas-body .new-message-btn {
+    width: 100%;
+    float: left;
+    padding: 48px 20px 0;
+}
+.offcanvas-body .new-message-btn button {
+    width: 100%;
+    float: left;
+    background: #2277f6 url(../images/icon-plus-circle.svg) no-repeat 24px
+        center;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 12px;
+    height: 56px;
+    padding: 12px 0 12px 56px;
+    text-align: left;
 }
 @keyframes ping {
     0% {
@@ -893,7 +930,7 @@ header .menu-icon.on-left-side {
         display: block !important;
     }
     .middle-section .inbox-list-top-content {
-        width: 35%;
+        width: 75%;
     }
 }
 @media screen and (min-width: 992px) {
@@ -918,6 +955,7 @@ header .menu-icon.on-left-side {
 @media screen and (min-width: 992px) and (max-width: 1365px) {
     header {
         width: calc(70% - 291px);
+        border-left: 0;
     }
     .middle-section .middle-top {
         padding-top: 18px;
@@ -943,5 +981,104 @@ header .menu-icon.on-left-side {
 @media screen and (max-width: 767px) {
     .popup .wrapper .inner {
         width: 90%;
+    }
+    .middle-section .inbox-list-top-content {
+        width: 70%;
+    }
+}
+
+/* Smart Notification */
+#divSmallBoxes {
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 9999;
+}
+
+.SmallBox {
+    position: absolute;
+    right: 5px;
+    top: 20px;
+    width: 420px;
+    color: #fff;
+    z-index: 9999;
+    overflow: hidden;
+    border: 1px solid transparent;
+}
+
+.SmallBox:hover {
+    border: 1px solid #fff;
+    cursor: pointer;
+}
+
+.SmallBox .foto {
+    font-size: 50px;
+    position: absolute;
+    left: 17px;
+}
+
+.SmallBox .textoFull {
+    width: 93%;
+    float: left;
+    padding-left: 20px;
+}
+
+.SmallBox .textoFoto {
+    width: 78%;
+    margin: 3px 20px 3px 80px;
+    float: left;
+}
+
+@media screen and (max-width: 450px) and (max-width: 767px) {
+    #divSmallBoxes {
+        position: fixed;
+        width: 90%;
+        right: 0;
+        top: 0;
+    }
+
+    .SmallBox {
+        width: 95%;
+    }
+
+    .SmallBox:hover {
+        box-shadow: 0 0 10px #888;
+        cursor: pointer;
+    }
+
+    .SmallBox span {
+        font-size: 16px;
+    }
+
+    .SmallBox p {
+        font-size: 12px;
+        margin-top: 2px;
+    }
+
+    .SmallBox .textoFull {
+        width: 93%;
+        float: left;
+        padding-left: 20px;
+    }
+
+    .SmallBox .textoFoto {
+        width: 55%;
+        margin: 3px 20px 3px 80px;
+        float: left;
+    }
+
+    .bigBox {
+        position: fixed;
+        right: 10px;
+        bottom: 10px;
+        background-color: #004d60;
+        padding-left: 10px;
+        padding-top: 10px;
+        padding-right: 10px;
+        padding-bottom: 5px;
+        width: 88%;
+        height: 150px;
+        color: #fff;
+        z-index: 99999;
     }
 }

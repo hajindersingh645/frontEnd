@@ -307,5 +307,32 @@ No logs, no ads, offshore servers location. We accept BitCoin, Monero and more!"
             </div>
             <!--- /Middle -->
         </div>
+        <script>
+            window.addEventListener("scroll", function () {
+                var supportPageOffset = window.pageXOffset !== undefined;
+                var isCSS1Compat = (document.compatMode || "") === "CSS1Compat";
+
+                var scrollLeft = supportPageOffset
+                    ? window.pageXOffset
+                    : isCSS1Compat
+                    ? document.documentElement.scrollLeft
+                    : document.body.scrollLeft;
+                var scrollTop = supportPageOffset
+                    ? window.pageYOffset
+                    : isCSS1Compat
+                    ? document.documentElement.scrollTop
+                    : document.body.scrollTop;
+
+                if (scrollTop > 50) {
+                    document
+                        .getElementsByTagName("header")[0]
+                        .classList.add("scroll-header");
+                } else {
+                    document
+                        .getElementsByTagName("header")[0]
+                        .classList.remove("scroll-header");
+                }
+            });
+        </script>
     </body>
 </html>

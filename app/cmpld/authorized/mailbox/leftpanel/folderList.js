@@ -444,6 +444,17 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                         { className: "offcanvas-body" },
                         React.createElement(
                             "div",
+                            { className: "new-message-btn" },
+                            React.createElement(
+                                "button",
+                                {
+                                    onClick: this.handleClick.bind(this, "composeEmail")
+                                },
+                                "New message"
+                            )
+                        ),
+                        React.createElement(
+                            "div",
                             { className: "main-menu" },
                             React.createElement(
                                 "ul",
