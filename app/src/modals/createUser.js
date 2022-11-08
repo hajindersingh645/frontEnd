@@ -535,7 +535,7 @@ define(["app", "react"], function (app, React) {
                                             </div>
                                         </div>
                                         <div className="col-sm-12">
-                                            <div className="form-group hidden">
+                                            <div className="form-group d-none">
                                                 <input
                                                     className="form-control input-lg"
                                                     name="robotText"

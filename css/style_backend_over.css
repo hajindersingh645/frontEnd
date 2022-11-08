@@ -369,9 +369,12 @@ progress {
         animation: none;
     }
 }
-/* CUSTOM - CSS */
-.main-menu ul li a:hover {
-    color: #2277f6 !important;
+/* CUSTOM - CSS 
+2277f6
+*/
+.main-menu ul li:not(.active) a:hover {
+    color: #415067 !important;
+    opacity: 0.5;
 }
 .mail-data.emailNo {
     padding-top: 0px;
@@ -611,10 +614,26 @@ header .menu-icon.on-left-side {
 }
 
 .middle-section .inbox-list table tr:hover .inbox-list-top {
-    color: #080d13;
+    /* color: #080d13; */
+    color: rgba(8, 13, 19, 0.6);
 }
-.middle-section .inbox-list table tr:hover p {
+/* .middle-section .inbox-list table tr:hover p {
     opacity: 1;
+} */
+.main-menu ul li:not(.active) a:hover .menu-icon.inbox {
+    background: url("../images/icon-inbox.svg") no-repeat left top;
+}
+.main-menu ul li:not(.active) a:hover .menu-icon.send {
+    background: url("../images/icon-send.svg") no-repeat left top;
+}
+.main-menu ul li:not(.active) a:hover .menu-icon.draft {
+    background: url("../images/icon-draft.svg") no-repeat left top;
+}
+.main-menu ul li:not(.active) a:hover .menu-icon.spam {
+    background: url("../images/icon-spam.svg") no-repeat left top;
+}
+.main-menu ul li:not(.active) a:hover .menu-icon.trash {
+    background: url("../images/icon-trash.svg") no-repeat left top;
 }
 .middle-section .inbox-list table tr.selected:hover {
     background: #fff;
@@ -659,6 +678,20 @@ header .menu-icon.on-left-side {
 .arrow-btn.ellipsis-dropdown .dropdown > button {
     background: url(../images/icon-ellipsis.svg) no-repeat left top;
     background-size: 24px;
+    position: relative;
+}
+.arrow-btn.ellipsis-dropdown .dropdown > button::before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 29px;
+    height: 29px;
+    border-radius: 50%;
+    background-color: rgba(34, 119, 246, 0.3);
+    /* box-shadow: 0 0 5px rgba(34, 119, 246, 0.5); */
+    top: -3px;
+    left: -3px;
+    opacity: 0;
 }
 .arrow-btn.ellipsis-dropdown .dropdown > button {
     width: 24px;
@@ -666,6 +699,12 @@ header .menu-icon.on-left-side {
     float: left;
     border: none;
     padding: 0;
+}
+.arrow-btn.ellipsis-dropdown .dropdown > button.active {
+    background: url(../images/icon-ellipsis-blue.svg) no-repeat left top;
+}
+.arrow-btn.ellipsis-dropdown .dropdown > button.active::before {
+    animation: ping 1s cubic-bezier(0, 0, 0.2, 1);
 }
 .dropstart .dropdown-toggle:before {
     border-top-width: 0;
@@ -744,7 +783,6 @@ header .menu-icon.on-left-side {
     border-bottom: 1px solid #f2f2f2;
     padding-top: 13px;
     padding-bottom: 13px;
-    color: #ff0000;
 }
 .middle-section .middle-content {
     overflow-x: hidden !important;
@@ -843,13 +881,13 @@ header .menu-icon.on-left-side {
     content: "";
     display: block;
     position: absolute;
-    width: 36px;
-    height: 36px;
+    width: 21px;
+    height: 21px;
     border-radius: 50%;
     background-color: rgba(34, 119, 246, 0.3);
     /* box-shadow: 0 0 5px rgba(34, 119, 246, 0.5); */
-    top: -11px;
-    left: -11px;
+    top: -4px;
+    left: -4px;
     opacity: 0;
 }
 .container-checkbox input:checked ~ .checkmark::before,
@@ -884,6 +922,24 @@ header .menu-icon.on-left-side {
     height: 56px;
     padding: 12px 0 12px 56px;
     text-align: left;
+}
+.folder-menu .accordion-button:hover {
+    opacity: 0.5;
+}
+.left-side .new-message-btn button:hover {
+    box-shadow: none;
+    background-color: #00112c;
+}
+.right-side .email-conetent-wrp .d-active {
+    position: relative;
+}
+.right-side .email-conetent-wrp .d-active .d-decrypting-message {
+    position: absolute;
+    background: #ffffff;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 @keyframes ping {
     0% {

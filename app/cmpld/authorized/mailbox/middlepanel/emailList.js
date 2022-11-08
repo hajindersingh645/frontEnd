@@ -306,8 +306,10 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                 // ".emailchk"
                 if ($(this).find('[name="inbox-email"]').prop("checked")) {
                     selectedEmails[$(this).parents("tr").attr("id")] = true;
+                    $("#mail-extra-options").addClass("active");
                 } else {
                     delete selectedEmails[$(this).parents("tr").attr("id")];
+                    $("#mail-extra-options").removeClass("active");
                 }
             });
         },
@@ -882,7 +884,9 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                     var messageId = $(this).closest("tr").attr("id");
                     selectedEmails[messageId] = true;
                 });
+                $("#mail-extra-options").addClass("active");
             } else {
+                $("#mail-extra-options").removeClass("active");
                 $(".select-checkbox input").prop("checked", false);
                 thisComp.setState({
                     allChecked: false

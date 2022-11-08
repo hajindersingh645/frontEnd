@@ -231,17 +231,18 @@ define(["react", "app"], function (React, app) {
         renderEmail: function () {
             this.setState({
                 emailLoading: true,
-                hideEmailRead: true,
             });
             if (
                 app.user.get("currentMessageView")["id"] !== undefined &&
-                app.user.get("currentMessageView")["id"] != ""
+                app.user.get("currentMessageView")["id"] !== ""
             ) {
+                this.setState({
+                    emailLoading: false,
+                });
                 clearTimeout(app.user.get("emailOpenTimeOut"));
 
                 var email = app.user.get("currentMessageView");
 
-                var thisComp = this;
                 var from2 = [];
                 var from = app.transform.from64str(email["meta"]["from"]);
 
@@ -604,6 +605,7 @@ define(["react", "app"], function (React, app) {
                             : "",
                     toggleHTMLtext: "html",
                     pgpEncrypted: email["pgpEncrypted"],
+                    hideEmailRead: false,
                 });
 
                 // $('[data-toggle="popover-hover"]').popover({
@@ -620,17 +622,12 @@ define(["react", "app"], function (React, app) {
                 } else {
                     this.renderStrictBody();
                 }
-
-                thisComp.setState({
+                this.setState({
                     hideEmailRead: false,
-                });
-                thisComp.setState({
-                    emailLoading: false,
                 });
                 this.verifySignature();
             } else {
                 this.setState({
-                    emailLoading: false,
                     hideEmailRead: true,
                 });
             }
@@ -1362,40 +1359,40 @@ define(["react", "app"], function (React, app) {
                     <div className="email-conetent-wrp">
                         <div
                             className={`mail-data emailNo ${
-                                this.state.hideEmailRead &&
-                                this.state.emailLoading === false
-                                    ? ""
-                                    : "d-none"
+                                this.state.hideEmailRead ? "d-active" : "d-none"
                             }`}
                         >
-                            <h1>{`Please Select Email`}</h1>
-                            <p>
-                                <strong>
-                                    <a
-                                        href="https://blog.cyberfear.com/"
-                                        target="_blank"
-                                    >
-                                        Our Blog: blog.cyberfear.com
-                                    </a>
-                                </strong>
-                            </p>
-                            <p>
-                                Comments or question? <br /> Please contact us
-                                at <strong>cyberfear@cyberfear.com</strong>
-                            </p>
+                            <div>
+                                <h1>{`Please Select Email`}</h1>
+                                <p>
+                                    <strong>
+                                        <a
+                                            href="https://blog.cyberfear.com/"
+                                            target="_blank"
+                                        >
+                                            Our Blog: blog.cyberfear.com
+                                        </a>
+                                    </strong>
+                                </p>
+                                <p>
+                                    Comments or question? <br /> Please contact
+                                    us at{" "}
+                                    <strong>cyberfear@cyberfear.com</strong>
+                                </p>
+                            </div>
+                            <div
+                                className={`d-decrypting-message ${
+                                    this.state.emailLoading
+                                        ? "d-block"
+                                        : "d-none"
+                                }`}
+                            >
+                                <h3 style={{ textAlign: "center" }}>
+                                    Decrypting...
+                                </h3>
+                            </div>
                         </div>
-                        <div
-                            className={
-                                this.state.emailLoading &&
-                                this.state.hideEmailRead
-                                    ? ""
-                                    : "d-none"
-                            }
-                        >
-                            <h3 style={{ textAlign: "center" }}>
-                                Decrypting...
-                            </h3>
-                        </div>
+
                         <div
                             className={`email-content-top ${
                                 this.state.hideEmailRead ? "d-none" : ""
@@ -1528,7 +1525,7 @@ define(["react", "app"], function (React, app) {
                                 this.state.hideEmailRead ? "d-none" : ""
                             }`}
                         >
-                            <div>sender: {this.state.from}</div>
+                            <div>Sender: {this.state.from}</div>
                         </div>
                         <div
                             className={`image-disabled ${

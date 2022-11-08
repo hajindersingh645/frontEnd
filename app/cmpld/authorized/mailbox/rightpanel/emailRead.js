@@ -221,15 +221,16 @@ define(["react", "app"], function (React, app) {
         },
         renderEmail: function () {
             this.setState({
-                emailLoading: true,
-                hideEmailRead: true
+                emailLoading: true
             });
-            if (app.user.get("currentMessageView")["id"] !== undefined && app.user.get("currentMessageView")["id"] != "") {
+            if (app.user.get("currentMessageView")["id"] !== undefined && app.user.get("currentMessageView")["id"] !== "") {
+                this.setState({
+                    emailLoading: false
+                });
                 clearTimeout(app.user.get("emailOpenTimeOut"));
 
                 var email = app.user.get("currentMessageView");
 
-                var thisComp = this;
                 var from2 = [];
                 var from = app.transform.from64str(email["meta"]["from"]);
 
@@ -492,7 +493,8 @@ define(["react", "app"], function (React, app) {
                     attachment: email["attachment"],
                     rawHeadVisible: email["originalBody"]["rawHeader"] == undefined ? "hidden" : "",
                     toggleHTMLtext: "html",
-                    pgpEncrypted: email["pgpEncrypted"]
+                    pgpEncrypted: email["pgpEncrypted"],
+                    hideEmailRead: false
                 });
 
                 // $('[data-toggle="popover-hover"]').popover({
@@ -509,17 +511,12 @@ define(["react", "app"], function (React, app) {
                 } else {
                     this.renderStrictBody();
                 }
-
-                thisComp.setState({
+                this.setState({
                     hideEmailRead: false
-                });
-                thisComp.setState({
-                    emailLoading: false
                 });
                 this.verifySignature();
             } else {
                 this.setState({
-                    emailLoading: false,
                     hideEmailRead: true
                 });
             }
@@ -1107,51 +1104,56 @@ define(["react", "app"], function (React, app) {
                     React.createElement(
                         "div",
                         {
-                            className: `mail-data emailNo ${ this.state.hideEmailRead && this.state.emailLoading === false ? "" : "d-none" }`
+                            className: `mail-data emailNo ${ this.state.hideEmailRead ? "d-active" : "d-none" }`
                         },
                         React.createElement(
-                            "h1",
-                            null,
-                            `Please Select Email`
-                        ),
-                        React.createElement(
-                            "p",
+                            "div",
                             null,
                             React.createElement(
-                                "strong",
+                                "h1",
+                                null,
+                                `Please Select Email`
+                            ),
+                            React.createElement(
+                                "p",
                                 null,
                                 React.createElement(
-                                    "a",
-                                    {
-                                        href: "https://blog.cyberfear.com/",
-                                        target: "_blank"
-                                    },
-                                    "Our Blog: blog.cyberfear.com"
+                                    "strong",
+                                    null,
+                                    React.createElement(
+                                        "a",
+                                        {
+                                            href: "https://blog.cyberfear.com/",
+                                            target: "_blank"
+                                        },
+                                        "Our Blog: blog.cyberfear.com"
+                                    )
+                                )
+                            ),
+                            React.createElement(
+                                "p",
+                                null,
+                                "Comments or question? ",
+                                React.createElement("br", null),
+                                " Please contact us at",
+                                " ",
+                                React.createElement(
+                                    "strong",
+                                    null,
+                                    "cyberfear@cyberfear.com"
                                 )
                             )
                         ),
                         React.createElement(
-                            "p",
-                            null,
-                            "Comments or question? ",
-                            React.createElement("br", null),
-                            " Please contact us at ",
+                            "div",
+                            {
+                                className: `d-decrypting-message ${ this.state.emailLoading ? "d-block" : "d-none" }`
+                            },
                             React.createElement(
-                                "strong",
-                                null,
-                                "cyberfear@cyberfear.com"
+                                "h3",
+                                { style: { textAlign: "center" } },
+                                "Decrypting..."
                             )
-                        )
-                    ),
-                    React.createElement(
-                        "div",
-                        {
-                            className: this.state.emailLoading && this.state.hideEmailRead ? "" : "d-none"
-                        },
-                        React.createElement(
-                            "h3",
-                            { style: { textAlign: "center" } },
-                            "Decrypting..."
                         )
                     ),
                     React.createElement(
@@ -1388,7 +1390,7 @@ define(["react", "app"], function (React, app) {
                         React.createElement(
                             "div",
                             null,
-                            "sender: ",
+                            "Sender: ",
                             this.state.from
                         )
                     ),

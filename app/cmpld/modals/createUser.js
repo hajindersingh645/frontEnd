@@ -487,7 +487,7 @@ define(["app", "react"], function (app, React) {
                                         { className: "col-sm-12" },
                                         React.createElement(
                                             "div",
-                                            { className: "form-group hidden" },
+                                            { className: "form-group d-none" },
                                             React.createElement("input", {
                                                 className: "form-control input-lg",
                                                 name: "robotText",
