@@ -229,9 +229,12 @@ define(["react", "app"], function (React, app) {
             }
         },
         renderEmail: function () {
-            this.setState({
-                emailLoading: true,
-            });
+            if (app.user.get("isDecryptingEmail")) {
+                this.setState({
+                    emailLoading: true,
+                });
+            }
+
             if (
                 app.user.get("currentMessageView")["id"] !== undefined &&
                 app.user.get("currentMessageView")["id"] !== ""

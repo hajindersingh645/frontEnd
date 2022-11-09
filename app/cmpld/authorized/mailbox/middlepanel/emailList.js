@@ -438,6 +438,9 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                         });
 
                                         app.globalF.renderEmail(id);
+                                        app.user.set({
+                                            isDecryptingEmail: true
+                                        });
 
                                         app.mixins.hidePopHover();
                                     }

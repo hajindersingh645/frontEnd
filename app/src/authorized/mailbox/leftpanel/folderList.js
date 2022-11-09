@@ -82,6 +82,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                 });
 
                                 app.user.set({ resetSelectedItems: true });
+                                app.user.set({ isDecryptingEmail: false });
 
                                 app.globalF.resetCurrentMessage();
                                 app.globalF.resetDraftMessage();
