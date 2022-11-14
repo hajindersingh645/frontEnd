@@ -34,37 +34,28 @@ define(["react", "app"], function (React, app) {
                 >
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
-                            <div className="modal-header">
+                            <div className="modal-header p-4">
                                 <h4 className="modal-title" id="userSyncTitle">
                                     Fetching User Data
                                 </h4>
                             </div>
-                            <div className="modal-body">
+                            <div className="modal-body p-4">
                                 <div className="form-group">
                                     <div
-                                        className="bs-example"
+                                        className="bs-example text-center"
                                         data-example-id="progress-bar-with-label"
                                     >
-                                        {app.userObjects.get("modalText")}
-                                        <div className="progress">
-                                            <div
-                                                className="progress-bar"
-                                                role="progressbar"
-                                                aria-valuenow="60"
-                                                aria-valuemin="0"
-                                                aria-valuemax="100"
-                                                aria-role="progressbar"
-                                                aria-label={`${app.userObjects.get(
-                                                    "modalpercentage"
-                                                )}%`}
-                                                style={{
-                                                    width:
-                                                        app.userObjects.get(
-                                                            "modalpercentage"
-                                                        ) + "%",
-                                                }}
-                                            ></div>
+                                        <iframe
+                                            src="/loaders/loading.html"
+                                            className="loadingAnimationIframe"
+                                        ></iframe>
+                                        <div>
+                                            {app.userObjects.get(
+                                                "modalpercentage"
+                                            )}
+                                            %
                                         </div>
+                                        {app.userObjects.get("modalText")}
                                     </div>
                                 </div>
                             </div>

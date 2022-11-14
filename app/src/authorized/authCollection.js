@@ -60,7 +60,9 @@ define([
                     thisMod.setState({ dfd: "solved" });
                 } else {
                     $("#userObjSync").addClass("show d-block");
-                    $("#overlay").removeClass("d-none").addClass("d-block");
+                    $("#overlay, #loading-skeleton")
+                        .removeClass("d-none")
+                        .addClass("d-block");
                     $("#userObjSync").modal({
                         show: true,
                         backdrop: "static",
@@ -69,7 +71,9 @@ define([
 
                     app.userObjects.startSession(function () {
                         $("#userObjSync").removeClass("show d-block");
-                        $("#overlay").removeClass("d-block").addClass("d-none");
+                        $("#overlay, #loading-skeleton")
+                            .removeClass("d-block")
+                            .addClass("d-none");
                         $("#userObjSync").modal("hide");
                         app.sessionData.set({ sessionReady: true });
                         thisMod.setState({ dfd: "solved" });
@@ -80,7 +84,7 @@ define([
         handleClick: function (i) {
             switch (i) {
                 case "resetTimer":
-                    app.user.startTimer();
+                    // app.user.startTimer();
                     break;
             }
         },
@@ -139,14 +143,205 @@ define([
             }
 
             return (
-                <div
-                    className="mailBody"
-                    onClick={this.handleClick.bind(this, "resetTimer")}
-                    onTouchEnd={this.handleClick.bind(this, "resetTimer")}
-                    onKeyUp={this.handleClick.bind(this, "resetTimer")}
-                >
+                <div className="mailBody">
                     {body}
                     <div id="overlay" className="d-none"></div>
+                    <div
+                        id="loading-skeleton"
+                        className="loading-skeleton d-none"
+                    >
+                        <header>
+                            <div className="logo-2">
+                                <a href="#">
+                                    <img
+                                        src="images/logo.svg"
+                                        alt=""
+                                        className="light-theme"
+                                    />{" "}
+                                    <img
+                                        src="images/logo-white.svg"
+                                        alt=""
+                                        className="dark-theme"
+                                    />
+                                </a>
+                            </div>
+                            <div className="right-top-data">
+                                <div className="icon-notification">
+                                    <button>
+                                        <span></span>
+                                    </button>
+                                </div>
+                                <div className="user-dropdown">
+                                    <div className="dropdown">
+                                        <button
+                                            className="btn btn-secondary dropdown-toggle"
+                                            type="button"
+                                            id="user-dropdown"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false"
+                                        >
+                                            {" "}
+                                            <img
+                                                src="images/user.jpg"
+                                                alt=""
+                                            />{" "}
+                                            Sepide Moqadasi{" "}
+                                            <span className="arrow"></span>
+                                            <br />
+                                            <span className="user-email">
+                                                Sepide_moqadasi@y..
+                                            </span>{" "}
+                                        </button>
+                                        <ul
+                                            className="dropdown-menu"
+                                            aria-labelledby="user-dropdown"
+                                        >
+                                            <li>
+                                                <button
+                                                    className="copy-icon"
+                                                    id="email-copy"
+                                                >
+                                                    Copy my email address
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <a
+                                                    href="#"
+                                                    className="logout-icon"
+                                                >
+                                                    Log out
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div className="menu-icon">
+                                    <button
+                                        data-bs-toggle="offcanvas"
+                                        data-bs-target="#offcanvasRight"
+                                        aria-controls="offcanvasRight"
+                                    ></button>
+                                </div>
+                            </div>
+                        </header>
+                        <div className="mobile-search">
+                            <input type="search" placeholder="Search..." />
+                        </div>
+                        <div className="left-side">
+                            <div className="left-container">
+                                <div className="logo">
+                                    <a href="#">
+                                        <img
+                                            src="images/logo.svg"
+                                            alt=""
+                                            className="light-theme-logo"
+                                        />{" "}
+                                        <img
+                                            src="images/logo-white.svg"
+                                            alt=""
+                                            className="dark-theme-logo"
+                                        />
+                                    </a>
+                                </div>
+                                <div className="new-message-btn">
+                                    <button>New message</button>
+                                </div>
+                                <div className="main-menu">
+                                    <ul>
+                                        <li>
+                                            {" "}
+                                            <div className="skeleton __folder"></div>
+                                        </li>
+                                        <li>
+                                            {" "}
+                                            <div className="skeleton __folder"></div>
+                                        </li>
+                                        <li>
+                                            {" "}
+                                            <div className="skeleton __folder"></div>
+                                        </li>
+                                        <li>
+                                            {" "}
+                                            <div className="skeleton __folder"></div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="middle-section">
+                            <div className="middle-top">
+                                <div className="desktop-search">
+                                    <input
+                                        type="search"
+                                        placeholder="Search..."
+                                    />
+                                </div>
+                                <div className="info-row">
+                                    <div className="all-check">
+                                        <label className="container-checkbox">
+                                            <input type="checkbox" />
+                                            <span className="checkmark"></span>{" "}
+                                        </label>
+                                    </div>
+                                    <div className="arrow-btn">
+                                        <div className="dropdown">
+                                            <button
+                                                className="btn btn-secondary dropdown-toggle"
+                                                type="button"
+                                                id="mail-sort"
+                                                data-bs-toggle="dropdown"
+                                                aria-expanded="false"
+                                            ></button>
+                                        </div>
+                                    </div>
+                                    <div className="info-row-right">
+                                        <div className="referesh-btn">
+                                            <button
+                                                id="referesh-btn"
+                                                className="icon-btn"
+                                            >
+                                                {" "}
+                                                <i></i>{" "}
+                                            </button>
+                                        </div>
+                                        <div className="ellipsis-dropdown">
+                                            <button></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="middle-content">
+                                <div className="inbox-list">
+                                    <ul>
+                                        <li>
+                                            <div className="skeleton __box"></div>
+                                        </li>
+                                        <li>
+                                            <div className="skeleton __box"></div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="right-side">
+                            <div className="email-conetent-wrp">
+                                <div className="email-content-top">
+                                    <div className="email-content-top-left">
+                                        <div className="word color-1">W</div>
+                                        <div className="sender-name skeleton __sender"></div>
+                                    </div>
+                                </div>
+                                <div className="mail-data">
+                                    <div className="skeleton __mail_content"></div>
+                                    <div className="skeleton __mail_content"></div>
+                                    <div className="skeleton __mail_content"></div>
+                                    <div className="skeleton __mail_content"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <SyncUserObj />
                 </div>
             );

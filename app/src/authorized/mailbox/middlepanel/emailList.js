@@ -558,6 +558,9 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
             );
         },
         handleClick: function (i, event) {
+            app.user.set({
+                isDecryptingEmail: true,
+            });
             switch (i) {
                 case "wholeFolder":
                     //  console.log('wholeFolder')
@@ -633,9 +636,6 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                         });
 
                                         app.globalF.renderEmail(id);
-                                        app.user.set({
-                                            isDecryptingEmail: true,
-                                        });
 
                                         app.mixins.hidePopHover();
                                     }

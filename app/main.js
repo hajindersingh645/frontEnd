@@ -8,6 +8,8 @@ require.config({
         wow: "../js/Plugins/wow.min",
         smoothscroll: "../js/Plugins/smoothscroll",
         popper: "../js/main/popper.2.10.2.min",
+        lottie: "/js/Plugins/lottie/lottie.min",
+        // animationD: "/js/animations/loading",
         // bootstrap: "../js/main/bootstrap",
         bootstrap: "../js/main/bootstrap.5.2.0.bundle.min",
         validation: "/js/Plugins/jquery.validate.min",
@@ -33,6 +35,7 @@ require.config({
         select2: "/js/Plugins/select2/select2.full",
         openpgp: "/js/Plugins/openpgp/openpgp",
         apptheme: "/js/app",
+
         //Elements:"@stripe/react-stripe-js",
         //loadStripe:"/js/Plugins/@stripe/stripe-js/dist/stripe",
         //useEffect:"react"

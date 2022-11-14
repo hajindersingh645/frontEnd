@@ -38,7 +38,7 @@ define(["react", "app"], function (React, app) {
                         { className: "modal-content" },
                         React.createElement(
                             "div",
-                            { className: "modal-header" },
+                            { className: "modal-header p-4" },
                             React.createElement(
                                 "h4",
                                 { className: "modal-title", id: "userSyncTitle" },
@@ -47,33 +47,27 @@ define(["react", "app"], function (React, app) {
                         ),
                         React.createElement(
                             "div",
-                            { className: "modal-body" },
+                            { className: "modal-body p-4" },
                             React.createElement(
                                 "div",
                                 { className: "form-group" },
                                 React.createElement(
                                     "div",
                                     {
-                                        className: "bs-example",
+                                        className: "bs-example text-center",
                                         "data-example-id": "progress-bar-with-label"
                                     },
-                                    app.userObjects.get("modalText"),
+                                    React.createElement("iframe", {
+                                        src: "/loaders/loading.html",
+                                        className: "loadingAnimationIframe"
+                                    }),
                                     React.createElement(
                                         "div",
-                                        { className: "progress" },
-                                        React.createElement("div", {
-                                            className: "progress-bar",
-                                            role: "progressbar",
-                                            "aria-valuenow": "60",
-                                            "aria-valuemin": "0",
-                                            "aria-valuemax": "100",
-                                            "aria-role": "progressbar",
-                                            "aria-label": `${ app.userObjects.get("modalpercentage") }%`,
-                                            style: {
-                                                width: app.userObjects.get("modalpercentage") + "%"
-                                            }
-                                        })
-                                    )
+                                        null,
+                                        app.userObjects.get("modalpercentage"),
+                                        "%"
+                                    ),
+                                    app.userObjects.get("modalText")
                                 )
                             )
                         )

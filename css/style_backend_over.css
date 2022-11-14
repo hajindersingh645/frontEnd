@@ -444,7 +444,7 @@ header {
     overflow: hidden;
     min-height: 100vh;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: rgba(0, 0, 0, 0.5);
     top: 0;
     left: 0;
     right: 0;
@@ -940,6 +940,79 @@ header .menu-icon.on-left-side {
     left: 0;
     right: 0;
     bottom: 0;
+}
+#loadingAnimation {
+    width: 131px;
+    height: 131px;
+    margin-bottom: 12px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.loadingAnimationIframe {
+    border: 0px !important;
+    overflow: hidden Im !important;
+    margin-bottom: 12px;
+}
+.loading-skeleton .skeleton {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    background: rgba(232, 242, 254, 1);
+    border-radius: 11px;
+    margin-bottom: 10px;
+}
+.loading-skeleton .skeleton::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    background-image: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0.2) 20%,
+        rgba(255, 255, 255, 0.5) 60%,
+        rgba(255, 255, 255, 0)
+    );
+    -webkit-animation: shimmer 2s infinite;
+    animation: shimmer 2s infinite;
+    content: "";
+}
+/* skeleton sizes */
+.loading-skeleton .skeleton.__folder {
+    padding: 15px;
+}
+.loading-skeleton .skeleton.__box {
+    padding: 40px;
+}
+.loading-skeleton .skeleton.__mail_content {
+    padding: 22px;
+    margin-bottom: 23px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.loading-skeleton .inbox-list li {
+    padding: 10px !important;
+}
+.loading-skeleton .inbox-list li .skeleton {
+    margin-bottom: 0;
+}
+.loading-skeleton .main-menu ul li:not(:first-child) {
+    padding-top: 4px;
+}
+.loading-skeleton header {
+    z-index: 101;
+}
+@-webkit-keyframes shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
+@keyframes shimmer {
+    100% {
+        transform: translateX(100%);
+    }
 }
 @keyframes ping {
     0% {

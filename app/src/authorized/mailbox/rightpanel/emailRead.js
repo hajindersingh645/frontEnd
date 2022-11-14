@@ -22,7 +22,7 @@ define(["react", "app"], function (React, app) {
                 renderFull: false,
                 pgpEncrypted: false,
                 decryptedEmail: false,
-                emailLoading: false,
+                emailLoading: app.user.get("isDecryptingEmail"),
                 //emailHasPin
             };
         },
@@ -43,6 +43,9 @@ define(["react", "app"], function (React, app) {
             app.user.on(
                 "change:currentMessageView",
                 function () {
+                    app.user.set({
+                        isDecryptingEmail: true,
+                    });
                     thisComp.setState({
                         from: "",
                         fromExtra: "",
@@ -63,7 +66,7 @@ define(["react", "app"], function (React, app) {
                         renderFull: false,
                         pgpEncrypted: false,
                         decryptedEmail: false,
-                        emailLoading: false,
+                        emailLoading: app.user.get("isDecryptingEmail"),
                     });
 
                     this.renderEmail();
@@ -229,19 +232,10 @@ define(["react", "app"], function (React, app) {
             }
         },
         renderEmail: function () {
-            if (app.user.get("isDecryptingEmail")) {
-                this.setState({
-                    emailLoading: true,
-                });
-            }
-
             if (
                 app.user.get("currentMessageView")["id"] !== undefined &&
                 app.user.get("currentMessageView")["id"] !== ""
             ) {
-                this.setState({
-                    emailLoading: false,
-                });
                 clearTimeout(app.user.get("emailOpenTimeOut"));
 
                 var email = app.user.get("currentMessageView");
@@ -1267,7 +1261,9 @@ define(["react", "app"], function (React, app) {
                 </div>
             );
         },
-        componentDidUpdate: function () {},
+        componentDidUpdate: function () {
+            // console.log(this.state.emailLoading);
+        },
         renderFull: function () {
             app.globalF.renderBodyFull(
                 this.state.emailBody,
@@ -1385,7 +1381,7 @@ define(["react", "app"], function (React, app) {
                             </div>
                             <div
                                 className={`d-decrypting-message ${
-                                    this.state.emailLoading
+                                    app.user.get("isDecryptingEmail")
                                         ? "d-block"
                                         : "d-none"
                                 }`}
