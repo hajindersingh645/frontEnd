@@ -12,10 +12,11 @@ define(["react", "app", "xss", "cmpld/authorized/mailbox/mailboxCollection", "cm
             if (!app.user.get("userLogedIn")) {
                 app.auth.logout();
             } else {
+                $("head").append($('<link rel="stylesheet" type="text/css" />').attr("href", "/js/Plugins/quill/quill.snow.css"));
+                $("head").append($('<link rel="stylesheet" type="text/css" />').attr("href", "/css/select2/select2.css"));
                 $('link[rel=stylesheet][href="/css/style_frontend.css"]').remove();
                 $("head").append($('<link rel="stylesheet" type="text/css" />').attr("href", "/css/style_backend.css"));
                 $("head").append($('<link rel="stylesheet" type="text/css" />').attr("href", "/css/style_backend_over.css"));
-                $("head").append($('<link rel="stylesheet" type="text/css" />').attr("href", "/js/Plugins/quill/quill.snow.css"));
 
                 if (app.sessionData.get("sessionReady")) {
                     thisMod.setState({ dfd: "solved" });

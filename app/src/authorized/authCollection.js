@@ -40,6 +40,18 @@ define([
             if (!app.user.get("userLogedIn")) {
                 app.auth.logout();
             } else {
+                $("head").append(
+                    $('<link rel="stylesheet" type="text/css" />').attr(
+                        "href",
+                        "/js/Plugins/quill/quill.snow.css"
+                    )
+                );
+                $("head").append(
+                    $('<link rel="stylesheet" type="text/css" />').attr(
+                        "href",
+                        "/css/select2/select2.css"
+                    )
+                );
                 $(
                     'link[rel=stylesheet][href="/css/style_frontend.css"]'
                 ).remove();
@@ -53,12 +65,6 @@ define([
                     $('<link rel="stylesheet" type="text/css" />').attr(
                         "href",
                         "/css/style_backend_over.css"
-                    )
-                );
-                $("head").append(
-                    $('<link rel="stylesheet" type="text/css" />').attr(
-                        "href",
-                        "/js/Plugins/quill/quill.snow.css"
                     )
                 );
 
