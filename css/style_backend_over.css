@@ -1158,6 +1158,136 @@ header .menu-icon.on-left-side {
     float: left;
 }
 
+/*
+Compose Email Styles
+*/
+.compose-email-wrapper {
+    position: fixed;
+    bottom: 0;
+    right: 43px;
+    width: 571px;
+    z-index: 99999;
+}
+.compose-email-wrapper .compose-ec {
+    background: #ffffff;
+    box-shadow: 0 36px 100px 0 rgb(0 0 0 / 10%);
+}
+.compose-ec .the-header {
+    background-color: #415067;
+    padding: 17px 25px;
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    box-shadow: 0 4px 4px 0 rgb(0 0 0 / 25%);
+    position: relative;
+}
+.compose-ec .the-header .c-title {
+    font-size: 17px;
+}
+.compose-ec .the-header .c-title h3 {
+    margin-bottom: 0;
+    font-size: inherit;
+}
+.compose-ec .the-header .c-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.compose-ec .the-header .c-actions button,
+.c-editor-actions .c-editor-formating button {
+    padding: 0;
+    margin: 0;
+    position: relative;
+    background: transparent;
+    box-shadow: none;
+    border: none;
+}
+.compose-ec .the-header .c-actions button:not(:last-child),
+.c-editor-actions .c-editor-formating button:not(:last-child) {
+    margin-right: 11px;
+}
+.compose-ec .the-header .c-actions .icon,
+.c-editor-actions .icon {
+    height: 23px;
+    width: 23px;
+    fill: #ffffff;
+    display: block;
+}
+/* .compose-ec .the-header .c-actions .icon svg {
+    height: 48px;
+    width: 48px;
+} */
+.compose-ec .the-content {
+    background-color: #ffffff;
+}
+.compose-ec .the-content-wrapper {
+    padding: 17px 25px;
+}
+.compose-ec .c-editor-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 17px;
+    border-top: solid 1px rgba(233, 241, 254, 1);
+    box-shadow: 0 -5px 5px -5px rgb(34 119 246 / 15%);
+}
+.c-editor-actions .icon {
+    height: 21px;
+    width: 21px;
+    fill: #415067;
+}
+.compose-ec .the-content .com-the-con-editor {
+    min-height: 370px;
+    max-height: 370px;
+    overflow-y: auto;
+}
+.compose-ec .c-editor-send-actions .send-email-button {
+    background: #2277f6;
+    text-align: center;
+    color: #ffffff;
+    padding: 11px 25px;
+    box-shadow: 0 4px 4px 0 rgb(0 0 0 / 25%);
+    border-radius: 12px;
+    border: none;
+    font-size: 14px;
+}
+
+/* Full width compose email */
+.compose-email-wrapper.compose-maximize {
+    width: 95%;
+    height: 95%;
+    top: 2.5%;
+    left: 2.5%;
+}
+.compose-email-wrapper.compose-maximize .compose-ec {
+    height: 100%;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+.compose-email-wrapper.compose-maximize .compose-ec .the-content {
+    height: calc(100% - 57px);
+}
+.compose-email-wrapper.compose-maximize .the-content .the-content-wrapper,
+.compose-email-wrapper.compose-maximize .the-content .com-content-editor {
+    height: 100%;
+}
+.compose-email-wrapper.compose-maximize
+    .compose-ec
+    .the-content
+    .com-the-con-editor {
+    min-height: calc(100% - 61px);
+    max-height: calc(100% - 61px);
+    overflow-y: auto;
+}
+.compose-email-wrapper.compose-minimize {
+    max-height: 57px;
+    min-height: 57px;
+    width: 571px;
+    max-width: 571px;
+}
 @media screen and (max-width: 450px) and (max-width: 767px) {
     #divSmallBoxes {
         position: fixed;
@@ -1209,5 +1339,13 @@ header .menu-icon.on-left-side {
         height: 150px;
         color: #fff;
         z-index: 99999;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .compose-email-wrapper,
+    .compose-email-wrapper.compose-minimize {
+        width: 90%;
+        left: 5%;
     }
 }

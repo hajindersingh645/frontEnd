@@ -29,6 +29,12 @@ require.config({
         xss: "/js/Plugins/xss/xss",
         ajaxQueue: "/js/Plugins/ajaxqueue/ajaxq",
         summernote: "/js/Plugins/summernote/summernote",
+        reactslate: "/js/Plugins/slate/reactproduction.min",
+        reactdom: "/js/Plugins/slate/reactdomproduction.min",
+        reactdomserver:
+            "/js/Plugins/slate/reactdomserverbrowser.production.min",
+        slate: "/js/Plugins/slate/slate",
+        slatereact: "/js/Plugins/slate/slate-react",
         qrcode: "/js/Plugins/qrcode/qrcode",
         jsui: "/js/Plugins/jquery-ui/jquery-ui.min",
         accounting: "/js/Plugins/accounting/accounting",
@@ -116,6 +122,21 @@ require.config({
         summernote: {
             deps: ["jquery"],
             exports: "summernote",
+        },
+        reactslate: {
+            exports: "reactslate",
+        },
+        reactdom: {
+            exports: "reactdom",
+        },
+        reactdomserver: {
+            exports: "reactdomserver",
+        },
+        slate: {
+            exports: "slate",
+        },
+        slatereact: {
+            exports: "slatereact",
         },
         qrcode: {
             deps: ["jquery"],

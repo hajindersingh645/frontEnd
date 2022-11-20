@@ -1561,6 +1561,12 @@ define(["react", "app"], function (React, app) {
                             {this.displayAttachments()}
                         </div>
                     </div>
+                    <div
+                        className={
+                            "emailShow " +
+                            (this.state.hideEmailRead ? "hidden" : "")
+                        }
+                    ></div>
                 </div>
             );
         },

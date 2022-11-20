@@ -1432,7 +1432,10 @@ define(["react", "app"], function (React, app) {
                         }),
                         this.displayAttachments()
                     )
-                )
+                ),
+                React.createElement("div", {
+                    className: "emailShow " + (this.state.hideEmailRead ? "hidden" : "")
+                })
             );
         }
     });

@@ -6,7 +6,17 @@ define([
     "cmpld/authorized/mailbox/rightpanel/emailRead",
     "cmpld/authorized/header/head",
     "cmpld/authorized/canvas/canvasCollection",
-], function (React, app, FolderList, EmailList, EmailRead, Header, Canvas) {
+    "cmpld/authorized/mailbox/rightpanel/composeEmail",
+], function (
+    React,
+    app,
+    FolderList,
+    EmailList,
+    EmailRead,
+    Header,
+    Canvas,
+    ComposeEmail
+) {
     return React.createClass({
         render: function () {
             return (
@@ -26,6 +36,9 @@ define([
                         updateValue={this.updateValue}
                         resetClasses={this.resetClases}
                     />
+                    {this.props.pp === `Compose` ? (
+                        <ComposeEmail panel={this.state} />
+                    ) : null}
                     <EmailRead
                         panel={this.state}
                         updateValue={this.updateValue}

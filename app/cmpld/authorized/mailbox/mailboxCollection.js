@@ -1,4 +1,4 @@
-define(["react", "app", "cmpld/authorized/mailbox/leftpanel/folderList", "cmpld/authorized/mailbox/middlepanel/emailList", "cmpld/authorized/mailbox/rightpanel/emailRead", "cmpld/authorized/header/head", "cmpld/authorized/canvas/canvasCollection"], function (React, app, FolderList, EmailList, EmailRead, Header, Canvas) {
+define(["react", "app", "cmpld/authorized/mailbox/leftpanel/folderList", "cmpld/authorized/mailbox/middlepanel/emailList", "cmpld/authorized/mailbox/rightpanel/emailRead", "cmpld/authorized/header/head", "cmpld/authorized/canvas/canvasCollection", "cmpld/authorized/mailbox/rightpanel/composeEmail"], function (React, app, FolderList, EmailList, EmailRead, Header, Canvas, ComposeEmail) {
     return React.createClass({
         render: function () {
             return React.createElement(
@@ -19,6 +19,7 @@ define(["react", "app", "cmpld/authorized/mailbox/leftpanel/folderList", "cmpld/
                     updateValue: this.updateValue,
                     resetClasses: this.resetClases
                 }),
+                this.props.pp === `Compose` ? React.createElement(ComposeEmail, { panel: this.state }) : null,
                 React.createElement(EmailRead, {
                     panel: this.state,
                     updateValue: this.updateValue,
