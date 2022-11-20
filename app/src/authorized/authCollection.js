@@ -55,6 +55,12 @@ define([
                         "/css/style_backend_over.css"
                     )
                 );
+                $("head").append(
+                    $('<link rel="stylesheet" type="text/css" />').attr(
+                        "href",
+                        "/js/Plugins/quill/quill.snow.css"
+                    )
+                );
 
                 if (app.sessionData.get("sessionReady")) {
                     thisMod.setState({ dfd: "solved" });

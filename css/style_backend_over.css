@@ -1197,7 +1197,8 @@ Compose Email Styles
     align-items: center;
 }
 .compose-ec .the-header .c-actions button,
-.c-editor-actions .c-editor-formating button {
+.c-editor-actions .c-editor-formating button,
+.c-editor-actions .c-editor-formating select {
     padding: 0;
     margin: 0;
     position: relative;
@@ -1206,6 +1207,7 @@ Compose Email Styles
     border: none;
 }
 .compose-ec .the-header .c-actions button:not(:last-child),
+.c-editor-actions .c-editor-formating select,
 .c-editor-actions .c-editor-formating button:not(:last-child) {
     margin-right: 11px;
 }
@@ -1243,6 +1245,7 @@ Compose Email Styles
     min-height: 370px;
     max-height: 370px;
     overflow-y: auto;
+    border: none;
 }
 .compose-ec .c-editor-send-actions .send-email-button {
     background: #2277f6;
@@ -1287,6 +1290,19 @@ Compose Email Styles
     min-height: 57px;
     width: 571px;
     max-width: 571px;
+}
+.com-the-con-editor .ql-editor {
+    padding: 0;
+}
+.com-the-con-editor .ql-editor blockquote {
+    border-left: 4px solid #ccc;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    padding-left: 16px;
+}
+.c-editor-actions .c-editor-formating button.ql-active .icon {
+    color: #2277f6;
+    fill: #2277f6;
 }
 @media screen and (max-width: 450px) and (max-width: 767px) {
     #divSmallBoxes {

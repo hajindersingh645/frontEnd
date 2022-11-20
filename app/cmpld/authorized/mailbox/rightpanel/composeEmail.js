@@ -1,4 +1,4 @@
-define(["react", "app", "slate"], function (React, app, slate) {
+define(["react", "app", "quill"], function (React, app, Quill) {
     return React.createClass({
         getInitialState: function () {
             return {
@@ -6,7 +6,24 @@ define(["react", "app", "slate"], function (React, app, slate) {
                 isMinimized: false
             };
         },
-        componentDidMount: function () {},
+        componentDidMount: function () {
+            // Initiate toolbar
+            const quill = new Quill("#com-the-con-editor", {
+                modules: {
+                    toolbar: "#editor_toolbar"
+                },
+                handlers: {
+                    link: function (value) {
+                        if (value) {
+                            const href = prompt("Enter the URL");
+                            this.quill.format("link", href);
+                        } else {
+                            this.quill.format("link", false);
+                        }
+                    }
+                }
+            });
+        },
         renderEditor: function () {},
         handleEmailHeaderAction: function (i) {
             switch (i) {
@@ -154,15 +171,22 @@ define(["react", "app", "slate"], function (React, app, slate) {
                                     },
                                     "This is something new we had to try and give a shot at"
                                 ),
+                                React.createElement("div", { id: "toolbar" }),
                                 React.createElement(
                                     "div",
                                     { className: "c-editor-actions" },
                                     React.createElement(
                                         "div",
-                                        { className: "c-editor-formating" },
+                                        {
+                                            className: "c-editor-formating ql-formats",
+                                            id: "editor_toolbar"
+                                        },
                                         React.createElement(
                                             "button",
-                                            { type: "submit" },
+                                            {
+                                                type: "submit",
+                                                className: "ql-bold"
+                                            },
                                             React.createElement(
                                                 "span",
                                                 { className: "icon" },
@@ -178,7 +202,10 @@ define(["react", "app", "slate"], function (React, app, slate) {
                                         ),
                                         React.createElement(
                                             "button",
-                                            { type: "submit" },
+                                            {
+                                                type: "submit",
+                                                className: "ql-italic"
+                                            },
                                             React.createElement(
                                                 "span",
                                                 { className: "icon" },
@@ -194,7 +221,10 @@ define(["react", "app", "slate"], function (React, app, slate) {
                                         ),
                                         React.createElement(
                                             "button",
-                                            { type: "submit" },
+                                            {
+                                                type: "submit",
+                                                className: "ql-underline"
+                                            },
                                             React.createElement(
                                                 "span",
                                                 { className: "icon" },
@@ -210,7 +240,10 @@ define(["react", "app", "slate"], function (React, app, slate) {
                                         ),
                                         React.createElement(
                                             "button",
-                                            { type: "submit" },
+                                            {
+                                                type: "submit",
+                                                className: "ql-blockquote"
+                                            },
                                             React.createElement(
                                                 "span",
                                                 { className: "icon" },
@@ -220,13 +253,17 @@ define(["react", "app", "slate"], function (React, app, slate) {
                                                         xmlns: "http://www.w3.org/2000/svg",
                                                         viewBox: "0 0 48 48"
                                                     },
-                                                    React.createElement("path", { d: "M6 42v-3h36v3Zm0-8.25v-3h23.6v3Zm0-8.25v-3h36v3Zm0-8.25v-3h23.6v3ZM6 9V6h36v3Z" })
+                                                    React.createElement("path", { d: "M29 23h8v-8h-8Zm-18 0h8v-8h-8Zm20.3 11 4-8H26V12h14v14.4L36.2 34Zm-18 0 4-8H8V12h14v14.4L18.2 34ZM15 19Zm18 0Z" })
                                                 )
                                             )
                                         ),
                                         React.createElement(
                                             "button",
-                                            { type: "submit" },
+                                            {
+                                                type: "submit",
+                                                className: "ql-list",
+                                                value: "ordered"
+                                            },
                                             React.createElement(
                                                 "span",
                                                 { className: "icon" },
@@ -236,13 +273,17 @@ define(["react", "app", "slate"], function (React, app, slate) {
                                                         xmlns: "http://www.w3.org/2000/svg",
                                                         viewBox: "0 0 48 48"
                                                     },
-                                                    React.createElement("path", { d: "M6 42v-3h36v3Zm8.2-8.25v-3h19.65v3ZM6 25.5v-3h36v3Zm8.2-8.25v-3h19.65v3ZM6 9V6h36v3Z" })
+                                                    React.createElement("path", { d: "M6 40v-1.7h4.2V37H8.1v-1.7h2.1V34H6v-1.7h5.9V40Zm10.45-2.45v-3H42v3ZM6 27.85v-1.6l3.75-4.4H6v-1.7h5.9v1.6l-3.8 4.4h3.8v1.7Zm10.45-2.45v-3H42v3ZM8.1 15.8V9.7H6V8h3.8v7.8Zm8.35-2.55v-3H42v3Z" })
                                                 )
                                             )
                                         ),
                                         React.createElement(
                                             "button",
-                                            { type: "submit" },
+                                            {
+                                                type: "submit",
+                                                className: "ql-list",
+                                                value: "bullet"
+                                            },
                                             React.createElement(
                                                 "span",
                                                 { className: "icon" },
@@ -252,13 +293,16 @@ define(["react", "app", "slate"], function (React, app, slate) {
                                                         xmlns: "http://www.w3.org/2000/svg",
                                                         viewBox: "0 0 48 48"
                                                     },
-                                                    React.createElement("path", { d: "M6 42v-3h36v3Zm12.45-8.25v-3H42v3ZM6 25.5v-3h36v3Zm12.45-8.25v-3H42v3ZM6 9V6h36v3Z" })
+                                                    React.createElement("path", { d: "M8.55 39q-1.05 0-1.8-.725T6 36.55q0-1.05.75-1.8t1.8-.75q1 0 1.725.75.725.75.725 1.8 0 1-.725 1.725Q9.55 39 8.55 39ZM16 38v-3h26v3ZM8.55 26.5q-1.05 0-1.8-.725T6 24q0-1.05.75-1.775.75-.725 1.8-.725 1 0 1.725.75Q11 23 11 24t-.725 1.75q-.725.75-1.725.75Zm7.45-1v-3h26v3ZM8.5 14q-1.05 0-1.775-.725Q6 12.55 6 11.5q0-1.05.725-1.775Q7.45 9 8.5 9q1.05 0 1.775.725Q11 10.45 11 11.5q0 1.05-.725 1.775Q9.55 14 8.5 14Zm7.5-1v-3h26v3Z" })
                                                 )
                                             )
                                         ),
                                         React.createElement(
                                             "button",
-                                            { type: "submit" },
+                                            {
+                                                type: "submit",
+                                                className: "ql-link"
+                                            },
                                             React.createElement(
                                                 "span",
                                                 { className: "icon" },
@@ -284,13 +328,16 @@ define(["react", "app", "slate"], function (React, app, slate) {
                                                         xmlns: "http://www.w3.org/2000/svg",
                                                         viewBox: "0 0 48 48"
                                                     },
-                                                    React.createElement("path", { d: "M37.5 33.45 35.05 31q2.55-.5 4.25-2.4 1.7-1.9 1.7-4.45 0-2.9-2.05-4.95-2.05-2.05-4.95-2.05h-7.75v-3H34q4.15 0 7.075 2.925T44 24.15q0 3.1-1.8 5.6-1.8 2.5-4.7 3.7Zm-7.8-7.8-3-3h5.05v3Zm11 19.55L3.15 7.65 5.3 5.5l37.55 37.55ZM22.5 34H14q-4.15 0-7.075-2.925T4 24q0-3.6 2.225-6.35Q8.45 14.9 11.9 14.2l2.8 2.8H14q-2.9 0-4.95 2.05Q7 21.1 7 24q0 2.9 2.05 4.95Q11.1 31 14 31h8.5Zm-6.25-8.5v-3h3.95l3 3Z" })
+                                                    React.createElement("path", { d: "M10 44q-2.5 0-4.25-1.75T4 38V10q0-2.5 1.75-4.25T10 4h28q2.5 0 4.25 1.75T44 10v28q0 2.5-1.75 4.25T38 44Zm0-3h28q1.3 0 2.15-.875Q41 39.25 41 38V10q0-1.3-.85-2.15Q39.3 7 38 7H10q-1.25 0-2.125.85T7 10v28q0 1.25.875 2.125T10 41Zm3.2-5.5 6.8-6.8 3.65 3.6L28 26.8l6.95 8.7Zm2.8-16q-1.45 0-2.475-1.025Q12.5 17.45 12.5 16q0-1.45 1.025-2.475Q14.55 12.5 16 12.5q1.45 0 2.475 1.025Q19.5 14.55 19.5 16q0 1.45-1.025 2.475Q17.45 19.5 16 19.5Z" })
                                                 )
                                             )
                                         ),
                                         React.createElement(
                                             "button",
-                                            { type: "submit" },
+                                            {
+                                                type: "submit",
+                                                className: "ql-clean"
+                                            },
                                             React.createElement(
                                                 "span",
                                                 { className: "icon" },
@@ -300,7 +347,7 @@ define(["react", "app", "slate"], function (React, app, slate) {
                                                         xmlns: "http://www.w3.org/2000/svg",
                                                         viewBox: "0 0 48 48"
                                                     },
-                                                    React.createElement("path", { d: "M10 44q-2.5 0-4.25-1.75T4 38V10q0-2.5 1.75-4.25T10 4h28q2.5 0 4.25 1.75T44 10v28q0 2.5-1.75 4.25T38 44Zm0-3h28q1.3 0 2.15-.875Q41 39.25 41 38V10q0-1.3-.85-2.15Q39.3 7 38 7H10q-1.25 0-2.125.85T7 10v28q0 1.25.875 2.125T10 41Zm3.2-5.5 6.8-6.8 3.65 3.6L28 26.8l6.95 8.7Zm2.8-16q-1.45 0-2.475-1.025Q12.5 17.45 12.5 16q0-1.45 1.025-2.475Q14.55 12.5 16 12.5q1.45 0 2.475 1.025Q19.5 14.55 19.5 16q0 1.45-1.025 2.475Q17.45 19.5 16 19.5Z" })
+                                                    React.createElement("path", { d: "M25.35 21.8 21.5 18l1.2-2.8h-3.95l-5.2-5.2H40v5H28.25ZM40.3 45.2 22.85 27.7 18.45 38H13l6-14.1L2.8 7.7l2.1-2.1 37.5 37.5Z" })
                                                 )
                                             )
                                         )
