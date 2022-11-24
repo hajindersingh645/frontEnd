@@ -1,4 +1,4 @@
-define(["react", "app", "xss", "cmpld/authorized/mailbox/mailboxCollection", "cmpld/authorized/settings/settingsCollection", "cmpld/authorized/updates/updateVersion1", "cmpld/modals/secondPass", "cmpld/modals/syncUserObj", "cmpld/modals/logOutForce", "cmpld/modals/infoPop", "cmpld/modals/askForPass", "cmpld/modals/dialogPop", "cmpld/modals/dontInterrupt"], function (React, app, xss, MailboxCollection, SettingsCollection, UpdateCollection, SecondPass, SyncUserObj, LogOutForce, InfoPop, AskForPass, DialogPop, DontInterrupt) {
+define(["react", "app", "xss", "cmpld/authorized/mailbox/mailboxCollection", "cmpld/authorized/settings/settingsCollection", "cmpld/authorized/updates/updateVersion1", "cmpld/modals/secondPass", "cmpld/modals/syncUserObj", "cmpld/modals/logOutForce", "cmpld/modals/infoPop", "cmpld/modals/askForPass", "cmpld/modals/dialogPop", "cmpld/modals/dontInterrupt", "offline"], function (React, app, xss, MailboxCollection, SettingsCollection, UpdateCollection, SecondPass, SyncUserObj, LogOutForce, InfoPop, AskForPass, DialogPop, DontInterrupt, offline) {
     return React.createClass({
         getInitialState: function () {
             return {
@@ -13,6 +13,8 @@ define(["react", "app", "xss", "cmpld/authorized/mailbox/mailboxCollection", "cm
                 app.auth.logout();
             } else {
                 $("head").append($('<link rel="stylesheet" type="text/css" />').attr("href", "/js/Plugins/quill/quill.snow.css"));
+                $("head").append($('<link rel="stylesheet" type="text/css" />').attr("href", "/js/Plugins/offline/offline-language-english.css"));
+                $("head").append($('<link rel="stylesheet" type="text/css" />').attr("href", "/js/Plugins/offline/offline-theme-dark.css"));
                 $("head").append($('<link rel="stylesheet" type="text/css" />').attr("href", "/css/select2/select2.css"));
                 $('link[rel=stylesheet][href="/css/style_frontend.css"]').remove();
                 $("head").append($('<link rel="stylesheet" type="text/css" />').attr("href", "/css/style_backend.css"));
@@ -148,19 +150,42 @@ define(["react", "app", "xss", "cmpld/authorized/mailbox/mailboxCollection", "cm
                                             "aria-expanded": "false"
                                         },
                                         " ",
-                                        React.createElement("img", {
-                                            src: "images/user.jpg",
-                                            alt: ""
-                                        }),
+                                        React.createElement(
+                                            "span",
+                                            { className: "user-icon" },
+                                            React.createElement(
+                                                "svg",
+                                                {
+                                                    xmlns: "http://www.w3.org/2000/svg",
+                                                    fill: "none",
+                                                    viewBox: "0 0 24 24",
+                                                    strokeWidth: 1.5,
+                                                    stroke: "currentColor"
+                                                },
+                                                React.createElement("path", {
+                                                    strokeLinecap: "round",
+                                                    strokeLinejoin: "round",
+                                                    d: "M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                                                })
+                                            )
+                                        ),
                                         " ",
-                                        "Sepide Moqadasi",
+                                        React.createElement(
+                                            "span",
+                                            { className: "loading-content" },
+                                            "loading..."
+                                        ),
                                         " ",
                                         React.createElement("span", { className: "arrow" }),
                                         React.createElement("br", null),
                                         React.createElement(
                                             "span",
                                             { className: "user-email" },
-                                            "Sepide_moqadasi@y.."
+                                            React.createElement(
+                                                "span",
+                                                { className: "loading-content" },
+                                                "loading..."
+                                            )
                                         ),
                                         " "
                                     ),

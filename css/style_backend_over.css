@@ -812,11 +812,13 @@ header .menu-icon.on-left-side {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #fddecc;
+    background: #dbe8fa;
     position: absolute;
     left: 0;
     top: 0;
     border-radius: 50%;
+    box-shadow: 0 5px 5px -5px #93baf0;
+    border: solid 1px rgba(147, 186, 240, 0.2);
 }
 .user-letter {
     text-transform: uppercase;
@@ -1004,6 +1006,43 @@ header .menu-icon.on-left-side {
 .loading-skeleton header {
     z-index: 101;
 }
+.loading-skeleton .user-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 50%;
+    background: #dbe8fa;
+    box-shadow: 0 5px 5px -5px #93baf0;
+    border: solid 1px rgba(147, 186, 240, 0.2);
+}
+.loading-skeleton .user-icon svg {
+    width: 20px;
+    height: 20px;
+    stroke: #4b8ce7;
+}
+.loading-skeleton .loading-content {
+    text-shadow: 0 0 12px #000000;
+    color: transparent;
+}
+
+.right-side .email-conetent-wrp .email-content-top-left .word {
+    text-transform: uppercase;
+    line-height: 1;
+}
+.main-menu ul li.active {
+    pointer-events: none;
+}
+.main-menu ul li.active a:hover {
+    color: #2277f6 !important;
+}
+
 @-webkit-keyframes shimmer {
     100% {
         transform: translateX(100%);
@@ -1246,8 +1285,8 @@ Compose Email Styles
     fill: #415067;
 }
 .compose-ec .the-content .com-the-con-editor {
-    min-height: 370px;
-    max-height: 370px;
+    min-height: 271px;
+    max-height: 271px;
     overflow-y: auto;
     border: none;
 }
@@ -1276,10 +1315,18 @@ Compose Email Styles
 }
 .compose-email-wrapper.compose-maximize .compose-ec .the-content {
     height: calc(100% - 57px);
+    display: flex;
+    width: 100%;
+    flex-direction: column;
 }
-.compose-email-wrapper.compose-maximize .the-content .the-content-wrapper,
+.compose-email-wrapper.compose-maximize .the-content .the-content-wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
 .compose-email-wrapper.compose-maximize .the-content .com-content-editor {
     height: 100%;
+    flex-grow: 1;
 }
 .compose-email-wrapper.compose-maximize
     .compose-ec
@@ -1333,6 +1380,22 @@ Compose Email Styles
     font-size: 14px;
     font-weight: 700;
 }
+.com-content-header .he-item .he-label .the-icon {
+    width: 29px;
+    height: 29px;
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+    background: rgb(226 232 240);
+    border: solid 1px rgb(203 213 225);
+}
+.com-content-header .he-item .he-label .the-icon svg {
+    width: 21px;
+    height: 21px;
+    stroke: rgb(51 65 85);
+}
 .com-content-header .he-item input,
 .com-content-header .he-item select {
     appearance: none;
@@ -1372,7 +1435,7 @@ Compose Email Styles
     padding: 0px 12px;
     font-size: 14px;
 }
-.com-content-header .com-cc-bcc-buttons button:first-child {
+.com-content-header .com-cc-bcc-buttons button:not(:last-child) {
     border-right: solid 2px rgb(246, 246, 246);
 }
 /* Select 2 */
@@ -1469,5 +1532,25 @@ Compose Email Styles
     .compose-email-wrapper.compose-minimize {
         width: 90%;
         left: 5%;
+    }
+}
+@media screen and (min-width: 992px) {
+    .right-side {
+        margin-top: 80px;
+        padding-top: 0;
+    }
+}
+@media screen and (min-width: 1366px) {
+    .mailBody header {
+        background-color: #ffffff;
+    }
+    .right-side {
+        margin-top: 0;
+    }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1365px) {
+    .icon-notification button span {
+        border-color: #f1f6fd;
     }
 }

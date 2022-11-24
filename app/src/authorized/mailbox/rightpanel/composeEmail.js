@@ -157,6 +157,8 @@ define(["react", "app", "quill", "select2"], function (
         componentDidMount: function () {
             var thisComp = this;
 
+            fileSelector = $("#fileselector");
+
             // Initiate editor toolbar [Quill]
             const quill = new Quill("#com-the-con-editor", {
                 modules: {
@@ -177,6 +179,7 @@ define(["react", "app", "quill", "select2"], function (
             thisComp.toSelect();
             thisComp.toCCSelect();
             thisComp.toBCCSelect();
+            thisComp.attachFiles();
 
             $("#toRcpt").on("select2:selecting", function (e) {
                 var limits = thisComp.countTotalRcpt();
@@ -221,6 +224,33 @@ define(["react", "app", "quill", "select2"], function (
             });
             $("#toBCCRcpt").on("select2:select", function (e) {
                 thisComp.checkRcpt();
+                var element = e.params.data.element;
+                var $element = $(element);
+
+                $element.detach();
+                $(this).append($element);
+                $(this).trigger("change");
+            });
+
+            $("#atachFiles").on("select2:selecting", function (e) {
+                e.preventDefault();
+            });
+
+            $("#atachFiles").on("select2:unselecting", function (e) {
+                app.mixins.canNavigate(function (decision) {
+                    if (decision) {
+                        thisComp.fileRemove(
+                            e["params"]["args"]["data"]["id"],
+                            function () {}
+                        );
+
+                        e.preventDefault();
+                    }
+                });
+            });
+
+            $("#atachFiles").on("select2:select", function (e) {
+                e.preventDefault();
                 var element = e.params.data.element;
                 var $element = $(element);
 
@@ -275,6 +305,9 @@ define(["react", "app", "quill", "select2"], function (
             $("#toRcpt").val(this.state.to).trigger("change");
             $("#toCCRcpt").val(this.state.toCC).trigger("change");
             $("#toBCCRcpt").val(this.state.toBCC).trigger("change");
+            $("#atachFiles")
+                .val(Object.keys(thisComp.state.fileObject))
+                .trigger("change");
         },
         toSelect: function () {
             var thisComp = this;
@@ -377,6 +410,33 @@ define(["react", "app", "quill", "select2"], function (
                     },
                 },
                 templateSelection: app.globalF.emailSelection,
+                escapeMarkup: function (m) {
+                    return m;
+                },
+            });
+        },
+        attachFiles: function () {
+            var thisComp = this;
+
+            $("#atachFiles").select2({
+                tags: true,
+                data: Object.keys(thisComp.state.fileObject),
+                placeholder:
+                    "10 files max, not more than " +
+                    app.user.get("userPlan")["planData"]["attSize"] +
+                    " Mb total",
+                tokenSeparators: ["/"],
+                maximumSelectionLength: 10,
+                formatSelectionTooBig: "Max of 10 files allowed.",
+                language: {
+                    maximumSelected: function () {
+                        return "Your plan is limited to 10 files per email.";
+                    },
+                    noResults: function () {
+                        return "Click on icon to select file";
+                    },
+                },
+                templateSelection: app.globalF.fileSelection,
                 escapeMarkup: function (m) {
                     return m;
                 },
@@ -654,6 +714,324 @@ define(["react", "app", "quill", "select2"], function (
 
             return fSize;
         },
+        fileTag: function () {
+            if (Object.keys(this.state.fileObject).length > 0) {
+                $.each(this.state.fileObject, function (index, value) {
+                    $(
+                        "#file_" + app.transform.SHA1(index) + " >i"
+                    ).removeClass();
+                    $("#file_" + app.transform.SHA1(index))
+                        .parent()
+                        .addClass("file-uploaded");
+                });
+            }
+        },
+
+        readFile: function (event) {
+            var thisComp = this;
+
+            $.each($(event)[0].target.files, function (index, fileData) {
+                var file = fileData;
+
+                var fileObject = thisComp.state.fileObject;
+
+                if (
+                    Object.keys(thisComp.state.fileObject).length <= 10 &&
+                    thisComp.state.fileSize + file["size"] <=
+                        parseInt(
+                            app.user.get("userPlan")["planData"]["attSize"]
+                        ) *
+                            1024 *
+                            1024 *
+                            1.1
+                ) {
+                    if (
+                        file["size"] <
+                        parseInt(
+                            app.user.get("userPlan")["planData"]["attSize"]
+                        ) *
+                            1024 *
+                            1024 *
+                            1.1
+                    ) {
+                        if (
+                            Object.keys(fileObject).indexOf(
+                                app.transform.to64str(file["name"])
+                            ) == -1
+                        ) {
+                            app.user.set({
+                                uploadInProgress: true,
+                            });
+
+                            var reader = new FileReader();
+
+                            reader.onload = function (e) {
+                                var binary_string = "";
+                                var bytes = new Uint8Array(reader.result);
+                                for (var i = 0; i < bytes.byteLength; i++) {
+                                    binary_string += String.fromCharCode(
+                                        bytes[i]
+                                    );
+                                }
+
+                                var fname = app.transform.to64str(file["name"]);
+                                fileObject[fname] = {};
+
+                                fileObject[fname]["base64"] = true;
+                                fileObject[fname]["data"] =
+                                    app.transform.to64bin(binary_string);
+                                fileObject[fname]["name"] =
+                                    app.transform.to64str(file["name"]);
+                                fileObject[fname]["key"] =
+                                    app.transform.to64bin(
+                                        app.globalF.createEncryptionKey256()
+                                    );
+
+                                fileObject[fname]["fileName"] =
+                                    "toBeDetermenedAfterFileSave";
+                                fileObject[fname]["size"] =
+                                    app.transform.to64str(file["size"]);
+                                fileObject[fname]["type"] =
+                                    app.transform.to64str(file["type"]);
+                                fileObject[fname]["modKey"] =
+                                    app.globalF.makeModKey();
+                                fileObject[fname]["v"] = 2;
+
+                                var list = Object.keys(fileObject);
+
+                                selectedValues = [];
+
+                                $("#atachFiles").children().remove();
+
+                                if (list.length > 0) {
+                                    $.each(list, function (index, value) {
+                                        $("#atachFiles").append(
+                                            '<option value="' +
+                                                value +
+                                                '">' +
+                                                app.transform.from64str(value) +
+                                                "</option>"
+                                        );
+                                        selectedValues.push(value);
+                                    });
+                                }
+                                thisComp.handleClick("showAtt");
+
+                                $("#atachFiles")
+                                    .val(selectedValues)
+                                    .trigger("change");
+
+                                thisComp.fileUpload();
+                            };
+
+                            thisComp.setState(
+                                {
+                                    uploadProgress: 15,
+                                    sizeBarText: "Encrypting File",
+                                },
+                                function () {
+                                    reader.readAsArrayBuffer(file);
+                                }
+                            );
+                        }
+                    } else {
+                        app.notifications.systemMessage("tooBig");
+                    }
+                } else {
+                    app.notifications.systemMessage("MaxFiles");
+                }
+            });
+
+            $("#ddd").val("");
+        },
+
+        fileUpload: function () {
+            clearInterval(this.state.savingDraft);
+
+            var thisComp = this;
+
+            var oldList = this.state.prevFileObject;
+            var newList = this.state.fileObject;
+            var fileList = {};
+
+            $.each(newList, function (fName, fData) {
+                if (oldList[fName] == undefined) {
+                    fileList = {
+                        index: fName,
+                        modKey: fData["modKey"],
+                        key: fData["key"],
+                    };
+                }
+            });
+
+            thisComp.setState({
+                prevFileObject: Object.keys(newList),
+                showUploadBar: "",
+            });
+
+            thisComp.prepareToSafeDraft("force", function () {
+                thisComp.setState({
+                    uploadProgress: 50,
+                    sizeBarText: "Uploading File",
+                });
+                app.globalF.sendNewAttachment(
+                    newList,
+                    fileList,
+                    thisComp.state.messageId,
+                    thisComp.state.modKey,
+                    function (result) {
+                        clearInterval(thisComp.state.uploadInterval);
+
+                        if (result["response"] == "success") {
+                            newList[fileList["index"]]["fileName"] =
+                                result["fileName"];
+                            delete newList[fileList["index"]]["data"];
+
+                            thisComp.setState({
+                                uploadProgress: 100,
+                                sizeBarText: "File Successfully Uploaded",
+                                showUploadBar: "hidden",
+                            });
+                            app.user.set({
+                                uploadInProgress: false,
+                            });
+
+                            thisComp.addFileLink();
+
+                            thisComp.prepareToSafeDraft("", function () {});
+
+                            thisComp.setState({
+                                fileSize: thisComp.getFilesize(newList),
+                            });
+                        } else if (result["fileSize"] == "overLimit") {
+                            app.notifications.systemMessage("MaxFiles");
+                            app.user.set({
+                                uploadInProgress: false,
+                            });
+                        } else {
+                            app.user.set({
+                                uploadInProgress: false,
+                            });
+
+                            $(
+                                "#file_" +
+                                    app.transform.SHA1(fileList["index"]) +
+                                    " >i"
+                            ).removeClass();
+                            $("#file_" + app.transform.SHA1(fileList["index"]))
+                                .parent()
+                                .addClass("file-upload-failed");
+                        }
+                    }
+                );
+            });
+        },
+
+        addFileLink: function () {
+            var time = new Date(
+                new Date().setYear(new Date().getFullYear() + 1)
+            );
+
+            if (
+                this.state.emailProtected === 3 ||
+                this.state.emailProtected === 1
+            ) {
+                $(".fileattach").remove();
+            } else {
+                $(".fileattach").remove();
+                var linkbody =
+                    "<br/><div class='fileattach' style='background-color:#F2F2F2;'><span>Files will be available for download until " +
+                    time.toLocaleString() +
+                    "<br/><br/>";
+
+                var fileObj = this.state.fileObject;
+                var c = 1;
+                $.each(fileObj, function (fName, fData) {
+                    linkbody +=
+                        '<div style="clear:both; margin-top:5px;">' +
+                        app.transform.from64str(fName) +
+                        ' <a href="' +
+                        app.defaults.get("domain") +
+                        "/api/dFV2/" +
+                        fData["fileName"] +
+                        "1/p/" +
+                        app.transform.bin2hex(
+                            app.transform.from64bin(fData["key"])
+                        ) +
+                        '" target="_blank">Click to download file</a></div>';
+                    c++;
+                });
+
+                linkbody += "</div>";
+
+                if (Object.keys(fileObj).length > 0) {
+                    $(linkbody).insertBefore(".emailsignature");
+
+                    if ($(".emailsignature").length == 0) {
+                        $(".note-editable").append(linkbody);
+                    }
+                }
+            }
+        },
+        fileRemove: function (fileName64, callback) {
+            clearInterval(this.state.savingDraft);
+            var thisComp = this;
+            var fileObject = thisComp.state.fileObject;
+            var fileSize = thisComp.state.fileSize;
+
+            var fileList = {
+                fileName: fileObject[fileName64]["fileName"],
+                modKey: fileObject[fileName64]["modKey"],
+            };
+
+            app.serverCall.ajaxRequest(
+                "removeFileFromDraft",
+                fileList,
+                function (result) {
+                    if (result["response"] == "success") {
+                        delete fileObject[fileName64];
+
+                        thisComp.setState({
+                            fileSize: thisComp.getFilesize(fileObject),
+                            prevFileObject: Object.keys(fileObject),
+                        });
+
+                        $("#atachFiles").children().remove();
+
+                        selectedValues = [];
+
+                        $("#atachFiles").children().remove();
+
+                        if (Object.keys(fileObject).length > 0) {
+                            $.each(
+                                Object.keys(fileObject),
+                                function (index, value) {
+                                    $("#atachFiles").append(
+                                        '<option value="' +
+                                            value +
+                                            '">' +
+                                            app.transform.from64str(value) +
+                                            "</option>"
+                                    );
+                                    selectedValues.push(value);
+                                }
+                            );
+                        } else {
+                            thisComp.setState({
+                                showAtt: "d-none",
+                            });
+                        }
+                        $("#atachFiles").val(selectedValues).trigger("change");
+                        thisComp.addFileLink();
+                        thisComp.fileTag();
+                        thisComp.prepareToSafeDraft("", function () {});
+                        callback();
+                    } else {
+                        app.notifications.systemMessage("tryAgain");
+                    }
+                }
+            );
+        },
         verifyIfencrypted: function () {
             var thisComp = this;
             var AllRecipients = this.state.allEmails;
@@ -838,66 +1216,6 @@ define(["react", "app", "quill", "select2"], function (
                 }
             }
         },
-        fileRemove: function (fileName64, callback) {
-            clearInterval(this.state.savingDraft);
-            var thisComp = this;
-            var fileObject = thisComp.state.fileObject;
-            var fileSize = thisComp.state.fileSize;
-
-            var fileList = {
-                fileName: fileObject[fileName64]["fileName"],
-                modKey: fileObject[fileName64]["modKey"],
-            };
-
-            app.serverCall.ajaxRequest(
-                "removeFileFromDraft",
-                fileList,
-                function (result) {
-                    if (result["response"] == "success") {
-                        delete fileObject[fileName64];
-
-                        thisComp.setState({
-                            fileSize: thisComp.getFilesize(fileObject),
-                            prevFileObject: Object.keys(fileObject),
-                        });
-
-                        $("#atachFiles").children().remove();
-
-                        selectedValues = [];
-
-                        $("#atachFiles").children().remove();
-
-                        if (Object.keys(fileObject).length > 0) {
-                            $.each(
-                                Object.keys(fileObject),
-                                function (index, value) {
-                                    //	list[index]=forge.util.decode64(value);
-                                    $("#atachFiles").append(
-                                        '<option value="' +
-                                            value +
-                                            '">' +
-                                            app.transform.from64str(value) +
-                                            "</option>"
-                                    );
-                                    selectedValues.push(value);
-                                }
-                            );
-                        } else {
-                            thisComp.setState({
-                                showAtt: "hidden",
-                            });
-                        }
-                        $("#atachFiles").val(selectedValues).trigger("change");
-                        thisComp.addFileLink();
-                        thisComp.fileTag();
-                        thisComp.prepareToSafeDraft("", function () {});
-                        callback();
-                    } else {
-                        app.notifications.systemMessage("tryAgain");
-                    }
-                }
-            );
-        },
         prepareToSafeDraft: function (action, callback) {
             var thisComp = this;
             var changedHash = this.getEmailHash();
@@ -1050,6 +1368,26 @@ define(["react", "app", "quill", "select2"], function (
                         subject: event.target.value,
                     });
                     break;
+                case "enterPinText":
+                    var thisComp = this;
+                    thisComp.setState(
+                        {
+                            pinText: event.target.value,
+                            userPin: false,
+                        },
+                        function () {
+                            thisComp.verifyIfencrypted();
+                        }
+                    );
+                    break;
+                case "getFile":
+                    this.setState({
+                        uploadProgress: 15,
+                        sizeBarText: "Reading File",
+                    });
+
+                    this.readFile(event);
+                    break;
             }
         },
         handleClick: function (i) {
@@ -1063,6 +1401,20 @@ define(["react", "app", "quill", "select2"], function (
                     this.setState({
                         showBCC:
                             this.state.showBCC === "d-none" ? "" : "d-none",
+                    });
+                    break;
+                case "showPin":
+                    this.setState({
+                        showPin:
+                            this.state.showPin === "d-none" ? "" : "d-none",
+                    });
+                    break;
+                case "attachFile":
+                    fileSelector.click();
+                    break;
+                case "showAtt":
+                    this.setState({
+                        showAtt: "",
                     });
                     break;
                 case "sendEmail":
@@ -1373,6 +1725,13 @@ define(["react", "app", "quill", "select2"], function (
                             : ""
                     }`}
                 >
+                    <input
+                        type="file"
+                        id="fileselector"
+                        name="files"
+                        className="invisible"
+                        onChange={this.handleChange.bind(this, "getFile")}
+                    />
                     <div className="compose-ec">
                         <div className="the-header">
                             <div className="c-title">
@@ -1508,6 +1867,15 @@ define(["react", "app", "quill", "select2"], function (
                                                     >
                                                         Bcc
                                                     </button>
+                                                    <button
+                                                        type="button"
+                                                        onClick={this.handleClick.bind(
+                                                            this,
+                                                            "showPin"
+                                                        )}
+                                                    >
+                                                        PIN
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -1549,6 +1917,54 @@ define(["react", "app", "quill", "select2"], function (
                                                     id="toBCCRcpt"
                                                     multiple="multiple"
                                                 ></select>
+                                            </div>
+                                        </div>
+                                        <div
+                                            className={`he-item ${this.state.showAtt}`}
+                                        >
+                                            <span className="he-label">
+                                                <span className="the-icon">
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        fill="none"
+                                                        viewBox="0 0 24 24"
+                                                        strokeWidth={1.5}
+                                                        stroke="currentColor"
+                                                    >
+                                                        <path
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                            d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 002.112 2.13"
+                                                        />
+                                                    </svg>
+                                                </span>
+                                            </span>
+                                            <div className="inputs-wrap">
+                                                <select
+                                                    className="form-control"
+                                                    id="atachFiles"
+                                                    multiple="multiple"
+                                                ></select>
+                                            </div>
+                                        </div>
+                                        <div
+                                            className={`he-item ${this.state.showPin}`}
+                                        >
+                                            <span className="he-label">
+                                                PIN:
+                                            </span>
+                                            <div className="inputs-wrap">
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    id="pin"
+                                                    placeholder="PIN"
+                                                    value={this.state.pinText}
+                                                    onChange={this.handleChange.bind(
+                                                        this,
+                                                        "enterPinText"
+                                                    )}
+                                                />
                                             </div>
                                         </div>
                                         <div className="he-item">
@@ -1677,7 +2093,13 @@ define(["react", "app", "quill", "select2"], function (
                                                     </svg>
                                                 </span>
                                             </button>
-                                            <button type="submit">
+                                            <button
+                                                type="button"
+                                                onClick={this.handleClick.bind(
+                                                    this,
+                                                    "attachFile"
+                                                )}
+                                            >
                                                 <span className="icon">
                                                     <svg
                                                         xmlns="http://www.w3.org/2000/svg"

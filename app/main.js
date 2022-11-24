@@ -22,6 +22,7 @@ require.config({
         twofish: "/js/main/twofish",
         SmartNotification: "/js/Plugins/SmartNotification",
         quill: "/js/Plugins/quill/quill.min",
+        offline: "/js/Plugins/offline/offline.min",
         dataTable: "/js/Plugins/dataTables/jquery.dataTables",
         dataTableBoot: "/js/Plugins/dataTables/dataTables.bootstrap",
         //sha512:"/js/main/forge/sha512",
@@ -120,6 +121,9 @@ require.config({
         },
         quill: {
             exports: "quill",
+        },
+        offline: {
+            exports: "offline",
         },
         qrcode: {
             deps: ["jquery"],

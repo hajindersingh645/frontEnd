@@ -23,7 +23,8 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                 pastDue: false,
                 balanceShort: false,
                 hidden: true,
-                isWorkingFlag: false
+                isWorkingFlag: false,
+                moveToFolderFlag: false
             };
         },
         componentWillReceiveProps: function (nextProps) {
@@ -915,6 +916,12 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                 }
             });
         },
+        handleClickMoveToFolder: function (event) {
+            const currentPosition = this.state.moveToFolderFlag;
+            this.setState({
+                moveToFolderFlag: !currentPosition
+            });
+        },
         render: function () {
             return React.createElement(
                 "div",
@@ -1151,7 +1158,9 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                                 null,
                                                 React.createElement(
                                                     "button",
-                                                    null,
+                                                    {
+                                                        onClick: this.handleClickMoveToFolder.bind(this)
+                                                    },
                                                     React.createElement("span", { className: "icon-moveto" }),
                                                     React.createElement(
                                                         "div",
@@ -1161,7 +1170,9 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                                 ),
                                                 React.createElement(
                                                     "ul",
-                                                    { className: "dd-inner" },
+                                                    {
+                                                        className: `dd-inner ${ this.state.moveToFolderFlag ? "d-block" : "d-none" }`
+                                                    },
                                                     this.state.moveFolderMain,
                                                     React.createElement("li", { className: "divider" }),
                                                     this.state.moveFolderCust

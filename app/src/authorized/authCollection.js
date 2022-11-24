@@ -12,6 +12,7 @@ define([
     "cmpld/modals/askForPass",
     "cmpld/modals/dialogPop",
     "cmpld/modals/dontInterrupt",
+    "offline",
 ], function (
     React,
     app,
@@ -25,7 +26,8 @@ define([
     InfoPop,
     AskForPass,
     DialogPop,
-    DontInterrupt
+    DontInterrupt,
+    offline
 ) {
     return React.createClass({
         getInitialState: function () {
@@ -44,6 +46,18 @@ define([
                     $('<link rel="stylesheet" type="text/css" />').attr(
                         "href",
                         "/js/Plugins/quill/quill.snow.css"
+                    )
+                );
+                $("head").append(
+                    $('<link rel="stylesheet" type="text/css" />').attr(
+                        "href",
+                        "/js/Plugins/offline/offline-language-english.css"
+                    )
+                );
+                $("head").append(
+                    $('<link rel="stylesheet" type="text/css" />').attr(
+                        "href",
+                        "/js/Plugins/offline/offline-theme-dark.css"
                     )
                 );
                 $("head").append(
@@ -193,15 +207,30 @@ define([
                                             aria-expanded="false"
                                         >
                                             {" "}
-                                            <img
-                                                src="images/user.jpg"
-                                                alt=""
-                                            />{" "}
-                                            Sepide Moqadasi{" "}
+                                            <span className="user-icon">
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    strokeWidth={1.5}
+                                                    stroke="currentColor"
+                                                >
+                                                    <path
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                        d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                                                    />
+                                                </svg>
+                                            </span>{" "}
+                                            <span className="loading-content">
+                                                loading...
+                                            </span>{" "}
                                             <span className="arrow"></span>
                                             <br />
                                             <span className="user-email">
-                                                Sepide_moqadasi@y..
+                                                <span className="loading-content">
+                                                    loading...
+                                                </span>
                                             </span>{" "}
                                         </button>
                                         <ul

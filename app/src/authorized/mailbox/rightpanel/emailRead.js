@@ -1227,6 +1227,22 @@ define(["react", "app"], function (React, app) {
                     }
 
                     break;
+                case "printEmail":
+                    var contentToPrint =
+                        document.getElementById("mail-data-content").innerHTML;
+                    var iFrame = document.getElementById("virtualization");
+                    var a = window.open("", "", "height=500, width=500");
+                    a.document.write("<html>");
+                    a.document.write("<body >");
+                    a.document.write(contentToPrint);
+                    a.document.write(
+                        iFrame.contentWindow.document.body.innerHTML
+                    );
+                    a.document.write("</body></html>");
+                    a.print();
+                    a.document.close();
+
+                    break;
             }
         },
 
@@ -1457,7 +1473,14 @@ define(["react", "app"], function (React, app) {
                                                     </button>
                                                 </li>
                                                 <li>
-                                                    <button>print</button>
+                                                    <button
+                                                        onClick={this.handleClick.bind(
+                                                            this,
+                                                            "printEmail"
+                                                        )}
+                                                    >
+                                                        print
+                                                    </button>
                                                 </li>
                                                 <li>
                                                     <button>
@@ -1473,7 +1496,13 @@ define(["react", "app"], function (React, app) {
                                 </div>
                             </div>
                             <div className="email-content-top-left">
-                                <div className="word color-1">W</div>
+                                <div className="word color-1">
+                                    {this.state.from !== ""
+                                        ? this.state.from[0]._store.props.children
+                                              .toString()
+                                              .charAt(0)
+                                        : ""}
+                                </div>
                                 <div className="sender-name">
                                     <div>{this.state.from} </div>
                                     <span>{this.state.fromExtra}</span>
@@ -1547,6 +1576,7 @@ define(["react", "app"], function (React, app) {
                             </div>
                         </div>
                         <div
+                            id="mail-data-content"
                             className={`mail-data ${
                                 this.state.hideEmailRead ? "d-none" : ""
                             }`}

@@ -982,6 +982,19 @@ define(["react", "app"], function (React, app) {
                     }
 
                     break;
+                case "printEmail":
+                    var contentToPrint = document.getElementById("mail-data-content").innerHTML;
+                    var iFrame = document.getElementById("virtualization");
+                    var a = window.open("", "", "height=500, width=500");
+                    a.document.write("<html>");
+                    a.document.write("<body >");
+                    a.document.write(contentToPrint);
+                    a.document.write(iFrame.contentWindow.document.body.innerHTML);
+                    a.document.write("</body></html>");
+                    a.print();
+                    a.document.close();
+
+                    break;
             }
         },
 
@@ -1230,7 +1243,9 @@ define(["react", "app"], function (React, app) {
                                                 null,
                                                 React.createElement(
                                                     "button",
-                                                    null,
+                                                    {
+                                                        onClick: this.handleClick.bind(this, "printEmail")
+                                                    },
                                                     "print"
                                                 )
                                             ),
@@ -1263,7 +1278,7 @@ define(["react", "app"], function (React, app) {
                             React.createElement(
                                 "div",
                                 { className: "word color-1" },
-                                "W"
+                                this.state.from !== "" ? this.state.from[0]._store.props.children.toString().charAt(0) : ""
                             ),
                             React.createElement(
                                 "div",
@@ -1417,6 +1432,7 @@ define(["react", "app"], function (React, app) {
                     React.createElement(
                         "div",
                         {
+                            id: "mail-data-content",
                             className: `mail-data ${ this.state.hideEmailRead ? "d-none" : "" }`
                         },
                         React.createElement(

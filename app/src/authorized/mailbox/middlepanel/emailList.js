@@ -24,6 +24,7 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                 balanceShort: false,
                 hidden: true,
                 isWorkingFlag: false,
+                moveToFolderFlag: false,
             };
         },
         componentWillReceiveProps: function (nextProps) {
@@ -1279,6 +1280,12 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                 }
             });
         },
+        handleClickMoveToFolder: function (event) {
+            const currentPosition = this.state.moveToFolderFlag;
+            this.setState({
+                moveToFolderFlag: !currentPosition,
+            });
+        },
         render: function () {
             return (
                 <div>
@@ -1442,11 +1449,22 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                                 id="mail-extra-options"
                                             >
                                                 <li>
-                                                    <button>
+                                                    <button
+                                                        onClick={this.handleClickMoveToFolder.bind(
+                                                            this
+                                                        )}
+                                                    >
                                                         <span className="icon-moveto"></span>
                                                         <div>Move To</div>
                                                     </button>
-                                                    <ul className="dd-inner">
+                                                    <ul
+                                                        className={`dd-inner ${
+                                                            this.state
+                                                                .moveToFolderFlag
+                                                                ? "d-block"
+                                                                : "d-none"
+                                                        }`}
+                                                    >
                                                         {
                                                             this.state
                                                                 .moveFolderMain
