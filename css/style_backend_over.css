@@ -1341,6 +1341,7 @@ Compose Email Styles
     min-height: 57px;
     width: 571px;
     max-width: 571px;
+    bottom: 30px;
 }
 .com-the-con-editor.ql-container {
     font-family: inherit;
