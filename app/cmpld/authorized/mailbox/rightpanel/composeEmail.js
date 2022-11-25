@@ -1205,6 +1205,7 @@ define(["react", "app", "quill", "select2"], function (React, app, Quill, select
 
                     break;
                 case "deleteDraft":
+                    app.user.set({ isComposingEmail: false });
                     if (this.state.messageId == "") {
                         Backbone.history.navigate("/mail/" + app.user.get("currentFolder"), {
                             trigger: true
@@ -1263,6 +1264,8 @@ define(["react", "app", "quill", "select2"], function (React, app, Quill, select
                         //console.log(thisComp.state.fileObject);
                         //this.fileRemove(fileName64);
                     }
+
+                    Backbone.history.loadUrl(Backbone.history.fragment);
 
                     break;
             }

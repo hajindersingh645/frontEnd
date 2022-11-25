@@ -36,7 +36,7 @@ define([
                         updateValue={this.updateValue}
                         resetClasses={this.resetClases}
                     />
-                    {this.props.pp === `Compose` ? (
+                    {app.user.get("isComposingEmail") ? (
                         <ComposeEmail panel={this.state} />
                     ) : null}
                     <EmailRead

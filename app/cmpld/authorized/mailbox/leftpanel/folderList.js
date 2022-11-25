@@ -123,17 +123,8 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
         handleClick: function (i) {
             switch (i) {
                 case "composeEmail":
-                    app.mixins.canNavigate(function (decision) {
-                        if (decision) {
-                            $("#emailListTable").find("tr").removeClass("selected");
-                            $("#mMiddlePanelTop").addClass(" hidden-xs hidden-sm hidden-md");
-                            $("#mRightPanel").removeClass("hidden-xs hidden-sm hidden-md");
-                            Backbone.history.navigate("/mail/Compose", {
-                                trigger: true
-                            });
-                        }
-                    });
-
+                    app.user.set({ isComposingEmail: true });
+                    Backbone.history.loadUrl(Backbone.history.fragment);
                     break;
 
                 case "addFolder":

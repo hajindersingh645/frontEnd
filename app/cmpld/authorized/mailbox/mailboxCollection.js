@@ -19,7 +19,7 @@ define(["react", "app", "cmpld/authorized/mailbox/leftpanel/folderList", "cmpld/
                     updateValue: this.updateValue,
                     resetClasses: this.resetClases
                 }),
-                this.props.pp === `Compose` ? React.createElement(ComposeEmail, { panel: this.state }) : null,
+                app.user.get("isComposingEmail") ? React.createElement(ComposeEmail, { panel: this.state }) : null,
                 React.createElement(EmailRead, {
                     panel: this.state,
                     updateValue: this.updateValue,
