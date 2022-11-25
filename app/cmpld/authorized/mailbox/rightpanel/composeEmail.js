@@ -1172,7 +1172,10 @@ define(["react", "app", "quill", "select2"], function (React, app, Quill, select
                                         trigger: true
                                     });
                                     app.layout.display("viewBox");
-                                    // console.log('good');
+                                    app.user.set({
+                                        isComposingEmail: false
+                                    });
+                                    Backbone.history.loadUrl(Backbone.history.fragment);
                                 }).fail(function (error) {
                                     //  console.log(error);
                                     var emailId = thisComp.state.messageId;
