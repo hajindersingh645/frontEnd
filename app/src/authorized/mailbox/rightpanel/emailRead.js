@@ -1399,6 +1399,11 @@ define(["react", "app"], function (React, app) {
                         }
                     }
 
+                    app.user.set({
+                        isDecryptingEmail: false,
+                    });
+                    Backbone.history.loadUrl(Backbone.history.fragment);
+
                     break;
 
                 case "moveToSpam":
@@ -1491,6 +1496,11 @@ define(["react", "app"], function (React, app) {
                             isWorkingFlag: false,
                         });
                     }
+
+                    app.user.set({
+                        isDecryptingEmail: false,
+                    });
+                    Backbone.history.loadUrl(Backbone.history.fragment);
 
                     break;
             }
@@ -1687,7 +1697,13 @@ define(["react", "app"], function (React, app) {
                                             )}
                                         ></button>
                                         <button className="star"></button>
-                                        <button className="delete"></button>
+                                        <button
+                                            className="delete"
+                                            onClick={this.handleClick.bind(
+                                                this,
+                                                "moveToTrash"
+                                            )}
+                                        ></button>
                                     </div>
                                     <div className="content-list-menu">
                                         <div className="dropdown">

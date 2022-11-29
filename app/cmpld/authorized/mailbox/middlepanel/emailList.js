@@ -513,6 +513,11 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                         app.notifications.systemMessage("selectMsg");
                     }
 
+                    app.user.set({
+                        isDecryptingEmail: false
+                    });
+                    Backbone.history.loadUrl(Backbone.history.fragment);
+
                     break;
                 case "moveToTrash":
                     var thisComp = this;
@@ -601,6 +606,11 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                             });
                         }
                     }
+
+                    app.user.set({
+                        isDecryptingEmail: false
+                    });
+                    Backbone.history.loadUrl(Backbone.history.fragment);
 
                     break;
 
@@ -746,6 +756,11 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                             isWorkingFlag: false
                         });
                     }
+
+                    app.user.set({
+                        isDecryptingEmail: false
+                    });
+                    Backbone.history.loadUrl(Backbone.history.fragment);
 
                     break;
 

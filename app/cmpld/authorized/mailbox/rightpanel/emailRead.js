@@ -1098,6 +1098,11 @@ define(["react", "app"], function (React, app) {
                         }
                     }
 
+                    app.user.set({
+                        isDecryptingEmail: false
+                    });
+                    Backbone.history.loadUrl(Backbone.history.fragment);
+
                     break;
 
                 case "moveToSpam":
@@ -1159,6 +1164,11 @@ define(["react", "app"], function (React, app) {
                             isWorkingFlag: false
                         });
                     }
+
+                    app.user.set({
+                        isDecryptingEmail: false
+                    });
+                    Backbone.history.loadUrl(Backbone.history.fragment);
 
                     break;
             }
@@ -1361,7 +1371,10 @@ define(["react", "app"], function (React, app) {
                                         onClick: this.handleClick.bind(this, "forward")
                                     }),
                                     React.createElement("button", { className: "star" }),
-                                    React.createElement("button", { className: "delete" })
+                                    React.createElement("button", {
+                                        className: "delete",
+                                        onClick: this.handleClick.bind(this, "moveToTrash")
+                                    })
                                 ),
                                 React.createElement(
                                     "div",

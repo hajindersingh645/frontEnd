@@ -308,6 +308,9 @@ define(["react", "app", "quill", "select2"], function (
             $("#atachFiles")
                 .val(Object.keys(thisComp.state.fileObject))
                 .trigger("change");
+
+            var bodyContent = quill.clipboard.convert(thisComp.state.body);
+            quill.setContents(bodyContent, "silent");
         },
         toSelect: function () {
             var thisComp = this;

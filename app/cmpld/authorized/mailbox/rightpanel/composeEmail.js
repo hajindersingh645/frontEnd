@@ -250,6 +250,9 @@ define(["react", "app", "quill", "select2"], function (React, app, Quill, select
             $("#toCCRcpt").val(this.state.toCC).trigger("change");
             $("#toBCCRcpt").val(this.state.toBCC).trigger("change");
             $("#atachFiles").val(Object.keys(thisComp.state.fileObject)).trigger("change");
+
+            var bodyContent = quill.clipboard.convert(thisComp.state.body);
+            quill.setContents(bodyContent, "silent");
         },
         toSelect: function () {
             var thisComp = this;
