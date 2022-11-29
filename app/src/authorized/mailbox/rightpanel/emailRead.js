@@ -43,9 +43,6 @@ define(["react", "app"], function (React, app) {
             app.user.on(
                 "change:currentMessageView",
                 function () {
-                    app.user.set({
-                        isDecryptingEmail: true,
-                    });
                     thisComp.setState({
                         from: "",
                         fromExtra: "",
@@ -861,6 +858,19 @@ define(["react", "app"], function (React, app) {
                     break;
             }
         },
+        getSelected: function () {
+            var selected = [];
+
+            selected = Object.keys(app.user.get("selectedEmails"));
+
+            if (selected.length == 0) {
+                var item = $("#emailListTable tr.selected").attr("id");
+                if (item != undefined) {
+                    selected.push(item);
+                }
+            }
+            return selected;
+        },
 
         handleClick: function (i, event) {
             switch (i) {
@@ -1085,9 +1095,12 @@ define(["react", "app"], function (React, app) {
                         app.globalF.reply("replyStrict");
                     }
 
-                    Backbone.history.navigate("/mail/Compose", {
-                        trigger: true,
-                    });
+                    // Backbone.history.navigate("/mail/Compose", {
+                    //     trigger: true,
+                    // });
+                    app.user.set({ isComposingEmail: true });
+                    Backbone.history.loadUrl(Backbone.history.fragment);
+
                     break;
 
                 case "replyAll":
@@ -1097,9 +1110,11 @@ define(["react", "app"], function (React, app) {
                         app.globalF.reply("replyAStrict");
                     }
 
-                    Backbone.history.navigate("/mail/Compose", {
-                        trigger: true,
-                    });
+                    // Backbone.history.navigate("/mail/Compose", {
+                    //     trigger: true,
+                    // });
+                    app.user.set({ isComposingEmail: true });
+                    Backbone.history.loadUrl(Backbone.history.fragment);
                     break;
                 case "forward":
                     if (this.state.renderFull) {
@@ -1241,6 +1256,241 @@ define(["react", "app"], function (React, app) {
                     a.document.write("</body></html>");
                     a.print();
                     a.document.close();
+
+                    break;
+                case "moveToTrash":
+                    var thisComp = this;
+                    this.setState({
+                        trashStatus: true,
+                        isWorkingFlag: true,
+                    });
+                    var target = {};
+                    if ($(event.target).is("i")) {
+                        target = $(event.target);
+                    } else {
+                        target = $(event.target).find("i");
+                    }
+
+                    target
+                        .removeClass("fa-trash-o")
+                        .addClass("fa-refresh fa-spin");
+
+                    if (
+                        this.props.folderId ==
+                            app.user.get("systemFolders")["spamFolderId"] ||
+                        this.props.folderId ==
+                            app.user.get("systemFolders")["trashFolderId"] ||
+                        this.props.folderId ==
+                            app.user.get("systemFolders")["draftFolderId"]
+                    ) {
+                        var selected = this.getSelected();
+
+                        if (selected.length > 0) {
+                            //console.log(selected);
+                            //delete email physically;
+                            app.user.set({ currentMessageView: {} });
+
+                            app.globalF.deleteEmailsFromFolder(
+                                selected,
+                                function (emails2Delete) {
+                                    //console.log(emails2Delete);
+                                    if (emails2Delete.length > 0) {
+                                        app.userObjects.updateObjects(
+                                            "deleteEmail",
+                                            emails2Delete,
+                                            function (result) {
+                                                $("#selectAll>input").prop(
+                                                    "checked",
+                                                    false
+                                                );
+                                                $("#selectAllAlt > input").prop(
+                                                    "checked",
+                                                    false
+                                                );
+                                                app.user.set({
+                                                    resetSelectedItems: true,
+                                                });
+                                                app.globalF.syncUpdates();
+                                                app.layout.display("viewBox");
+
+                                                target
+                                                    .removeClass(
+                                                        "fa-refresh fa-spin"
+                                                    )
+                                                    .addClass("fa-trash-o");
+
+                                                thisComp.setState({
+                                                    trashStatus: false,
+                                                    isWorkingFlag: false,
+                                                });
+                                                $(
+                                                    "#mail-extra-options"
+                                                ).removeClass("active");
+                                            }
+                                        );
+                                    }
+                                }
+                            );
+                        } else {
+                            app.notifications.systemMessage("selectMsg");
+                            target
+                                .removeClass("fa-refresh fa-spin")
+                                .addClass("fa-trash-o");
+                            thisComp.setState({
+                                trashStatus: false,
+                                isWorkingFlag: false,
+                            });
+                        }
+                    } else {
+                        var destFolderId =
+                            app.user.get("systemFolders")["trashFolderId"];
+                        var selected = this.getSelected();
+
+                        if (selected.length > 0) {
+                            app.user.set({ currentMessageView: {} });
+                            app.globalF.move2Folder(
+                                destFolderId,
+                                selected,
+                                function () {
+                                    app.userObjects.updateObjects(
+                                        "folderUpdate",
+                                        "",
+                                        function (result) {
+                                            $("#selectAll>input").prop(
+                                                "checked",
+                                                false
+                                            );
+                                            $("#selectAllAlt > input").prop(
+                                                "checked",
+                                                false
+                                            );
+                                            app.user.set({
+                                                resetSelectedItems: true,
+                                            });
+                                            app.globalF.syncUpdates();
+                                            app.layout.display("viewBox");
+
+                                            target
+                                                .removeClass(
+                                                    "fa-refresh fa-spin"
+                                                )
+                                                .addClass("fa-trash-o");
+
+                                            thisComp.setState({
+                                                trashStatus: false,
+                                                isWorkingFlag: false,
+                                            });
+                                            $(
+                                                "#mail-extra-options"
+                                            ).removeClass("active");
+                                        }
+                                    );
+                                }
+                            );
+                        } else {
+                            app.notifications.systemMessage("selectMsg");
+                            target
+                                .removeClass("fa-refresh fa-spin")
+                                .addClass("fa-trash-o");
+                            thisComp.setState({
+                                trashStatus: false,
+                                isWorkingFlag: false,
+                            });
+                        }
+                    }
+
+                    break;
+
+                case "moveToSpam":
+                    // console.log('move to spam');
+
+                    var thisComp = this;
+
+                    thisComp.setState({
+                        spamStatus: true,
+                        isWorkingFlag: true,
+                    });
+                    var target = {};
+
+                    if ($(event.target).is("i")) {
+                        target = $(event.target);
+                    } else {
+                        target = $(event.target).find("i");
+                    }
+
+                    target.addClass("fa-spin");
+
+                    var destFolderId =
+                        app.user.get("systemFolders")["spamFolderId"];
+                    var selected = this.getSelected();
+
+                    if (selected.length > 0) {
+                        app.user.set({ currentMessageView: {} });
+                        app.globalF.move2Folder(
+                            destFolderId,
+                            selected,
+                            function () {
+                                $.each(selected, function (index, emailId) {
+                                    var email = app.transform.from64str(
+                                        app.user.get("emails")["messages"][
+                                            emailId
+                                        ]["fr"]
+                                    );
+                                    app.globalF.createFilterRule(
+                                        "",
+                                        "sender",
+                                        "strict",
+                                        destFolderId,
+                                        app.globalF.parseEmail(email)["email"],
+                                        function () {}
+                                    );
+                                });
+
+                                app.userObjects.updateObjects(
+                                    "folderSettings",
+                                    "",
+                                    function (result) {
+                                        if (
+                                            result["response"] == "success" &&
+                                            result["data"] == "saved"
+                                        ) {
+                                            $("#selectAll>input").prop(
+                                                "checked",
+                                                false
+                                            );
+                                            $("#selectAllAlt > input").prop(
+                                                "checked",
+                                                false
+                                            );
+                                            app.user.set({
+                                                resetSelectedItems: true,
+                                            });
+                                            app.globalF.syncUpdates();
+                                            app.layout.display("viewBox");
+
+                                            target.removeClass("fa-spin");
+
+                                            thisComp.setState({
+                                                spamStatus: false,
+                                                isWorkingFlag: false,
+                                            });
+                                            $(
+                                                "#mail-extra-options"
+                                            ).removeClass("active");
+                                        }
+                                    }
+                                );
+                            }
+                        );
+                    } else {
+                        app.notifications.systemMessage("selectMsg");
+                        target.removeClass("fa-spin");
+
+                        thisComp.setState({
+                            spamStatus: false,
+                            isWorkingFlag: false,
+                        });
+                    }
 
                     break;
             }
@@ -1479,16 +1729,28 @@ define(["react", "app"], function (React, app) {
                                                             "printEmail"
                                                         )}
                                                     >
-                                                        print
+                                                        Print
                                                     </button>
                                                 </li>
                                                 <li>
-                                                    <button>
+                                                    <button
+                                                        onClick={this.handleClick.bind(
+                                                            this,
+                                                            "moveToTrash"
+                                                        )}
+                                                    >
                                                         Delete this message
                                                     </button>
                                                 </li>
                                                 <li>
-                                                    <button>Report Spam</button>
+                                                    <button
+                                                        onClick={this.handleClick.bind(
+                                                            this,
+                                                            "moveToSpam"
+                                                        )}
+                                                    >
+                                                        Report Spam
+                                                    </button>
                                                 </li>
                                             </ul>
                                         </div>

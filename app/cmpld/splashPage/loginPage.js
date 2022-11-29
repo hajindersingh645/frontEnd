@@ -327,6 +327,7 @@ define(["react", "app", "validation", "cmpld/modals/paymentGate"], function (Rea
                                     "div",
                                     { className: "form-group" },
                                     React.createElement("button", {
+                                        tabIndex: "-1",
                                         className: `form-icon ${ this.state.inPasswordViewMode ? "eye-close" : "eye" }`,
                                         type: "button",
                                         onClick: this.handlePasswordView.bind(this)

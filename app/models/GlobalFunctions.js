@@ -888,9 +888,6 @@ define(["app", "forge", "openpgp"], function (app, forge, openpgp) {
             }
         },
         renderEmailAfter: function (emailId) {
-            app.user.set({
-                isDecryptingEmail: true,
-            });
             var message = app.user.get("emails")["messages"][emailId];
             var modKey = message["mK"];
             var key = app.transform.from64bin(message["p"]);

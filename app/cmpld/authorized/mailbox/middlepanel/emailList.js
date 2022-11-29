@@ -404,6 +404,7 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
             app.user.set({
                 isDecryptingEmail: true
             });
+            Backbone.history.loadUrl(Backbone.history.fragment);
             switch (i) {
                 case "wholeFolder":
                     //  console.log('wholeFolder')
@@ -505,6 +506,7 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                 thisComp.setState({
                                     isWorkingFlag: false
                                 });
+                                $("#mail-extra-options").removeClass("active");
                             });
                         });
                     } else {
@@ -553,6 +555,7 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                             trashStatus: false,
                                             isWorkingFlag: false
                                         });
+                                        $("#mail-extra-options").removeClass("active");
                                     });
                                 }
                             });
@@ -586,6 +589,7 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                         trashStatus: false,
                                         isWorkingFlag: false
                                     });
+                                    $("#mail-extra-options").removeClass("active");
                                 });
                             });
                         } else {
@@ -667,6 +671,7 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                         blackList: false,
                                         isWorkingFlag: false
                                     });
+                                    $("#mail-extra-options").removeClass("active");
                                 });
                             });
                         });
@@ -728,6 +733,7 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                         spamStatus: false,
                                         isWorkingFlag: false
                                     });
+                                    $("#mail-extra-options").removeClass("active");
                                 }
                             });
                         });
@@ -766,6 +772,7 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                             thisComp.setState({
                                 isWorkingFlag: false
                             });
+                            $("#mail-extra-options").removeClass("active");
                         });
 
                         //app.userObjects.saveMailBox('emailsRead',{});
@@ -801,6 +808,7 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                             thisComp.setState({
                                 isWorkingFlag: false
                             });
+                            $("#mail-extra-options").removeClass("active");
                         });
 
                         //app.userObjects.saveMailBox('emailsRead',{});
@@ -819,11 +827,16 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
             selected = Object.keys(app.user.get("selectedEmails"));
 
             if (selected.length == 0) {
-                var elem = {};
-                var item = $("#emailListTable tr.selected").attr("id");
-                if (item != undefined) {
-                    selected.push(item);
-                }
+                // var elem = {};
+                // var item = $("#emailListTable tr.selected").attr("id");
+                $("#emailListTable tr").each(function () {
+                    if ($(this).find(".select-checkbox input").is(":checked")) {
+                        var item = $(this).closest("tr").attr("id");
+                        if (item != undefined) {
+                            selected.push(item);
+                        }
+                    }
+                });
             }
             return selected;
         },

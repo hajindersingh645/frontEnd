@@ -55,7 +55,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                 <div className="toast-body">
                                     <span className="toast-icon"></span>
                                     <div className="d-inline-block">
-                                        Email Copy
+                                        Email Copied!
                                     </div>
                                 </div>
                             </div>

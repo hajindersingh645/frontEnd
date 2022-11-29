@@ -103,7 +103,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                     } else {
                         thisComp.removeClassesActive();
                         app.user.set({ resetSelectedItems: true });
-
+                        app.user.set({ isDecryptingEmail: false });
                         app.globalF.resetCurrentMessage();
                         app.globalF.resetDraftMessage();
                         Backbone.history.navigate(

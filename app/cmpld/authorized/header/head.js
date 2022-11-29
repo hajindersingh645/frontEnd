@@ -58,7 +58,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                 React.createElement(
                                     "div",
                                     { className: "d-inline-block" },
-                                    "Email Copy"
+                                    "Email Copied!"
                                 )
                             )
                         )

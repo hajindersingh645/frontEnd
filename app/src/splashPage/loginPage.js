@@ -308,6 +308,7 @@ define(["react", "app", "validation", "cmpld/modals/paymentGate"], function (
                                 <div className="col-sm-12">
                                     <div className="form-group">
                                         <button
+                                            tabIndex={"-1"}
                                             className={`form-icon ${
                                                 this.state.inPasswordViewMode
                                                     ? "eye-close"
