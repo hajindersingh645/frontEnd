@@ -42,43 +42,13 @@ define([
             if (!app.user.get("userLogedIn")) {
                 app.auth.logout();
             } else {
-                $("head").append(
-                    $('<link rel="stylesheet" type="text/css" />').attr(
-                        "href",
-                        "/js/Plugins/quill/quill.snow.css"
-                    )
-                );
-                $("head").append(
-                    $('<link rel="stylesheet" type="text/css" />').attr(
-                        "href",
-                        "/js/Plugins/offline/offline-language-english.css"
-                    )
-                );
-                $("head").append(
-                    $('<link rel="stylesheet" type="text/css" />').attr(
-                        "href",
-                        "/js/Plugins/offline/offline-theme-dark.css"
-                    )
-                );
-                $("head").append(
-                    $('<link rel="stylesheet" type="text/css" />').attr(
-                        "href",
-                        "/css/select2/select2.css"
-                    )
-                );
                 $(
-                    'link[rel=stylesheet][href="/css/style_frontend.css"]'
+                    'link[rel=stylesheet][href="/css/app_frontend.min.css"]'
                 ).remove();
                 $("head").append(
                     $('<link rel="stylesheet" type="text/css" />').attr(
                         "href",
-                        "/css/style_backend.css"
-                    )
-                );
-                $("head").append(
-                    $('<link rel="stylesheet" type="text/css" />').attr(
-                        "href",
-                        "/css/style_backend_over.css"
+                        "/css/app_backend.min.css"
                     )
                 );
 
@@ -105,12 +75,19 @@ define([
                         thisMod.setState({ dfd: "solved" });
                     });
                 }
+                Offline.options = {
+                    checks: {
+                        xhr: {
+                            url: "https://jsonplaceholder.typicode.com/posts/1",
+                        },
+                    },
+                };
             }
         },
         handleClick: function (i) {
             switch (i) {
                 case "resetTimer":
-                    // app.user.startTimer();
+                    app.user.startTimer();
                     break;
             }
         },
@@ -169,7 +146,12 @@ define([
             }
 
             return (
-                <div className="mailBody">
+                <div
+                    className="mailBody"
+                    onClick={this.handleClick.bind(this, "resetTimer")}
+                    onTouchEnd={this.handleClick.bind(this, "resetTimer")}
+                    onKeyUp={this.handleClick.bind(this, "resetTimer")}
+                >
                     {body}
                     <div id="overlay" className="d-none"></div>
                     <div

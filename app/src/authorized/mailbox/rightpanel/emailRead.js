@@ -1123,9 +1123,11 @@ define(["react", "app"], function (React, app) {
                         app.globalF.reply("forwardStrict");
                     }
 
-                    Backbone.history.navigate("/mail/Compose", {
-                        trigger: true,
-                    });
+                    // Backbone.history.navigate("/mail/Compose", {
+                    //     trigger: true,
+                    // });
+                    app.user.set({ isComposingEmail: true });
+                    Backbone.history.loadUrl(Backbone.history.fragment);
                     break;
 
                 case "renderImages":
@@ -1626,255 +1628,304 @@ define(["react", "app"], function (React, app) {
 
         handleBackToEmailList: function () {
             $("#appRightSide").css("display", "none");
+            $("#wrapper").removeClass("email-read-active");
         },
 
         render: function () {
             return (
-                <div className="right-side" id="appRightSide">
-                    <div className="email-conetent-wrp">
-                        <div
-                            className={`mail-data emailNo ${
-                                this.state.hideEmailRead ? "d-active" : "d-none"
-                            }`}
-                        >
-                            <div>
-                                <h1>{`Please Select Email`}</h1>
-                                <p>
-                                    <strong>
-                                        <a
-                                            href="https://blog.cyberfear.com/"
-                                            target="_blank"
-                                        >
-                                            Our Blog: blog.cyberfear.com
-                                        </a>
-                                    </strong>
-                                </p>
-                                <p>
-                                    Comments or question? <br /> Please contact
-                                    us at{" "}
-                                    <strong>cyberfear@cyberfear.com</strong>
-                                </p>
+                <div>
+                    <div
+                        className={
+                            this.state.isWorkingFlag
+                                ? "in-working popup d-block"
+                                : "in-working popup d-none"
+                        }
+                    >
+                        <div className="wrapper">
+                            <div className="inner">
+                                <div className="content">
+                                    <h2>Working...</h2>
+                                </div>
                             </div>
+                        </div>
+                    </div>
+                    <div className="right-side" id="appRightSide">
+                        <div className="email-conetent-wrp">
                             <div
-                                className={`d-decrypting-message ${
-                                    app.user.get("isDecryptingEmail")
-                                        ? "d-block"
+                                className={`mail-data emailNo ${
+                                    this.state.hideEmailRead
+                                        ? "d-active"
                                         : "d-none"
                                 }`}
                             >
-                                <h3 style={{ textAlign: "center" }}>
-                                    Decrypting...
-                                </h3>
-                            </div>
-                        </div>
-
-                        <div
-                            className={`email-content-top ${
-                                this.state.hideEmailRead ? "d-none" : ""
-                            }`}
-                        >
-                            <div className="email-content-top-right">
-                                <div
-                                    className="mail-back"
-                                    onClick={this.handleBackToEmailList.bind(
-                                        this
-                                    )}
-                                ></div>
-                                <div className="right-menus">
-                                    <div className="button-group">
-                                        <button
-                                            className="back"
-                                            onClick={this.handleClick.bind(
-                                                this,
-                                                "reply"
-                                            )}
-                                        ></button>
-                                        <button
-                                            className="next"
-                                            onClick={this.handleClick.bind(
-                                                this,
-                                                "forward"
-                                            )}
-                                        ></button>
-                                        <button className="star"></button>
-                                        <button
-                                            className="delete"
-                                            onClick={this.handleClick.bind(
-                                                this,
-                                                "moveToTrash"
-                                            )}
-                                        ></button>
-                                    </div>
-                                    <div className="content-list-menu">
-                                        <div className="dropdown">
-                                            <button
-                                                className="btn btn-secondary dropdown-toggle"
-                                                type="button"
-                                                id="content-list"
-                                                data-bs-toggle="dropdown"
-                                                aria-expanded="false"
-                                            ></button>
-                                            <ul
-                                                className="dropdown-menu"
-                                                aria-labelledby="content-list"
+                                <div>
+                                    <h1>{`Please Select Email`}</h1>
+                                    <p>
+                                        <strong>
+                                            <a
+                                                href="https://blog.cyberfear.com/"
+                                                target="_blank"
                                             >
-                                                <li>
-                                                    <button
-                                                        onClick={this.handleClick.bind(
-                                                            this,
-                                                            "reply"
-                                                        )}
-                                                    >
-                                                        Reply
-                                                    </button>
-                                                </li>
-                                                <li>
-                                                    <button
-                                                        onClick={this.handleClick.bind(
-                                                            this,
-                                                            "forward"
-                                                        )}
-                                                    >
-                                                        Forward
-                                                    </button>
-                                                </li>
-                                                <li>
-                                                    <button
-                                                        onClick={this.handleClick.bind(
-                                                            this,
-                                                            "printEmail"
-                                                        )}
-                                                    >
-                                                        Print
-                                                    </button>
-                                                </li>
-                                                <li>
-                                                    <button
-                                                        onClick={this.handleClick.bind(
-                                                            this,
-                                                            "moveToTrash"
-                                                        )}
-                                                    >
-                                                        Delete this message
-                                                    </button>
-                                                </li>
-                                                <li>
-                                                    <button
-                                                        onClick={this.handleClick.bind(
-                                                            this,
-                                                            "moveToSpam"
-                                                        )}
-                                                    >
-                                                        Report Spam
-                                                    </button>
-                                                </li>
-                                            </ul>
+                                                Our Blog: blog.cyberfear.com
+                                            </a>
+                                        </strong>
+                                    </p>
+                                    <p>
+                                        Comments or question? <br /> Please
+                                        contact us at{" "}
+                                        <strong>cyberfear@cyberfear.com</strong>
+                                    </p>
+                                </div>
+                                <div
+                                    className={`d-decrypting-message ${
+                                        app.user.get("isDecryptingEmail")
+                                            ? "d-block"
+                                            : "d-none"
+                                    }`}
+                                >
+                                    <h3 style={{ textAlign: "center" }}>
+                                        Decrypting...
+                                    </h3>
+                                </div>
+                            </div>
+
+                            <div
+                                className={`email-content-top ${
+                                    this.state.hideEmailRead ? "d-none" : ""
+                                }`}
+                            >
+                                <div className="email-content-top-right">
+                                    <div
+                                        className="mail-back"
+                                        onClick={this.handleBackToEmailList.bind(
+                                            this
+                                        )}
+                                    ></div>
+                                    <div className="right-menus">
+                                        <div className="button-group">
+                                            <button
+                                                className="back"
+                                                onClick={this.handleClick.bind(
+                                                    this,
+                                                    "reply"
+                                                )}
+                                            ></button>
+                                            <button
+                                                className="next"
+                                                onClick={this.handleClick.bind(
+                                                    this,
+                                                    "forward"
+                                                )}
+                                            ></button>
+                                            <button className="star"></button>
+                                            <button
+                                                className="delete"
+                                                onClick={this.handleClick.bind(
+                                                    this,
+                                                    "moveToTrash"
+                                                )}
+                                            ></button>
+                                        </div>
+                                        <div className="content-list-menu">
+                                            <div className="dropdown">
+                                                <button
+                                                    className="btn btn-secondary dropdown-toggle"
+                                                    type="button"
+                                                    id="content-list"
+                                                    data-bs-toggle="dropdown"
+                                                    aria-expanded="false"
+                                                ></button>
+                                                <ul
+                                                    className="dropdown-menu"
+                                                    aria-labelledby="content-list"
+                                                >
+                                                    <li>
+                                                        <button
+                                                            onClick={this.handleClick.bind(
+                                                                this,
+                                                                "reply"
+                                                            )}
+                                                        >
+                                                            Reply
+                                                        </button>
+                                                    </li>
+                                                    <li>
+                                                        <button
+                                                            onClick={this.handleClick.bind(
+                                                                this,
+                                                                "forward"
+                                                            )}
+                                                        >
+                                                            Forward
+                                                        </button>
+                                                    </li>
+                                                    <li>
+                                                        <button
+                                                            onClick={this.handleClick.bind(
+                                                                this,
+                                                                "printEmail"
+                                                            )}
+                                                        >
+                                                            Print
+                                                        </button>
+                                                    </li>
+                                                    <li>
+                                                        <button
+                                                            onClick={this.handleClick.bind(
+                                                                this,
+                                                                "moveToTrash"
+                                                            )}
+                                                        >
+                                                            Delete this message
+                                                        </button>
+                                                    </li>
+                                                    <li>
+                                                        <button
+                                                            onClick={this.handleClick.bind(
+                                                                this,
+                                                                "moveToSpam"
+                                                            )}
+                                                        >
+                                                            Report Spam
+                                                        </button>
+                                                    </li>
+                                                    <li>
+                                                        <button
+                                                            onClick={this.handleClick.bind(
+                                                                this,
+                                                                "showHeader"
+                                                            )}
+                                                        >
+                                                            Show Raw Header
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="email-content-top-left">
+                                    <div>
+                                        <h1 className="email-subject">
+                                            {this.state.subject}
+                                        </h1>
+                                    </div>
+                                    <div className="email-content-header-bottom-details">
+                                        <div className="word color-1">
+                                            {this.state.from !== ""
+                                                ? this.state.from[0]._store.props.children
+                                                      .toString()
+                                                      .charAt(0)
+                                                : ""}
+                                        </div>
+                                        <div className="sender-name">
+                                            <div>{this.state.from} </div>
+                                            <span>{this.state.fromExtra}</span>
+                                        </div>
+                                        <div className="sender-detail-dropdown">
+                                            <div className="dropdown">
+                                                <button
+                                                    className="btn btn-secondary dropdown-toggle"
+                                                    type="button"
+                                                    id="sender-details"
+                                                    data-bs-toggle="dropdown"
+                                                    aria-expanded="false"
+                                                >
+                                                    To me{" "}
+                                                    <span className="arrow"></span>{" "}
+                                                </button>
+                                                <ul
+                                                    className="dropdown-menu"
+                                                    aria-labelledby="sender-details"
+                                                >
+                                                    <li>
+                                                        <span>from:</span>
+                                                        <div>
+                                                            {this.state.from}
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <span>reply-to:</span>
+                                                        <div>
+                                                            {this.state.from}
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <span>to:</span>
+                                                        <div>
+                                                            {this.state.to}
+                                                        </div>
+                                                    </li>
+                                                    <li className="sent_date_time">
+                                                        <span>date:</span>
+                                                        <div>
+                                                            {
+                                                                this.state
+                                                                    .timeSent
+                                                            }
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <span>subject:</span>
+                                                        <div>
+                                                            {this.state.subject}
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="email-content-top-left">
-                                <div className="word color-1">
-                                    {this.state.from !== ""
-                                        ? this.state.from[0]._store.props.children
-                                              .toString()
-                                              .charAt(0)
-                                        : ""}
+                            <div
+                                className={`real-sender ${
+                                    this.state.hideEmailRead ? "d-none" : ""
+                                }`}
+                            >
+                                <div>Sender: {this.state.from}</div>
+                            </div>
+                            <div
+                                className={`image-disabled ${
+                                    this.state.hideEmailRead ? "d-none" : ""
+                                }`}
+                            >
+                                <div className={this.state.renderButtonClass}>
+                                    To protect you from tracking, images are
+                                    disabled.{" "}
+                                    <a
+                                        className="btn btn-default btn-xs"
+                                        href="javascript:void(0)"
+                                        onClick={this.handleClick.bind(
+                                            this,
+                                            "renderImages"
+                                        )}
+                                    >
+                                        Render Images
+                                    </a>
                                 </div>
-                                <div className="sender-name">
-                                    <div>{this.state.from} </div>
-                                    <span>{this.state.fromExtra}</span>
-                                </div>
-                                <div className="sender-detail-dropdown">
-                                    <div className="dropdown">
-                                        <button
-                                            className="btn btn-secondary dropdown-toggle"
-                                            type="button"
-                                            id="sender-details"
-                                            data-bs-toggle="dropdown"
-                                            aria-expanded="false"
-                                        >
-                                            To me{" "}
-                                            <span className="arrow"></span>{" "}
-                                        </button>
-                                        <ul
-                                            className="dropdown-menu"
-                                            aria-labelledby="sender-details"
-                                        >
-                                            <li>
-                                                <span>from:</span>
-                                                <div>{this.state.from}</div>
-                                            </li>
-                                            <li>
-                                                <span>reply-to:</span>
-                                                <div>{this.state.from}</div>
-                                            </li>
-                                            <li>
-                                                <span>to:</span>
-                                                <div>{this.state.to}</div>
-                                            </li>
-                                            <li className="sent_date_time">
-                                                <span>date:</span>
-                                                <div>{this.state.timeSent}</div>
-                                            </li>
-                                            <li>
-                                                <span>subject:</span>
-                                                <div>{this.state.subject}</div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                            </div>
+                            <div
+                                id="mail-data-content"
+                                className={`mail-data ${
+                                    this.state.hideEmailRead ? "d-none" : ""
+                                }`}
+                            >
+                                <iframe
+                                    id="virtualization"
+                                    scrolling="no"
+                                    frameBorder="0"
+                                    width="100%"
+                                ></iframe>
+                                {this.displayAttachments()}
                             </div>
                         </div>
                         <div
-                            className={`real-sender ${
-                                this.state.hideEmailRead ? "d-none" : ""
-                            }`}
-                        >
-                            <div>Sender: {this.state.from}</div>
-                        </div>
-                        <div
-                            className={`image-disabled ${
-                                this.state.hideEmailRead ? "d-none" : ""
-                            }`}
-                        >
-                            <div className={this.state.renderButtonClass}>
-                                To protect you from tracking, images are
-                                disabled.{" "}
-                                <a
-                                    className="btn btn-default btn-xs"
-                                    href="javascript:void(0)"
-                                    onClick={this.handleClick.bind(
-                                        this,
-                                        "renderImages"
-                                    )}
-                                >
-                                    Render Images
-                                </a>
-                            </div>
-                        </div>
-                        <div
-                            id="mail-data-content"
-                            className={`mail-data ${
-                                this.state.hideEmailRead ? "d-none" : ""
-                            }`}
-                        >
-                            <h1>{this.state.subject}</h1>
-                            <iframe
-                                id="virtualization"
-                                scrolling="no"
-                                frameBorder="0"
-                                width="100%"
-                            ></iframe>
-                            {this.displayAttachments()}
-                        </div>
+                            className={
+                                "emailShow " +
+                                (this.state.hideEmailRead ? "hidden" : "")
+                            }
+                        ></div>
                     </div>
-                    <div
-                        className={
-                            "emailShow " +
-                            (this.state.hideEmailRead ? "hidden" : "")
-                        }
-                    ></div>
                 </div>
             );
         },

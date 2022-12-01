@@ -255,6 +255,10 @@
     .modal-fullscreen-lg-down .modal-body {
         overflow-y: auto;
     }
+
+    .email-read-active {
+        overflow: hidden;
+    }
 }
 @media (max-width: 1199.98px) {
     .modal-fullscreen-xl-down {
@@ -1031,10 +1035,35 @@ header .menu-icon.on-left-side {
     text-shadow: 0 0 12px #000000;
     color: transparent;
 }
-
+.right-side .email-conetent-wrp .email-content-top-left {
+    max-width: 85%;
+    padding: 0 0 0 16px;
+    max-width: 67%;
+}
 .right-side .email-conetent-wrp .email-content-top-left .word {
     text-transform: uppercase;
     line-height: 1;
+}
+.right-side .email-conetent-wrp .email-content-top-left .email-subject {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+.right-side
+    .email-conetent-wrp
+    .email-content-top-left
+    .email-content-header-bottom-details {
+    position: relative;
+    width: 100%;
+    display: block;
+    clear: both;
+    float: none;
+}
+.right-side .email-conetent-wrp .email-content-top-left .sender-name,
+.right-side
+    .email-conetent-wrp
+    .email-content-top-left
+    .sender-detail-dropdown {
+    margin-left: 48px;
 }
 .main-menu ul li.active {
     pointer-events: none;
@@ -1042,7 +1071,9 @@ header .menu-icon.on-left-side {
 .main-menu ul li.active a:hover {
     color: #2277f6 !important;
 }
-
+#userObjSync .modal-header {
+    border-bottom-color: transparent;
+}
 @-webkit-keyframes shimmer {
     100% {
         transform: translateX(100%);
@@ -1300,7 +1331,19 @@ Compose Email Styles
     border: none;
     font-size: 14px;
 }
-
+.compose-ec .c-editor-actions .delete-draft {
+    appearance: none;
+    -webkit-appearance: none;
+    border: none;
+    background: transparent;
+    margin-right: 10px;
+}
+.compose-ec .c-editor-actions .delete-draft .icon {
+    line-height: 1;
+}
+.compose-ec .c-editor-actions .delete-draft svg {
+    stroke: #415067;
+}
 /* Full width compose email */
 .compose-email-wrapper.compose-maximize {
     width: 95%;

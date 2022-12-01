@@ -421,6 +421,7 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                         var folder = app.user.get("folders")[this.props.folderId]["name"];
 
                         app.mixins.canNavigate(function (decision) {
+                            $("#wrapper").addClass("email-read-active");
                             if (decision) {
                                 var id = $(event.target).parents("tr").attr("id");
                                 if ($(event.target).prop("tagName") !== "INPUT" || $(event.target).prop("tagName") !== "SPAN") {
@@ -450,6 +451,7 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                             } else {}
                         });
                     } else {
+                        $("#wrapper").removeClass("email-read-active");
                         var thisComp = this;
                         var table = $("#emailListTable").DataTable();
                         $(event.target).parents("tr").toggleClass("selected");

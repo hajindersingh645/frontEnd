@@ -586,6 +586,7 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                             ];
 
                         app.mixins.canNavigate(function (decision) {
+                            $("#wrapper").addClass("email-read-active");
                             if (decision) {
                                 var id = $(event.target)
                                     .parents("tr")
@@ -646,6 +647,7 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                             }
                         });
                     } else {
+                        $("#wrapper").removeClass("email-read-active");
                         var thisComp = this;
                         var table = $("#emailListTable").DataTable();
                         $(event.target).parents("tr").toggleClass("selected");

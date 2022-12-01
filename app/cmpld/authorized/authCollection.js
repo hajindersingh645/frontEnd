@@ -12,13 +12,8 @@ define(["react", "app", "xss", "cmpld/authorized/mailbox/mailboxCollection", "cm
             if (!app.user.get("userLogedIn")) {
                 app.auth.logout();
             } else {
-                $("head").append($('<link rel="stylesheet" type="text/css" />').attr("href", "/js/Plugins/quill/quill.snow.css"));
-                $("head").append($('<link rel="stylesheet" type="text/css" />').attr("href", "/js/Plugins/offline/offline-language-english.css"));
-                $("head").append($('<link rel="stylesheet" type="text/css" />').attr("href", "/js/Plugins/offline/offline-theme-dark.css"));
-                $("head").append($('<link rel="stylesheet" type="text/css" />').attr("href", "/css/select2/select2.css"));
-                $('link[rel=stylesheet][href="/css/style_frontend.css"]').remove();
-                $("head").append($('<link rel="stylesheet" type="text/css" />').attr("href", "/css/style_backend.css"));
-                $("head").append($('<link rel="stylesheet" type="text/css" />').attr("href", "/css/style_backend_over.css"));
+                $('link[rel=stylesheet][href="/css/app_frontend.min.css"]').remove();
+                $("head").append($('<link rel="stylesheet" type="text/css" />').attr("href", "/css/app_backend.min.css"));
 
                 if (app.sessionData.get("sessionReady")) {
                     thisMod.setState({ dfd: "solved" });
@@ -39,12 +34,19 @@ define(["react", "app", "xss", "cmpld/authorized/mailbox/mailboxCollection", "cm
                         thisMod.setState({ dfd: "solved" });
                     });
                 }
+                Offline.options = {
+                    checks: {
+                        xhr: {
+                            url: "https://jsonplaceholder.typicode.com/posts/1"
+                        }
+                    }
+                };
             }
         },
         handleClick: function (i) {
             switch (i) {
                 case "resetTimer":
-                    // app.user.startTimer();
+                    app.user.startTimer();
                     break;
             }
         },
@@ -91,7 +93,12 @@ define(["react", "app", "xss", "cmpld/authorized/mailbox/mailboxCollection", "cm
 
             return React.createElement(
                 "div",
-                { className: "mailBody" },
+                {
+                    className: "mailBody",
+                    onClick: this.handleClick.bind(this, "resetTimer"),
+                    onTouchEnd: this.handleClick.bind(this, "resetTimer"),
+                    onKeyUp: this.handleClick.bind(this, "resetTimer")
+                },
                 body,
                 React.createElement("div", { id: "overlay", className: "d-none" }),
                 React.createElement(

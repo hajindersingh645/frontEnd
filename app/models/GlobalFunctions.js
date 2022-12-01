@@ -1246,9 +1246,18 @@ define(["app", "forge", "openpgp"], function (app, forge, openpgp) {
                                     draft["meta"]["type"] =
                                         body["meta"]["type"];
 
-                                    Backbone.history.navigate("/mail/Compose", {
-                                        trigger: true,
+                                    // If draft message is clicked make sure to run compose functionality
+                                    app.user.set({
+                                        isDecryptingEmail: false,
                                     });
+                                    app.user.set({ isComposingEmail: true });
+                                    Backbone.history.loadUrl(
+                                        Backbone.history.fragment
+                                    );
+
+                                    // Backbone.history.navigate("/mail/Compose", {
+                                    //     trigger: true,
+                                    // });
 
                                     //console.log(body);
                                     //console.log(meta);
@@ -2727,7 +2736,7 @@ define(["app", "forge", "openpgp"], function (app, forge, openpgp) {
             ) {
                 app.user.set({ emailReplyState: "reply" });
                 var preReplyText =
-                    "--------------------------------------------<br/><br/>" +
+                    "<br/><br/>--------------------------------------------<br/><br/>" +
                     "On " +
                     new Date(
                         currentMessage["meta"]["timeSent"] * 1000
@@ -2742,7 +2751,7 @@ define(["app", "forge", "openpgp"], function (app, forge, openpgp) {
 
                 draft["body"]["html"] =
                     preReplyText +
-                    '<div style="margin-left:10px;padding-left:5px;border-left:2px solid #888;">' +
+                    '<div class="email-indented">' +
                     $("#virtualization").contents().find("html").html() +
                     "</div>";
             } else if (action == "forwardStrict" || action == "forwardFull") {

@@ -311,6 +311,21 @@ define(["react", "app", "quill", "select2"], function (
 
             var bodyContent = quill.clipboard.convert(thisComp.state.body);
             quill.setContents(bodyContent, "silent");
+
+            this.setState({
+                originalHash: this.getEmailHash(),
+                //body:this.state.signature
+            });
+
+            if (app.user.get("emailReplyState") == "reply") {
+                quill.focus();
+            } else if (app.user.get("emailReplyState") == "forward") {
+                $("#toRcpt").select2("focus");
+            } else if (app.user.get("emailReplyState") == "") {
+                $("#toRcpt").select2("focus");
+            }
+
+            thisComp.draftSaveInterval();
         },
         toSelect: function () {
             var thisComp = this;
@@ -319,7 +334,7 @@ define(["react", "app", "quill", "select2"], function (
                 tags: true,
                 data: thisComp.state.contactArray,
                 placeholder:
-                    "Recipient can see each other emails. Maximum " +
+                    "Recipients can see each other emails. Maximum " +
                     app.user.get("userPlan")["planData"]["recipPerMail"] +
                     " recipients per mail",
                 tokenSeparators: [";"],
@@ -1609,6 +1624,10 @@ define(["react", "app", "quill", "select2"], function (
                     }
 
                     break;
+                case "closeCompose":
+                    app.user.set({ isComposingEmail: false });
+                    Backbone.history.loadUrl(Backbone.history.fragment);
+                    break;
                 case "deleteDraft":
                     app.user.set({ isComposingEmail: false });
                     if (this.state.messageId == "") {
@@ -1825,7 +1844,7 @@ define(["react", "app", "quill", "select2"], function (
                                     type="button"
                                     onClick={this.handleClick.bind(
                                         this,
-                                        "deleteDraft"
+                                        "closeCompose"
                                     )}
                                     disabled={this.state.sendingProgress}
                                 >
@@ -1987,7 +2006,6 @@ define(["react", "app", "quill", "select2"], function (
                                                     type="text"
                                                     className="form-control"
                                                     id="subject"
-                                                    placeholder="Subject"
                                                     value={this.state.subject}
                                                     onChange={this.handleChange.bind(
                                                         this,
@@ -2002,9 +2020,7 @@ define(["react", "app", "quill", "select2"], function (
                                     <div
                                         className="com-the-con-editor"
                                         id="com-the-con-editor"
-                                    >
-                                        Write your text here...
-                                    </div>
+                                    ></div>
                                     <div id="toolbar"></div>
                                     <div className="c-editor-actions">
                                         <div
@@ -2137,6 +2153,32 @@ define(["react", "app", "quill", "select2"], function (
                                         <div className="c-editor-send-actions">
                                             <button
                                                 type="submit"
+                                                className="delete-draft"
+                                                onClick={this.handleClick.bind(
+                                                    this,
+                                                    "deleteDraft"
+                                                )}
+                                                disabled={
+                                                    this.state.sendingProgress
+                                                }
+                                            >
+                                                <span className="icon">
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        fill="none"
+                                                        viewBox="0 0 24 24"
+                                                        strokeWidth={1.5}
+                                                    >
+                                                        <path
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                            d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                                                        />
+                                                    </svg>
+                                                </span>
+                                            </button>
+                                            <button
+                                                type="submit"
                                                 className="send-email-button"
                                                 disabled={
                                                     this.state.sendingProgress
@@ -2146,7 +2188,9 @@ define(["react", "app", "quill", "select2"], function (
                                                     "sendEmail"
                                                 )}
                                             >
-                                                Send email
+                                                {this.state.sendingProgress
+                                                    ? "Sending..."
+                                                    : "Send email"}
                                             </button>
                                         </div>
                                     </div>
