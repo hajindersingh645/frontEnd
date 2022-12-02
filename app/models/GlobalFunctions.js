@@ -2751,9 +2751,9 @@ define(["app", "forge", "openpgp"], function (app, forge, openpgp) {
 
                 draft["body"]["html"] =
                     preReplyText +
-                    '<div class="email-indented">' +
+                    '<pre class="reply-indentation" spellcheck="false">' +
                     $("#virtualization").contents().find("html").html() +
-                    "</div>";
+                    "</pre>";
             } else if (action == "forwardStrict" || action == "forwardFull") {
                 app.user.set({ emailReplyState: "forward" });
                 draft["body"]["html"] = $("#virtualization")

@@ -404,6 +404,7 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
             app.user.set({
                 isDecryptingEmail: true
             });
+            app.user.set({ isComposingEmail: false });
             Backbone.history.loadUrl(Backbone.history.fragment);
             switch (i) {
                 case "wholeFolder":
