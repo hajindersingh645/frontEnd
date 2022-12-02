@@ -7,13 +7,15 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
         },
         handleCopyEmail: function () {
             const _this = this;
-            if (!navigator.clipboard) {} else {
-                const emailElement = document.getElementsByClassName("user-email")[0];
-                navigator.clipboard.writeText(emailElement.innerHTML).then(function () {
-                    $("#email-copy").removeClass("hide").addClass("show");
-                    _this.hideCopyEmailNotification();
-                });
-            }
+            // if (!navigator.clipboard) {
+            // } else {
+
+            // }
+            const emailElement = document.getElementsByClassName("user-email")[0];
+            navigator.clipboard.writeText(emailElement.innerHTML).then(function () {
+                $("#email-copy").removeClass("hide").addClass("show");
+                _this.hideCopyEmailNotification();
+            });
         },
         hideCopyEmailNotification: function () {
             setTimeout(function () {
@@ -24,6 +26,9 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
             switch (i) {
                 case "logOut":
                     app.auth.logout();
+                    break;
+                case "leftSideCanvas":
+                    console.log("left side canvas open button clicked");
                     break;
             }
         },
@@ -71,17 +76,17 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                         "div",
                         { className: "logo-2" },
                         React.createElement(
+                            "div",
+                            { className: "menu-icon on-left-side" },
+                            React.createElement("button", {
+                                "data-bs-toggle": "offcanvas",
+                                "data-bs-target": "#offcanvasLeft",
+                                "aria-controls": "offcanvasLeft"
+                            })
+                        ),
+                        React.createElement(
                             "a",
                             { href: "#", className: "mobile-logo" },
-                            React.createElement(
-                                "div",
-                                { className: "menu-icon on-left-side" },
-                                React.createElement("button", {
-                                    "data-bs-toggle": "offcanvas",
-                                    "data-bs-target": "#offcanvasLeft",
-                                    "aria-controls": "offcanvasLeft"
-                                })
-                            ),
                             React.createElement("img", {
                                 src: "images/logo.svg",
                                 alt: "",
