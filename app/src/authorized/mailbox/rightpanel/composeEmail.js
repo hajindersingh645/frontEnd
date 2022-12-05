@@ -1626,10 +1626,22 @@ define(["react", "app", "quill", "select2"], function (
                     break;
                 case "closeCompose":
                     app.user.set({ isComposingEmail: false });
+                    app.user.set({ isDraftOpened: false });
+                    $("body").removeClass("draft-opened");
+                    $("#appRightSide").css(
+                        "display",
+                        "none"
+                    );
                     Backbone.history.loadUrl(Backbone.history.fragment);
                     break;
                 case "deleteDraft":
                     app.user.set({ isComposingEmail: false });
+                    app.user.set({ isDraftOpened: false });
+                    $("body").removeClass("draft-opened");
+                    $("#appRightSide").css(
+                        "display",
+                        "none"
+                    );
                     if (this.state.messageId == "") {
                         Backbone.history.navigate(
                             "/mail/" + app.user.get("currentFolder"),

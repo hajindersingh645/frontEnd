@@ -1251,6 +1251,8 @@ define(["app", "forge", "openpgp"], function (app, forge, openpgp) {
                                         isDecryptingEmail: false,
                                     });
                                     app.user.set({ isComposingEmail: true });
+                                    app.user.set({ isDraftOpened: true });
+                                    $("body").addClass("draft-opened");
                                     Backbone.history.loadUrl(
                                         Backbone.history.fragment
                                     );

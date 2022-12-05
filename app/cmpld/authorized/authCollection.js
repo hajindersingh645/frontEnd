@@ -12,9 +12,6 @@ define(["react", "app", "xss", "cmpld/authorized/mailbox/mailboxCollection", "cm
             if (!app.user.get("userLogedIn")) {
                 app.auth.logout();
             } else {
-                $('link[rel=stylesheet][href="/css/app_frontend.min.css"]').remove();
-                $("head").append($('<link rel="stylesheet" type="text/css" />').attr("href", "/css/app_backend.min.css"));
-
                 if (app.sessionData.get("sessionReady")) {
                     thisMod.setState({ dfd: "solved" });
                 } else {

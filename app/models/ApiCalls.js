@@ -480,13 +480,13 @@ define(["app", "ajaxQueue"], function (app, ajaxQueue) {
                     callback(data);
                 },
                 error: function (data, textStatus) {
-                    // console.log(data);
+                    console.log(data);
+                    console.log(textStatus);
 
                     // The following isn't getting the text instead HTML, so we moved app.restartApp() out of the condition as Auto logout wasn't getting detected.
                     if (data["responseText"] === "Login Required") {
+                        app.restartApp();
                     }
-
-                    app.restartApp();
 
                     var res = { response: "offline" };
                     callback(res);

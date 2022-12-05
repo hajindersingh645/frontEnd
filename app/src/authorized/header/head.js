@@ -7,18 +7,18 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
         },
         handleCopyEmail: function () {
             const _this = this;
-            // if (!navigator.clipboard) {
-            // } else {
-
-            // }
-            const emailElement =
-                document.getElementsByClassName("user-email")[0];
-            navigator.clipboard
-                .writeText(emailElement.innerHTML)
-                .then(function () {
-                    $("#email-copy").removeClass("hide").addClass("show");
-                    _this.hideCopyEmailNotification();
-                });
+            if (!navigator.clipboard) {
+                console.log("clipboard-not-found");
+            } else {
+                const emailElement =
+                    document.getElementsByClassName("user-email")[0];
+                navigator.clipboard
+                    .writeText(emailElement.innerHTML)
+                    .then(function () {
+                        $("#email-copy").removeClass("hide").addClass("show");
+                        _this.hideCopyEmailNotification();
+                    });
+            }
         },
         hideCopyEmailNotification: function () {
             setTimeout(function () {
