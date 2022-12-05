@@ -440,7 +440,8 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                             React.createElement(
                                 "button",
                                 {
-                                    onClick: this.handleClick.bind(this, "composeEmail")
+                                    onClick: this.handleClick.bind(this, "composeEmail"),
+                                    "data-bs-dismiss": "offcanvas"
                                 },
                                 "New message"
                             )

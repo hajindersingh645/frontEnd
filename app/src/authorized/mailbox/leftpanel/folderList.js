@@ -515,6 +515,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                         this,
                                         "composeEmail"
                                     )}
+                                    data-bs-dismiss="offcanvas"
                                 >
                                     New message
                                 </button>
