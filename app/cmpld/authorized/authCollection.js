@@ -38,6 +38,11 @@ define(["react", "app", "xss", "cmpld/authorized/mailbox/mailboxCollection", "cm
                         }
                     }
                 };
+
+                // If application comes online
+                Offline.on("up", function () {
+                    app.serverCall.restartQue();
+                });
             }
         },
         handleClick: function (i) {

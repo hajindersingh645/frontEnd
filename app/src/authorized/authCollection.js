@@ -72,6 +72,11 @@ define([
                         },
                     },
                 };
+
+                // If application comes online
+                Offline.on("up", function () {
+                    app.serverCall.restartQue();
+                });
             }
         },
         handleClick: function (i) {
