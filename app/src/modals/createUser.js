@@ -375,6 +375,43 @@ define(["app", "react"], function (app, React) {
         render: function () {
             return (
                 <div className="" id="createAccount-modal">
+                    <div
+                        className={`loading-screen welcome ${
+                            this.state.working ? "d-block" : "d-none"
+                        }`}
+                    >
+                        <div className="inner">
+                            <div className="the-circle">
+                                <div className="_circle">
+                                    <div className="icon icon-mail">
+                                        <img
+                                            src="/images/private-email.png"
+                                            alt="Making Your Email Private Again"
+                                        />
+                                    </div>
+                                    <div className="icon icon-happy">
+                                        <img
+                                            src="/images/happy-face.png"
+                                            alt="Making Your Email Private Again"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="_content">
+                                <h1>{`Welcome to Mailum`}</h1>
+                                <h5>{`We're pleased to have you here`}</h5>
+                            </div>
+                            <div className="_footer">
+                                <div className="progress_continue">
+                                    <div className="type-bar-striped type-bar-animated">
+                                        <span className="linear-progress _bar_1"></span>
+                                        <span className="linear-progress _bar_2"></span>
+                                    </div>
+                                </div>
+                                <p>{`Please wait a few second...`}</p>
+                            </div>
+                        </div>
+                    </div>
                     <div className="modal-dialog modal-dialog-centered">
                         <div
                             className="modal-content"

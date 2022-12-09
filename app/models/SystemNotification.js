@@ -201,7 +201,7 @@ define(["app", "SmartNotification"], function (app, SmartNotification) {
             $.smallBox({
                 title: text,
                 content: "",
-                color: "#2277F6", // #A65858
+                color: "#fff", // #A65858 / #2277F6
                 iconSmall: "fa fa-times",
                 timeout: 7000,
             });
@@ -221,7 +221,7 @@ define(["app", "SmartNotification"], function (app, SmartNotification) {
             $.smallBox({
                 title: text,
                 content: "",
-                color: "green",
+                color: "#FFFFFF",
                 iconSmall: "fa fa-check",
                 timeout: 2000,
             });

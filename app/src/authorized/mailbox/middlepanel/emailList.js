@@ -1340,7 +1340,67 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                         <div className="wrapper">
                             <div className="inner">
                                 <div className="content">
-                                    <h2>Working...</h2>
+                                    <div className="t-animation">
+                                        <div className="loading-animation type-progress style-circle">
+                                            <div className="progress-circle medium">
+                                                <div className="circle-bg">
+                                                    <svg
+                                                        role="progressbar"
+                                                        width="91"
+                                                        height="91"
+                                                        viewBox="0 0 100 100"
+                                                        aria-valuemin="0"
+                                                        aria-valuemax="100"
+                                                        aria-valuenow="50"
+                                                    >
+                                                        <circle
+                                                            cx="50%"
+                                                            cy="50%"
+                                                            r="42"
+                                                            shapeRendering="geometricPrecision"
+                                                            fill="none"
+                                                            stroke="#E1E4EC"
+                                                            strokeWidth="2"
+                                                        ></circle>
+                                                        <circle
+                                                            id="the_circle_progress"
+                                                            cx="50%"
+                                                            cy="50%"
+                                                            r="42"
+                                                            shapeRendering="geometricPrecision"
+                                                            fill="none"
+                                                            strokeWidth="2"
+                                                            strokeDasharray="264"
+                                                            strokeLinecap=""
+                                                            stroke="#2277f6"
+                                                            dataAngel="50"
+                                                        ></circle>
+                                                    </svg>
+                                                </div>
+                                                <div className="circle-content">
+                                                    <div className="loading-spinner">
+                                                        <div className="the-spinner">
+                                                            <div className="_bar1"></div>
+                                                            <div className="_bar2"></div>
+                                                            <div className="_bar3"></div>
+                                                            <div className="_bar4"></div>
+                                                            <div className="_bar5"></div>
+                                                            <div className="_bar6"></div>
+                                                            <div className="_bar7"></div>
+                                                            <div className="_bar8"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="t-text">
+                                        <h2>Processing...</h2>
+                                        <h6>
+                                            Please wait while we set things up
+                                            for you.
+                                        </h6>
+                                    </div>
                                 </div>
                             </div>
                         </div>

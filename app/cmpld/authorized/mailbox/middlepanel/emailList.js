@@ -972,9 +972,88 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                 "div",
                                 { className: "content" },
                                 React.createElement(
-                                    "h2",
-                                    null,
-                                    "Working..."
+                                    "div",
+                                    { className: "t-animation" },
+                                    React.createElement(
+                                        "div",
+                                        { className: "loading-animation type-progress style-circle" },
+                                        React.createElement(
+                                            "div",
+                                            { className: "progress-circle medium" },
+                                            React.createElement(
+                                                "div",
+                                                { className: "circle-bg" },
+                                                React.createElement(
+                                                    "svg",
+                                                    {
+                                                        role: "progressbar",
+                                                        width: "91",
+                                                        height: "91",
+                                                        viewBox: "0 0 100 100",
+                                                        "aria-valuemin": "0",
+                                                        "aria-valuemax": "100",
+                                                        "aria-valuenow": "50"
+                                                    },
+                                                    React.createElement("circle", {
+                                                        cx: "50%",
+                                                        cy: "50%",
+                                                        r: "42",
+                                                        shapeRendering: "geometricPrecision",
+                                                        fill: "none",
+                                                        stroke: "#E1E4EC",
+                                                        strokeWidth: "2"
+                                                    }),
+                                                    React.createElement("circle", {
+                                                        id: "the_circle_progress",
+                                                        cx: "50%",
+                                                        cy: "50%",
+                                                        r: "42",
+                                                        shapeRendering: "geometricPrecision",
+                                                        fill: "none",
+                                                        strokeWidth: "2",
+                                                        strokeDasharray: "264",
+                                                        strokeLinecap: "",
+                                                        stroke: "#2277f6",
+                                                        dataAngel: "50"
+                                                    })
+                                                )
+                                            ),
+                                            React.createElement(
+                                                "div",
+                                                { className: "circle-content" },
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "loading-spinner" },
+                                                    React.createElement(
+                                                        "div",
+                                                        { className: "the-spinner" },
+                                                        React.createElement("div", { className: "_bar1" }),
+                                                        React.createElement("div", { className: "_bar2" }),
+                                                        React.createElement("div", { className: "_bar3" }),
+                                                        React.createElement("div", { className: "_bar4" }),
+                                                        React.createElement("div", { className: "_bar5" }),
+                                                        React.createElement("div", { className: "_bar6" }),
+                                                        React.createElement("div", { className: "_bar7" }),
+                                                        React.createElement("div", { className: "_bar8" })
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    )
+                                ),
+                                React.createElement(
+                                    "div",
+                                    { className: "t-text" },
+                                    React.createElement(
+                                        "h2",
+                                        null,
+                                        "Processing..."
+                                    ),
+                                    React.createElement(
+                                        "h6",
+                                        null,
+                                        "Please wait while we set things up for you."
+                                    )
                                 )
                             )
                         )

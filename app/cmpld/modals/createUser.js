@@ -336,6 +336,73 @@ define(["app", "react"], function (app, React) {
                 { className: "", id: "createAccount-modal" },
                 React.createElement(
                     "div",
+                    {
+                        className: `loading-screen welcome ${ this.state.working ? "d-block" : "d-none" }`
+                    },
+                    React.createElement(
+                        "div",
+                        { className: "inner" },
+                        React.createElement(
+                            "div",
+                            { className: "the-circle" },
+                            React.createElement(
+                                "div",
+                                { className: "_circle" },
+                                React.createElement(
+                                    "div",
+                                    { className: "icon icon-mail" },
+                                    React.createElement("img", {
+                                        src: "/images/private-email.png",
+                                        alt: "Making Your Email Private Again"
+                                    })
+                                ),
+                                React.createElement(
+                                    "div",
+                                    { className: "icon icon-happy" },
+                                    React.createElement("img", {
+                                        src: "/images/happy-face.png",
+                                        alt: "Making Your Email Private Again"
+                                    })
+                                )
+                            )
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "_content" },
+                            React.createElement(
+                                "h1",
+                                null,
+                                `Welcome to Mailum`
+                            ),
+                            React.createElement(
+                                "h5",
+                                null,
+                                `We're pleased to have you here`
+                            )
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "_footer" },
+                            React.createElement(
+                                "div",
+                                { className: "progress_continue" },
+                                React.createElement(
+                                    "div",
+                                    { className: "type-bar-striped type-bar-animated" },
+                                    React.createElement("span", { className: "linear-progress _bar_1" }),
+                                    React.createElement("span", { className: "linear-progress _bar_2" })
+                                )
+                            ),
+                            React.createElement(
+                                "p",
+                                null,
+                                `Please wait a few second...`
+                            )
+                        )
+                    )
+                ),
+                React.createElement(
+                    "div",
                     { className: "modal-dialog modal-dialog-centered" },
                     React.createElement(
                         "div",

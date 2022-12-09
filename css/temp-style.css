@@ -16506,6 +16506,7 @@ textarea::-webkit-scrollbar {
     float: left;
     font-size: 16px;
     font-weight: 700;
+    line-height: 1;
 }
 .right-side .email-conetent-wrp .email-content-top-left .sender-name span {
     opacity: 0.6;
@@ -16541,8 +16542,6 @@ textarea::-webkit-scrollbar {
 }
 .right-side .email-conetent-wrp .email-content-top-right {
     width: 100%;
-    float: right;
-    margin: 5px 0 30px;
 }
 .right-side .email-conetent-wrp .email-content-top-right .button-group button {
     width: 24px;
@@ -18675,21 +18674,47 @@ progress {
     clear: both;
     font-size: 14px;
     line-height: 1;
-    border-top: 1px solid #f2f2f2;
-    border-bottom: 1px solid #f2f2f2;
     padding-top: 13px;
     padding-bottom: 13px;
 }
+.image-disabled > div {
+    background-color: #f5f6f7;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 8px;
+    padding: 9px 17px;
+    align-items: center;
+}
 .image-disabled a {
-    padding: 0;
+    padding: 12px 23px;
     margin: 0;
     font-size: 14px;
     line-height: 1;
     border: 0;
-    border-radius: 0;
-    color: red;
-    text-decoration: underline;
+    color: #fff;
+    text-decoration: none;
     vertical-align: top;
+    background-color: #2277f6;
+    border-radius: 8px;
+}
+.real-sender > div {
+    border: solid 1px #f5f6f7;
+    border-radius: 8px;
+    padding: 12px 17px;
+    background-color: #fff;
+    margin-bottom: 11px;
+    display: flex;
+    align-items: center;
+}
+.real-sender .sender-icon {
+    padding-right: 10px;
+}
+.real-sender .sender-email {
+    background-color: #f1f6ff;
+    border-radius: 10px;
+    color: #347ae2;
+    padding: 4px 6px;
+    margin-left: 10px;
 }
 #overlay {
     overflow: hidden;
@@ -19012,20 +19037,33 @@ header .menu-icon.on-left-side {
 .popup .wrapper .inner {
     background-color: #fff;
     border-radius: 9px;
-    width: 50%;
-    height: 120px;
-    text-align: center;
+    width: 41%;
     position: relative;
     display: flex;
-    justify-content: center;
     align-items: center;
 }
 .popup .wrapper .inner .content {
-    animation: 2s cubic-bezier(0.4, 0, 0.6, 1) infinite pulse;
+    /* animation: 2s cubic-bezier(0.4, 0, 0.6, 1) infinite pulse; */
+    padding: 27px 23px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.popup .wrapper .inner .content .t-animation {
+    margin-right: 24px;
 }
 .popup .wrapper .inner .content h2 {
-    margin: 0;
-    line-height: 0;
+    margin: 0 0 13px 0;
+    font-weight: 600;
+}
+.popup .wrapper .inner .content h6 {
+    color: rgb(153, 153, 153);
+    font-weight: 500;
+}
+.popup .wrapper .inner .circle-content {
+    background-color: transparent;
+    box-shadow: none;
 }
 .mobile-logo {
     color: #080d13;
@@ -19171,8 +19209,7 @@ header .menu-icon.on-left-side {
     color: transparent;
 }
 .right-side .email-conetent-wrp .email-content-top-left {
-    padding: 0 0 0 16px;
-    max-width: 67%;
+    /* max-width: 67%; */
 }
 .right-side .email-conetent-wrp .email-content-top-left .email-subject {
     font-size: 1.5rem;
@@ -19192,11 +19229,55 @@ header .menu-icon.on-left-side {
 .right-side .email-conetent-wrp .email-content-top-left .sender-name {
     margin-left: 48px;
 }
+.right-side .email-content-top .email-title-wrapper {
+    border-top: solid 1px #f2f2f2;
+    border-bottom: solid 1px #f2f2f2;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    margin-bottom: 11px;
+}
+.right-side .email-content-top .email-title-wrapper .email-subject {
+    position: relative;
+    padding-left: 21px;
+    font-size: 19px;
+    display: flex;
+    align-items: center;
+}
+.right-side .email-content-top .email-title-wrapper .email-subject::before {
+    position: absolute;
+    content: "";
+    left: 0;
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    background-color: #d1d9e0;
+}
+.right-side .email-content-top .email-title-wrapper .email-sent-date {
+    color: #080d13;
+    font-weight: 500;
+    font-size: 12px;
+}
+.right-side .email-additional-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
 .main-menu ul li.active a:hover {
     color: #2277f6 !important;
 }
 #userObjSync .modal-header {
     border-bottom-color: transparent;
+    text-align: center;
+    justify-content: center;
+}
+#userObjSync .modal-title {
+    padding-bottom: 13px;
 }
 @-webkit-keyframes shimmer {
     100% {
@@ -19255,13 +19336,18 @@ header .menu-icon.on-left-side {
     right: 5px;
     top: 20px;
     width: 420px;
-    color: #fff;
+    color: #000000;
     z-index: 9999;
     overflow: hidden;
-    border: 1px solid transparent;
+    border: solid 2px #f4f5f6;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    padding: 12px 8px;
+    box-shadow: 0 20px 32px -8px rgba(0, 0, 0, 0.7);
+    margin-bottom: 13px;
 }
 .SmallBox:hover {
-    border: 1px solid #fff;
     cursor: pointer;
 }
 .SmallBox .foto {
@@ -19278,6 +19364,9 @@ header .menu-icon.on-left-side {
     width: 78%;
     margin: 3px 20px 3px 80px;
     float: left;
+}
+.SmallBox p:empty {
+    display: none;
 }
 .compose-email-wrapper {
     position: fixed;
@@ -19718,4 +19807,328 @@ header .menu-icon.on-left-side {
     .draft-opened .right-side {
         display: none !important;
     }
+}
+
+/* New animation styles */
+.progress-circle {
+    width: 140px;
+    height: 140px;
+    position: relative;
+    margin: auto;
+    border-radius: 50%;
+}
+.circle-bg {
+    position: absolute;
+}
+.circle-content {
+    background: #2277f6;
+    position: relative;
+    top: 31px;
+    left: 31px;
+    width: 78px;
+    height: 78px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    border-radius: 50%;
+    box-shadow: rgb(185 212 252) 0px 25px 35px 0px;
+}
+#the_circle_progress {
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+    -webkit-transition: stroke-dashoffset 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    transition: stroke-dashoffset 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    stroke-dashoffset: 237; /* start from 20% [ 264 - ( 264 * 20 ) / 100 ] */
+}
+
+.progress-circle.medium {
+    width: 91px;
+    height: 91px;
+}
+.progress-circle.medium .circle-content {
+    top: 15px;
+    left: 15px;
+    width: 61px;
+    height: 61px;
+    background: transparent;
+}
+/* Sign-in / Signup page animation */
+.loading-screen.welcome {
+    background-color: #fff;
+    z-index: 100;
+}
+.loading-screen.welcome .the-circle {
+    position: relative;
+    display: inline-block;
+}
+.loading-screen.welcome .the-circle ._circle {
+    width: 299px;
+    height: 299px;
+    background-color: #fafafa;
+    border-radius: 50%;
+}
+
+.loading-screen.welcome ._circle .icon {
+    width: 79px;
+    height: 79px;
+    border-radius: 50%;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+        rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+    position: absolute;
+}
+.loading-screen.welcome ._circle .icon.icon-mail {
+    right: 0;
+}
+.loading-screen.welcome ._circle .icon.icon-happy {
+    bottom: 0;
+}
+
+.loading-screen.welcome ._content {
+    padding-top: 43px;
+    padding-bottom: 55px;
+}
+
+.loading-screen.welcome .progress {
+    height: 9px;
+}
+
+.progress_continue {
+    height: 5px;
+    background-color: #e1e4ec;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    display: block;
+    border-radius: 12px;
+}
+
+.progress_continue .type-bar-striped .linear-progress {
+    background-image: linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.15) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(255, 255, 255, 0.15) 50%,
+        rgba(255, 255, 255, 0.15) 75%,
+        transparent 75%,
+        transparent
+    );
+    background-size: 0.8rem 0.8rem;
+}
+.progress_continue .linear-progress {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    -webkit-transition: -webkit-transform 0.2s linear;
+    transition: transform 0.2s linear;
+    transform-origin: left;
+    background-color: #2277f6;
+}
+.progress_continue .linear-progress._bar_1 {
+    -webkit-animation: linear-progress-bar1 2.1s
+        cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+    animation: linear-progress-bar1 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395)
+        infinite;
+}
+.progress_continue .linear-progress._bar_2 {
+    -webkit-animation: linear-progress-bar2 2.1s
+        cubic-bezier(0.165, 0.84, 0.44, 1) 1.15s infinite;
+    animation: linear-progress-bar2 2.1s cubic-bezier(0.165, 0.84, 0.44, 1)
+        1.15s infinite;
+}
+
+@keyframes linear-progress-bar1 {
+    0% {
+        left: -35%;
+        right: 100%;
+    }
+    60% {
+        left: 100%;
+        right: -90%;
+    }
+    100% {
+        left: 100%;
+        right: -90%;
+    }
+}
+
+@keyframes linear-progress-bar2 {
+    0% {
+        left: -200%;
+        right: 100%;
+    }
+    60% {
+        left: 107%;
+        right: -8%;
+    }
+    100% {
+        left: 107%;
+        right: -8%;
+    }
+}
+
+.the-spinner {
+    width: 54px;
+    height: 54px;
+    display: inline-block;
+}
+
+.the-spinner div {
+    width: 5%;
+    height: 16%;
+    background: #2277f6;
+    position: absolute;
+    left: 49%;
+    top: 43%;
+    opacity: 0;
+    border-radius: 50px;
+    -webkit-animation: spinner-fade 1s linear infinite;
+    animation: spinner-fade 1s linear infinite;
+}
+
+.the-spinner div._bar1 {
+    -webkit-transform: rotate(0deg) translate(0, -130%);
+    -webkit-animation-delay: 0s;
+    transform: rotate(0deg) translate(0, -130%);
+    animation-delay: 0s;
+}
+
+.the-spinner div._bar2 {
+    -webkit-transform: rotate(45deg) translate(0, -130%);
+    -webkit-animation-delay: -0.9167s;
+    transform: rotate(45deg) translate(0, -130%);
+    animation-delay: -0.9167s;
+}
+
+.the-spinner div._bar3 {
+    -webkit-transform: rotate(90deg) translate(0, -130%);
+    -webkit-animation-delay: -0.833s;
+    transform: rotate(90deg) translate(0, -130%);
+    animation-delay: -0.833s;
+}
+.the-spinner div._bar4 {
+    -webkit-transform: rotate(135deg) translate(0, -130%);
+    -webkit-animation-delay: -0.7497s;
+    transform: rotate(135deg) translate(0, -130%);
+    animation-delay: -0.7497s;
+}
+.the-spinner div._bar5 {
+    -webkit-transform: rotate(180deg) translate(0, -130%);
+    -webkit-animation-delay: -0.667s;
+    transform: rotate(180deg) translate(0, -130%);
+    animation-delay: -0.667s;
+}
+.the-spinner div._bar6 {
+    -webkit-transform: rotate(225deg) translate(0, -130%);
+    -webkit-animation-delay: -0.5837s;
+    transform: rotate(225deg) translate(0, -130%);
+    animation-delay: -0.5837s;
+}
+.the-spinner div._bar7 {
+    -webkit-transform: rotate(270deg) translate(0, -130%);
+    -webkit-animation-delay: -0.5s;
+    transform: rotate(270deg) translate(0, -130%);
+    animation-delay: -0.5s;
+}
+.the-spinner div._bar8 {
+    -webkit-transform: rotate(315deg) translate(0, -130%);
+    -webkit-animation-delay: -0.4167s;
+    transform: rotate(315deg) translate(0, -130%);
+    animation-delay: -0.4167s;
+}
+
+@keyframes spinner-fade {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0.25;
+    }
+}
+
+/* Payment Methods Styling */
+#paymentMethodsModalContent .title {
+    margin-top: 17px;
+    margin-bottom: 21px;
+}
+#paymentMethodsModalContent .panel-body .radio > label {
+    cursor: pointer;
+    border-radius: 12px;
+    border: solid #f4f5f6 2px;
+    padding: 16px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#paymentMethodsModalContent .panel-body .radio > label .te_text {
+    display: flex;
+    align-items: center;
+}
+#paymentMethodsModalContent .panel-body .form-group .radio:not(:last-child) {
+    margin-bottom: 19px;
+}
+#paymentMethodsModalContent .panel-body .radio input[type="radio"] {
+    visibility: hidden;
+}
+#paymentMethodsModalContent .panel-body .radio .selected-icon {
+    position: absolute;
+    left: 16px;
+    border-radius: 50%;
+    border: solid 1px #e1e4ec;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+}
+#paymentMethodsModalContent .panel-body .radio .selected-icon svg {
+    fill: white;
+    width: 17px;
+    height: 17px;
+}
+#paymentMethodsModalContent .panel-body .radio > label .labelled {
+    padding-left: 27px;
+    padding-right: 19px;
+}
+
+#paymentMethodsModalContent .panel-body .radio.selected > label {
+    border-color: rgba(34, 119, 246, 0.1);
+    background-color: rgba(34, 119, 246, 0.15);
+}
+#paymentMethodsModalContent .panel-body .radio.selected .labelled {
+    color: #2277f6;
+}
+#paymentMethodsModalContent .panel-body .radio.selected .selected-icon {
+    border-color: rgba(255, 255, 255, 0.2);
+    background-color: #2277f6;
+}
+#paymentMethodsModalContent .back-button-wrapper {
+    width: 100%;
+    border-bottom: solid 1px #f4f5f6;
+}
+#paymentMethodsModalContent .back-button {
+    appearance: none;
+    -webkit-appearance: none;
+    border: none;
+    background: transparent;
+    width: 54px;
+}
+#paymentMethodsModalContent button[type="submit"] {
+    background-color: #2277f6;
+    color: #fff;
+    border-radius: 12px;
+    border: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    padding: 12px 35px;
 }

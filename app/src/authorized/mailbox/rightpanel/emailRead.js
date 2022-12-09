@@ -1644,7 +1644,72 @@ define(["react", "app"], function (React, app) {
                         <div className="wrapper">
                             <div className="inner">
                                 <div className="content">
-                                    <h2>Working...</h2>
+                                    <div className="t-animation">
+                                    <div className="loading-animation type-progress style-circle">
+                                    <div className="progress-circle">
+                                        <div className="circle-bg">
+                                            <svg
+                                                role="progressbar"
+                                                width="140"
+                                                height="140"
+                                                viewBox="0 0 100 100"
+                                                aria-valuemin="0"
+                                                aria-valuemax="100"
+                                                aria-valuenow="50"
+                                            >
+                                                <circle
+                                                    cx="50%"
+                                                    cy="50%"
+                                                    r="42"
+                                                    shapeRendering="geometricPrecision"
+                                                    fill="none"
+                                                    stroke="#E1E4EC"
+                                                    strokeWidth="2"
+                                                ></circle>
+                                                <circle
+                                                    id="the_circle_progress"
+                                                    cx="50%"
+                                                    cy="50%"
+                                                    r="42"
+                                                    shapeRendering="geometricPrecision"
+                                                    fill="none"
+                                                    strokeWidth="2"
+                                                    strokeDashoffset={parseInt(
+                                                        `264 * ${app.userObjects.get(
+                                                            "modalpercentage"
+                                                        )} / 100`
+                                                    )}
+                                                    strokeDasharray="264"
+                                                    strokeLinecap=""
+                                                    stroke="#2277f6"
+                                                    dataAngel="50"
+                                                ></circle>
+                                            </svg>
+                                        </div>
+                                        <div className="circle-content">
+                                            <svg
+                                                width="32"
+                                                height="33"
+                                                viewBox="0 0 32 33"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path
+                                                    d="M16.2745 0.64386C7.30038 0.64386 0.714844 5.06401 0.714844 5.06401C0.714844 13.7095 4.91569 20.6867 8.95191 25.3956C10.6883 24.0862 12.1842 22.7672 13.4672 21.4719C10.716 18.2537 7.88883 13.8246 6.98332 8.54008C9.18794 7.62106 12.4711 6.61458 16.2738 6.61458C20.0521 6.61458 23.3436 7.62556 25.563 8.54972C24.3861 15.4002 19.9814 20.8134 16.7009 24.0103C15.2931 25.4637 13.6615 26.9371 11.772 28.3887C14.3065 30.8409 16.2738 32.1644 16.2738 32.1644C16.2738 32.1644 31.8334 21.7021 31.8334 5.06337C31.8341 5.06402 25.2486 0.64386 16.2745 0.64386Z"
+                                                    fill="white"
+                                                />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                    </div>
+                                    <div className="t-text">
+                                        <h2>Processing...</h2>
+                                        <h6>
+                                            Please wait while we set things up
+                                            for you.
+                                        </h6>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1694,184 +1759,207 @@ define(["react", "app"], function (React, app) {
                                     this.state.hideEmailRead ? "d-none" : ""
                                 }`}
                             >
-                                <div className="email-content-top-right">
-                                    <div
-                                        className="mail-back"
-                                        onClick={this.handleBackToEmailList.bind(
-                                            this
-                                        )}
-                                    ></div>
-                                    <div className="right-menus">
-                                        <div className="button-group">
-                                            <button
-                                                className="back"
-                                                onClick={this.handleClick.bind(
-                                                    this,
-                                                    "reply"
-                                                )}
-                                            ></button>
-                                            <button
-                                                className="next"
-                                                onClick={this.handleClick.bind(
-                                                    this,
-                                                    "forward"
-                                                )}
-                                            ></button>
-                                            <button className="star"></button>
-                                            <button
-                                                className="delete"
-                                                onClick={this.handleClick.bind(
-                                                    this,
-                                                    "moveToTrash"
-                                                )}
-                                            ></button>
-                                        </div>
-                                        <div className="content-list-menu">
-                                            <div className="dropdown">
-                                                <button
-                                                    className="btn btn-secondary dropdown-toggle"
-                                                    type="button"
-                                                    id="content-list"
-                                                    data-bs-toggle="dropdown"
-                                                    aria-expanded="false"
-                                                ></button>
-                                                <ul
-                                                    className="dropdown-menu"
-                                                    aria-labelledby="content-list"
-                                                >
-                                                    <li>
-                                                        <button
-                                                            onClick={this.handleClick.bind(
-                                                                this,
-                                                                "reply"
-                                                            )}
-                                                        >
-                                                            Reply
-                                                        </button>
-                                                    </li>
-                                                    <li>
-                                                        <button
-                                                            onClick={this.handleClick.bind(
-                                                                this,
-                                                                "forward"
-                                                            )}
-                                                        >
-                                                            Forward
-                                                        </button>
-                                                    </li>
-                                                    <li>
-                                                        <button
-                                                            onClick={this.handleClick.bind(
-                                                                this,
-                                                                "printEmail"
-                                                            )}
-                                                        >
-                                                            Print
-                                                        </button>
-                                                    </li>
-                                                    <li>
-                                                        <button
-                                                            onClick={this.handleClick.bind(
-                                                                this,
-                                                                "moveToTrash"
-                                                            )}
-                                                        >
-                                                            Delete this message
-                                                        </button>
-                                                    </li>
-                                                    <li>
-                                                        <button
-                                                            onClick={this.handleClick.bind(
-                                                                this,
-                                                                "moveToSpam"
-                                                            )}
-                                                        >
-                                                            Report Spam
-                                                        </button>
-                                                    </li>
-                                                    <li>
-                                                        <button
-                                                            onClick={this.handleClick.bind(
-                                                                this,
-                                                                "showHeader"
-                                                            )}
-                                                        >
-                                                            Show Raw Header
-                                                        </button>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="email-content-top-left">
+                                <div className={`email-title-wrapper`}>
                                     <div>
                                         <h1 className="email-subject">
                                             {this.state.subject}
                                         </h1>
                                     </div>
-                                    <div className="email-content-header-bottom-details">
-                                        <div className="word color-1">
-                                            {this.state.from !== ""
-                                                ? this.state.from[0]._store.props.children
-                                                      .toString()
-                                                      .charAt(0)
-                                                : ""}
+                                    <div className="email-sent-date">
+                                        {this.state.timeSent}
+                                    </div>
+                                </div>
+                                <div className="email-additional-details">
+                                    <div className="email-content-top-left">
+                                        <div className="email-content-header-bottom-details">
+                                            <div className="word color-1">
+                                                {this.state.from !== ""
+                                                    ? this.state.from[0]._store.props.children
+                                                          .toString()
+                                                          .charAt(0)
+                                                    : ""}
+                                            </div>
+                                            <div className="sender-name">
+                                                <div>{this.state.from} </div>
+                                                <span>
+                                                    {this.state.fromExtra}
+                                                </span>
+                                            </div>
+                                            <div className="sender-detail-dropdown">
+                                                <div className="dropdown">
+                                                    <button
+                                                        className="btn btn-secondary dropdown-toggle"
+                                                        type="button"
+                                                        id="sender-details"
+                                                        data-bs-toggle="dropdown"
+                                                        aria-expanded="false"
+                                                    >
+                                                        To me{" "}
+                                                        <span className="arrow"></span>{" "}
+                                                    </button>
+                                                    <ul
+                                                        className="dropdown-menu"
+                                                        aria-labelledby="sender-details"
+                                                    >
+                                                        <li>
+                                                            <span>from:</span>
+                                                            <div>
+                                                                {
+                                                                    this.state
+                                                                        .from
+                                                                }
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <span>
+                                                                reply-to:
+                                                            </span>
+                                                            <div>
+                                                                {
+                                                                    this.state
+                                                                        .from
+                                                                }
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <span>to:</span>
+                                                            <div>
+                                                                {this.state.to}
+                                                            </div>
+                                                        </li>
+                                                        <li className="sent_date_time">
+                                                            <span>date:</span>
+                                                            <div>
+                                                                {
+                                                                    this.state
+                                                                        .timeSent
+                                                                }
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <span>
+                                                                subject:
+                                                            </span>
+                                                            <div>
+                                                                {
+                                                                    this.state
+                                                                        .subject
+                                                                }
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className="sender-name">
-                                            <div>{this.state.from} </div>
-                                            <span>{this.state.fromExtra}</span>
-                                        </div>
-                                        <div className="sender-detail-dropdown">
-                                            <div className="dropdown">
+                                    </div>
+                                    <div className="email-content-top-right">
+                                        <div
+                                            className="mail-back"
+                                            onClick={this.handleBackToEmailList.bind(
+                                                this
+                                            )}
+                                        ></div>
+                                        <div className="right-menus">
+                                            <div className="button-group">
                                                 <button
-                                                    className="btn btn-secondary dropdown-toggle"
-                                                    type="button"
-                                                    id="sender-details"
-                                                    data-bs-toggle="dropdown"
-                                                    aria-expanded="false"
-                                                >
-                                                    To me{" "}
-                                                    <span className="arrow"></span>{" "}
-                                                </button>
-                                                <ul
-                                                    className="dropdown-menu"
-                                                    aria-labelledby="sender-details"
-                                                >
-                                                    <li>
-                                                        <span>from:</span>
-                                                        <div>
-                                                            {this.state.from}
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <span>reply-to:</span>
-                                                        <div>
-                                                            {this.state.from}
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <span>to:</span>
-                                                        <div>
-                                                            {this.state.to}
-                                                        </div>
-                                                    </li>
-                                                    <li className="sent_date_time">
-                                                        <span>date:</span>
-                                                        <div>
-                                                            {
-                                                                this.state
-                                                                    .timeSent
-                                                            }
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <span>subject:</span>
-                                                        <div>
-                                                            {this.state.subject}
-                                                        </div>
-                                                    </li>
-                                                </ul>
+                                                    className="back"
+                                                    onClick={this.handleClick.bind(
+                                                        this,
+                                                        "reply"
+                                                    )}
+                                                ></button>
+                                                <button
+                                                    className="next"
+                                                    onClick={this.handleClick.bind(
+                                                        this,
+                                                        "forward"
+                                                    )}
+                                                ></button>
+                                                <button className="star"></button>
+                                                <button
+                                                    className="delete"
+                                                    onClick={this.handleClick.bind(
+                                                        this,
+                                                        "moveToTrash"
+                                                    )}
+                                                ></button>
+                                            </div>
+                                            <div className="content-list-menu">
+                                                <div className="dropdown">
+                                                    <button
+                                                        className="btn btn-secondary dropdown-toggle"
+                                                        type="button"
+                                                        id="content-list"
+                                                        data-bs-toggle="dropdown"
+                                                        aria-expanded="false"
+                                                    ></button>
+                                                    <ul
+                                                        className="dropdown-menu"
+                                                        aria-labelledby="content-list"
+                                                    >
+                                                        <li>
+                                                            <button
+                                                                onClick={this.handleClick.bind(
+                                                                    this,
+                                                                    "reply"
+                                                                )}
+                                                            >
+                                                                Reply
+                                                            </button>
+                                                        </li>
+                                                        <li>
+                                                            <button
+                                                                onClick={this.handleClick.bind(
+                                                                    this,
+                                                                    "forward"
+                                                                )}
+                                                            >
+                                                                Forward
+                                                            </button>
+                                                        </li>
+                                                        <li>
+                                                            <button
+                                                                onClick={this.handleClick.bind(
+                                                                    this,
+                                                                    "printEmail"
+                                                                )}
+                                                            >
+                                                                Print
+                                                            </button>
+                                                        </li>
+                                                        <li>
+                                                            <button
+                                                                onClick={this.handleClick.bind(
+                                                                    this,
+                                                                    "moveToTrash"
+                                                                )}
+                                                            >
+                                                                Delete this
+                                                                message
+                                                            </button>
+                                                        </li>
+                                                        <li>
+                                                            <button
+                                                                onClick={this.handleClick.bind(
+                                                                    this,
+                                                                    "moveToSpam"
+                                                                )}
+                                                            >
+                                                                Report Spam
+                                                            </button>
+                                                        </li>
+                                                        <li>
+                                                            <button
+                                                                onClick={this.handleClick.bind(
+                                                                    this,
+                                                                    "showHeader"
+                                                                )}
+                                                            >
+                                                                Show Raw Header
+                                                            </button>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1882,7 +1970,26 @@ define(["react", "app"], function (React, app) {
                                     this.state.hideEmailRead ? "d-none" : ""
                                 }`}
                             >
-                                <div>Sender: {this.state.from}</div>
+                                <div>
+                                    <span className="sender-icon">
+                                        <svg
+                                            width="14"
+                                            height="14"
+                                            viewBox="0 0 14 14"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                d="M13.5067 9.61325L9.23998 1.93325C8.66665 0.899919 7.87332 0.333252 6.99998 0.333252C6.12665 0.333252 5.33332 0.899919 4.75998 1.93325L0.493318 9.61325C-0.0466816 10.5933 -0.106682 11.5333 0.326652 12.2733C0.759985 13.0133 1.61332 13.4199 2.73332 13.4199H11.2667C12.3867 13.4199 13.24 13.0133 13.6733 12.2733C14.1067 11.5333 14.0467 10.5866 13.5067 9.61325ZM6.49998 4.99992C6.49998 4.72658 6.72665 4.49992 6.99998 4.49992C7.27332 4.49992 7.49998 4.72658 7.49998 4.99992V8.33325C7.49998 8.60658 7.27332 8.83325 6.99998 8.83325C6.72665 8.83325 6.49998 8.60658 6.49998 8.33325V4.99992ZM7.47332 10.8066C7.43998 10.8333 7.40665 10.8599 7.37332 10.8866C7.33332 10.9133 7.29332 10.9333 7.25332 10.9466C7.21332 10.9666 7.17332 10.9799 7.12665 10.9866C7.08665 10.9933 7.03998 10.9999 6.99998 10.9999C6.95998 10.9999 6.91332 10.9933 6.86665 10.9866C6.82665 10.9799 6.78665 10.9666 6.74665 10.9466C6.70665 10.9333 6.66665 10.9133 6.62665 10.8866C6.59332 10.8599 6.55998 10.8333 6.52665 10.8066C6.40665 10.6799 6.33332 10.5066 6.33332 10.3333C6.33332 10.1599 6.40665 9.98659 6.52665 9.85992C6.55998 9.83325 6.59332 9.80658 6.62665 9.77992C6.66665 9.75325 6.70665 9.73325 6.74665 9.71992C6.78665 9.69992 6.82665 9.68659 6.86665 9.67992C6.95332 9.65992 7.04665 9.65992 7.12665 9.67992C7.17332 9.68659 7.21332 9.69992 7.25332 9.71992C7.29332 9.73325 7.33332 9.75325 7.37332 9.77992C7.40665 9.80658 7.43998 9.83325 7.47332 9.85992C7.59332 9.98659 7.66665 10.1599 7.66665 10.3333C7.66665 10.5066 7.59332 10.6799 7.47332 10.8066Z"
+                                                fill="#2277F6"
+                                            />
+                                        </svg>
+                                    </span>
+                                    Mail from:{" "}
+                                    <span className="sender-email">
+                                        {this.state.from}
+                                    </span>
+                                </div>
                             </div>
                             <div
                                 className={`image-disabled ${

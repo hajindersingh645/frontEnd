@@ -540,17 +540,41 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                                 className: this.state.membr == "free" ? "d-none" : "panel panel-default"
                             },
                             React.createElement(
-                                "button",
-                                {
-                                    type: "button",
-                                    onClick: this.handleBackButton.bind(this)
-                                },
-                                "Back"
+                                "div",
+                                { className: "back-button-wrapper" },
+                                React.createElement(
+                                    "button",
+                                    {
+                                        type: "button",
+                                        onClick: this.handleBackButton.bind(this),
+                                        className: "back-button"
+                                    },
+                                    React.createElement(
+                                        "svg",
+                                        {
+                                            xmlns: "http://www.w3.org/2000/svg",
+                                            fill: "none",
+                                            viewBox: "0 0 24 24",
+                                            strokeWidth: 1.5,
+                                            stroke: "currentColor",
+                                            className: "w-6 h-6"
+                                        },
+                                        React.createElement("path", {
+                                            strokeLinecap: "round",
+                                            strokeLinejoin: "round",
+                                            d: "M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
+                                        })
+                                    )
+                                )
                             ),
                             React.createElement(
                                 "div",
-                                { className: "text-center" },
-                                "Payment Method:"
+                                null,
+                                React.createElement(
+                                    "h2",
+                                    { className: "title" },
+                                    "Choose your Payment Method"
+                                )
                             ),
                             React.createElement(
                                 "div",
@@ -563,58 +587,322 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                                         { className: "form-group col-lg-offset-0 text-left" },
                                         React.createElement(
                                             "div",
-                                            { className: "radio" },
+                                            {
+                                                className: `radio ${ this.state.paym == "bitc" ? "selected" : "" }`
+                                            },
                                             React.createElement(
                                                 "label",
                                                 null,
-                                                React.createElement("input", {
-                                                    className: "margin-right-10",
-                                                    type: "radio",
-                                                    name: "optionsRadios",
-                                                    id: "optionsRadios1",
-                                                    value: "option1",
-                                                    checked: this.state.paym == "bitc",
-                                                    onChange: this.handleChange.bind(this, "bitc")
-                                                }),
-                                                "\xA0Bitcoin & other Crypto Currency"
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "te_text" },
+                                                    React.createElement("input", {
+                                                        className: "margin-right-10",
+                                                        type: "radio",
+                                                        name: "optionsRadios",
+                                                        id: "optionsRadios1",
+                                                        value: "option1",
+                                                        checked: this.state.paym == "bitc",
+                                                        onChange: this.handleChange.bind(this, "bitc")
+                                                    }),
+                                                    React.createElement(
+                                                        "span",
+                                                        { className: "selected-icon" },
+                                                        React.createElement(
+                                                            "svg",
+                                                            {
+                                                                xmlns: "http://www.w3.org/2000/svg",
+                                                                viewBox: "0 0 48 48"
+                                                            },
+                                                            React.createElement("path", { d: "m19.95 26.75 11.95-12q.65-.65 1.55-.65t1.6.65q.7.75.7 1.65 0 .9-.7 1.6l-13.5 13.55q-.7.7-1.65.7t-1.6-.7L12.7 26q-.7-.7-.675-1.6.025-.9.775-1.65.65-.65 1.6-.65.95 0 1.65.65Z" })
+                                                        )
+                                                    ),
+                                                    React.createElement(
+                                                        "span",
+                                                        { className: "labelled" },
+                                                        "Bitcoin & other Crypto Currency"
+                                                    )
+                                                ),
+                                                React.createElement(
+                                                    "span",
+                                                    { className: "icon" },
+                                                    React.createElement(
+                                                        "svg",
+                                                        {
+                                                            width: "24",
+                                                            height: "24",
+                                                            viewBox: "0 0 24 24",
+                                                            fill: "none",
+                                                            xmlns: "http://www.w3.org/2000/svg"
+                                                        },
+                                                        React.createElement("path", {
+                                                            d: "M9 8.38086H13.6846C14.7231 8.38086 15.5654 9.31548 15.5654 10.2616C15.5654 11.3001 14.7231 12.1424 13.6846 12.1424H9V8.38086Z",
+                                                            stroke: "#292D32",
+                                                            strokeWidth: "1.5",
+                                                            strokeMiterlimit: "10",
+                                                            strokeLinecap: "round",
+                                                            strokeLinejoin: "round"
+                                                        }),
+                                                        React.createElement("path", {
+                                                            d: "M9 12.1309H14.3539C15.5423 12.1309 16.5 12.9732 16.5 14.0116C16.5 15.0501 15.5423 15.8924 14.3539 15.8924H9V12.1309Z",
+                                                            stroke: "#292D32",
+                                                            strokeWidth: "1.5",
+                                                            strokeMiterlimit: "10",
+                                                            strokeLinecap: "round",
+                                                            strokeLinejoin: "round"
+                                                        }),
+                                                        React.createElement("path", {
+                                                            d: "M12.2769 15.8809V17.7616",
+                                                            stroke: "#292D32",
+                                                            strokeWidth: "1.5",
+                                                            strokeMiterlimit: "10",
+                                                            strokeLinecap: "round",
+                                                            strokeLinejoin: "round"
+                                                        }),
+                                                        React.createElement("path", {
+                                                            d: "M9.93457 15.8809V17.7616",
+                                                            stroke: "#292D32",
+                                                            strokeWidth: "1.5",
+                                                            strokeMiterlimit: "10",
+                                                            strokeLinecap: "round",
+                                                            strokeLinejoin: "round"
+                                                        }),
+                                                        React.createElement("path", {
+                                                            d: "M12.2769 6.5V8.38077",
+                                                            stroke: "#292D32",
+                                                            strokeWidth: "1.5",
+                                                            strokeMiterlimit: "10",
+                                                            strokeLinecap: "round",
+                                                            strokeLinejoin: "round"
+                                                        }),
+                                                        React.createElement("path", {
+                                                            d: "M9.93457 6.5V8.38077",
+                                                            stroke: "#292D32",
+                                                            strokeWidth: "1.5",
+                                                            strokeMiterlimit: "10",
+                                                            strokeLinecap: "round",
+                                                            strokeLinejoin: "round"
+                                                        }),
+                                                        React.createElement("path", {
+                                                            d: "M10.7769 8.38086H7.5",
+                                                            stroke: "#292D32",
+                                                            strokeWidth: "1.5",
+                                                            strokeMiterlimit: "10",
+                                                            strokeLinecap: "round",
+                                                            strokeLinejoin: "round"
+                                                        }),
+                                                        React.createElement("path", {
+                                                            d: "M10.7769 15.8809H7.5",
+                                                            stroke: "#292D32",
+                                                            strokeWidth: "1.5",
+                                                            strokeMiterlimit: "10",
+                                                            strokeLinecap: "round",
+                                                            strokeLinejoin: "round"
+                                                        }),
+                                                        React.createElement("path", {
+                                                            d: "M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z",
+                                                            stroke: "#292D32",
+                                                            strokeWidth: "1.5",
+                                                            strokeMiterlimit: "10"
+                                                        })
+                                                    )
+                                                )
                                             )
                                         ),
                                         React.createElement("div", { className: "clearfix" }),
                                         React.createElement(
                                             "div",
-                                            { className: "radio" },
+                                            {
+                                                className: `radio ${ this.state.paym == "perfectm" ? "selected" : "" }`
+                                            },
                                             React.createElement(
                                                 "label",
                                                 null,
-                                                React.createElement("input", {
-                                                    className: "margin-right-10",
-                                                    type: "radio",
-                                                    name: "optionsRadios",
-                                                    id: "optionsRadios2",
-                                                    value: "option2",
-                                                    checked: this.state.paym == "perfectm",
-                                                    onChange: this.handleChange.bind(this, "perfectm")
-                                                }),
-                                                "\xA0Perfect Money"
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "te_text" },
+                                                    React.createElement("input", {
+                                                        className: "margin-right-10",
+                                                        type: "radio",
+                                                        name: "optionsRadios",
+                                                        id: "optionsRadios2",
+                                                        value: "option2",
+                                                        checked: this.state.paym == "perfectm",
+                                                        onChange: this.handleChange.bind(this, "perfectm")
+                                                    }),
+                                                    React.createElement(
+                                                        "span",
+                                                        { className: "selected-icon" },
+                                                        React.createElement(
+                                                            "svg",
+                                                            {
+                                                                xmlns: "http://www.w3.org/2000/svg",
+                                                                viewBox: "0 0 48 48"
+                                                            },
+                                                            React.createElement("path", { d: "m19.95 26.75 11.95-12q.65-.65 1.55-.65t1.6.65q.7.75.7 1.65 0 .9-.7 1.6l-13.5 13.55q-.7.7-1.65.7t-1.6-.7L12.7 26q-.7-.7-.675-1.6.025-.9.775-1.65.65-.65 1.6-.65.95 0 1.65.65Z" })
+                                                        )
+                                                    ),
+                                                    React.createElement(
+                                                        "span",
+                                                        { className: "labelled" },
+                                                        "Perfect Money"
+                                                    )
+                                                ),
+                                                React.createElement(
+                                                    "span",
+                                                    { className: "icon" },
+                                                    React.createElement(
+                                                        "svg",
+                                                        {
+                                                            width: "24",
+                                                            height: "24",
+                                                            viewBox: "0 0 24 24",
+                                                            fill: "none",
+                                                            xmlns: "http://www.w3.org/2000/svg"
+                                                        },
+                                                        React.createElement("path", {
+                                                            d: "M17 20.5H7C4 20.5 2 19 2 15.5V8.5C2 5 4 3.5 7 3.5H17C20 3.5 22 5 22 8.5V15.5C22 19 20 20.5 17 20.5Z",
+                                                            stroke: "#292D32",
+                                                            strokeWidth: "1.5",
+                                                            strokeMiterlimit: "10",
+                                                            strokeLinecap: "round",
+                                                            strokeLinejoin: "round"
+                                                        }),
+                                                        React.createElement("path", {
+                                                            d: "M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z",
+                                                            stroke: "#292D32",
+                                                            strokeWidth: "1.5",
+                                                            strokeMiterlimit: "10",
+                                                            strokeLinecap: "round",
+                                                            strokeLinejoin: "round"
+                                                        }),
+                                                        React.createElement("path", {
+                                                            d: "M2 9H3C6 9 7 8 7 5V4",
+                                                            stroke: "#292D32",
+                                                            strokeWidth: "1.5",
+                                                            strokeMiterlimit: "10",
+                                                            strokeLinecap: "round",
+                                                            strokeLinejoin: "round"
+                                                        }),
+                                                        React.createElement("path", {
+                                                            d: "M22 9H21C18 9 17 8 17 5V4",
+                                                            stroke: "#292D32",
+                                                            strokeWidth: "1.5",
+                                                            strokeMiterlimit: "10",
+                                                            strokeLinecap: "round",
+                                                            strokeLinejoin: "round"
+                                                        }),
+                                                        React.createElement("path", {
+                                                            d: "M2 15H3C6 15 7 16 7 19V20",
+                                                            stroke: "#292D32",
+                                                            strokeWidth: "1.5",
+                                                            strokeMiterlimit: "10",
+                                                            strokeLinecap: "round",
+                                                            strokeLinejoin: "round"
+                                                        }),
+                                                        React.createElement("path", {
+                                                            d: "M22 15H21C18 15 17 16 17 19V20",
+                                                            stroke: "#292D32",
+                                                            strokeWidth: "1.5",
+                                                            strokeMiterlimit: "10",
+                                                            strokeLinecap: "round",
+                                                            strokeLinejoin: "round"
+                                                        })
+                                                    )
+                                                )
                                             )
                                         ),
                                         React.createElement("div", { className: "clearfix" }),
                                         React.createElement(
                                             "div",
-                                            { className: "radio" },
+                                            {
+                                                className: `radio ${ this.state.paym == "stripe" ? "selected" : "" }`
+                                            },
                                             React.createElement(
                                                 "label",
                                                 null,
-                                                React.createElement("input", {
-                                                    className: "margin-right-10",
-                                                    type: "radio",
-                                                    name: "optionsRadios",
-                                                    id: "optionsRadios4",
-                                                    value: "option4",
-                                                    checked: this.state.paym == "stripe",
-                                                    onChange: this.handleChange.bind(this, "stripe")
-                                                }),
-                                                "\xA0Credit / Debit Card (Stripe)"
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "te_text" },
+                                                    React.createElement("input", {
+                                                        className: "margin-right-10",
+                                                        type: "radio",
+                                                        name: "optionsRadios",
+                                                        id: "optionsRadios4",
+                                                        value: "option4",
+                                                        checked: this.state.paym == "stripe",
+                                                        onChange: this.handleChange.bind(this, "stripe")
+                                                    }),
+                                                    React.createElement(
+                                                        "span",
+                                                        { className: "selected-icon" },
+                                                        React.createElement(
+                                                            "svg",
+                                                            {
+                                                                xmlns: "http://www.w3.org/2000/svg",
+                                                                viewBox: "0 0 48 48"
+                                                            },
+                                                            React.createElement("path", { d: "m19.95 26.75 11.95-12q.65-.65 1.55-.65t1.6.65q.7.75.7 1.65 0 .9-.7 1.6l-13.5 13.55q-.7.7-1.65.7t-1.6-.7L12.7 26q-.7-.7-.675-1.6.025-.9.775-1.65.65-.65 1.6-.65.95 0 1.65.65Z" })
+                                                        )
+                                                    ),
+                                                    React.createElement(
+                                                        "span",
+                                                        { className: "labelled" },
+                                                        "Credit / Debit Card (Stripe)"
+                                                    )
+                                                ),
+                                                React.createElement(
+                                                    "span",
+                                                    { className: "icon" },
+                                                    React.createElement(
+                                                        "svg",
+                                                        {
+                                                            width: "24",
+                                                            height: "24",
+                                                            viewBox: "0 0 24 24",
+                                                            fill: "none",
+                                                            xmlns: "http://www.w3.org/2000/svg"
+                                                        },
+                                                        React.createElement("path", {
+                                                            d: "M2 12.6101H19",
+                                                            stroke: "#292D32",
+                                                            strokeWidth: "1.5",
+                                                            strokeMiterlimit: "10",
+                                                            strokeLinecap: "round",
+                                                            strokeLinejoin: "round"
+                                                        }),
+                                                        React.createElement("path", {
+                                                            d: "M19 10.28V17.43C18.97 20.28 18.19 21 15.22 21H5.78003C2.76003 21 2 20.2501 2 17.2701V10.28C2 7.58005 2.63 6.71005 5 6.57005C5.24 6.56005 5.50003 6.55005 5.78003 6.55005H15.22C18.24 6.55005 19 7.30005 19 10.28Z",
+                                                            stroke: "#292D32",
+                                                            strokeWidth: "1.5",
+                                                            strokeLinecap: "round",
+                                                            strokeLinejoin: "round"
+                                                        }),
+                                                        React.createElement("path", {
+                                                            d: "M22 6.73V13.72C22 16.42 21.37 17.29 19 17.43V10.28C19 7.3 18.24 6.55 15.22 6.55H5.78003C5.50003 6.55 5.24 6.56 5 6.57C5.03 3.72 5.81003 3 8.78003 3H18.22C21.24 3 22 3.75 22 6.73Z",
+                                                            stroke: "#292D32",
+                                                            strokeWidth: "1.5",
+                                                            strokeLinecap: "round",
+                                                            strokeLinejoin: "round"
+                                                        }),
+                                                        React.createElement("path", {
+                                                            d: "M5.25 17.8101H6.96997",
+                                                            stroke: "#292D32",
+                                                            strokeWidth: "1.5",
+                                                            strokeMiterlimit: "10",
+                                                            strokeLinecap: "round",
+                                                            strokeLinejoin: "round"
+                                                        }),
+                                                        React.createElement("path", {
+                                                            d: "M9.10986 17.8101H12.5499",
+                                                            stroke: "#292D32",
+                                                            strokeWidth: "1.5",
+                                                            strokeMiterlimit: "10",
+                                                            strokeLinecap: "round",
+                                                            strokeLinejoin: "round"
+                                                        })
+                                                    )
+                                                )
                                             )
                                         )
                                     ),

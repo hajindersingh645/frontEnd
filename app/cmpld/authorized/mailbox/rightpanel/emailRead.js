@@ -1304,9 +1304,87 @@ define(["react", "app"], function (React, app) {
                                 "div",
                                 { className: "content" },
                                 React.createElement(
-                                    "h2",
-                                    null,
-                                    "Working..."
+                                    "div",
+                                    { className: "t-animation" },
+                                    React.createElement(
+                                        "div",
+                                        { className: "loading-animation type-progress style-circle" },
+                                        React.createElement(
+                                            "div",
+                                            { className: "progress-circle" },
+                                            React.createElement(
+                                                "div",
+                                                { className: "circle-bg" },
+                                                React.createElement(
+                                                    "svg",
+                                                    {
+                                                        role: "progressbar",
+                                                        width: "140",
+                                                        height: "140",
+                                                        viewBox: "0 0 100 100",
+                                                        "aria-valuemin": "0",
+                                                        "aria-valuemax": "100",
+                                                        "aria-valuenow": "50"
+                                                    },
+                                                    React.createElement("circle", {
+                                                        cx: "50%",
+                                                        cy: "50%",
+                                                        r: "42",
+                                                        shapeRendering: "geometricPrecision",
+                                                        fill: "none",
+                                                        stroke: "#E1E4EC",
+                                                        strokeWidth: "2"
+                                                    }),
+                                                    React.createElement("circle", {
+                                                        id: "the_circle_progress",
+                                                        cx: "50%",
+                                                        cy: "50%",
+                                                        r: "42",
+                                                        shapeRendering: "geometricPrecision",
+                                                        fill: "none",
+                                                        strokeWidth: "2",
+                                                        strokeDashoffset: parseInt(`264 * ${ app.userObjects.get("modalpercentage") } / 100`),
+                                                        strokeDasharray: "264",
+                                                        strokeLinecap: "",
+                                                        stroke: "#2277f6",
+                                                        dataAngel: "50"
+                                                    })
+                                                )
+                                            ),
+                                            React.createElement(
+                                                "div",
+                                                { className: "circle-content" },
+                                                React.createElement(
+                                                    "svg",
+                                                    {
+                                                        width: "32",
+                                                        height: "33",
+                                                        viewBox: "0 0 32 33",
+                                                        fill: "none",
+                                                        xmlns: "http://www.w3.org/2000/svg"
+                                                    },
+                                                    React.createElement("path", {
+                                                        d: "M16.2745 0.64386C7.30038 0.64386 0.714844 5.06401 0.714844 5.06401C0.714844 13.7095 4.91569 20.6867 8.95191 25.3956C10.6883 24.0862 12.1842 22.7672 13.4672 21.4719C10.716 18.2537 7.88883 13.8246 6.98332 8.54008C9.18794 7.62106 12.4711 6.61458 16.2738 6.61458C20.0521 6.61458 23.3436 7.62556 25.563 8.54972C24.3861 15.4002 19.9814 20.8134 16.7009 24.0103C15.2931 25.4637 13.6615 26.9371 11.772 28.3887C14.3065 30.8409 16.2738 32.1644 16.2738 32.1644C16.2738 32.1644 31.8334 21.7021 31.8334 5.06337C31.8341 5.06402 25.2486 0.64386 16.2745 0.64386Z",
+                                                        fill: "white"
+                                                    })
+                                                )
+                                            )
+                                        )
+                                    )
+                                ),
+                                React.createElement(
+                                    "div",
+                                    { className: "t-text" },
+                                    React.createElement(
+                                        "h2",
+                                        null,
+                                        "Processing..."
+                                    ),
+                                    React.createElement(
+                                        "h6",
+                                        null,
+                                        "Please wait while we set things up for you."
+                                    )
                                 )
                             )
                         )
@@ -1380,124 +1458,7 @@ define(["react", "app"], function (React, app) {
                             },
                             React.createElement(
                                 "div",
-                                { className: "email-content-top-right" },
-                                React.createElement("div", {
-                                    className: "mail-back",
-                                    onClick: this.handleBackToEmailList.bind(this)
-                                }),
-                                React.createElement(
-                                    "div",
-                                    { className: "right-menus" },
-                                    React.createElement(
-                                        "div",
-                                        { className: "button-group" },
-                                        React.createElement("button", {
-                                            className: "back",
-                                            onClick: this.handleClick.bind(this, "reply")
-                                        }),
-                                        React.createElement("button", {
-                                            className: "next",
-                                            onClick: this.handleClick.bind(this, "forward")
-                                        }),
-                                        React.createElement("button", { className: "star" }),
-                                        React.createElement("button", {
-                                            className: "delete",
-                                            onClick: this.handleClick.bind(this, "moveToTrash")
-                                        })
-                                    ),
-                                    React.createElement(
-                                        "div",
-                                        { className: "content-list-menu" },
-                                        React.createElement(
-                                            "div",
-                                            { className: "dropdown" },
-                                            React.createElement("button", {
-                                                className: "btn btn-secondary dropdown-toggle",
-                                                type: "button",
-                                                id: "content-list",
-                                                "data-bs-toggle": "dropdown",
-                                                "aria-expanded": "false"
-                                            }),
-                                            React.createElement(
-                                                "ul",
-                                                {
-                                                    className: "dropdown-menu",
-                                                    "aria-labelledby": "content-list"
-                                                },
-                                                React.createElement(
-                                                    "li",
-                                                    null,
-                                                    React.createElement(
-                                                        "button",
-                                                        {
-                                                            onClick: this.handleClick.bind(this, "reply")
-                                                        },
-                                                        "Reply"
-                                                    )
-                                                ),
-                                                React.createElement(
-                                                    "li",
-                                                    null,
-                                                    React.createElement(
-                                                        "button",
-                                                        {
-                                                            onClick: this.handleClick.bind(this, "forward")
-                                                        },
-                                                        "Forward"
-                                                    )
-                                                ),
-                                                React.createElement(
-                                                    "li",
-                                                    null,
-                                                    React.createElement(
-                                                        "button",
-                                                        {
-                                                            onClick: this.handleClick.bind(this, "printEmail")
-                                                        },
-                                                        "Print"
-                                                    )
-                                                ),
-                                                React.createElement(
-                                                    "li",
-                                                    null,
-                                                    React.createElement(
-                                                        "button",
-                                                        {
-                                                            onClick: this.handleClick.bind(this, "moveToTrash")
-                                                        },
-                                                        "Delete this message"
-                                                    )
-                                                ),
-                                                React.createElement(
-                                                    "li",
-                                                    null,
-                                                    React.createElement(
-                                                        "button",
-                                                        {
-                                                            onClick: this.handleClick.bind(this, "moveToSpam")
-                                                        },
-                                                        "Report Spam"
-                                                    )
-                                                ),
-                                                React.createElement(
-                                                    "li",
-                                                    null,
-                                                    React.createElement(
-                                                        "button",
-                                                        {
-                                                            onClick: this.handleClick.bind(this, "showHeader")
-                                                        },
-                                                        "Show Raw Header"
-                                                    )
-                                                )
-                                            )
-                                        )
-                                    )
-                                )
-                            ),
-                            React.createElement(
-                                "div",
-                                { className: "email-content-top-left" },
+                                { className: `email-title-wrapper` },
                                 React.createElement(
                                     "div",
                                     null,
@@ -1509,121 +1470,251 @@ define(["react", "app"], function (React, app) {
                                 ),
                                 React.createElement(
                                     "div",
-                                    { className: "email-content-header-bottom-details" },
+                                    { className: "email-sent-date" },
+                                    this.state.timeSent
+                                )
+                            ),
+                            React.createElement(
+                                "div",
+                                { className: "email-additional-details" },
+                                React.createElement(
+                                    "div",
+                                    { className: "email-content-top-left" },
                                     React.createElement(
                                         "div",
-                                        { className: "word color-1" },
-                                        this.state.from !== "" ? this.state.from[0]._store.props.children.toString().charAt(0) : ""
-                                    ),
-                                    React.createElement(
-                                        "div",
-                                        { className: "sender-name" },
+                                        { className: "email-content-header-bottom-details" },
                                         React.createElement(
                                             "div",
-                                            null,
-                                            this.state.from,
-                                            " "
+                                            { className: "word color-1" },
+                                            this.state.from !== "" ? this.state.from[0]._store.props.children.toString().charAt(0) : ""
                                         ),
                                         React.createElement(
-                                            "span",
-                                            null,
-                                            this.state.fromExtra
-                                        )
-                                    ),
-                                    React.createElement(
-                                        "div",
-                                        { className: "sender-detail-dropdown" },
-                                        React.createElement(
                                             "div",
-                                            { className: "dropdown" },
+                                            { className: "sender-name" },
                                             React.createElement(
-                                                "button",
-                                                {
-                                                    className: "btn btn-secondary dropdown-toggle",
-                                                    type: "button",
-                                                    id: "sender-details",
-                                                    "data-bs-toggle": "dropdown",
-                                                    "aria-expanded": "false"
-                                                },
-                                                "To me",
-                                                " ",
-                                                React.createElement("span", { className: "arrow" }),
+                                                "div",
+                                                null,
+                                                this.state.from,
                                                 " "
                                             ),
                                             React.createElement(
-                                                "ul",
-                                                {
-                                                    className: "dropdown-menu",
-                                                    "aria-labelledby": "sender-details"
-                                                },
+                                                "span",
+                                                null,
+                                                this.state.fromExtra
+                                            )
+                                        ),
+                                        React.createElement(
+                                            "div",
+                                            { className: "sender-detail-dropdown" },
+                                            React.createElement(
+                                                "div",
+                                                { className: "dropdown" },
                                                 React.createElement(
-                                                    "li",
-                                                    null,
-                                                    React.createElement(
-                                                        "span",
-                                                        null,
-                                                        "from:"
-                                                    ),
-                                                    React.createElement(
-                                                        "div",
-                                                        null,
-                                                        this.state.from
-                                                    )
+                                                    "button",
+                                                    {
+                                                        className: "btn btn-secondary dropdown-toggle",
+                                                        type: "button",
+                                                        id: "sender-details",
+                                                        "data-bs-toggle": "dropdown",
+                                                        "aria-expanded": "false"
+                                                    },
+                                                    "To me",
+                                                    " ",
+                                                    React.createElement("span", { className: "arrow" }),
+                                                    " "
                                                 ),
                                                 React.createElement(
-                                                    "li",
-                                                    null,
+                                                    "ul",
+                                                    {
+                                                        className: "dropdown-menu",
+                                                        "aria-labelledby": "sender-details"
+                                                    },
                                                     React.createElement(
-                                                        "span",
+                                                        "li",
                                                         null,
-                                                        "reply-to:"
+                                                        React.createElement(
+                                                            "span",
+                                                            null,
+                                                            "from:"
+                                                        ),
+                                                        React.createElement(
+                                                            "div",
+                                                            null,
+                                                            this.state.from
+                                                        )
                                                     ),
                                                     React.createElement(
-                                                        "div",
+                                                        "li",
                                                         null,
-                                                        this.state.from
+                                                        React.createElement(
+                                                            "span",
+                                                            null,
+                                                            "reply-to:"
+                                                        ),
+                                                        React.createElement(
+                                                            "div",
+                                                            null,
+                                                            this.state.from
+                                                        )
+                                                    ),
+                                                    React.createElement(
+                                                        "li",
+                                                        null,
+                                                        React.createElement(
+                                                            "span",
+                                                            null,
+                                                            "to:"
+                                                        ),
+                                                        React.createElement(
+                                                            "div",
+                                                            null,
+                                                            this.state.to
+                                                        )
+                                                    ),
+                                                    React.createElement(
+                                                        "li",
+                                                        { className: "sent_date_time" },
+                                                        React.createElement(
+                                                            "span",
+                                                            null,
+                                                            "date:"
+                                                        ),
+                                                        React.createElement(
+                                                            "div",
+                                                            null,
+                                                            this.state.timeSent
+                                                        )
+                                                    ),
+                                                    React.createElement(
+                                                        "li",
+                                                        null,
+                                                        React.createElement(
+                                                            "span",
+                                                            null,
+                                                            "subject:"
+                                                        ),
+                                                        React.createElement(
+                                                            "div",
+                                                            null,
+                                                            this.state.subject
+                                                        )
                                                     )
-                                                ),
+                                                )
+                                            )
+                                        )
+                                    )
+                                ),
+                                React.createElement(
+                                    "div",
+                                    { className: "email-content-top-right" },
+                                    React.createElement("div", {
+                                        className: "mail-back",
+                                        onClick: this.handleBackToEmailList.bind(this)
+                                    }),
+                                    React.createElement(
+                                        "div",
+                                        { className: "right-menus" },
+                                        React.createElement(
+                                            "div",
+                                            { className: "button-group" },
+                                            React.createElement("button", {
+                                                className: "back",
+                                                onClick: this.handleClick.bind(this, "reply")
+                                            }),
+                                            React.createElement("button", {
+                                                className: "next",
+                                                onClick: this.handleClick.bind(this, "forward")
+                                            }),
+                                            React.createElement("button", { className: "star" }),
+                                            React.createElement("button", {
+                                                className: "delete",
+                                                onClick: this.handleClick.bind(this, "moveToTrash")
+                                            })
+                                        ),
+                                        React.createElement(
+                                            "div",
+                                            { className: "content-list-menu" },
+                                            React.createElement(
+                                                "div",
+                                                { className: "dropdown" },
+                                                React.createElement("button", {
+                                                    className: "btn btn-secondary dropdown-toggle",
+                                                    type: "button",
+                                                    id: "content-list",
+                                                    "data-bs-toggle": "dropdown",
+                                                    "aria-expanded": "false"
+                                                }),
                                                 React.createElement(
-                                                    "li",
-                                                    null,
+                                                    "ul",
+                                                    {
+                                                        className: "dropdown-menu",
+                                                        "aria-labelledby": "content-list"
+                                                    },
                                                     React.createElement(
-                                                        "span",
+                                                        "li",
                                                         null,
-                                                        "to:"
+                                                        React.createElement(
+                                                            "button",
+                                                            {
+                                                                onClick: this.handleClick.bind(this, "reply")
+                                                            },
+                                                            "Reply"
+                                                        )
                                                     ),
                                                     React.createElement(
-                                                        "div",
+                                                        "li",
                                                         null,
-                                                        this.state.to
-                                                    )
-                                                ),
-                                                React.createElement(
-                                                    "li",
-                                                    { className: "sent_date_time" },
-                                                    React.createElement(
-                                                        "span",
-                                                        null,
-                                                        "date:"
+                                                        React.createElement(
+                                                            "button",
+                                                            {
+                                                                onClick: this.handleClick.bind(this, "forward")
+                                                            },
+                                                            "Forward"
+                                                        )
                                                     ),
                                                     React.createElement(
-                                                        "div",
+                                                        "li",
                                                         null,
-                                                        this.state.timeSent
-                                                    )
-                                                ),
-                                                React.createElement(
-                                                    "li",
-                                                    null,
-                                                    React.createElement(
-                                                        "span",
-                                                        null,
-                                                        "subject:"
+                                                        React.createElement(
+                                                            "button",
+                                                            {
+                                                                onClick: this.handleClick.bind(this, "printEmail")
+                                                            },
+                                                            "Print"
+                                                        )
                                                     ),
                                                     React.createElement(
-                                                        "div",
+                                                        "li",
                                                         null,
-                                                        this.state.subject
+                                                        React.createElement(
+                                                            "button",
+                                                            {
+                                                                onClick: this.handleClick.bind(this, "moveToTrash")
+                                                            },
+                                                            "Delete this message"
+                                                        )
+                                                    ),
+                                                    React.createElement(
+                                                        "li",
+                                                        null,
+                                                        React.createElement(
+                                                            "button",
+                                                            {
+                                                                onClick: this.handleClick.bind(this, "moveToSpam")
+                                                            },
+                                                            "Report Spam"
+                                                        )
+                                                    ),
+                                                    React.createElement(
+                                                        "li",
+                                                        null,
+                                                        React.createElement(
+                                                            "button",
+                                                            {
+                                                                onClick: this.handleClick.bind(this, "showHeader")
+                                                            },
+                                                            "Show Raw Header"
+                                                        )
                                                     )
                                                 )
                                             )
@@ -1640,8 +1731,31 @@ define(["react", "app"], function (React, app) {
                             React.createElement(
                                 "div",
                                 null,
-                                "Sender: ",
-                                this.state.from
+                                React.createElement(
+                                    "span",
+                                    { className: "sender-icon" },
+                                    React.createElement(
+                                        "svg",
+                                        {
+                                            width: "14",
+                                            height: "14",
+                                            viewBox: "0 0 14 14",
+                                            fill: "none",
+                                            xmlns: "http://www.w3.org/2000/svg"
+                                        },
+                                        React.createElement("path", {
+                                            d: "M13.5067 9.61325L9.23998 1.93325C8.66665 0.899919 7.87332 0.333252 6.99998 0.333252C6.12665 0.333252 5.33332 0.899919 4.75998 1.93325L0.493318 9.61325C-0.0466816 10.5933 -0.106682 11.5333 0.326652 12.2733C0.759985 13.0133 1.61332 13.4199 2.73332 13.4199H11.2667C12.3867 13.4199 13.24 13.0133 13.6733 12.2733C14.1067 11.5333 14.0467 10.5866 13.5067 9.61325ZM6.49998 4.99992C6.49998 4.72658 6.72665 4.49992 6.99998 4.49992C7.27332 4.49992 7.49998 4.72658 7.49998 4.99992V8.33325C7.49998 8.60658 7.27332 8.83325 6.99998 8.83325C6.72665 8.83325 6.49998 8.60658 6.49998 8.33325V4.99992ZM7.47332 10.8066C7.43998 10.8333 7.40665 10.8599 7.37332 10.8866C7.33332 10.9133 7.29332 10.9333 7.25332 10.9466C7.21332 10.9666 7.17332 10.9799 7.12665 10.9866C7.08665 10.9933 7.03998 10.9999 6.99998 10.9999C6.95998 10.9999 6.91332 10.9933 6.86665 10.9866C6.82665 10.9799 6.78665 10.9666 6.74665 10.9466C6.70665 10.9333 6.66665 10.9133 6.62665 10.8866C6.59332 10.8599 6.55998 10.8333 6.52665 10.8066C6.40665 10.6799 6.33332 10.5066 6.33332 10.3333C6.33332 10.1599 6.40665 9.98659 6.52665 9.85992C6.55998 9.83325 6.59332 9.80658 6.62665 9.77992C6.66665 9.75325 6.70665 9.73325 6.74665 9.71992C6.78665 9.69992 6.82665 9.68659 6.86665 9.67992C6.95332 9.65992 7.04665 9.65992 7.12665 9.67992C7.17332 9.68659 7.21332 9.69992 7.25332 9.71992C7.29332 9.73325 7.33332 9.75325 7.37332 9.77992C7.40665 9.80658 7.43998 9.83325 7.47332 9.85992C7.59332 9.98659 7.66665 10.1599 7.66665 10.3333C7.66665 10.5066 7.59332 10.6799 7.47332 10.8066Z",
+                                            fill: "#2277F6"
+                                        })
+                                    )
+                                ),
+                                "Mail from:",
+                                " ",
+                                React.createElement(
+                                    "span",
+                                    { className: "sender-email" },
+                                    this.state.from
+                                )
                             )
                         ),
                         React.createElement(
