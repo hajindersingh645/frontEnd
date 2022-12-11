@@ -136,109 +136,16 @@ define(["react", "app", "xss", "cmpld/authorized/mailbox/mailboxCollection", "cm
                             { className: "right-top-data" },
                             React.createElement(
                                 "div",
-                                { className: "icon-notification" },
-                                React.createElement(
-                                    "button",
-                                    null,
-                                    React.createElement("span", null)
-                                )
-                            ),
-                            React.createElement(
-                                "div",
-                                { className: "user-dropdown" },
+                                { className: "right-top-data-content" },
+                                React.createElement("div", { className: "skeleton __circle" }),
+                                React.createElement("div", { className: "skeleton __circle" }),
                                 React.createElement(
                                     "div",
-                                    { className: "dropdown" },
-                                    React.createElement(
-                                        "button",
-                                        {
-                                            className: "btn btn-secondary dropdown-toggle",
-                                            type: "button",
-                                            id: "user-dropdown",
-                                            "data-bs-toggle": "dropdown",
-                                            "aria-expanded": "false"
-                                        },
-                                        " ",
-                                        React.createElement(
-                                            "span",
-                                            { className: "user-icon" },
-                                            React.createElement(
-                                                "svg",
-                                                {
-                                                    xmlns: "http://www.w3.org/2000/svg",
-                                                    fill: "none",
-                                                    viewBox: "0 0 24 24",
-                                                    strokeWidth: 1.5,
-                                                    stroke: "currentColor"
-                                                },
-                                                React.createElement("path", {
-                                                    strokeLinecap: "round",
-                                                    strokeLinejoin: "round",
-                                                    d: "M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-                                                })
-                                            )
-                                        ),
-                                        " ",
-                                        React.createElement(
-                                            "span",
-                                            { className: "loading-content" },
-                                            "loading..."
-                                        ),
-                                        " ",
-                                        React.createElement("span", { className: "arrow" }),
-                                        React.createElement("br", null),
-                                        React.createElement(
-                                            "span",
-                                            { className: "user-email" },
-                                            React.createElement(
-                                                "span",
-                                                { className: "loading-content" },
-                                                "loading..."
-                                            )
-                                        ),
-                                        " "
-                                    ),
-                                    React.createElement(
-                                        "ul",
-                                        {
-                                            className: "dropdown-menu",
-                                            "aria-labelledby": "user-dropdown"
-                                        },
-                                        React.createElement(
-                                            "li",
-                                            null,
-                                            React.createElement(
-                                                "button",
-                                                {
-                                                    className: "copy-icon",
-                                                    id: "email-copy"
-                                                },
-                                                "Copy my email address"
-                                            )
-                                        ),
-                                        React.createElement(
-                                            "li",
-                                            null,
-                                            React.createElement(
-                                                "a",
-                                                {
-                                                    href: "#",
-                                                    className: "logout-icon"
-                                                },
-                                                "Log out"
-                                            )
-                                        )
-                                    )
-                                )
-                            ),
-                            React.createElement(
-                                "div",
-                                { className: "menu-icon" },
-                                React.createElement("button", {
-                                    "data-bs-toggle": "offcanvas",
-                                    "data-bs-target": "#offcanvasRight",
-                                    "aria-controls": "offcanvasRight"
-                                })
+                                    { className: "user-data" },
+                                    React.createElement("div", { className: "skeleton" }),
+                                    React.createElement("div", { className: "skeleton" })
+                                ),
+                                React.createElement("div", { className: "skeleton __circle" })
                             )
                         )
                     ),
@@ -275,11 +182,7 @@ define(["react", "app", "xss", "cmpld/authorized/mailbox/mailboxCollection", "cm
                             React.createElement(
                                 "div",
                                 { className: "new-message-btn" },
-                                React.createElement(
-                                    "button",
-                                    null,
-                                    "New message"
-                                )
+                                React.createElement("button", null)
                             ),
                             React.createElement(
                                 "div",
@@ -290,27 +193,113 @@ define(["react", "app", "xss", "cmpld/authorized/mailbox/mailboxCollection", "cm
                                     React.createElement(
                                         "li",
                                         null,
-                                        " ",
-                                        React.createElement("div", { className: "skeleton __folder" })
+                                        React.createElement("div", { className: "skeleton __folder _main" }),
+                                        React.createElement("div", { className: "skeleton __circle __medium" })
                                     ),
                                     React.createElement(
                                         "li",
                                         null,
-                                        " ",
-                                        React.createElement("div", { className: "skeleton __folder" })
+                                        React.createElement("div", { className: "skeleton __folder _main" }),
+                                        React.createElement("div", null)
                                     ),
                                     React.createElement(
                                         "li",
                                         null,
-                                        " ",
-                                        React.createElement("div", { className: "skeleton __folder" })
+                                        React.createElement("div", { className: "skeleton __folder _main" }),
+                                        React.createElement("div", null)
                                     ),
                                     React.createElement(
                                         "li",
                                         null,
-                                        " ",
-                                        React.createElement("div", { className: "skeleton __folder" })
+                                        React.createElement("div", { className: "skeleton __folder _main" }),
+                                        React.createElement("div", null)
+                                    ),
+                                    React.createElement(
+                                        "li",
+                                        null,
+                                        React.createElement("div", { className: "skeleton __folder _main" }),
+                                        React.createElement("div", null)
                                     )
+                                )
+                            ),
+                            React.createElement(
+                                "div",
+                                { className: "the-folders" },
+                                React.createElement(
+                                    "div",
+                                    { className: "main-menu the-folder-list" },
+                                    React.createElement(
+                                        "div",
+                                        { className: "folders-heading" },
+                                        React.createElement(
+                                            "div",
+                                            { className: "__first" },
+                                            `Folders`,
+                                            React.createElement(
+                                                "div",
+                                                { className: "icon" },
+                                                React.createElement(
+                                                    "svg",
+                                                    {
+                                                        width: "10",
+                                                        height: "6",
+                                                        viewBox: "0 0 10 6",
+                                                        fill: "none",
+                                                        xmlns: "http://www.w3.org/2000/svg"
+                                                    },
+                                                    React.createElement("path", {
+                                                        fillRule: "evenodd",
+                                                        clipRule: "evenodd",
+                                                        d: "M0.646446 0.313073C0.841709 0.11781 1.15829 0.11781 1.35355 0.313073L5 3.95952L8.64645 0.313072C8.84171 0.11781 9.15829 0.11781 9.35355 0.313072C9.54882 0.508334 9.54882 0.824917 9.35355 1.02018L5.35355 5.02018C5.15829 5.21544 4.84171 5.21544 4.64645 5.02018L0.646446 1.02018C0.451184 0.824917 0.451184 0.508335 0.646446 0.313073Z",
+                                                        fill: "#080D13"
+                                                    })
+                                                )
+                                            )
+                                        ),
+                                        React.createElement(
+                                            "div",
+                                            { className: "icon" },
+                                            React.createElement(
+                                                "svg",
+                                                {
+                                                    width: "20",
+                                                    height: "20",
+                                                    viewBox: "0 0 20 20",
+                                                    fill: "none",
+                                                    xmlns: "http://www.w3.org/2000/svg"
+                                                },
+                                                React.createElement("path", {
+                                                    fillRule: "evenodd",
+                                                    clipRule: "evenodd",
+                                                    d: "M10 4.25C10.4142 4.25 10.75 4.58579 10.75 5V9.25H15C15.4142 9.25 15.75 9.58579 15.75 10C15.75 10.4142 15.4142 10.75 15 10.75H10.75V15C10.75 15.4142 10.4142 15.75 10 15.75C9.58579 15.75 9.25 15.4142 9.25 15V10.75H5C4.58579 10.75 4.25 10.4142 4.25 10C4.25 9.58579 4.58579 9.25 5 9.25H9.25V5C9.25 4.58579 9.58579 4.25 10 4.25Z",
+                                                    fill: "#2277F6"
+                                                })
+                                            )
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "ul",
+                                        null,
+                                        React.createElement(
+                                            "li",
+                                            null,
+                                            React.createElement("div", { className: "skeleton __folder _sub" }),
+                                            React.createElement("div", { className: "skeleton __circle __medium" })
+                                        ),
+                                        React.createElement(
+                                            "li",
+                                            null,
+                                            React.createElement("div", { className: "skeleton __folder _sub" }),
+                                            React.createElement("div", { className: "skeleton __circle __medium" })
+                                        )
+                                    )
+                                ),
+                                React.createElement("div", { className: "skeleton the-desc" }),
+                                React.createElement(
+                                    "div",
+                                    { className: "bottom" },
+                                    React.createElement("div", { className: "skeleton" }),
+                                    React.createElement("div", { className: "skeleton" })
                                 )
                             )
                         )
@@ -378,7 +367,7 @@ define(["react", "app", "xss", "cmpld/authorized/mailbox/mailboxCollection", "cm
                                     React.createElement(
                                         "div",
                                         { className: "ellipsis-dropdown" },
-                                        React.createElement("button", null)
+                                        React.createElement("button", { type: "button" })
                                     )
                                 )
                             )
@@ -395,12 +384,398 @@ define(["react", "app", "xss", "cmpld/authorized/mailbox/mailboxCollection", "cm
                                     React.createElement(
                                         "li",
                                         null,
-                                        React.createElement("div", { className: "skeleton __box" })
+                                        React.createElement(
+                                            "div",
+                                            { className: "the-email-item" },
+                                            React.createElement(
+                                                "div",
+                                                { className: "the-checkbox" },
+                                                React.createElement("span", { className: "the-iicon" })
+                                            ),
+                                            React.createElement(
+                                                "div",
+                                                { className: "the-content" },
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "the-flex" },
+                                                    React.createElement(
+                                                        "div",
+                                                        { className: "the-flex no-space" },
+                                                        React.createElement("div", { className: "skeleton _w_54" }),
+                                                        React.createElement("div", { className: "skeleton __circle __small" })
+                                                    ),
+                                                    React.createElement("div", { className: "skeleton _w_54" })
+                                                ),
+                                                React.createElement("div", { className: "skeleton _w_99" }),
+                                                React.createElement("div", { className: "skeleton _w_250" }),
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "the-flex" },
+                                                    React.createElement("div", { className: "skeleton _w_194" }),
+                                                    React.createElement("div", { className: "skeleton __circle __small" })
+                                                )
+                                            )
+                                        )
                                     ),
                                     React.createElement(
                                         "li",
                                         null,
-                                        React.createElement("div", { className: "skeleton __box" })
+                                        React.createElement(
+                                            "div",
+                                            { className: "the-email-item" },
+                                            React.createElement(
+                                                "div",
+                                                { className: "the-checkbox" },
+                                                React.createElement("span", { className: "the-iicon" })
+                                            ),
+                                            React.createElement(
+                                                "div",
+                                                { className: "the-content" },
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "the-flex" },
+                                                    React.createElement(
+                                                        "div",
+                                                        { className: "the-flex no-space" },
+                                                        React.createElement("div", { className: "skeleton _w_54" }),
+                                                        React.createElement("div", { className: "skeleton __circle __small" })
+                                                    ),
+                                                    React.createElement("div", { className: "skeleton _w_54" })
+                                                ),
+                                                React.createElement("div", { className: "skeleton _w_99" }),
+                                                React.createElement("div", { className: "skeleton _w_250" }),
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "the-flex" },
+                                                    React.createElement("div", { className: "skeleton _w_194" }),
+                                                    React.createElement("div", { className: "skeleton __circle __small" })
+                                                )
+                                            )
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "li",
+                                        null,
+                                        React.createElement(
+                                            "div",
+                                            { className: "the-email-item" },
+                                            React.createElement(
+                                                "div",
+                                                { className: "the-checkbox" },
+                                                React.createElement("span", { className: "the-iicon" })
+                                            ),
+                                            React.createElement(
+                                                "div",
+                                                { className: "the-content" },
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "the-flex" },
+                                                    React.createElement(
+                                                        "div",
+                                                        { className: "the-flex no-space" },
+                                                        React.createElement("div", { className: "skeleton _w_54" }),
+                                                        React.createElement("div", { className: "skeleton __circle __small" })
+                                                    ),
+                                                    React.createElement("div", { className: "skeleton _w_54" })
+                                                ),
+                                                React.createElement("div", { className: "skeleton _w_99" }),
+                                                React.createElement("div", { className: "skeleton _w_250" }),
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "the-flex" },
+                                                    React.createElement("div", { className: "skeleton _w_194" }),
+                                                    React.createElement("div", { className: "skeleton __circle __small" })
+                                                )
+                                            )
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "li",
+                                        null,
+                                        React.createElement(
+                                            "div",
+                                            { className: "the-email-item" },
+                                            React.createElement(
+                                                "div",
+                                                { className: "the-checkbox" },
+                                                React.createElement("span", { className: "the-iicon" })
+                                            ),
+                                            React.createElement(
+                                                "div",
+                                                { className: "the-content" },
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "the-flex" },
+                                                    React.createElement(
+                                                        "div",
+                                                        { className: "the-flex no-space" },
+                                                        React.createElement("div", { className: "skeleton _w_54" }),
+                                                        React.createElement("div", { className: "skeleton __circle __small" })
+                                                    ),
+                                                    React.createElement("div", { className: "skeleton _w_54" })
+                                                ),
+                                                React.createElement("div", { className: "skeleton _w_99" }),
+                                                React.createElement("div", { className: "skeleton _w_250" }),
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "the-flex" },
+                                                    React.createElement("div", { className: "skeleton _w_194" }),
+                                                    React.createElement("div", { className: "skeleton __circle __small" })
+                                                )
+                                            )
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "li",
+                                        null,
+                                        React.createElement(
+                                            "div",
+                                            { className: "the-email-item" },
+                                            React.createElement(
+                                                "div",
+                                                { className: "the-checkbox" },
+                                                React.createElement("span", { className: "the-iicon" })
+                                            ),
+                                            React.createElement(
+                                                "div",
+                                                { className: "the-content" },
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "the-flex" },
+                                                    React.createElement(
+                                                        "div",
+                                                        { className: "the-flex no-space" },
+                                                        React.createElement("div", { className: "skeleton _w_54" }),
+                                                        React.createElement("div", { className: "skeleton __circle __small" })
+                                                    ),
+                                                    React.createElement("div", { className: "skeleton _w_54" })
+                                                ),
+                                                React.createElement("div", { className: "skeleton _w_99" }),
+                                                React.createElement("div", { className: "skeleton _w_250" }),
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "the-flex" },
+                                                    React.createElement("div", { className: "skeleton _w_194" }),
+                                                    React.createElement("div", { className: "skeleton __circle __small" })
+                                                )
+                                            )
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "li",
+                                        null,
+                                        React.createElement(
+                                            "div",
+                                            { className: "the-email-item" },
+                                            React.createElement(
+                                                "div",
+                                                { className: "the-checkbox" },
+                                                React.createElement("span", { className: "the-iicon" })
+                                            ),
+                                            React.createElement(
+                                                "div",
+                                                { className: "the-content" },
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "the-flex" },
+                                                    React.createElement(
+                                                        "div",
+                                                        { className: "the-flex no-space" },
+                                                        React.createElement("div", { className: "skeleton _w_54" }),
+                                                        React.createElement("div", { className: "skeleton __circle __small" })
+                                                    ),
+                                                    React.createElement("div", { className: "skeleton _w_54" })
+                                                ),
+                                                React.createElement("div", { className: "skeleton _w_99" }),
+                                                React.createElement("div", { className: "skeleton _w_250" }),
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "the-flex" },
+                                                    React.createElement("div", { className: "skeleton _w_194" }),
+                                                    React.createElement("div", { className: "skeleton __circle __small" })
+                                                )
+                                            )
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "li",
+                                        null,
+                                        React.createElement(
+                                            "div",
+                                            { className: "the-email-item" },
+                                            React.createElement(
+                                                "div",
+                                                { className: "the-checkbox" },
+                                                React.createElement("span", { className: "the-iicon" })
+                                            ),
+                                            React.createElement(
+                                                "div",
+                                                { className: "the-content" },
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "the-flex" },
+                                                    React.createElement(
+                                                        "div",
+                                                        { className: "the-flex no-space" },
+                                                        React.createElement("div", { className: "skeleton _w_54" }),
+                                                        React.createElement("div", { className: "skeleton __circle __small" })
+                                                    ),
+                                                    React.createElement("div", { className: "skeleton _w_54" })
+                                                ),
+                                                React.createElement("div", { className: "skeleton _w_99" }),
+                                                React.createElement("div", { className: "skeleton _w_250" }),
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "the-flex" },
+                                                    React.createElement("div", { className: "skeleton _w_194" }),
+                                                    React.createElement("div", { className: "skeleton __circle __small" })
+                                                )
+                                            )
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "li",
+                                        null,
+                                        React.createElement(
+                                            "div",
+                                            { className: "the-email-item" },
+                                            React.createElement(
+                                                "div",
+                                                { className: "the-checkbox" },
+                                                React.createElement("span", { className: "the-iicon" })
+                                            ),
+                                            React.createElement(
+                                                "div",
+                                                { className: "the-content" },
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "the-flex" },
+                                                    React.createElement(
+                                                        "div",
+                                                        { className: "the-flex no-space" },
+                                                        React.createElement("div", { className: "skeleton _w_54" }),
+                                                        React.createElement("div", { className: "skeleton __circle __small" })
+                                                    ),
+                                                    React.createElement("div", { className: "skeleton _w_54" })
+                                                ),
+                                                React.createElement("div", { className: "skeleton _w_99" }),
+                                                React.createElement("div", { className: "skeleton _w_250" }),
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "the-flex" },
+                                                    React.createElement("div", { className: "skeleton _w_194" }),
+                                                    React.createElement("div", { className: "skeleton __circle __small" })
+                                                )
+                                            )
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "li",
+                                        null,
+                                        React.createElement(
+                                            "div",
+                                            { className: "the-email-item" },
+                                            React.createElement(
+                                                "div",
+                                                { className: "the-checkbox" },
+                                                React.createElement("span", { className: "the-iicon" })
+                                            ),
+                                            React.createElement(
+                                                "div",
+                                                { className: "the-content" },
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "the-flex" },
+                                                    React.createElement(
+                                                        "div",
+                                                        { className: "the-flex no-space" },
+                                                        React.createElement("div", { className: "skeleton _w_54" }),
+                                                        React.createElement("div", { className: "skeleton __circle __small" })
+                                                    ),
+                                                    React.createElement("div", { className: "skeleton _w_54" })
+                                                ),
+                                                React.createElement("div", { className: "skeleton _w_99" }),
+                                                React.createElement("div", { className: "skeleton _w_250" }),
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "the-flex" },
+                                                    React.createElement("div", { className: "skeleton _w_194" }),
+                                                    React.createElement("div", { className: "skeleton __circle __small" })
+                                                )
+                                            )
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "li",
+                                        null,
+                                        React.createElement(
+                                            "div",
+                                            { className: "the-email-item" },
+                                            React.createElement(
+                                                "div",
+                                                { className: "the-checkbox" },
+                                                React.createElement("span", { className: "the-iicon" })
+                                            ),
+                                            React.createElement(
+                                                "div",
+                                                { className: "the-content" },
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "the-flex" },
+                                                    React.createElement(
+                                                        "div",
+                                                        { className: "the-flex no-space" },
+                                                        React.createElement("div", { className: "skeleton _w_54" }),
+                                                        React.createElement("div", { className: "skeleton __circle __small" })
+                                                    ),
+                                                    React.createElement("div", { className: "skeleton _w_54" })
+                                                ),
+                                                React.createElement("div", { className: "skeleton _w_99" }),
+                                                React.createElement("div", { className: "skeleton _w_250" }),
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "the-flex" },
+                                                    React.createElement("div", { className: "skeleton _w_194" }),
+                                                    React.createElement("div", { className: "skeleton __circle __small" })
+                                                )
+                                            )
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "li",
+                                        null,
+                                        React.createElement(
+                                            "div",
+                                            { className: "the-email-item" },
+                                            React.createElement(
+                                                "div",
+                                                { className: "the-checkbox" },
+                                                React.createElement("span", { className: "the-iicon" })
+                                            ),
+                                            React.createElement(
+                                                "div",
+                                                { className: "the-content" },
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "the-flex" },
+                                                    React.createElement(
+                                                        "div",
+                                                        { className: "the-flex no-space" },
+                                                        React.createElement("div", { className: "skeleton _w_54" }),
+                                                        React.createElement("div", { className: "skeleton __circle __small" })
+                                                    ),
+                                                    React.createElement("div", { className: "skeleton _w_54" })
+                                                ),
+                                                React.createElement("div", { className: "skeleton _w_99" }),
+                                                React.createElement("div", { className: "skeleton _w_250" }),
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "the-flex" },
+                                                    React.createElement("div", { className: "skeleton _w_194" }),
+                                                    React.createElement("div", { className: "skeleton __circle __small" })
+                                                )
+                                            )
+                                        )
                                     )
                                 )
                             )
@@ -417,22 +792,25 @@ define(["react", "app", "xss", "cmpld/authorized/mailbox/mailboxCollection", "cm
                                 { className: "email-content-top" },
                                 React.createElement(
                                     "div",
-                                    { className: "email-content-top-left" },
+                                    { className: "loading-select-email" },
                                     React.createElement(
                                         "div",
-                                        { className: "word color-1" },
-                                        "W"
+                                        { className: "the-circle" },
+                                        React.createElement("div", { className: "skeleton __circle" })
                                     ),
-                                    React.createElement("div", { className: "sender-name skeleton __sender" })
+                                    React.createElement(
+                                        "div",
+                                        { className: "the-content" },
+                                        React.createElement("div", { className: "skeleton" }),
+                                        React.createElement("div", { className: "skeleton" }),
+                                        React.createElement("div", { className: "skeleton" })
+                                    ),
+                                    React.createElement(
+                                        "div",
+                                        { className: "the-action" },
+                                        React.createElement("button", { type: "button" })
+                                    )
                                 )
-                            ),
-                            React.createElement(
-                                "div",
-                                { className: "mail-data" },
-                                React.createElement("div", { className: "skeleton __mail_content" }),
-                                React.createElement("div", { className: "skeleton __mail_content" }),
-                                React.createElement("div", { className: "skeleton __mail_content" }),
-                                React.createElement("div", { className: "skeleton __mail_content" })
                             )
                         )
                     )

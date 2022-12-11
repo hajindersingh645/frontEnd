@@ -286,29 +286,116 @@
                 <div class="left-side">
                     <div class="vertical-center-container">
                         <div class="left-data">
+                            <!-- loginBody -->
                             <div
                                 class="form-section"
                                 id="loginBody"
                                 style="padding-top: 53px; padding-bottom: 53px"
-                            ></div>
+                            >
+                                <div class="t-animation is-loading page-login">
+                                    <div
+                                        class="
+                                            loading-animation
+                                            type-progress
+                                            style-circle
+                                        "
+                                    >
+                                        <div class="progress-circle medium">
+                                            <div class="circle-bg">
+                                                <svg
+                                                    role="progressbar"
+                                                    width="91"
+                                                    height="91"
+                                                    viewBox="0 0 100 100"
+                                                    aria-valuemin="0"
+                                                    aria-valuemax="100"
+                                                    aria-valuenow="50"
+                                                >
+                                                    <circle
+                                                        cx="50%"
+                                                        cy="50%"
+                                                        r="42"
+                                                        shapeRendering="geometricPrecision"
+                                                        fill="none"
+                                                        stroke="#E1E4EC"
+                                                        stroke-width="1"
+                                                    ></circle>
+                                                    <circle
+                                                        id="the_circle_progress"
+                                                        cx="50%"
+                                                        cy="50%"
+                                                        r="42"
+                                                        shapeRendering="geometricPrecision"
+                                                        fill="none"
+                                                        stroke-width="1"
+                                                        stroke-dasharray="0"
+                                                        stroke-dashoffset="0"
+                                                        stroke-linecap=""
+                                                        stroke="#2277f6"
+                                                        data-angel="50"
+                                                    ></circle>
+                                                </svg>
+                                            </div>
+                                            <div class="circle-content">
+                                                <div class="loading-spinner">
+                                                    <div class="the-spinner">
+                                                        <div
+                                                            class="_bar1"
+                                                        ></div>
+                                                        <div
+                                                            class="_bar2"
+                                                        ></div>
+                                                        <div
+                                                            class="_bar3"
+                                                        ></div>
+                                                        <div
+                                                            class="_bar4"
+                                                        ></div>
+                                                        <div
+                                                            class="_bar5"
+                                                        ></div>
+                                                        <div
+                                                            class="_bar6"
+                                                        ></div>
+                                                        <div
+                                                            class="_bar7"
+                                                        ></div>
+                                                        <div
+                                                            class="_bar8"
+                                                        ></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="progress-content">
+                                            <h4>Welcome back!</h4>
+                                            <p>Please wait a few second...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="right-side">
                     <div class="vertical-center-container">
                         <div class="right-data">
-                            <div class="right-title">
+                            <div class="message-image">
+                                <img
+                                    src="/css/images/message.svg"
+                                    alt=""
+                                    id="random-image__data"
+                                />
+                            </div>
+                            <div class="right-title" id="random__title">
                                 How to check your mails?
                             </div>
-                            <p>
+                            <p id="random__description">
                                 Our privacy is quickly becoming a thing of the
                                 past. Privacy enables you to control who can
                                 access information about your private life and
                                 activities. Stand your ground and take it back.
                             </p>
-                        </div>
-                        <div class="message-image">
-                            <img src="/css/images/message.svg" alt="" />
                         </div>
                     </div>
                 </div>
@@ -317,6 +404,33 @@
         </div>
 
         <script>
+            const randomData = [
+                {
+                    title: "Private and anonymous email",
+                    description:
+                        "Our privacy is quickly becoming a thing of the past. Privacy enables you to control who can access information about your private life  and activities. Stand your ground and take it back. ",
+                    image: "/images/private-and-anonymous-email.png",
+                },
+                {
+                    title: "Peace of mind without relying on trust!",
+                    description:
+                        "Our top priority while designing and building Mailum was to create an email service that is not based on reliance. We came up with a solution named 'Local Code'. ",
+                    image: "/images/peace-of-mind-without-relying-on-trust.png",
+                },
+                {
+                    title: "The Most Air-Tight Encryption Available",
+                    description:
+                        "Mailum is the only email service encrypting  all 4 elements of an email and its metadata. While other services only encrypt the email body,  we encrypt body, subject, sender, recipient, and timestamp  to protect your online privacy from unauthorized access.",
+                    image: "/images/most-air-tight-encryption.png",
+                },
+                {
+                    title: "Easy to use",
+                    description:
+                        "The idea of Encryption is not complicated as it sounds. Having a user-friendly and simple interface, Mailum is an ideal choice as your daily, hassle-free mailbox.",
+                    image: "/images/easy-to-use.png",
+                },
+            ];
+
             window.addEventListener("scroll", function () {
                 var supportPageOffset = window.pageXOffset !== undefined;
                 var isCSS1Compat = (document.compatMode || "") === "CSS1Compat";
@@ -340,6 +454,26 @@
                     document
                         .getElementsByTagName("header")[0]
                         .classList.remove("scroll-header");
+                }
+            });
+
+            jQuery(document).ready(function () {
+                // get data from random no. between 1-4
+                try {
+                    const randomNumber = Math.floor(Math.random() * 4);
+                    if (randomNumber < 4) {
+                        const dataDisplay = randomData[randomNumber];
+                        jQuery("#random-image__data").attr(
+                            "src",
+                            dataDisplay.image
+                        );
+                        jQuery("#random__title").text(dataDisplay.title);
+                        jQuery("#random__description").text(
+                            dataDisplay.description
+                        );
+                    }
+                } catch (e) {
+                    console.info("!!BUG!!");
                 }
             });
         </script>

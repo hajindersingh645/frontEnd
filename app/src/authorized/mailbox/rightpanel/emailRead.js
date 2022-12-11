@@ -1645,63 +1645,59 @@ define(["react", "app"], function (React, app) {
                             <div className="inner">
                                 <div className="content">
                                     <div className="t-animation">
-                                    <div className="loading-animation type-progress style-circle">
-                                    <div className="progress-circle">
-                                        <div className="circle-bg">
-                                            <svg
-                                                role="progressbar"
-                                                width="140"
-                                                height="140"
-                                                viewBox="0 0 100 100"
-                                                aria-valuemin="0"
-                                                aria-valuemax="100"
-                                                aria-valuenow="50"
-                                            >
-                                                <circle
-                                                    cx="50%"
-                                                    cy="50%"
-                                                    r="42"
-                                                    shapeRendering="geometricPrecision"
-                                                    fill="none"
-                                                    stroke="#E1E4EC"
-                                                    strokeWidth="2"
-                                                ></circle>
-                                                <circle
-                                                    id="the_circle_progress"
-                                                    cx="50%"
-                                                    cy="50%"
-                                                    r="42"
-                                                    shapeRendering="geometricPrecision"
-                                                    fill="none"
-                                                    strokeWidth="2"
-                                                    strokeDashoffset={parseInt(
-                                                        `264 * ${app.userObjects.get(
-                                                            "modalpercentage"
-                                                        )} / 100`
-                                                    )}
-                                                    strokeDasharray="264"
-                                                    strokeLinecap=""
-                                                    stroke="#2277f6"
-                                                    dataAngel="50"
-                                                ></circle>
-                                            </svg>
+                                        <div className="loading-animation type-progress style-circle">
+                                            <div className="progress-circle medium">
+                                                <div className="circle-bg">
+                                                    <svg
+                                                        role="progressbar"
+                                                        width="91"
+                                                        height="91"
+                                                        viewBox="0 0 100 100"
+                                                        aria-valuemin="0"
+                                                        aria-valuemax="100"
+                                                        aria-valuenow="50"
+                                                    >
+                                                        <circle
+                                                            cx="50%"
+                                                            cy="50%"
+                                                            r="42"
+                                                            shapeRendering="geometricPrecision"
+                                                            fill="none"
+                                                            stroke="#E1E4EC"
+                                                            strokeWidth="1"
+                                                        ></circle>
+                                                        <circle
+                                                            id="the_circle_progress"
+                                                            cx="50%"
+                                                            cy="50%"
+                                                            r="42"
+                                                            shapeRendering="geometricPrecision"
+                                                            fill="none"
+                                                            strokeWidth="1"
+                                                            strokeDasharray="0"
+                                                            strokeDashoffset="0"
+                                                            strokeLinecap=""
+                                                            stroke="#2277f6"
+                                                            dataAngel="50"
+                                                        ></circle>
+                                                    </svg>
+                                                </div>
+                                                <div className="circle-content">
+                                                    <div className="loading-spinner">
+                                                        <div className="the-spinner">
+                                                            <div className="_bar1"></div>
+                                                            <div className="_bar2"></div>
+                                                            <div className="_bar3"></div>
+                                                            <div className="_bar4"></div>
+                                                            <div className="_bar5"></div>
+                                                            <div className="_bar6"></div>
+                                                            <div className="_bar7"></div>
+                                                            <div className="_bar8"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className="circle-content">
-                                            <svg
-                                                width="32"
-                                                height="33"
-                                                viewBox="0 0 32 33"
-                                                fill="none"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <path
-                                                    d="M16.2745 0.64386C7.30038 0.64386 0.714844 5.06401 0.714844 5.06401C0.714844 13.7095 4.91569 20.6867 8.95191 25.3956C10.6883 24.0862 12.1842 22.7672 13.4672 21.4719C10.716 18.2537 7.88883 13.8246 6.98332 8.54008C9.18794 7.62106 12.4711 6.61458 16.2738 6.61458C20.0521 6.61458 23.3436 7.62556 25.563 8.54972C24.3861 15.4002 19.9814 20.8134 16.7009 24.0103C15.2931 25.4637 13.6615 26.9371 11.772 28.3887C14.3065 30.8409 16.2738 32.1644 16.2738 32.1644C16.2738 32.1644 31.8334 21.7021 31.8334 5.06337C31.8341 5.06402 25.2486 0.64386 16.2745 0.64386Z"
-                                                    fill="white"
-                                                />
-                                            </svg>
-                                        </div>
-                                    </div>
-                                </div>
                                     </div>
                                     <div className="t-text">
                                         <h2>Processing...</h2>
@@ -1724,33 +1720,197 @@ define(["react", "app"], function (React, app) {
                                 }`}
                             >
                                 <div>
-                                    <h1>{`Please Select Email`}</h1>
-                                    <p>
-                                        <strong>
-                                            <a
-                                                href="https://blog.cyberfear.com/"
-                                                target="_blank"
+                                    <div>
+                                        <span className="inbox-icon">
+                                            <svg
+                                                width="236"
+                                                height="210"
+                                                viewBox="0 0 236 210"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
                                             >
-                                                Our Blog: blog.cyberfear.com
-                                            </a>
-                                        </strong>
-                                    </p>
+                                                <circle
+                                                    cx="134.945"
+                                                    cy="107.461"
+                                                    r="100.078"
+                                                    fill="#FAFBFF"
+                                                />
+                                                <g clip-path="url(#clip0_111_4240)">
+                                                    <mask
+                                                        id="mask0_111_4240"
+                                                        style={{
+                                                            maskType: "alpha",
+                                                        }}
+                                                        maskUnits="userSpaceOnUse"
+                                                        x="34"
+                                                        y="7"
+                                                        width="202"
+                                                        height="201"
+                                                    >
+                                                        <circle
+                                                            cx="134.945"
+                                                            cy="107.461"
+                                                            r="100.078"
+                                                            fill="#F3F6FB"
+                                                        />
+                                                    </mask>
+                                                    <g mask="url(#mask0_111_4240)">
+                                                        <path
+                                                            d="M109.109 161.197H136.519V207.813H109.109V161.197Z"
+                                                            fill="#D9E8FF"
+                                                        />
+                                                        <path
+                                                            d="M128.885 161.197H136.541V207.813H128.885V161.197Z"
+                                                            fill="#C2D9FC"
+                                                        />
+                                                    </g>
+                                                    <path
+                                                        d="M207.809 81.7031V144.747H120.068V81.7031C120.074 76.3009 119.014 70.9506 116.95 65.9585C114.885 60.9664 111.856 56.4305 108.036 52.6105C104.216 48.7906 99.6801 45.7616 94.688 43.6969C89.6959 41.6322 84.3456 40.5724 78.9434 40.5781H166.684C177.591 40.5781 188.051 44.911 195.764 52.6234C203.476 60.3358 207.809 70.7961 207.809 81.7031Z"
+                                                        fill="#E8F1FF"
+                                                    />
+                                                    <path
+                                                        d="M120.07 124.316H207.811V144.747H120.07V124.316Z"
+                                                        fill="#D0E3FF"
+                                                    />
+                                                    <path
+                                                        d="M177.711 97.2125H191.404C192.599 97.2125 193.746 96.7378 194.591 95.8927C195.436 95.0476 195.911 93.9014 195.911 92.7063V81.7688C195.938 73.2189 193.292 64.8744 188.342 57.9031C185.558 54.0737 181.906 50.9589 177.685 48.8143C173.464 46.6697 168.795 45.5563 164.061 45.5656C163.25 45.5482 162.452 45.7734 161.771 46.2124C161.089 46.6513 160.554 47.284 160.234 48.0293C159.914 48.7745 159.824 49.5983 159.976 50.3949C160.128 51.1915 160.514 51.9245 161.086 52.5C164.927 56.3259 167.973 60.8739 170.049 65.8821C172.125 70.8903 173.19 76.2598 173.182 81.6813V92.6188C173.174 93.2189 173.284 93.8148 173.508 94.3718C173.732 94.9287 174.064 95.4357 174.485 95.8631C174.907 96.2906 175.409 96.63 175.962 96.8617C176.516 97.0933 177.11 97.2126 177.711 97.2125Z"
+                                                        fill="white"
+                                                    />
+                                                    <path
+                                                        d="M120.07 144.747H37.8203V81.7031C37.8203 70.7961 42.1531 60.3358 49.8655 52.6234C57.578 44.9109 68.0383 40.5781 78.9453 40.5781C89.8523 40.5781 100.313 44.9109 108.025 52.6234C115.738 60.3358 120.07 70.7961 120.07 81.7031V144.747Z"
+                                                        fill="#C1DAFF"
+                                                    />
+                                                    <path
+                                                        d="M111.32 81.7031V135.997H46.5703V81.7031C46.5703 77.4516 47.4077 73.2417 49.0347 69.3138C50.6617 65.3858 53.0464 61.8168 56.0527 58.8105C59.059 55.8042 62.628 53.4195 66.5559 51.7925C70.4839 50.1655 74.6938 49.3281 78.9453 49.3281C83.1969 49.3281 87.4068 50.1655 91.3347 51.7925C95.2626 53.4195 98.8316 55.8042 101.838 58.8105C104.844 61.8168 107.229 65.3858 108.856 69.3138C110.483 73.2417 111.32 77.4516 111.32 81.7031Z"
+                                                        fill="#A7C3EC"
+                                                    />
+                                                    <path
+                                                        d="M111.318 81.7031V135.997H78.9434V81.7031C78.9461 76.0228 80.4434 70.4432 83.2847 65.5245C86.1261 60.6059 90.2115 56.5214 95.1309 53.6813C100.05 56.5214 104.136 60.6059 106.977 65.5245C109.818 70.4432 111.316 76.0228 111.318 81.7031Z"
+                                                        fill="#7EA1D6"
+                                                    />
+                                                    <path
+                                                        d="M109.109 144.747H136.519V161.197H109.109V144.747Z"
+                                                        fill="#7EA1D6"
+                                                    />
+                                                    <path
+                                                        d="M89.9262 68.1844V114.997C89.9263 115.887 89.7498 116.769 89.4071 117.59C89.0645 118.412 88.5623 119.158 87.9297 119.784C87.2971 120.411 86.5466 120.906 85.7216 121.24C84.8966 121.575 84.0134 121.743 83.1231 121.734H8.92308C7.13796 121.729 5.4276 121.017 4.16532 119.755C2.90304 118.492 2.19135 116.782 2.18558 114.997V68.1844C2.1827 67.2978 2.35485 66.4193 2.69215 65.5993C3.02945 64.7794 3.52528 64.0341 4.1512 63.4061C4.77712 62.7781 5.52083 62.2799 6.33969 61.94C7.15855 61.6 8.03646 61.425 8.92308 61.425H83.1231C84.0152 61.4163 84.9002 61.5849 85.7267 61.921C86.5531 62.257 87.3046 62.7539 87.9375 63.3827C88.5704 64.0115 89.0721 64.7598 89.4135 65.5841C89.7549 66.4083 89.9292 67.2922 89.9262 68.1844Z"
+                                                        fill="#C1DAFF"
+                                                    />
+                                                    <path
+                                                        d="M89.9262 68.1845V70.3719L46.045 111.563L2.18558 70.4157V68.2282C2.1827 67.3416 2.35485 66.4631 2.69215 65.6432C3.02945 64.8232 3.52528 64.0779 4.1512 63.4499C4.77712 62.822 5.52083 62.3237 6.33969 61.9838C7.15855 61.6438 8.03646 61.4688 8.92308 61.4688H83.1231C84.0115 61.4602 84.8929 61.6273 85.7165 61.9607C86.5401 62.294 87.2896 62.787 87.9219 63.4111C88.5543 64.0353 89.0569 64.7784 89.4008 65.5976C89.7448 66.4168 89.9234 67.296 89.9262 68.1845Z"
+                                                        fill="#AECBF7"
+                                                    />
+                                                    <path
+                                                        d="M87.4988 120.116C86.2788 121.157 84.728 121.731 83.1238 121.734H8.92383C7.31926 121.733 5.76788 121.159 4.54883 120.116L46.1113 91.6781C58.602 100.231 53.8769 96.9937 87.4988 120.116Z"
+                                                        fill="#DEEAFC"
+                                                    />
+                                                    <path
+                                                        d="M58.3152 100.034L46.0434 111.563L33.7715 100.056L46.0434 91.6125L58.3152 100.034Z"
+                                                        fill="#CADBF4"
+                                                    />
+                                                    <path
+                                                        d="M87.8926 63.4375L46.0457 102.55L4.2207 63.4375C5.47925 62.2125 7.16758 61.5294 8.92383 61.5344H83.1238C84.9023 61.5144 86.6165 62.1985 87.8926 63.4375Z"
+                                                        fill="#E8F1FF"
+                                                    />
+                                                    <path
+                                                        d="M191.994 103.053H177.097C174.935 103.053 173.182 104.806 173.182 106.969C173.182 109.131 174.935 110.884 177.097 110.884H191.994C194.157 110.884 195.91 109.131 195.91 106.969C195.91 104.806 194.157 103.053 191.994 103.053Z"
+                                                        fill="white"
+                                                    />
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="clip0_111_4240">
+                                                        <rect
+                                                            width="210"
+                                                            height="210"
+                                                            fill="white"
+                                                        />
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <h1>{`Choose an Email`}</h1>
                                     <p>
-                                        Comments or question? <br /> Please
-                                        contact us at{" "}
+                                        Do you have any comment or question?{" "}
+                                        <br />
+                                        Please contact us at{" "}
                                         <strong>cyberfear@cyberfear.com</strong>
                                     </p>
+                                    <div className="the-link">
+                                        <div>
+                                            <strong>Check Our Blog</strong>{" "}
+                                            <br />
+                                            blog.cyberfear.com
+                                        </div>
+                                        <div className="the-icon-wrapper">
+                                            <span className="the-icon">
+                                                <svg
+                                                    width="29"
+                                                    height="28"
+                                                    viewBox="0 0 22 21"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <path
+                                                        d="M14.6534 11.8689L14.6534 6.65584L9.44035 6.65584"
+                                                        stroke="#2277F7"
+                                                        strokeWidth="1.3"
+                                                        strokeMiterlimit="10"
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                    />
+                                                    <path
+                                                        d="M7.3531 13.956L14.5801 6.729"
+                                                        stroke="#2277F7"
+                                                        strokeWidth="1.3"
+                                                        strokeMiterlimit="10"
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                    />
+                                                </svg>
+                                            </span>
+                                        </div>
+                                        <div className="with-bg">
+                                            <img
+                                                src="/images/bg-link.png"
+                                                alt="bg"
+                                            />
+                                        </div>
+                                        <a
+                                            href="https://blog.cyberfear.com/"
+                                            target="_blank"
+                                        ></a>
+                                    </div>
                                 </div>
                                 <div
                                     className={`d-decrypting-message ${
                                         app.user.get("isDecryptingEmail")
-                                            ? "d-block"
+                                            ? "d-flex"
                                             : "d-none"
                                     }`}
                                 >
-                                    <h3 style={{ textAlign: "center" }}>
-                                        Decrypting...
-                                    </h3>
+                                    <div>
+                                        <div className="loading-spinner">
+                                            <div className="the-spinner">
+                                                <div className="_bar1"></div>
+                                                <div className="_bar2"></div>
+                                                <div className="_bar3"></div>
+                                                <div className="_bar4"></div>
+                                                <div className="_bar5"></div>
+                                                <div className="_bar6"></div>
+                                                <div className="_bar7"></div>
+                                                <div className="_bar8"></div>
+                                            </div>
+                                        </div>
+                                        <div className="the-content">
+                                            <h3>Decrypting...</h3>
+                                            <p>
+                                                {`Please wait while we set`}
+                                                <br />
+                                                {`things up for you!`}
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -1985,7 +2145,9 @@ define(["react", "app"], function (React, app) {
                                             />
                                         </svg>
                                     </span>
-                                    Mail from:{" "}
+                                    <span className="text-from">
+                                        Mail from:
+                                    </span>{" "}
                                     <span className="sender-email">
                                         {this.state.from}
                                     </span>

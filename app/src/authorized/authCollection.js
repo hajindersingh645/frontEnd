@@ -169,76 +169,14 @@ define([
                                 </a>
                             </div>
                             <div className="right-top-data">
-                                <div className="icon-notification">
-                                    <button>
-                                        <span></span>
-                                    </button>
-                                </div>
-                                <div className="user-dropdown">
-                                    <div className="dropdown">
-                                        <button
-                                            className="btn btn-secondary dropdown-toggle"
-                                            type="button"
-                                            id="user-dropdown"
-                                            data-bs-toggle="dropdown"
-                                            aria-expanded="false"
-                                        >
-                                            {" "}
-                                            <span className="user-icon">
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    fill="none"
-                                                    viewBox="0 0 24 24"
-                                                    strokeWidth={1.5}
-                                                    stroke="currentColor"
-                                                >
-                                                    <path
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                        d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-                                                    />
-                                                </svg>
-                                            </span>{" "}
-                                            <span className="loading-content">
-                                                loading...
-                                            </span>{" "}
-                                            <span className="arrow"></span>
-                                            <br />
-                                            <span className="user-email">
-                                                <span className="loading-content">
-                                                    loading...
-                                                </span>
-                                            </span>{" "}
-                                        </button>
-                                        <ul
-                                            className="dropdown-menu"
-                                            aria-labelledby="user-dropdown"
-                                        >
-                                            <li>
-                                                <button
-                                                    className="copy-icon"
-                                                    id="email-copy"
-                                                >
-                                                    Copy my email address
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <a
-                                                    href="#"
-                                                    className="logout-icon"
-                                                >
-                                                    Log out
-                                                </a>
-                                            </li>
-                                        </ul>
+                                <div className="right-top-data-content">
+                                    <div className="skeleton __circle"></div>
+                                    <div className="skeleton __circle"></div>
+                                    <div className="user-data">
+                                        <div className="skeleton"></div>
+                                        <div className="skeleton"></div>
                                     </div>
-                                </div>
-                                <div className="menu-icon">
-                                    <button
-                                        data-bs-toggle="offcanvas"
-                                        data-bs-target="#offcanvasRight"
-                                        aria-controls="offcanvasRight"
-                                    ></button>
+                                    <div className="skeleton __circle"></div>
                                 </div>
                             </div>
                         </header>
@@ -262,27 +200,88 @@ define([
                                     </a>
                                 </div>
                                 <div className="new-message-btn">
-                                    <button>New message</button>
+                                    <button></button>
                                 </div>
                                 <div className="main-menu">
                                     <ul>
                                         <li>
-                                            {" "}
-                                            <div className="skeleton __folder"></div>
+                                            <div className="skeleton __folder _main"></div>
+                                            <div className="skeleton __circle __medium"></div>
                                         </li>
                                         <li>
-                                            {" "}
-                                            <div className="skeleton __folder"></div>
+                                            <div className="skeleton __folder _main"></div>
+                                            <div></div>
                                         </li>
                                         <li>
-                                            {" "}
-                                            <div className="skeleton __folder"></div>
+                                            <div className="skeleton __folder _main"></div>
+                                            <div></div>
                                         </li>
                                         <li>
-                                            {" "}
-                                            <div className="skeleton __folder"></div>
+                                            <div className="skeleton __folder _main"></div>
+                                            <div></div>
+                                        </li>
+                                        <li>
+                                            <div className="skeleton __folder _main"></div>
+                                            <div></div>
                                         </li>
                                     </ul>
+                                </div>
+
+                                <div className="the-folders">
+                                    <div className="main-menu the-folder-list">
+                                        <div className="folders-heading">
+                                            <div className="__first">
+                                                {`Folders`}
+                                                <div className="icon">
+                                                    <svg
+                                                        width="10"
+                                                        height="6"
+                                                        viewBox="0 0 10 6"
+                                                        fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                    >
+                                                        <path
+                                                            fillRule="evenodd"
+                                                            clipRule="evenodd"
+                                                            d="M0.646446 0.313073C0.841709 0.11781 1.15829 0.11781 1.35355 0.313073L5 3.95952L8.64645 0.313072C8.84171 0.11781 9.15829 0.11781 9.35355 0.313072C9.54882 0.508334 9.54882 0.824917 9.35355 1.02018L5.35355 5.02018C5.15829 5.21544 4.84171 5.21544 4.64645 5.02018L0.646446 1.02018C0.451184 0.824917 0.451184 0.508335 0.646446 0.313073Z"
+                                                            fill="#080D13"
+                                                        />
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div className="icon">
+                                                <svg
+                                                    width="20"
+                                                    height="20"
+                                                    viewBox="0 0 20 20"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <path
+                                                        fillRule="evenodd"
+                                                        clipRule="evenodd"
+                                                        d="M10 4.25C10.4142 4.25 10.75 4.58579 10.75 5V9.25H15C15.4142 9.25 15.75 9.58579 15.75 10C15.75 10.4142 15.4142 10.75 15 10.75H10.75V15C10.75 15.4142 10.4142 15.75 10 15.75C9.58579 15.75 9.25 15.4142 9.25 15V10.75H5C4.58579 10.75 4.25 10.4142 4.25 10C4.25 9.58579 4.58579 9.25 5 9.25H9.25V5C9.25 4.58579 9.58579 4.25 10 4.25Z"
+                                                        fill="#2277F6"
+                                                    />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <ul>
+                                            <li>
+                                                <div className="skeleton __folder _sub"></div>
+                                                <div className="skeleton __circle __medium"></div>
+                                            </li>
+                                            <li>
+                                                <div className="skeleton __folder _sub"></div>
+                                                <div className="skeleton __circle __medium"></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div className="skeleton the-desc"></div>
+                                    <div className="bottom">
+                                        <div className="skeleton"></div>
+                                        <div className="skeleton"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -324,7 +323,7 @@ define([
                                             </button>
                                         </div>
                                         <div className="ellipsis-dropdown">
-                                            <button></button>
+                                            <button type="button"></button>
                                         </div>
                                     </div>
                                 </div>
@@ -333,10 +332,246 @@ define([
                                 <div className="inbox-list">
                                     <ul>
                                         <li>
-                                            <div className="skeleton __box"></div>
+                                            <div className="the-email-item">
+                                                <div className="the-checkbox">
+                                                    <span className="the-iicon"></span>
+                                                </div>
+                                                <div className="the-content">
+                                                    <div className="the-flex">
+                                                        <div className="the-flex no-space">
+                                                            <div className="skeleton _w_54"></div>
+                                                            <div className="skeleton __circle __small"></div>
+                                                        </div>
+                                                        <div className="skeleton _w_54"></div>
+                                                    </div>
+                                                    <div className="skeleton _w_99"></div>
+                                                    <div className="skeleton _w_250"></div>
+                                                    <div className="the-flex">
+                                                        <div className="skeleton _w_194"></div>
+                                                        <div className="skeleton __circle __small"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </li>
                                         <li>
-                                            <div className="skeleton __box"></div>
+                                            <div className="the-email-item">
+                                                <div className="the-checkbox">
+                                                    <span className="the-iicon"></span>
+                                                </div>
+                                                <div className="the-content">
+                                                    <div className="the-flex">
+                                                        <div className="the-flex no-space">
+                                                            <div className="skeleton _w_54"></div>
+                                                            <div className="skeleton __circle __small"></div>
+                                                        </div>
+                                                        <div className="skeleton _w_54"></div>
+                                                    </div>
+                                                    <div className="skeleton _w_99"></div>
+                                                    <div className="skeleton _w_250"></div>
+                                                    <div className="the-flex">
+                                                        <div className="skeleton _w_194"></div>
+                                                        <div className="skeleton __circle __small"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className="the-email-item">
+                                                <div className="the-checkbox">
+                                                    <span className="the-iicon"></span>
+                                                </div>
+                                                <div className="the-content">
+                                                    <div className="the-flex">
+                                                        <div className="the-flex no-space">
+                                                            <div className="skeleton _w_54"></div>
+                                                            <div className="skeleton __circle __small"></div>
+                                                        </div>
+                                                        <div className="skeleton _w_54"></div>
+                                                    </div>
+                                                    <div className="skeleton _w_99"></div>
+                                                    <div className="skeleton _w_250"></div>
+                                                    <div className="the-flex">
+                                                        <div className="skeleton _w_194"></div>
+                                                        <div className="skeleton __circle __small"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className="the-email-item">
+                                                <div className="the-checkbox">
+                                                    <span className="the-iicon"></span>
+                                                </div>
+                                                <div className="the-content">
+                                                    <div className="the-flex">
+                                                        <div className="the-flex no-space">
+                                                            <div className="skeleton _w_54"></div>
+                                                            <div className="skeleton __circle __small"></div>
+                                                        </div>
+                                                        <div className="skeleton _w_54"></div>
+                                                    </div>
+                                                    <div className="skeleton _w_99"></div>
+                                                    <div className="skeleton _w_250"></div>
+                                                    <div className="the-flex">
+                                                        <div className="skeleton _w_194"></div>
+                                                        <div className="skeleton __circle __small"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className="the-email-item">
+                                                <div className="the-checkbox">
+                                                    <span className="the-iicon"></span>
+                                                </div>
+                                                <div className="the-content">
+                                                    <div className="the-flex">
+                                                        <div className="the-flex no-space">
+                                                            <div className="skeleton _w_54"></div>
+                                                            <div className="skeleton __circle __small"></div>
+                                                        </div>
+                                                        <div className="skeleton _w_54"></div>
+                                                    </div>
+                                                    <div className="skeleton _w_99"></div>
+                                                    <div className="skeleton _w_250"></div>
+                                                    <div className="the-flex">
+                                                        <div className="skeleton _w_194"></div>
+                                                        <div className="skeleton __circle __small"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className="the-email-item">
+                                                <div className="the-checkbox">
+                                                    <span className="the-iicon"></span>
+                                                </div>
+                                                <div className="the-content">
+                                                    <div className="the-flex">
+                                                        <div className="the-flex no-space">
+                                                            <div className="skeleton _w_54"></div>
+                                                            <div className="skeleton __circle __small"></div>
+                                                        </div>
+                                                        <div className="skeleton _w_54"></div>
+                                                    </div>
+                                                    <div className="skeleton _w_99"></div>
+                                                    <div className="skeleton _w_250"></div>
+                                                    <div className="the-flex">
+                                                        <div className="skeleton _w_194"></div>
+                                                        <div className="skeleton __circle __small"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className="the-email-item">
+                                                <div className="the-checkbox">
+                                                    <span className="the-iicon"></span>
+                                                </div>
+                                                <div className="the-content">
+                                                    <div className="the-flex">
+                                                        <div className="the-flex no-space">
+                                                            <div className="skeleton _w_54"></div>
+                                                            <div className="skeleton __circle __small"></div>
+                                                        </div>
+                                                        <div className="skeleton _w_54"></div>
+                                                    </div>
+                                                    <div className="skeleton _w_99"></div>
+                                                    <div className="skeleton _w_250"></div>
+                                                    <div className="the-flex">
+                                                        <div className="skeleton _w_194"></div>
+                                                        <div className="skeleton __circle __small"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className="the-email-item">
+                                                <div className="the-checkbox">
+                                                    <span className="the-iicon"></span>
+                                                </div>
+                                                <div className="the-content">
+                                                    <div className="the-flex">
+                                                        <div className="the-flex no-space">
+                                                            <div className="skeleton _w_54"></div>
+                                                            <div className="skeleton __circle __small"></div>
+                                                        </div>
+                                                        <div className="skeleton _w_54"></div>
+                                                    </div>
+                                                    <div className="skeleton _w_99"></div>
+                                                    <div className="skeleton _w_250"></div>
+                                                    <div className="the-flex">
+                                                        <div className="skeleton _w_194"></div>
+                                                        <div className="skeleton __circle __small"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className="the-email-item">
+                                                <div className="the-checkbox">
+                                                    <span className="the-iicon"></span>
+                                                </div>
+                                                <div className="the-content">
+                                                    <div className="the-flex">
+                                                        <div className="the-flex no-space">
+                                                            <div className="skeleton _w_54"></div>
+                                                            <div className="skeleton __circle __small"></div>
+                                                        </div>
+                                                        <div className="skeleton _w_54"></div>
+                                                    </div>
+                                                    <div className="skeleton _w_99"></div>
+                                                    <div className="skeleton _w_250"></div>
+                                                    <div className="the-flex">
+                                                        <div className="skeleton _w_194"></div>
+                                                        <div className="skeleton __circle __small"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className="the-email-item">
+                                                <div className="the-checkbox">
+                                                    <span className="the-iicon"></span>
+                                                </div>
+                                                <div className="the-content">
+                                                    <div className="the-flex">
+                                                        <div className="the-flex no-space">
+                                                            <div className="skeleton _w_54"></div>
+                                                            <div className="skeleton __circle __small"></div>
+                                                        </div>
+                                                        <div className="skeleton _w_54"></div>
+                                                    </div>
+                                                    <div className="skeleton _w_99"></div>
+                                                    <div className="skeleton _w_250"></div>
+                                                    <div className="the-flex">
+                                                        <div className="skeleton _w_194"></div>
+                                                        <div className="skeleton __circle __small"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className="the-email-item">
+                                                <div className="the-checkbox">
+                                                    <span className="the-iicon"></span>
+                                                </div>
+                                                <div className="the-content">
+                                                    <div className="the-flex">
+                                                        <div className="the-flex no-space">
+                                                            <div className="skeleton _w_54"></div>
+                                                            <div className="skeleton __circle __small"></div>
+                                                        </div>
+                                                        <div className="skeleton _w_54"></div>
+                                                    </div>
+                                                    <div className="skeleton _w_99"></div>
+                                                    <div className="skeleton _w_250"></div>
+                                                    <div className="the-flex">
+                                                        <div className="skeleton _w_194"></div>
+                                                        <div className="skeleton __circle __small"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </li>
                                     </ul>
                                 </div>
@@ -346,16 +581,19 @@ define([
                         <div className="right-side">
                             <div className="email-conetent-wrp">
                                 <div className="email-content-top">
-                                    <div className="email-content-top-left">
-                                        <div className="word color-1">W</div>
-                                        <div className="sender-name skeleton __sender"></div>
+                                    <div className="loading-select-email">
+                                        <div className="the-circle">
+                                            <div className="skeleton __circle"></div>
+                                        </div>
+                                        <div className="the-content">
+                                            <div className="skeleton"></div>
+                                            <div className="skeleton"></div>
+                                            <div className="skeleton"></div>
+                                        </div>
+                                        <div className="the-action">
+                                            <button type="button"></button>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="mail-data">
-                                    <div className="skeleton __mail_content"></div>
-                                    <div className="skeleton __mail_content"></div>
-                                    <div className="skeleton __mail_content"></div>
-                                    <div className="skeleton __mail_content"></div>
                                 </div>
                             </div>
                         </div>

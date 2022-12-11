@@ -1360,7 +1360,7 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                                             shapeRendering="geometricPrecision"
                                                             fill="none"
                                                             stroke="#E1E4EC"
-                                                            strokeWidth="2"
+                                                            strokeWidth="1"
                                                         ></circle>
                                                         <circle
                                                             id="the_circle_progress"
@@ -1369,8 +1369,9 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                                             r="42"
                                                             shapeRendering="geometricPrecision"
                                                             fill="none"
-                                                            strokeWidth="2"
-                                                            strokeDasharray="264"
+                                                            strokeWidth="1"
+                                                            strokeDasharray="0"
+                                                            strokeDashoffset="0"
                                                             strokeLinecap=""
                                                             stroke="#2277f6"
                                                             dataAngel="50"

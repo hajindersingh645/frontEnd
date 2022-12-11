@@ -34,7 +34,8 @@ define(["react", "app"], function (React, app) {
                 >
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
-                            <div className="modal-header p-4">
+                            <div className="modal-header p-4"></div>
+                            <div className="modal-body p-4">
                                 <div className="loading-animation type-progress style-circle">
                                     <div className="progress-circle">
                                         <div className="circle-bg">
@@ -54,7 +55,7 @@ define(["react", "app"], function (React, app) {
                                                     shapeRendering="geometricPrecision"
                                                     fill="none"
                                                     stroke="#E1E4EC"
-                                                    strokeWidth="2"
+                                                    strokeWidth="1"
                                                 ></circle>
                                                 <circle
                                                     id="the_circle_progress"
@@ -63,7 +64,7 @@ define(["react", "app"], function (React, app) {
                                                     r="42"
                                                     shapeRendering="geometricPrecision"
                                                     fill="none"
-                                                    strokeWidth="2"
+                                                    strokeWidth="1"
                                                     strokeLinecap=""
                                                     stroke="#2277f6"
                                                     dataAngel="50"
@@ -99,8 +100,6 @@ define(["react", "app"], function (React, app) {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="modal-body p-4">
                                 <div className="form-group">
                                     <div
                                         className="bs-example text-center"

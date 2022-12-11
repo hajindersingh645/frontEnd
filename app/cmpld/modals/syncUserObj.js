@@ -36,9 +36,10 @@ define(["react", "app"], function (React, app) {
                     React.createElement(
                         "div",
                         { className: "modal-content" },
+                        React.createElement("div", { className: "modal-header p-4" }),
                         React.createElement(
                             "div",
-                            { className: "modal-header p-4" },
+                            { className: "modal-body p-4" },
                             React.createElement(
                                 "div",
                                 { className: "loading-animation type-progress style-circle" },
@@ -66,7 +67,7 @@ define(["react", "app"], function (React, app) {
                                                 shapeRendering: "geometricPrecision",
                                                 fill: "none",
                                                 stroke: "#E1E4EC",
-                                                strokeWidth: "2"
+                                                strokeWidth: "1"
                                             }),
                                             React.createElement("circle", {
                                                 id: "the_circle_progress",
@@ -75,7 +76,7 @@ define(["react", "app"], function (React, app) {
                                                 r: "42",
                                                 shapeRendering: "geometricPrecision",
                                                 fill: "none",
-                                                strokeWidth: "2",
+                                                strokeWidth: "1",
                                                 strokeLinecap: "",
                                                 stroke: "#2277f6",
                                                 dataAngel: "50",
@@ -105,11 +106,7 @@ define(["react", "app"], function (React, app) {
                                         )
                                     )
                                 )
-                            )
-                        ),
-                        React.createElement(
-                            "div",
-                            { className: "modal-body p-4" },
+                            ),
                             React.createElement(
                                 "div",
                                 { className: "form-group" },

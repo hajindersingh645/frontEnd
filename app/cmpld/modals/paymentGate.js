@@ -532,44 +532,27 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                         "div",
                         {
                             id: "paymentMethodsModalContent",
-                            className: `modal-content rounded-4 shadow px-4 py-4 ${ this.state.paymentPackagesModalActive ? "d-none" : "d-block" }`
+                            className: `modal-content rounded-4 shadow pb-4 ${ this.state.paymentPackagesModalActive ? "d-none" : "d-block" }`
                         },
                         React.createElement(
                             "div",
                             {
-                                className: this.state.membr == "free" ? "d-none" : "panel panel-default"
+                                className: `
+                                    ${ this.state.membr == "free" ? "d-none" : "panel panel-default" }
+                                `
                             },
                             React.createElement(
                                 "div",
-                                { className: "back-button-wrapper" },
+                                { className: "paymentmethod-heading px-4 pt-4 pb-3" },
                                 React.createElement(
-                                    "button",
-                                    {
-                                        type: "button",
-                                        onClick: this.handleBackButton.bind(this),
-                                        className: "back-button"
-                                    },
-                                    React.createElement(
-                                        "svg",
-                                        {
-                                            xmlns: "http://www.w3.org/2000/svg",
-                                            fill: "none",
-                                            viewBox: "0 0 24 24",
-                                            strokeWidth: 1.5,
-                                            stroke: "currentColor",
-                                            className: "w-6 h-6"
-                                        },
-                                        React.createElement("path", {
-                                            strokeLinecap: "round",
-                                            strokeLinejoin: "round",
-                                            d: "M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
-                                        })
-                                    )
+                                    "h4",
+                                    null,
+                                    "Payment Method"
                                 )
                             ),
                             React.createElement(
                                 "div",
-                                null,
+                                { className: "px-4" },
                                 React.createElement(
                                     "h2",
                                     { className: "title" },
@@ -578,7 +561,7 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                             ),
                             React.createElement(
                                 "div",
-                                { className: "panel-body" },
+                                { className: "panel-body px-4" },
                                 React.createElement(
                                     "div",
                                     { className: "form-inline text-center" },
@@ -1116,7 +1099,16 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                             null,
                             React.createElement(
                                 "div",
-                                { style: { textAlign: "center" } },
+                                { className: "group-btn type-pay_now px-4" },
+                                React.createElement(
+                                    "button",
+                                    {
+                                        type: "button",
+                                        onClick: this.handleBackButton.bind(this),
+                                        className: "back-button"
+                                    },
+                                    "Back"
+                                ),
                                 React.createElement(
                                     "button",
                                     {

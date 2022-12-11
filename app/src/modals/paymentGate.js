@@ -608,49 +608,30 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                         </div>
                         <div
                             id="paymentMethodsModalContent"
-                            className={`modal-content rounded-4 shadow px-4 py-4 ${
+                            className={`modal-content rounded-4 shadow pb-4 ${
                                 this.state.paymentPackagesModalActive
                                     ? "d-none"
                                     : "d-block"
                             }`}
                         >
                             <div
-                                className={
-                                    this.state.membr == "free"
-                                        ? "d-none"
-                                        : "panel panel-default"
-                                }
+                                className={`
+                                    ${
+                                        this.state.membr == "free"
+                                            ? "d-none"
+                                            : "panel panel-default"
+                                    }
+                                `}
                             >
-                                <div className="back-button-wrapper">
-                                    <button
-                                        type="button"
-                                        onClick={this.handleBackButton.bind(
-                                            this
-                                        )}
-                                        className="back-button"
-                                    >
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            strokeWidth={1.5}
-                                            stroke="currentColor"
-                                            className="w-6 h-6"
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
-                                            />
-                                        </svg>
-                                    </button>
+                                <div className="paymentmethod-heading px-4 pt-4 pb-3">
+                                    <h4>Payment Method</h4>
                                 </div>
-                                <div>
+                                <div className="px-4">
                                     <h2 className="title">
                                         Choose your Payment Method
                                     </h2>
                                 </div>
-                                <div className="panel-body">
+                                <div className="panel-body px-4">
                                     <div className="form-inline text-center">
                                         <div className="form-group col-lg-offset-0 text-left">
                                             <div
@@ -1189,7 +1170,16 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                                 </div>
                             </div>
                             <div>
-                                <div style={{ textAlign: "center" }}>
+                                <div className="group-btn type-pay_now px-4">
+                                    <button
+                                        type="button"
+                                        onClick={this.handleBackButton.bind(
+                                            this
+                                        )}
+                                        className="back-button"
+                                    >
+                                        Back
+                                    </button>
                                     <button
                                         type="submit"
                                         form={
