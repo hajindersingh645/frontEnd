@@ -617,7 +617,7 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                             <div
                                 className={`
                                     ${
-                                        this.state.membr == "free"
+                                        this.state.membr !== "free"
                                             ? "d-none"
                                             : "panel panel-default"
                                     }

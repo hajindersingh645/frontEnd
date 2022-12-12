@@ -251,38 +251,72 @@ define(["react", "app", "validation", "cmpld/modals/paymentGate"], function (
                 <div>
                     <div
                         className={`loading-screen welcome ${
-                            this.state.working ? "d-block" : "d-none"
+                            this.state.working ? "d-flex" : "d-none"
                         }`}
                     >
-                        <div className="inner">
-                            <div className="the-circle">
-                                <div className="_circle">
-                                    <div className="icon icon-mail">
-                                        <img
-                                            src="/images/private-email.png"
-                                            alt="Making Your Email Private Again"
-                                        />
+                        <div className="t-animation is-loading page-login">
+                            <div
+                                className="
+                                            loading-animation
+                                            type-progress
+                                            style-circle
+                                        "
+                            >
+                                <div className="progress-circle medium">
+                                    <div className="circle-bg">
+                                        <svg
+                                            role="progressbar"
+                                            width="91"
+                                            height="91"
+                                            viewBox="0 0 100 100"
+                                            aria-valuemin="0"
+                                            aria-valuemax="100"
+                                            aria-valuenow="50"
+                                        >
+                                            <circle
+                                                cx="50%"
+                                                cy="50%"
+                                                r="42"
+                                                shapeRendering="geometricPrecision"
+                                                fill="none"
+                                                stroke="#E1E4EC"
+                                                stroke-width="1"
+                                            ></circle>
+                                            <circle
+                                                id="the_circle_progress"
+                                                cx="50%"
+                                                cy="50%"
+                                                r="42"
+                                                shapeRendering="geometricPrecision"
+                                                fill="none"
+                                                stroke-width="1"
+                                                stroke-dasharray="0"
+                                                stroke-dashoffset="0"
+                                                stroke-linecap=""
+                                                stroke="#2277f6"
+                                                data-angel="50"
+                                            ></circle>
+                                        </svg>
                                     </div>
-                                    <div className="icon icon-happy">
-                                        <img
-                                            src="/images/happy-face.png"
-                                            alt="Making Your Email Private Again"
-                                        />
+                                    <div className="circle-content">
+                                        <div className="loading-spinner">
+                                            <div className="the-spinner">
+                                                <div className="_bar1"></div>
+                                                <div className="_bar2"></div>
+                                                <div className="_bar3"></div>
+                                                <div className="_bar4"></div>
+                                                <div className="_bar5"></div>
+                                                <div className="_bar6"></div>
+                                                <div className="_bar7"></div>
+                                                <div className="_bar8"></div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="_content">
-                                <h1>{`Welcome to Mailum`}</h1>
-                                <h5>{`We're pleased to have you here`}</h5>
-                            </div>
-                            <div className="_footer">
-                                <div className="progress_continue">
-                                    <div className="type-bar-striped type-bar-animated">
-                                        <span className="linear-progress _bar_1"></span>
-                                        <span className="linear-progress _bar_2"></span>
-                                    </div>
+                                <div className="progress-content">
+                                    <h4>Welcome back!</h4>
+                                    <p>Please wait a few second...</p>
                                 </div>
-                                <p>{`Please wait a few second...`}</p>
                             </div>
                         </div>
                     </div>

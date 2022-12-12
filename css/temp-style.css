@@ -11195,9 +11195,10 @@ textarea.form-control.with-icon {
     float: left;
     color: #fff;
     font-weight: 700;
-    font-size: 24px;
+    font-size: 36px;
 }
 .full-height-container .right-data p {
+    font-size: 18px;
     width: 100%;
     float: left;
     line-height: 30px;
@@ -12399,7 +12400,7 @@ footer .footer-bottom-row .copyright {
 }
 .message-image img {
     /* max-width: 544px; */
-    max-width: 153px;
+    max-width: 284px;
     margin: 0 auto;
     display: block;
     width: 100%;
@@ -16472,11 +16473,12 @@ textarea::-webkit-scrollbar {
     min-height: 100vh;
 }
 .right-side .mail-back {
-    width: 20px;
-    height: 20px;
-    float: left;
-    opacity: 0.4;
+    width: 25px;
+    /* height: 20px; */
+    /* float: left; */
+    opacity: 1;
     cursor: pointer;
+    margin-right: 10px;
 }
 .right-side .email-conetent-wrp {
     width: 100%;
@@ -16551,7 +16553,9 @@ textarea::-webkit-scrollbar {
     margin: 4px 0;
 }
 .right-side .email-conetent-wrp .email-content-top-right {
-    width: 100%;
+    width: auto;
+    display: flex;
+    align-items: center;
 }
 .right-side .email-conetent-wrp .email-content-top-right .button-group button {
     width: 24px;
@@ -18104,7 +18108,7 @@ textarea {
     background: url("../images/icon-arrow-right.svg") left top/24px no-repeat;
 }
 .right-side .mail-back {
-    background: url("../images/arrow-mail-back.svg") left top no-repeat;
+    /* background: url("../images/arrow-mail-back.svg") left top no-repeat; */
 }
 .right-side .email-content-top-left .sender-detail-dropdown .btn-secondary {
     color: #080d13;
@@ -19075,8 +19079,8 @@ header .menu-icon.on-left-side {
 }
 .popup .wrapper .inner {
     background-color: #fff;
-    border-radius: 9px;
-    width: 41%;
+    border-radius: 12px;
+    width: 505px;
     position: relative;
     display: flex;
     align-items: center;
@@ -19093,12 +19097,14 @@ header .menu-icon.on-left-side {
     margin-right: 24px;
 }
 .popup .wrapper .inner .content h2 {
-    margin: 0 0 13px 0;
-    font-weight: 600;
+    margin: 0 0 9px 0;
+    font-weight: 500;
+    font-size: 18px;
 }
 .popup .wrapper .inner .content h6 {
     color: rgb(153, 153, 153);
-    font-weight: 500;
+    font-weight: 400;
+    font-size: 15px;
 }
 .popup .wrapper .inner .circle-content {
     background-color: transparent;
@@ -20012,6 +20018,9 @@ header .menu-icon.on-left-side {
         width: 90%;
         left: 5%;
     }
+    .right-side .email-conetent-wrp .email-content-top-left {
+        max-width: 40%;
+    }
 }
 @media screen and (min-width: 992px) {
     header,
@@ -20204,6 +20213,8 @@ header .menu-icon.on-left-side {
 .loading-screen.welcome {
     background-color: #fff;
     z-index: 100;
+    justify-content: center;
+    align-items: center;
 }
 .loading-screen.welcome .the-circle {
     position: relative;
@@ -20403,7 +20414,7 @@ header .menu-icon.on-left-side {
 #paymentMethodsModalContent .title {
     margin-top: 33px;
     margin-bottom: 11px;
-    font-weight: 500;
+    font-weight: 600;
 }
 #paymentMethodsModalContent .panel-body .radio > label {
     cursor: pointer;
@@ -20492,11 +20503,12 @@ header .menu-icon.on-left-side {
     clear: both;
 }
 #paymentMethodsModalContent .paymentmethod-heading h4 {
-    font-size: 21px;
+    font-size: 18px;
     line-height: 1;
     margin: 0;
 }
 #paymentMethodsModalContent .group-btn {
+    margin-top: 32px;
     display: grid;
     grid-template-columns: 38% 60%;
     justify-content: space-between;

@@ -2018,7 +2018,9 @@ define(["react", "app"], function (React, app) {
                                             onClick={this.handleBackToEmailList.bind(
                                                 this
                                             )}
-                                        ></div>
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path d="M18 38 4 24l14-14 2.1 2.1L9.7 22.5H44v3H9.7l10.4 10.4Z"/></svg>
+                                        </div>
                                         <div className="right-menus">
                                             <div className="button-group">
                                                 <button

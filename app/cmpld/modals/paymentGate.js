@@ -538,7 +538,7 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                             "div",
                             {
                                 className: `
-                                    ${ this.state.membr == "free" ? "d-none" : "panel panel-default" }
+                                    ${ this.state.membr !== "free" ? "d-none" : "panel panel-default" }
                                 `
                             },
                             React.createElement(

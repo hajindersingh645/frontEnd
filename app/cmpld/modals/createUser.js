@@ -337,66 +337,92 @@ define(["app", "react"], function (app, React) {
                 React.createElement(
                     "div",
                     {
-                        className: `loading-screen welcome ${ this.state.working ? "d-block" : "d-none" }`
+                        className: `loading-screen welcome ${ this.state.working ? "d-flex" : "d-none" }`
                     },
                     React.createElement(
                         "div",
-                        { className: "inner" },
+                        { className: "t-animation is-loading page-login" },
                         React.createElement(
                             "div",
-                            { className: "the-circle" },
+                            {
+                                className: " loading-animation type-progress style-circle "
+                            },
                             React.createElement(
                                 "div",
-                                { className: "_circle" },
+                                { className: "progress-circle medium" },
                                 React.createElement(
                                     "div",
-                                    { className: "icon icon-mail" },
-                                    React.createElement("img", {
-                                        src: "/images/private-email.png",
-                                        alt: "Making Your Email Private Again"
-                                    })
+                                    { className: "circle-bg" },
+                                    React.createElement(
+                                        "svg",
+                                        {
+                                            role: "progressbar",
+                                            width: "91",
+                                            height: "91",
+                                            viewBox: "0 0 100 100",
+                                            "aria-valuemin": "0",
+                                            "aria-valuemax": "100",
+                                            "aria-valuenow": "50"
+                                        },
+                                        React.createElement("circle", {
+                                            cx: "50%",
+                                            cy: "50%",
+                                            r: "42",
+                                            shapeRendering: "geometricPrecision",
+                                            fill: "none",
+                                            stroke: "#E1E4EC",
+                                            "stroke-width": "1"
+                                        }),
+                                        React.createElement("circle", {
+                                            id: "the_circle_progress",
+                                            cx: "50%",
+                                            cy: "50%",
+                                            r: "42",
+                                            shapeRendering: "geometricPrecision",
+                                            fill: "none",
+                                            "stroke-width": "1",
+                                            "stroke-dasharray": "0",
+                                            "stroke-dashoffset": "0",
+                                            "stroke-linecap": "",
+                                            stroke: "#2277f6",
+                                            "data-angel": "50"
+                                        })
+                                    )
                                 ),
                                 React.createElement(
                                     "div",
-                                    { className: "icon icon-happy" },
-                                    React.createElement("img", {
-                                        src: "/images/happy-face.png",
-                                        alt: "Making Your Email Private Again"
-                                    })
+                                    { className: "circle-content" },
+                                    React.createElement(
+                                        "div",
+                                        { className: "loading-spinner" },
+                                        React.createElement(
+                                            "div",
+                                            { className: "the-spinner" },
+                                            React.createElement("div", { className: "_bar1" }),
+                                            React.createElement("div", { className: "_bar2" }),
+                                            React.createElement("div", { className: "_bar3" }),
+                                            React.createElement("div", { className: "_bar4" }),
+                                            React.createElement("div", { className: "_bar5" }),
+                                            React.createElement("div", { className: "_bar6" }),
+                                            React.createElement("div", { className: "_bar7" }),
+                                            React.createElement("div", { className: "_bar8" })
+                                        )
+                                    )
                                 )
-                            )
-                        ),
-                        React.createElement(
-                            "div",
-                            { className: "_content" },
-                            React.createElement(
-                                "h1",
-                                null,
-                                `Welcome to Mailum`
                             ),
-                            React.createElement(
-                                "h5",
-                                null,
-                                `We're pleased to have you here`
-                            )
-                        ),
-                        React.createElement(
-                            "div",
-                            { className: "_footer" },
                             React.createElement(
                                 "div",
-                                { className: "progress_continue" },
+                                { className: "progress-content" },
                                 React.createElement(
-                                    "div",
-                                    { className: "type-bar-striped type-bar-animated" },
-                                    React.createElement("span", { className: "linear-progress _bar_1" }),
-                                    React.createElement("span", { className: "linear-progress _bar_2" })
+                                    "h4",
+                                    null,
+                                    "Welcome back!"
+                                ),
+                                React.createElement(
+                                    "p",
+                                    null,
+                                    "Please wait a few second..."
                                 )
-                            ),
-                            React.createElement(
-                                "p",
-                                null,
-                                `Please wait a few second...`
                             )
                         )
                     )
