@@ -104,8 +104,22 @@ No logs, no ads, offshore servers location. We accept BitCoin, Monero and more!"
         <meta name="theme-color" content="#2277F7" />
         <link href="/css/style_frontend.css" rel="stylesheet" />
         <style>
+            .features-setion {
+                font-family: "Plus Jakarta Sans", sans-serif;
+            }
             #banner .banner-btn {
                 display: flex;
+            }
+            #banner .banner-btn a.btn-white {
+                border: 2px solid rgba(255, 255, 255, 0.2);
+            }
+            .features-setion .features-top-left .h2,
+            .features-setion .features-top-left h2 {
+                font-size: 48px;
+                line-height: 62px;
+            }
+            .tooltip-inner {
+                border-radius: 12px;
             }
             @media screen and (max-width: 991px) {
                 header {
@@ -166,6 +180,17 @@ No logs, no ads, offshore servers location. We accept BitCoin, Monero and more!"
                                     >
                                 </li>
                                 <li class="nav-item">
+                                    <a class="nav-link" href="#">GitHub</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a
+                                        class="nav-link"
+                                        href="https://blog.cyberfear.com/"
+                                        target="_blank"
+                                        >Blog</a
+                                    >
+                                </li>
+                                <li class="nav-item">
                                     <a
                                         class="nav-link"
                                         href="/contact-us.html#contact"
@@ -176,12 +201,18 @@ No logs, no ads, offshore servers location. We accept BitCoin, Monero and more!"
                             <ul class="navbar-nav ms-auto header-cta-btn">
                                 <li class="nav-item">
                                     <a href="/mailbox.html#login" class="btn-1"
-                                        >Sign In</a
+                                        ><span class="hover"></span
+                                        ><span class="children"
+                                            >Sign In</span
+                                        ></a
                                     >
                                 </li>
                                 <li class="nav-item">
                                     <a href="/mailbox.html#signup" class="btn-2"
-                                        >Sign Up</a
+                                        ><span class="hover"></span
+                                        ><span class="children"
+                                            >Sign Up</span
+                                        ></a
                                     >
                                 </li>
                             </ul>
