@@ -16500,6 +16500,8 @@ textarea::-webkit-scrollbar {
     opacity: 1;
     cursor: pointer;
     margin-right: 10px;
+    position: relative;
+    z-index: 100;
 }
 .right-side .email-conetent-wrp {
     width: 100%;
