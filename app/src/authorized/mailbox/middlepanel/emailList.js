@@ -585,6 +585,12 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                             app.user.get("folders")[this.props.folderId][
                                 "name"
                             ];
+                        // If Draft folder items are clicked, close compose email is active have it close anyway
+                        if (this.props.folderId === `ebf12ef47c`) {
+                            app.user.set({ isComposingEmail: false });
+                            app.user.set({ isDraftOpened: false });
+                            Backbone.history.loadUrl(Backbone.history.fragment);
+                        }
 
                         app.mixins.canNavigate(function (decision) {
                             $("#wrapper").addClass("email-read-active");
@@ -1344,39 +1350,14 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                         <div className="loading-animation type-progress style-circle">
                                             <div className="progress-circle medium">
                                                 <div className="circle-bg">
-                                                    <svg
-                                                        role="progressbar"
-                                                        width="91"
-                                                        height="91"
-                                                        viewBox="0 0 100 100"
-                                                        aria-valuemin="0"
-                                                        aria-valuemax="100"
-                                                        aria-valuenow="50"
-                                                    >
-                                                        <circle
-                                                            cx="50%"
-                                                            cy="50%"
-                                                            r="42"
-                                                            shapeRendering="geometricPrecision"
-                                                            fill="none"
-                                                            stroke="#E1E4EC"
-                                                            strokeWidth="1"
-                                                        ></circle>
-                                                        <circle
-                                                            id="the_circle_progress"
-                                                            cx="50%"
-                                                            cy="50%"
-                                                            r="42"
-                                                            shapeRendering="geometricPrecision"
-                                                            fill="none"
-                                                            strokeWidth="1"
-                                                            strokeDasharray="0"
-                                                            strokeDashoffset="0"
-                                                            strokeLinecap=""
-                                                            stroke="#2277f6"
-                                                            dataAngel="50"
-                                                        ></circle>
-                                                    </svg>
+                                                    <img
+                                                        src="/images/loading-circle.svg"
+                                                        alt="loading-circle"
+                                                        style={{
+                                                            width: "91px",
+                                                            height: "91px",
+                                                        }}
+                                                    />
                                                 </div>
                                                 <div className="circle-content">
                                                     <div className="loading-spinner">

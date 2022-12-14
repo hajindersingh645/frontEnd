@@ -171,6 +171,10 @@
                     <div class="vertical-center-container">
                         <div class="left-data" id="contactForm">
                             <h1>Contact us</h1>
+                            <p class="desc">
+                                Please provide the email address so we can
+                                contact you
+                            </p>
                             <div class="form-section">
                                 <form
                                     class="registration-form smart-form"
@@ -181,7 +185,7 @@
                                 >
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <div class="form-group">
+                                            <div class="form-group with-icon">
                                                 <input
                                                     class="d-none"
                                                     type="name"
@@ -193,24 +197,57 @@
                                                     type="email"
                                                     name="email"
                                                     class="form-control"
-                                                    placeholder="Please provide email address we can use to contact you"
+                                                    placeholder="Enter your email address"
                                                 />
+                                                <span class="icon">
+                                                    <svg
+                                                        width="24"
+                                                        height="24"
+                                                        viewBox="0 0 24 24"
+                                                        fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                    >
+                                                        <path
+                                                            d="M17 20.5H7C4 20.5 2 19 2 15.5V8.5C2 5 4 3.5 7 3.5H17C20 3.5 22 5 22 8.5V15.5C22 19 20 20.5 17 20.5Z"
+                                                            stroke="#292D32"
+                                                            stroke-width="1.5"
+                                                            stroke-miterlimit="10"
+                                                            stroke-linecap="round"
+                                                            stroke-linejoin="round"
+                                                        />
+                                                        <path
+                                                            d="M17 9L13.87 11.5C12.84 12.32 11.15 12.32 10.12 11.5L7 9"
+                                                            stroke="#292D32"
+                                                            stroke-width="1.5"
+                                                            stroke-miterlimit="10"
+                                                            stroke-linecap="round"
+                                                            stroke-linejoin="round"
+                                                        />
+                                                    </svg>
+                                                </span>
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
-                                            <div class="form-group">
+                                            <div class="form-group with-icon">
                                                 <textarea
                                                     class="form-control"
-                                                    rows="5"
+                                                    rows="8"
                                                     name="comment"
-                                                    placeholder="Please explain problem (1000 max)"
+                                                    placeholder="Let's talk..."
                                                 ></textarea>
+                                                <span class="icon characters">
+                                                    <span id="character_count">
+                                                        800
+                                                    </span>
+                                                    Character left
+                                                </span>
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <button
                                                 class="btn-blue fixed-width"
                                                 type="submit"
+                                                disabled="disabled"
                                             >
                                                 Send Message
                                             </button>
@@ -241,8 +278,8 @@
                             <img src="/images/phone.png" alt="" />
                         </div>
                         <div class="right-text">
-                            Gooz bejo? okay let's go<br />
-                            customer ahmagh
+                            If you need any help, we're here to <br />
+                            make an amazing experience for you.
                         </div>
                     </div>
                 </div>

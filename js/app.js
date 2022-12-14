@@ -177,6 +177,47 @@ var App = (function () {
         }
     };
 
+    const enableContactButton = function () {
+        try {
+            const formEmail = $('#report-form input[type="email"]');
+            const formMessage = $("#report-form textarea");
+            $('#report-form input[type="email"]').on("keyup", function () {
+                if (
+                    $(this).val().toString() !== "" &&
+                    formMessage.val().toString() !== ""
+                ) {
+                    $('#report-form button[type="submit"]').removeAttr(
+                        "disabled"
+                    );
+                } else {
+                    $('#report-form button[type="submit"]').attr(
+                        "disabled",
+                        "disabled"
+                    );
+                }
+            });
+            $("#report-form textarea").on("keyup", function () {
+                const characterCount = $(this).val().length;
+                $("#character_count").text(parseInt(800 - characterCount));
+                if (
+                    $(this).val().toString() !== "" &&
+                    formEmail.val().toString() !== ""
+                ) {
+                    $('#report-form button[type="submit"]').removeAttr(
+                        "disabled"
+                    );
+                } else {
+                    $('#report-form button[type="submit"]').attr(
+                        "disabled",
+                        "disabled"
+                    );
+                }
+            });
+        } catch (e) {
+            console.log(`well`);
+        }
+    };
+
     return {
         init: function () {
             loadSlider();
@@ -185,6 +226,7 @@ var App = (function () {
             mailToggleMobile();
             copyEmail();
             refresh();
+            enableContactButton();
         },
     };
 })();

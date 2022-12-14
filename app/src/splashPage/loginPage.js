@@ -264,39 +264,14 @@ define(["react", "app", "validation", "cmpld/modals/paymentGate"], function (
                             >
                                 <div className="progress-circle medium">
                                     <div className="circle-bg">
-                                        <svg
-                                            role="progressbar"
-                                            width="91"
-                                            height="91"
-                                            viewBox="0 0 100 100"
-                                            aria-valuemin="0"
-                                            aria-valuemax="100"
-                                            aria-valuenow="50"
-                                        >
-                                            <circle
-                                                cx="50%"
-                                                cy="50%"
-                                                r="42"
-                                                shapeRendering="geometricPrecision"
-                                                fill="none"
-                                                stroke="#E1E4EC"
-                                                stroke-width="1"
-                                            ></circle>
-                                            <circle
-                                                id="the_circle_progress"
-                                                cx="50%"
-                                                cy="50%"
-                                                r="42"
-                                                shapeRendering="geometricPrecision"
-                                                fill="none"
-                                                stroke-width="1"
-                                                stroke-dasharray="0"
-                                                stroke-dashoffset="0"
-                                                stroke-linecap=""
-                                                stroke="#2277f6"
-                                                data-angel="50"
-                                            ></circle>
-                                        </svg>
+                                        <img
+                                            src="/images/loading-circle.svg"
+                                            alt="loading-circle"
+                                            style={{
+                                                width: "91px",
+                                                height: "91px",
+                                            }}
+                                        />
                                     </div>
                                     <div className="circle-content">
                                         <div className="loading-spinner">

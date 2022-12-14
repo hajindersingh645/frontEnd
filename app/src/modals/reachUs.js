@@ -28,6 +28,9 @@ define(["react"], function (React) {
             return (
                 <div>
                     <h1>Contact us</h1>
+                    <p>
+                        Please provide the email address so we can contact you
+                    </p>
                     <div className="form-section">
                         <form
                             className="registration-form smart-form"
@@ -50,7 +53,7 @@ define(["react"], function (React) {
                                             type="email"
                                             name="email"
                                             className="form-control"
-                                            placeholder="Please provide email address we can use to contact you"
+                                            placeholder="Enter your email address"
                                         />
                                     </div>
                                 </div>
@@ -60,8 +63,14 @@ define(["react"], function (React) {
                                             className="form-control"
                                             rows="5"
                                             name="comment"
-                                            placeholder="Please explain problem (1000 max)"
+                                            placeholder="Let's talk..."
                                         ></textarea>
+                                        <span className="">
+                                            <span id="character_count">
+                                                800
+                                            </span>{" "}
+                                            Character left
+                                        </span>
                                     </div>
                                 </div>
                                 <div className="col-sm-12">

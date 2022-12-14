@@ -1648,39 +1648,11 @@ define(["react", "app"], function (React, app) {
                                         <div className="loading-animation type-progress style-circle">
                                             <div className="progress-circle medium">
                                                 <div className="circle-bg">
-                                                    <svg
-                                                        role="progressbar"
-                                                        width="91"
-                                                        height="91"
-                                                        viewBox="0 0 100 100"
-                                                        aria-valuemin="0"
-                                                        aria-valuemax="100"
-                                                        aria-valuenow="50"
-                                                    >
-                                                        <circle
-                                                            cx="50%"
-                                                            cy="50%"
-                                                            r="42"
-                                                            shapeRendering="geometricPrecision"
-                                                            fill="none"
-                                                            stroke="#E1E4EC"
-                                                            strokeWidth="1"
-                                                        ></circle>
-                                                        <circle
-                                                            id="the_circle_progress"
-                                                            cx="50%"
-                                                            cy="50%"
-                                                            r="42"
-                                                            shapeRendering="geometricPrecision"
-                                                            fill="none"
-                                                            strokeWidth="1"
-                                                            strokeDasharray="0"
-                                                            strokeDashoffset="0"
-                                                            strokeLinecap=""
-                                                            stroke="#2277f6"
-                                                            dataAngel="50"
-                                                        ></circle>
-                                                    </svg>
+                                                    <img
+                                                        src="/images/loading-circle.svg"
+                                                        alt="loading-circle"
+                                                        style={{width:"91px", height: "91px"}}
+                                                    />
                                                 </div>
                                                 <div className="circle-content">
                                                     <div className="loading-spinner">
@@ -2019,7 +1991,12 @@ define(["react", "app"], function (React, app) {
                                                 this
                                             )}
                                         >
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path d="M18 38 4 24l14-14 2.1 2.1L9.7 22.5H44v3H9.7l10.4 10.4Z"/></svg>
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 48 48"
+                                            >
+                                                <path d="M18 38 4 24l14-14 2.1 2.1L9.7 22.5H44v3H9.7l10.4 10.4Z" />
+                                            </svg>
                                         </div>
                                         <div className="right-menus">
                                             <div className="button-group">

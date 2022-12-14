@@ -34,6 +34,11 @@ define(["react"], function (React) {
                     "Contact us"
                 ),
                 React.createElement(
+                    "p",
+                    null,
+                    "Please provide the email address so we can contact you"
+                ),
+                React.createElement(
                     "div",
                     { className: "form-section" },
                     React.createElement(
@@ -65,7 +70,7 @@ define(["react"], function (React) {
                                         type: "email",
                                         name: "email",
                                         className: "form-control",
-                                        placeholder: "Please provide email address we can use to contact you"
+                                        placeholder: "Enter your email address"
                                     })
                                 )
                             ),
@@ -79,8 +84,19 @@ define(["react"], function (React) {
                                         className: "form-control",
                                         rows: "5",
                                         name: "comment",
-                                        placeholder: "Please explain problem (1000 max)"
-                                    })
+                                        placeholder: "Let's talk..."
+                                    }),
+                                    React.createElement(
+                                        "span",
+                                        { className: "" },
+                                        React.createElement(
+                                            "span",
+                                            { id: "character_count" },
+                                            "800"
+                                        ),
+                                        " ",
+                                        "Character left"
+                                    )
                                 )
                             ),
                             React.createElement(
