@@ -20,6 +20,8 @@ var App = (function () {
             });
         }
 
+        /*
+        Disabling as per request - 4_5823287414931592245
         owl.on("mousewheel", ".owl-stage", function (e) {
             if (e.deltaY > 0) {
                 owl.trigger("next.owl");
@@ -28,6 +30,7 @@ var App = (function () {
             }
             e.preventDefault();
         });
+        */
 
         $(".next-btn").click(function () {
             owl.trigger("next.owl.carousel");
