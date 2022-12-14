@@ -12424,7 +12424,7 @@ footer .footer-bottom-row .copyright {
     margin: 0 auto;
     display: block;
     width: 100%;
-    box-shadow: 0px 128px 110px 0px rgb(0 0 0 / 12%);
+    /* box-shadow: 0px 128px 110px 0px rgb(0 0 0 / 12%); */
 }
 .login-bottom {
     width: 100%;
@@ -18097,7 +18097,7 @@ textarea {
 }
 .middle-section .inbox-list ul li,
 .middle-section .middle-top .info-row {
-    border-bottom: 1px solid #fff;
+    border-bottom: 1px solid #eef2f9;
 }
 .middle-section .inbox-list table tr:hover .inbox-list-top,
 .middle-section .inbox-list ul li .inbox-list-top,
@@ -18865,7 +18865,7 @@ header .menu-icon.on-left-side {
 }
 .middle-section .inbox-list table td {
     padding: 0;
-    border-bottom: 1px solid #fff;
+    border-bottom: 1px solid #eef2f9;
 }
 .middle-section .inbox-list table td > .email {
     width: 100%;
@@ -18938,17 +18938,17 @@ header .menu-icon.on-left-side {
 #emailListTable tr.selected {
     background: #fff;
     box-shadow: -24px 40px 96px rgb(34 91 175 / 10%);
-    border-radius: 16px;
+    border-radius: 0px;
     position: relative;
 }
 #emailListTable tr.selected::after {
     width: 4px;
-    height: 70px;
+    height: 100%;
     position: absolute;
     left: 0;
-    top: 50%;
-    margin: -35px 0 0;
-    border-radius: 0 5px 5px 0;
+    top: 0;
+    margin: 0;
+    border-radius: 0;
     content: "";
     background: #2277f6;
 }
