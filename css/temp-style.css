@@ -11348,8 +11348,8 @@ textarea.form-control.with-icon {
         transform: translateY(-50%);
     }
     .full-height-container {
-        height: calc(100vh - 112px);
-        margin: 112px 0 0 0;
+        height: calc(100vh - 92px);
+        margin: 92px 0 0 0;
     }
     .full-height-container .left-side {
         position: absolute;
@@ -11636,12 +11636,13 @@ header.home .navbar-toggler .icon-bar {
     background-color: #fff;
 }
 @media screen and (min-width: 992px) {
-    header.header-frontend {
-        padding: 30px 0 30px 0;
-    }
+    header.header-frontend,
     header.scroll-header {
-        padding: 10px 0 14px 0;
+        padding: 20px 0 20px 0;
     }
+    /* header.scroll-header {
+        padding: 10px 0 14px 0;
+    } */
     header .container {
         padding: 0 15px;
     }
