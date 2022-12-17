@@ -127,12 +127,24 @@ No logs, no ads, offshore servers location. We accept BitCoin, Monero and more!"
             .tooltip-inner {
                 border-radius: 12px;
             }
+            #banner .banner-image.mobile {
+                display: none;
+            }
             @media screen and (max-width: 991px) {
+                #banner .banner-image.desk {
+                    display: none;
+                }
+                #banner .banner-image.mobile {
+                    display: block;
+                }
+                #banner .banner-content {
+                    margin-bottom: 65px;
+                }
                 header {
                     padding: 0px !important;
                 }
                 header .bg-light {
-                    background-color: #00112c !important;
+                    background-color: #3083ff !important; /* 00112c */
                     padding: 17px 0px;
                 }
                 header .navbar-toggler {
@@ -144,6 +156,13 @@ No logs, no ads, offshore servers location. We accept BitCoin, Monero and more!"
                 #banner .banner-btn {
                     justify-items: center;
                     justify-content: center;
+                }
+                .scrollable-section {
+                    padding: 60px 0 0 0;
+                }
+                .features-setion .features-content {
+                    --bs-gutter-x: 1.5rem;
+                    padding-bottom: calc(var(--bs-gutter-x) * 0.5);
                 }
             }
             @media screen and (min-width: 1900px) {
@@ -236,7 +255,7 @@ No logs, no ads, offshore servers location. We accept BitCoin, Monero and more!"
 
             <!--- Banner -->
             <section id="banner">
-                <div class="banner-image">
+                <div class="banner-image desk">
                     <img src="/images/banner-image.svg" alt="" />
                 </div>
                 <div class="banner-content">
@@ -265,6 +284,9 @@ No logs, no ads, offshore servers location. We accept BitCoin, Monero and more!"
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="banner-image mobile">
+                    <img src="/images/banner-image.svg" alt="" />
                 </div>
             </section>
             <!--- /Banner -->

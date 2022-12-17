@@ -18878,7 +18878,7 @@ header .menu-icon.on-left-side {
     float: none;
 }
 .middle-section .inbox-list table .inbox-list-top {
-    width: 100%;
+    width: 80%;
     float: none;
     font-size: 12px;
     display: inline-block;
@@ -20067,9 +20067,9 @@ header .menu-icon.on-left-side {
     .middle-section .inbox-list table .date-time {
         right: 33px;
     }
-    .middle-section .inbox-list table td > .email {
+    /* .middle-section .inbox-list table td > .email {
         padding: 20px 80px 20px 60px;
-    }
+    } */
     .middle-section .inbox-list table .select-checkbox {
         left: 24px;
     }
