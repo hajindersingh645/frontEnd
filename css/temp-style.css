@@ -16088,7 +16088,7 @@ textarea::-webkit-scrollbar {
 }
 @media screen and (min-width: 1366px) {
     header {
-        width: calc(100% - 732px);
+        width: calc(100% - 832px);
         border-left: none;
     }
     header .logo-2 {
@@ -16468,7 +16468,7 @@ textarea::-webkit-scrollbar {
         height: 100%;
         position: fixed;
         padding: 0;
-        width: 441px;
+        width: 541px;
         left: 291px;
     }
     .middle-section .middle-content {
@@ -16693,7 +16693,7 @@ textarea::-webkit-scrollbar {
 }
 @media screen and (min-width: 1366px) {
     .right-side {
-        width: calc(100% - 732px);
+        width: calc(100% - 832px);
         display: inherit;
         position: relative;
         padding: 10px 0 0;
