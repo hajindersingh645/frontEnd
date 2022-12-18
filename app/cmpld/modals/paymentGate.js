@@ -261,6 +261,9 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                     }
                     break;
                 case "freemium":
+                    this.state.setState({
+                        membr: "free"
+                    });
                     $.ajax({
                         method: "POST",
                         url: app.defaults.get("apidomain") + "/activateFreemiumV2",
@@ -1100,34 +1103,81 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                             React.createElement(
                                 "div",
                                 {
-                                    className: `back-button ${ this.state.membr === "free" ? "d-block" : "d-none" }`
+                                    className: `loading-screen welcome ${ this.state.membr != "free" ? "d-none" : "d-flex" }`
                                 },
                                 React.createElement(
                                     "div",
-                                    { className: "loading-spinner" },
+                                    { className: "t-animation is-loading page-login" },
                                     React.createElement(
                                         "div",
-                                        { className: "the-spinner" },
-                                        React.createElement("div", { className: "_bar1" }),
-                                        React.createElement("div", { className: "_bar2" }),
-                                        React.createElement("div", { className: "_bar3" }),
-                                        React.createElement("div", { className: "_bar4" }),
-                                        React.createElement("div", { className: "_bar5" }),
-                                        React.createElement("div", { className: "_bar6" }),
-                                        React.createElement("div", { className: "_bar7" }),
-                                        React.createElement("div", { className: "_bar8" })
+                                        {
+                                            className: " loading-animation type-progress style-circle "
+                                        },
+                                        React.createElement(
+                                            "div",
+                                            { className: "progress-circle medium" },
+                                            React.createElement(
+                                                "div",
+                                                { className: "circle-bg" },
+                                                React.createElement("img", {
+                                                    src: "/images/loading-circle.svg",
+                                                    alt: "loading-circle",
+                                                    style: {
+                                                        width: "91px",
+                                                        height: "91px"
+                                                    }
+                                                })
+                                            ),
+                                            React.createElement(
+                                                "div",
+                                                { className: "circle-content" },
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "loading-spinner" },
+                                                    React.createElement(
+                                                        "div",
+                                                        { className: "the-spinner" },
+                                                        React.createElement("div", { className: "_bar1" }),
+                                                        React.createElement("div", { className: "_bar2" }),
+                                                        React.createElement("div", { className: "_bar3" }),
+                                                        React.createElement("div", { className: "_bar4" }),
+                                                        React.createElement("div", { className: "_bar5" }),
+                                                        React.createElement("div", { className: "_bar6" }),
+                                                        React.createElement("div", { className: "_bar7" }),
+                                                        React.createElement("div", { className: "_bar8" })
+                                                    )
+                                                )
+                                            )
+                                        ),
+                                        React.createElement(
+                                            "div",
+                                            { className: "progress-content" },
+                                            React.createElement(
+                                                "h4",
+                                                null,
+                                                "Welcome drum!"
+                                            ),
+                                            React.createElement(
+                                                "p",
+                                                null,
+                                                "Please wait a few second..."
+                                            )
+                                        )
                                     )
                                 )
                             ),
+                            this.state.membr,
                             React.createElement(
                                 "div",
-                                { className: "group-btn type-pay_now px-4" },
+                                {
+                                    className: `group-btn type-pay_now px-4 ${ this.state.membr != "free" ? "" : "d-none" }`
+                                },
                                 React.createElement(
                                     "button",
                                     {
                                         type: "button",
                                         onClick: this.handleBackButton.bind(this),
-                                        className: `back-button ${ this.state.membr !== "free" ? "" : "d-none" }`
+                                        className: `back-button`
                                     },
                                     "Back"
                                 ),

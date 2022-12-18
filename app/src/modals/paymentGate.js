@@ -297,6 +297,9 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                     }
                     break;
                 case "freemium":
+                    this.state.setState({
+                        membr: "free",
+                    });
                     $.ajax({
                         method: "POST",
                         url:
@@ -1171,36 +1174,69 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                             </div>
                             <div>
                                 <div
-                                    className={`back-button ${
-                                        this.state.membr === "free"
-                                            ? "d-block"
-                                            : "d-none"
+                                    className={`loading-screen welcome ${
+                                        this.state.membr != "free"
+                                            ? "d-none"
+                                            : "d-flex"
                                     }`}
                                 >
-                                    <div className="loading-spinner">
-                                        <div className="the-spinner">
-                                            <div className="_bar1"></div>
-                                            <div className="_bar2"></div>
-                                            <div className="_bar3"></div>
-                                            <div className="_bar4"></div>
-                                            <div className="_bar5"></div>
-                                            <div className="_bar6"></div>
-                                            <div className="_bar7"></div>
-                                            <div className="_bar8"></div>
+                                    <div className="t-animation is-loading page-login">
+                                        <div
+                                            className="
+                                            loading-animation
+                                            type-progress
+                                            style-circle
+                                        "
+                                        >
+                                            <div className="progress-circle medium">
+                                                <div className="circle-bg">
+                                                    <img
+                                                        src="/images/loading-circle.svg"
+                                                        alt="loading-circle"
+                                                        style={{
+                                                            width: "91px",
+                                                            height: "91px",
+                                                        }}
+                                                    />
+                                                </div>
+                                                <div className="circle-content">
+                                                    <div className="loading-spinner">
+                                                        <div className="the-spinner">
+                                                            <div className="_bar1"></div>
+                                                            <div className="_bar2"></div>
+                                                            <div className="_bar3"></div>
+                                                            <div className="_bar4"></div>
+                                                            <div className="_bar5"></div>
+                                                            <div className="_bar6"></div>
+                                                            <div className="_bar7"></div>
+                                                            <div className="_bar8"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="progress-content">
+                                                <h4>Welcome drum!</h4>
+                                                <p>
+                                                    Please wait a few second...
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="group-btn type-pay_now px-4">
+                                {this.state.membr}
+                                <div
+                                    className={`group-btn type-pay_now px-4 ${
+                                        this.state.membr != "free"
+                                            ? ""
+                                            : "d-none"
+                                    }`}
+                                >
                                     <button
                                         type="button"
                                         onClick={this.handleBackButton.bind(
                                             this
                                         )}
-                                        className={`back-button ${
-                                            this.state.membr !== "free"
-                                                ? ""
-                                                : "d-none"
-                                        }`}
+                                        className={`back-button`}
                                     >
                                         Back
                                     </button>

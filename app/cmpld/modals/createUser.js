@@ -353,41 +353,14 @@ define(["app", "react"], function (app, React) {
                                 React.createElement(
                                     "div",
                                     { className: "circle-bg" },
-                                    React.createElement(
-                                        "svg",
-                                        {
-                                            role: "progressbar",
-                                            width: "91",
-                                            height: "91",
-                                            viewBox: "0 0 100 100",
-                                            "aria-valuemin": "0",
-                                            "aria-valuemax": "100",
-                                            "aria-valuenow": "50"
-                                        },
-                                        React.createElement("circle", {
-                                            cx: "50%",
-                                            cy: "50%",
-                                            r: "42",
-                                            shapeRendering: "geometricPrecision",
-                                            fill: "none",
-                                            stroke: "#E1E4EC",
-                                            "stroke-width": "1"
-                                        }),
-                                        React.createElement("circle", {
-                                            id: "the_circle_progress",
-                                            cx: "50%",
-                                            cy: "50%",
-                                            r: "42",
-                                            shapeRendering: "geometricPrecision",
-                                            fill: "none",
-                                            "stroke-width": "1",
-                                            "stroke-dasharray": "0",
-                                            "stroke-dashoffset": "0",
-                                            "stroke-linecap": "",
-                                            stroke: "#2277f6",
-                                            "data-angel": "50"
-                                        })
-                                    )
+                                    React.createElement("img", {
+                                        src: "/images/loading-circle.svg",
+                                        alt: "loading-circle",
+                                        style: {
+                                            width: "91px",
+                                            height: "91px"
+                                        }
+                                    })
                                 ),
                                 React.createElement(
                                     "div",
