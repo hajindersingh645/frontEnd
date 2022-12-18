@@ -1170,13 +1170,37 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                                 </div>
                             </div>
                             <div>
+                                <div
+                                    className={`back-button ${
+                                        this.state.membr === "free"
+                                            ? "d-block"
+                                            : "d-none"
+                                    }`}
+                                >
+                                    <div className="loading-spinner">
+                                        <div className="the-spinner">
+                                            <div className="_bar1"></div>
+                                            <div className="_bar2"></div>
+                                            <div className="_bar3"></div>
+                                            <div className="_bar4"></div>
+                                            <div className="_bar5"></div>
+                                            <div className="_bar6"></div>
+                                            <div className="_bar7"></div>
+                                            <div className="_bar8"></div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div className="group-btn type-pay_now px-4">
                                     <button
                                         type="button"
                                         onClick={this.handleBackButton.bind(
                                             this
                                         )}
-                                        className="back-button"
+                                        className={`back-button ${
+                                            this.state.membr !== "free"
+                                                ? ""
+                                                : "d-none"
+                                        }`}
                                     >
                                         Back
                                     </button>

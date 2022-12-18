@@ -13,7 +13,7 @@ var App = (function () {
                 slideSpeed: 5000,
                 paginationSpeed: 600,
                 autoplay: true,
-                dots: false,
+                dots: true,
                 margin: 20,
                 items: 1,
                 loop: true,

@@ -130,6 +130,23 @@ No logs, no ads, offshore servers location. We accept BitCoin, Monero and more!"
             #banner .banner-image.mobile {
                 display: none;
             }
+            .mouse-scrolling .owl-dots .owl-dot {
+                appearance: none;
+                -webkit-appearance: none;
+                border: none;
+                background: transparent;
+                margin: 0;
+                padding: 0;
+            }
+            .mouse-scrolling .owl-dots .owl-dot span {
+                width: 6px;
+                height: 6px;
+                border: none;
+                background-color: rgba(255, 255, 255, 0.3);
+            }
+            .mouse-scrolling .owl-dots .owl-dot.active span {
+                background-color: #ffffff;
+            }
             @media screen and (max-width: 991px) {
                 #banner .banner-image.desk {
                     display: none;
@@ -169,6 +186,22 @@ No logs, no ads, offshore servers location. We accept BitCoin, Monero and more!"
             @media screen and (min-width: 1900px) {
                 #banner .banner-image {
                     right: -45px;
+                }
+            }
+            @media screen and (max-width: 640px) {
+                .scrollable-section .scrollable-box-image img {
+                    margin-left: auto;
+                    margin-right: auto;
+                    max-width: 262px;
+                }
+                .scrollable-section {
+                    padding-top: calc(45% + 60px);
+                }
+                .scrollable-section .owl-carousel .owl-stage-outer {
+                    overflow: visible;
+                }
+                .scrollable-section .scrollable-box-image {
+                    margin-top: -45%;
                 }
             }
         </style>

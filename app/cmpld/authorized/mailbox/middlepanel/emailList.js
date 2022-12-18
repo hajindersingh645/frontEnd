@@ -416,56 +416,63 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                     break;
 
                 case "readEmail":
-                    if ($(event.target).prop("tagName").toUpperCase() !== "INPUT" && $(event.target).prop("tagName").toUpperCase() !== "SPAN") {
-                        var thisComp = this;
-
-                        var folder = app.user.get("folders")[this.props.folderId]["name"];
-                        // If Draft folder items are clicked, close compose email is active have it close anyway
-                        if (this.props.folderId === `ebf12ef47c`) {
-                            app.user.set({ isComposingEmail: false });
-                            app.user.set({ isDraftOpened: false });
-                            Backbone.history.loadUrl(Backbone.history.fragment);
-                        }
-
-                        app.mixins.canNavigate(function (decision) {
-                            $("#wrapper").addClass("email-read-active");
-                            if (decision) {
-                                var id = $(event.target).parents("tr").attr("id");
-                                if ($(event.target).prop("tagName") !== "INPUT" || $(event.target).prop("tagName") !== "SPAN") {
-                                    app.globalF.resetCurrentMessage();
-                                    app.globalF.resetDraftMessage();
-
-                                    Backbone.history.navigate("/mail/" + app.transform.from64str(folder), {
-                                        trigger: true
-                                    });
-                                    if (id != undefined && ($(event.target).attr("type") !== "checkbox" || $(event.target).prop("tagName") !== "LABEL" || $(event.target).prop("tagName") !== "SPAN") || $(event.target).prop("tagName") !== "INPUT") {
-                                        var table = $("#emailListTable").DataTable();
-                                        table.$("tr.selected").removeClass("selected");
-
-                                        $(event.target).parents("tr").toggleClass("selected");
-
-                                        $("#appRightSide").css("display", "block");
-
-                                        thisComp.setState({
-                                            messsageId: id
-                                        });
-
-                                        app.globalF.renderEmail(id);
-
-                                        app.mixins.hidePopHover();
-                                    }
-                                }
-                            } else {}
-                        });
+                    if ($(event.target).prop("class").toString() === "dataTables_empty") {
+                        app.user.set({ isComposingEmail: false });
+                        app.user.set({ isDraftOpened: false });
+                        app.user.set({ isDecryptingEmail: false });
+                        Backbone.history.loadUrl(Backbone.history.fragment);
                     } else {
-                        $("#wrapper").removeClass("email-read-active");
-                        var thisComp = this;
-                        var table = $("#emailListTable").DataTable();
-                        $(event.target).parents("tr").toggleClass("selected");
-                        $("#appRightSide").css("display", "none");
-                        thisComp.setState({
-                            messsageId: ""
-                        });
+                        if ($(event.target).prop("tagName").toUpperCase() !== "INPUT" && $(event.target).prop("tagName").toUpperCase() !== "SPAN") {
+                            var thisComp = this;
+
+                            var folder = app.user.get("folders")[this.props.folderId]["name"];
+                            // If Draft folder items are clicked, close compose email is active have it close anyway
+                            if (this.props.folderId === `ebf12ef47c`) {
+                                app.user.set({ isComposingEmail: false });
+                                app.user.set({ isDraftOpened: false });
+                                Backbone.history.loadUrl(Backbone.history.fragment);
+                            }
+
+                            app.mixins.canNavigate(function (decision) {
+                                $("#wrapper").addClass("email-read-active");
+                                if (decision) {
+                                    var id = $(event.target).parents("tr").attr("id");
+                                    if ($(event.target).prop("tagName") !== "INPUT" || $(event.target).prop("tagName") !== "SPAN") {
+                                        app.globalF.resetCurrentMessage();
+                                        app.globalF.resetDraftMessage();
+
+                                        Backbone.history.navigate("/mail/" + app.transform.from64str(folder), {
+                                            trigger: true
+                                        });
+                                        if (id != undefined && ($(event.target).attr("type") !== "checkbox" || $(event.target).prop("tagName") !== "LABEL" || $(event.target).prop("tagName") !== "SPAN") || $(event.target).prop("tagName") !== "INPUT") {
+                                            var table = $("#emailListTable").DataTable();
+                                            table.$("tr.selected").removeClass("selected");
+
+                                            $(event.target).parents("tr").toggleClass("selected");
+
+                                            $("#appRightSide").css("display", "block");
+
+                                            thisComp.setState({
+                                                messsageId: id
+                                            });
+
+                                            app.globalF.renderEmail(id);
+
+                                            app.mixins.hidePopHover();
+                                        }
+                                    }
+                                } else {}
+                            });
+                        } else {
+                            $("#wrapper").removeClass("email-read-active");
+                            var thisComp = this;
+                            var table = $("#emailListTable").DataTable();
+                            $(event.target).parents("tr").toggleClass("selected");
+                            $("#appRightSide").css("display", "none");
+                            thisComp.setState({
+                                messsageId: ""
+                            });
+                        }
                     }
                     break;
             }

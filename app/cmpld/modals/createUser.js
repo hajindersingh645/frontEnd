@@ -416,7 +416,7 @@ define(["app", "react"], function (app, React) {
                                 React.createElement(
                                     "h4",
                                     null,
-                                    "Welcome back!"
+                                    "Creating account!"
                                 ),
                                 React.createElement(
                                     "p",

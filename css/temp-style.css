@@ -11445,7 +11445,8 @@ header .container {
     padding: 0;
 }
 header .navbar-brand {
-    padding: 0 0 0 15px;
+    padding: 0 0 0 26px;
+    display: flex;
 }
 header .navbar-brand img {
     width: 118px;
@@ -11454,7 +11455,8 @@ header .navbar-toggler {
     border: none;
     outline: none;
     padding: 4px 0 0 0;
-    position: absolute;
+    padding-right: 26px;
+    /* position: absolute; */
     right: 15px;
     top: 0;
     border: none !important;
@@ -11468,27 +11470,30 @@ header .navbar-toggler .icon-bar {
     -webkit-transition: ease all 0.2s;
     transition: ease all 0.2s;
     display: block;
-    width: 30px;
-    height: 3px;
+    width: 27px;
+    height: 2px;
+    border-radius: 87px;
 }
 header .navbar-toggler .icon-bar + .icon-bar {
     margin-top: 7px;
 }
 header .navbar-toggler .icon-bar:nth-child(2) {
-    width: 30px;
+    width: 27px;
+    -webkit-transition: ease all 0.2s;
+    transition: ease all 0.2s;
+    /* margin-left: -3px; */
+}
+header .navbar-toggler:hover > .icon-bar:nth-child(2) {
+    width: 27px;
     -webkit-transition: ease all 0.2s;
     transition: ease all 0.2s;
     margin-left: -3px;
 }
-header .navbar-toggler:hover > .icon-bar:nth-child(2) {
-    width: 30px;
-    -webkit-transition: ease all 0.2s;
-    transition: ease all 0.2s;
-}
 header .navbar-toggler:active > .icon-bar:nth-child(2) {
-    width: 30px;
+    width: 27px;
     -webkit-transition: ease all 0.2s;
     transition: ease all 0.2s;
+    margin-left: -3px;
 }
 header .navbar-toggler:not(.collapsed) .icon-bar:first-child {
     -webkit-transform: rotate(45deg) translate(8px, 5px);

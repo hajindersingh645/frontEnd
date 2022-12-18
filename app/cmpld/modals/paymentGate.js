@@ -1099,13 +1099,35 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                             null,
                             React.createElement(
                                 "div",
+                                {
+                                    className: `back-button ${ this.state.membr === "free" ? "d-block" : "d-none" }`
+                                },
+                                React.createElement(
+                                    "div",
+                                    { className: "loading-spinner" },
+                                    React.createElement(
+                                        "div",
+                                        { className: "the-spinner" },
+                                        React.createElement("div", { className: "_bar1" }),
+                                        React.createElement("div", { className: "_bar2" }),
+                                        React.createElement("div", { className: "_bar3" }),
+                                        React.createElement("div", { className: "_bar4" }),
+                                        React.createElement("div", { className: "_bar5" }),
+                                        React.createElement("div", { className: "_bar6" }),
+                                        React.createElement("div", { className: "_bar7" }),
+                                        React.createElement("div", { className: "_bar8" })
+                                    )
+                                )
+                            ),
+                            React.createElement(
+                                "div",
                                 { className: "group-btn type-pay_now px-4" },
                                 React.createElement(
                                     "button",
                                     {
                                         type: "button",
                                         onClick: this.handleBackButton.bind(this),
-                                        className: "back-button"
+                                        className: `back-button ${ this.state.membr !== "free" ? "" : "d-none" }`
                                     },
                                     "Back"
                                 ),
