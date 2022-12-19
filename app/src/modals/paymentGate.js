@@ -20,8 +20,6 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
             app.user.on(
                 "change:userPlan",
                 function () {
-                    // console.log(app.user.get("resetSelectedItems"));
-
                     if (app.user.get("userPlan")["planSelected"] == 1) {
                         var pl = "year";
                     } else if (app.user.get("userPlan")["planSelected"] == 2) {
@@ -29,14 +27,13 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                     } else if (app.user.get("userPlan")["planSelected"] == 3) {
                         var pl = "free";
                     }
+                    console.log(pl);
                     thisComp.setState({
                         mCharge:
                             app.user.get("userPlan")["monthlyCharge"] -
                             app.user.get("userPlan")["alrdPaid"],
                         membr: pl,
                     });
-
-                    // $('#selectAll>input').prop("checked",false);
                 },
                 thisComp
             );
@@ -125,7 +122,29 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                         membr: "free",
                         butDis: true,
                     });
+                    this.setState({
+                        paymentPackagesModalActive: false,
+                    });
                     this.setMembership("free");
+                    $.ajax({
+                        method: "POST",
+                        url:
+                            app.defaults.get("apidomain") +
+                            "/activateFreemiumV2",
+                        data: {},
+                        dataType: "json",
+                        xhrFields: {
+                            withCredentials: true,
+                        },
+                    }).then(function (msg) {
+                        if (msg["response"] === "fail") {
+                            app.notifications.systemMessage("tryAgain");
+                        } else if (msg["response"] === "success") {
+                            app.userObjects.loadUserPlan(function () {});
+                        }
+
+                        console.log(msg);
+                    });
                     break;
 
                 case "perfectm":
@@ -297,9 +316,6 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                     }
                     break;
                 case "freemium":
-                    this.state.setState({
-                        membr: "free",
-                    });
                     $.ajax({
                         method: "POST",
                         url:
@@ -317,7 +333,7 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                             app.userObjects.loadUserPlan(function () {});
                         }
 
-                        //console.log(msg)
+                        console.log(msg);
                     });
 
                     break;
@@ -408,7 +424,7 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                     desc: "For most businesses that want to optimize web queries",
                     price: "$0.00",
                     per: "per month",
-                    methodType: "freemium",
+                    methodType: "free",
                     features: [
                         "All Limited Links",
                         "Own Analytics Platform",
@@ -424,7 +440,7 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                     price: `$
                     ${app.user.get("userPlan")["trueMonthPrice"] / 100}`,
                     per: `${discm} month`,
-                    methodType: "monthly",
+                    methodType: "month",
                     features: [
                         "All Limited Links",
                         "Own Analytics Platform",
@@ -440,7 +456,7 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                     price: `$
                     ${app.user.get("userPlan")["trueYearPrice"] / 100}`,
                     per: `${discy} month`,
-                    methodType: "yearly",
+                    methodType: "year",
                     features: [
                         "All Limited Links",
                         "Own Analytics Platform",
@@ -572,10 +588,13 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                                                             <div className="btn-row">
                                                                 <button
                                                                     className="btn-blue"
-                                                                    onClick={this.handleClick.bind(
+                                                                    onClick={this.handleChange.bind(
                                                                         this,
                                                                         paymentContentTab.methodType
                                                                     )}
+                                                                    data-type={
+                                                                        paymentContentTab.methodType
+                                                                    }
                                                                 >
                                                                     Choose plan
                                                                 </button>
@@ -620,7 +639,7 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                             <div
                                 className={`
                                     ${
-                                        this.state.membr !== "free"
+                                        this.state.membr == "free"
                                             ? "d-none"
                                             : "panel panel-default"
                                     }
