@@ -1234,7 +1234,7 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                                                 </div>
                                             </div>
                                             <div className="progress-content">
-                                                <h4>Welcome drum!</h4>
+                                                <h4>Welcome back!</h4>
                                                 <p>
                                                     Please wait a few second...
                                                 </p>

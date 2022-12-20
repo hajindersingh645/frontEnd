@@ -1170,7 +1170,7 @@ define(["app", "accounting", "react"], function (app, accounting, React) {
                                             React.createElement(
                                                 "h4",
                                                 null,
-                                                "Welcome drum!"
+                                                "Welcome back!"
                                             ),
                                             React.createElement(
                                                 "p",
