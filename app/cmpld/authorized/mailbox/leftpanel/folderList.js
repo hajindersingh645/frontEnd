@@ -182,7 +182,8 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                             height: "24",
                             viewBox: "0 0 24 24",
                             fill: "#415067",
-                            xmlns: "http://www.w3.org/2000/svg"
+                            xmlns: "http://www.w3.org/2000/svg",
+                            className: "fill-evenodd"
                         },
                         React.createElement("path", {
                             "fill-rule": "evenodd",

@@ -202,6 +202,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                             viewBox="0 0 24 24"
                             fill="#415067"
                             xmlns="http://www.w3.org/2000/svg"
+                            className="fill-evenodd"
                         >
                             <path
                                 fill-rule="evenodd"

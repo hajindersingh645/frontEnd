@@ -17917,6 +17917,16 @@ header .user-dropdown .dropdown-menu a:hover,
 header .user-dropdown .dropdown-menu button:hover {
     color: #ce5353;
 }
+.user-side-menu ul li a:hover svg,
+.user-side-menu ul li button:hover svg,
+header .user-dropdown .dropdown-menu a:hover svg,
+header .user-dropdown .dropdown-menu button:hover svg,
+.user-side-menu ul li a:hover svg path,
+.user-side-menu ul li button:hover svg path,
+header .user-dropdown .dropdown-menu a:hover svg path,
+header .user-dropdown .dropdown-menu button:hover svg path {
+    fill: #ce5353;
+}
 header .user-dropdown .dropdown-menu a:hover.copy-icon,
 header .user-dropdown .dropdown-menu button:hover.copy-icon {
     background: url("../images/icon-copy-hover.svg") left top/20px no-repeat;
@@ -18738,8 +18748,12 @@ progress {
     }
 }
 .main-menu ul li:not(.active) a:hover {
-    color: #415067 !important;
+    color: #2277f6 !important;
     opacity: 0.5;
+}
+.main-menu ul li:not(.active) a:hover svg,
+.main-menu ul li:not(.active) a:hover svg path {
+    fill: #2277f6 !important;
 }
 .com-content-header .he-item:first-child,
 .mail-data.emailNo {
