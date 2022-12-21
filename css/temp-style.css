@@ -15051,6 +15051,18 @@ button {
 header .user-dropdown .dropdown-menu {
     width: 235px;
 }
+header .user-dropdown .dropdown-menu button,
+header .user-dropdown .dropdown-menu a {
+    background-color: transparent;
+    cursor: pointer;
+    position: relative;
+}
+header .user-dropdown .dropdown-menu button .__icon,
+header .user-dropdown .dropdown-menu a .__icon {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
 .arrow-btn .dropdown-menu li {
     width: 100%;
     float: left;
@@ -15118,7 +15130,7 @@ header .user-dropdown .dropdown-menu {
     float: left;
     position: absolute;
     left: 0;
-    top: 2px;
+    /* top: 2px; */
 }
 .referesh-btn button {
     border: none;
@@ -17857,10 +17869,14 @@ header {
     border-bottom: 0;
 }
 header .menu-icon button {
-    background: url("../images/icon-menu.svg") left top/30px no-repeat;
+    /* background: url("../images/icon-menu.svg") left top/30px no-repeat; */
+    background: transparent;
 }
 header .menu-icon button:hover {
     background: url("../images/icon-menu-hover.svg") left top/30px no-repeat;
+}
+header .menu-icon button:hover svg path {
+    fill: #2377f7;
 }
 header .user-dropdown .btn-secondary {
     background: #fff;
@@ -17882,6 +17898,18 @@ header .user-dropdown .dropdown-menu button.copy-icon {
 header .user-dropdown .dropdown-menu a.logout-icon,
 header .user-dropdown .dropdown-menu button.logout-icon {
     background: url("../images/icon-logout.svg") left top/20px no-repeat;
+}
+.user-side-menu ul li button,
+.user-side-menu ul li a {
+    background-color: transparent;
+    cursor: pointer;
+    position: relative;
+}
+.user-side-menu ul li button .__icon,
+.user-side-menu ul li a .__icon {
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 .user-side-menu ul li a:hover,
 .user-side-menu ul li button:hover,
@@ -20606,3 +20634,6 @@ header .menu-icon.on-left-side {
 }
 
 /* */
+.fill-evenodd {
+    fill-rule: evenodd;
+}
