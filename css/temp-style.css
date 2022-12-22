@@ -17915,7 +17915,7 @@ header .user-dropdown .dropdown-menu button.logout-icon {
 .user-side-menu ul li button:hover,
 header .user-dropdown .dropdown-menu a:hover,
 header .user-dropdown .dropdown-menu button:hover {
-    color: #ce5353;
+    color: #ce5353 !important;
 }
 .user-side-menu ul li a:hover svg,
 .user-side-menu ul li button:hover svg,
