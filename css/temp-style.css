@@ -16192,7 +16192,9 @@ textarea::-webkit-scrollbar {
     margin: 0 auto -270px;
 }
 .left-side.no-cta .left-bottom {
-    height: 71px;
+    /* height: 71px; */
+    position: absolute;
+    bottom: 41px;
 }
 .left-side.no-cta .left-container {
     margin: 0 auto -71px;
@@ -16238,6 +16240,7 @@ textarea::-webkit-scrollbar {
     box-shadow: none;
     opacity: 1;
     color: #415067;
+    font-weight: 500;
 }
 .left-acco-menu .accordion-body {
     width: 100%;
@@ -16255,9 +16258,12 @@ textarea::-webkit-scrollbar {
     content: "";
 }
 .left-acco-menu .acco-menu-list ul {
-    marging: 0;
+    margin: 0;
     padding: 0;
     list-style-type: none;
+}
+.left-acco-menu .acco-menu-list ul li {
+    position: relative;
 }
 .left-acco-menu .acco-menu-list ul li a {
     width: 100%;
@@ -16272,6 +16278,15 @@ textarea::-webkit-scrollbar {
     font-weight: 700;
     opacity: 1;
     border-radius: 12px;
+}
+.left-acco-menu .acco-menu-list ul li.active::before {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 100%;
+    left: -23px;
+    top: 0;
+    background: #2277f6;
 }
 @media screen and (min-width: 992px) {
     .left-side {
@@ -16887,7 +16902,15 @@ textarea::-webkit-scrollbar {
 .setting-middle .middle-top {
     width: 100%;
     float: left;
-    padding: 15px 8px 23px;
+    /* padding: 15px 8px 23px; */
+    padding: 21px 24px 23px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    background-color: #fff;
+    border-bottom: solid 1px #f2f2f2;
+}
+.setting-middle .middle-top .nav-tabs {
+    border-bottom: 0px;
 }
 .setting-middle .h2,
 .setting-middle h2 {
@@ -16898,11 +16921,13 @@ textarea::-webkit-scrollbar {
     margin: 0;
     padding: 0;
     line-height: 24px;
+    color: inherit;
 }
 .setting-middle .middle-content {
     width: 100%;
     float: left;
-    padding: 32px 15px;
+    /* padding: 32px 15px; */
+    padding: 29px 24px;
 }
 .setting-middle .middle-content p {
     width: 100%;
@@ -16922,6 +16947,7 @@ textarea::-webkit-scrollbar {
     font-size: 16px;
     margin: 0;
     padding: 0 0 12px;
+    line-height: 1.2;
 }
 .setting-middle .remember-box {
     width: auto;
@@ -17065,6 +17091,7 @@ textarea::-webkit-scrollbar {
     margin: 0;
     padding: 0 0 10px;
     line-height: 24px;
+    color: inherit;
 }
 .setting-right .h3,
 .setting-right h3 {
@@ -17074,6 +17101,8 @@ textarea::-webkit-scrollbar {
     font-size: 16px;
     margin: 0;
     padding: 15px 0 10px;
+    line-height: 1.2;
+    color: inherit;
 }
 .setting-right p {
     width: 100%;
@@ -17563,7 +17592,7 @@ textarea::-webkit-scrollbar {
     .setting-middle {
         width: 709px;
         left: 291px;
-        padding: 7px;
+        padding: 8px;
     }
     .setting-right {
         width: calc(100% - 1000px);
@@ -18207,7 +18236,8 @@ textarea {
     border-bottom: 1px solid #f2f2f2 !important;
 }
 .setting-middle {
-    background: #f8fafe;
+    /* background: #f8fafe; */
+    background: #eceff3;
     color: #415067;
 }
 .setting-middle .middle-content.red-border {
@@ -20650,4 +20680,18 @@ header .menu-icon.on-left-side {
 /* */
 .fill-evenodd {
     fill-rule: evenodd;
+}
+
+/* Settings Page */
+#rightSettingPanel {
+    min-height: 100vh;
+    max-height: 100vh;
+    height: 100vh;
+}
+.setting-middle .middle-content {
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+.accordion-header {
+    line-height: 1.2;
 }

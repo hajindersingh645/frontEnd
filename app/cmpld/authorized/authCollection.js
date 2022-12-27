@@ -77,11 +77,13 @@ define(["react", "app", "xss", "cmpld/authorized/mailbox/mailboxCollection", "cm
                         updateValue: this.updateValue
                     });
                 } else if (page == "settings" && app.user.get("profileVersion") > 1) {
+                    console.log(`settings`);
                     body = React.createElement(SettingsCollection, {
                         rightPanel: this.props.rightPanel,
                         activePage: this.props.activePage
                     });
                 } else if (page == "settings" && app.user.get("profileVersion") == 1 && this.props.activePage == "updateVersion1") {
+                    console.log(`settings`);
                     body = React.createElement(SettingsCollection, {
                         rightPanel: this.props.rightPanel,
                         activePage: "updateVersion1"

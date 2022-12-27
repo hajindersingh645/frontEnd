@@ -296,7 +296,7 @@ define(["app", "backbone", "react", "jquery", "bootstrap", "cmpld/splashPage/Spl
                     page: "settings",
                     rightPanel: Profil,
                     activePage: options
-                }), document.getElementById("mainBody"));
+                }), document.getElementById("wrapper"));
             });
             //}
         },

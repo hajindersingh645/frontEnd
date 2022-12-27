@@ -1,10 +1,9 @@
-define(['react', 'app', 'summernote'], function (React, app, summernote) {
+define(["react", "app", "summernote", "cmpld/authorized/settings/rightpanel/rightTop"], function (React, app, summernote, RightTop) {
     "use strict";
 
     return React.createClass({
         getInitialState: function () {
             return {
-
                 panel: {
                     firstPanelClass: "panel-body hidden",
                     secondPanelClass: "panel-body",
@@ -28,11 +27,10 @@ define(['react', 'app', 'summernote'], function (React, app, summernote) {
                     enableNotification: app.user.get("enableNotification"),
                     notificationAddress: app.user.get("notificationAddress")
                 },
-                defaultPGPStrength: app.user.get('defaultPGPKeybit'),
+                defaultPGPStrength: app.user.get("defaultPGPKeybit"),
 
                 emfValidator: {},
                 emNotValidator: {}
-
             };
         },
 
@@ -40,7 +38,6 @@ define(['react', 'app', 'summernote'], function (React, app, summernote) {
          *
          */
         componentDidMount: function () {
-
             React.initializeTouchEvents(true);
 
             this.setState({ emfValidator: $("#forwForm").validate() });
@@ -77,7 +74,7 @@ define(['react', 'app', 'summernote'], function (React, app, summernote) {
          */
         handleChange: function (i, event) {
             switch (i) {
-                case 'displayNameCheck':
+                case "displayNameCheck":
                     this.setState({
                         firstPanelData: {
                             showDisplayName: !this.state.firstPanelData.showDisplayName,
@@ -86,7 +83,7 @@ define(['react', 'app', 'summernote'], function (React, app, summernote) {
                     });
                     break;
 
-                case 'dispNameChange':
+                case "dispNameChange":
                     this.setState({
                         firstPanelData: {
                             showDisplayName: this.state.firstPanelData.showDisplayName,
@@ -95,27 +92,24 @@ define(['react', 'app', 'summernote'], function (React, app, summernote) {
                     });
                     break;
 
-                case 'remPass':
+                case "remPass":
                     this.setState({
                         remeberPassword: !this.state.remeberPassword
                     });
                     break;
 
-                case 'mailPerPage':
-
+                case "mailPerPage":
                     this.setState({
                         mailPerPage: event.target.value
                     });
                     break;
 
-                case 'sessTime':
-
+                case "sessTime":
                     this.setState({
                         sessionExpiration: event.target.value
                     });
                     break;
-                case 'changeSound':
-
+                case "changeSound":
                     this.setState({
                         secondPanelData: {
                             enableForwarding: this.state.secondPanelData.enableForwarding,
@@ -126,7 +120,7 @@ define(['react', 'app', 'summernote'], function (React, app, summernote) {
                         }
                     });
                     break;
-                case 'enabForw':
+                case "enabForw":
                     this.setState({
                         secondPanelData: {
                             enableForwarding: !this.state.secondPanelData.enableForwarding,
@@ -144,10 +138,9 @@ define(['react', 'app', 'summernote'], function (React, app, summernote) {
                     validator.resetForm();
                     break;
 
-                case 'enabEmNot':
+                case "enabEmNot":
                     this.setState({
                         secondPanelData: {
-
                             enableForwarding: this.state.secondPanelData.enableForwarding,
                             forwardingAddress: this.state.secondPanelData.forwardingAddress,
                             notificationSound: this.state.secondPanelData.notificationSound,
@@ -163,9 +156,8 @@ define(['react', 'app', 'summernote'], function (React, app, summernote) {
                     validatornotForm.resetForm();
 
                     break;
-                case 'entEmNot':
+                case "entEmNot":
                     this.setState({
-
                         secondPanelData: {
                             enableForwarding: this.state.secondPanelData.enableForwarding,
                             forwardingAddress: this.state.secondPanelData.forwardingAddress,
@@ -176,7 +168,7 @@ define(['react', 'app', 'summernote'], function (React, app, summernote) {
                     });
                     break;
 
-                case 'entEmFow':
+                case "entEmFow":
                     this.setState({
                         secondPanelData: {
                             enableForwarding: this.state.secondPanelData.enableForwarding,
@@ -188,12 +180,11 @@ define(['react', 'app', 'summernote'], function (React, app, summernote) {
                     });
                     break;
 
-                case 'pgpStr':
+                case "pgpStr":
                     this.setState({
                         defaultPGPStrength: event.target.value
                     });
                     break;
-
             }
         },
 
@@ -204,7 +195,7 @@ define(['react', 'app', 'summernote'], function (React, app, summernote) {
          */
         handleClick: function (i, event) {
             switch (i) {
-                case 'showUprof':
+                case "showUprof":
                     this.setState({
                         panel: {
                             firstPanelClass: "panel-body",
@@ -215,7 +206,7 @@ define(['react', 'app', 'summernote'], function (React, app, summernote) {
                     });
 
                     break;
-                case 'showAccSett':
+                case "showAccSett":
                     this.setState({
                         panel: {
                             firstPanelClass: "panel-body hidden",
@@ -225,10 +216,10 @@ define(['react', 'app', 'summernote'], function (React, app, summernote) {
                         }
                     });
                     break;
-                case 'hSessTime':
-                    console.log('fff');
+                case "hSessTime":
+                    console.log("fff");
                     break;
-                case 'resetProfile':
+                case "resetProfile":
                     this.setState({
                         firstPanelData: {
                             showDisplayName: app.user.get("showDisplayName"),
@@ -237,21 +228,19 @@ define(['react', 'app', 'summernote'], function (React, app, summernote) {
                     });
 
                     if (app.user.get("includeSignature")) {
-                        $('#signDiv').removeClass('div-readonly');
+                        $("#signDiv").removeClass("div-readonly");
                     } else {
-                        $('#signDiv').addClass('div-readonly');
+                        $("#signDiv").addClass("div-readonly");
                     }
                     break;
 
-                case 'resetAccSett':
-
+                case "resetAccSett":
                     this.setState({
                         sessionExpiration: app.user.get("sessionExpiration"),
                         mailPerPage: app.user.get("mailPerPage"),
                         remeberPassword: app.user.get("remeberPassword"),
 
                         secondPanelData: {
-
                             enableForwarding: app.user.get("enableForwarding"),
                             forwardingAddress: app.user.get("forwardingAddress"),
                             notificationSound: app.user.get("notificationSound"),
@@ -274,8 +263,7 @@ define(['react', 'app', 'summernote'], function (React, app, summernote) {
 
                     break;
 
-                case 'safeAccSett':
-
+                case "safeAccSett":
                     var emfValidator = this.state.emfValidator;
                     var emNotValidator = this.state.emNotValidator;
 
@@ -283,16 +271,21 @@ define(['react', 'app', 'summernote'], function (React, app, summernote) {
                     emNotValidator.form();
 
                     if (emfValidator.numberOfInvalids() === 0 && emNotValidator.numberOfInvalids() === 0) {
+                        app.user.set({
+                            sessionExpiration: this.state.sessionExpiration
+                        });
+                        app.user.set({ mailPerPage: this.state.mailPerPage });
+                        app.user.set({
+                            defaultPGPKeybit: parseInt(this.state.defaultPGPStrength)
+                        });
 
-                        app.user.set({ "sessionExpiration": this.state.sessionExpiration });
-                        app.user.set({ "mailPerPage": this.state.mailPerPage });
-                        app.user.set({ "defaultPGPKeybit": parseInt(this.state.defaultPGPStrength) });
-
-                        app.user.set({ "remeberPassword": this.state.remeberPassword });
+                        app.user.set({
+                            remeberPassword: this.state.remeberPassword
+                        });
 
                         if (!this.state.remeberPassword) {
-                            app.user.set({ "password": '' });
-                            app.user.set({ "secondPassword": '' });
+                            app.user.set({ password: "" });
+                            app.user.set({ secondPassword: "" });
                         }
                         /*
                         app.user.set({"enableForwarding": this.state.secondPanelData.enableForwarding});
@@ -308,30 +301,32 @@ define(['react', 'app', 'summernote'], function (React, app, summernote) {
                         }
                         */
 
-                        app.userObjects.updateObjects('userProfile', '', function (response) {
+                        app.userObjects.updateObjects("userProfile", "", function (response) {
                             //restore copy of the object if failed to save
-                            if (response === 'success') {
+                            if (response === "success") {
                                 //app.user.set({"DecryptedProfileObject":profile});
                                 //app.userObjects.set({"EncryptedProfileObject":newProfObj});
                                 //console.log('ura');
-                            } else if (response === 'failed') {} else if (response === 'nothing') {}
+                            } else if (response === "failed") {} else if (response === "nothing") {}
                         });
                     }
 
                     //	console.log(changeObj, 'saveAccountSettings');
                     break;
 
-                case 'safeProfile':
-
-                    app.user.set({ "showDisplayName": this.state.firstPanelData.showDisplayName });
+                case "safeProfile":
+                    app.user.set({
+                        showDisplayName: this.state.firstPanelData.showDisplayName
+                    });
 
                     if (this.state.firstPanelData.showDisplayName) {
-                        app.user.set({ "displayName": filterXSS(this.state.firstPanelData.displayName) });
+                        app.user.set({
+                            displayName: filterXSS(this.state.firstPanelData.displayName)
+                        });
                     }
 
-                    app.userObjects.updateObjects('userProfile1'); //obsolete
+                    app.userObjects.updateObjects("userProfile1"); //obsolete
                     break;
-
             }
         },
 
@@ -344,25 +339,25 @@ define(['react', 'app', 'summernote'], function (React, app, summernote) {
             var options = [];
 
             for (var i = 1024; i <= 5120; i += 1024) {
-                if (i <= app.user.get('userPlan')['planData']['pgpStr']) {
+                if (i <= app.user.get("userPlan")["planData"]["pgpStr"]) {
                     options.push(React.createElement(
-                        'option',
+                        "option",
                         { key: i, value: i },
                         i,
-                        ' bits'
+                        " bits"
                     ));
                 } else {
                     options.push(React.createElement(
-                        'option',
+                        "option",
                         { key: i, disabled: true, value: i },
                         i,
-                        ' bits'
+                        " bits"
                     ));
                 }
             }
 
             return options;
-            console.log(app.user.get('userPlan')['planData']['pgpStr']);
+            console.log(app.user.get("userPlan")["planData"]["pgpStr"]);
         },
 
         /**
@@ -371,405 +366,496 @@ define(['react', 'app', 'summernote'], function (React, app, summernote) {
          */
         render: function () {
             //{/* onClick={this.handleClick.bind(this, 'showAccSett')}*/}
-            var showDisp = { visibility: !this.state.firstPanelData.showDisplayName ? 'hidden' : '' };
+            var showDisp = {
+                visibility: !this.state.firstPanelData.showDisplayName ? "hidden" : ""
+            };
             //console.log('ddsd');
             return React.createElement(
-                'div',
-                { className: this.props.classes.rightClass, id: 'rightSettingPanel' },
+                "div",
+                {
+                    className: this.props.classes.rightClass,
+                    id: "rightSettingPanel"
+                },
                 React.createElement(
-                    'div',
-                    { className: 'col-lg-7 col-xs-12 personal-info ' },
+                    "div",
+                    { className: "setting-middle personal-info " },
                     React.createElement(
-                        'div',
-                        { className: 'panel panel-default' },
+                        "div",
+                        { className: "panel panel-default" },
                         React.createElement(
-                            'div',
-                            { className: 'panel-heading' },
+                            "div",
+                            { className: "middle-top" },
                             React.createElement(
-                                'ul',
-                                { className: 'nav nav-tabs tabbed-nav' },
+                                "ul",
+                                null,
                                 React.createElement(
-                                    'li',
-                                    { role: 'presentation', className: this.state.panel.firstTab },
+                                    "li",
+                                    {
+                                        role: "presentation",
+                                        className: this.state.panel.firstTab
+                                    },
                                     React.createElement(
-                                        'a',
-                                        { onClick: this.handleClick.bind(this, 'showUprof') },
+                                        "a",
+                                        {
+                                            onClick: this.handleClick.bind(this, "showUprof")
+                                        },
                                         React.createElement(
-                                            'h3',
-                                            { className: this.props.tabs.Header },
-                                            'Info'
-                                        ),
-                                        React.createElement(
-                                            'h3',
-                                            { className: this.props.tabs.HeaderXS },
-                                            React.createElement('i', { className: 'ion-person' })
+                                            "h2",
+                                            null,
+                                            "Info"
                                         )
                                     )
                                 ),
                                 React.createElement(
-                                    'li',
-                                    { role: 'presentation', className: this.state.panel.secondTab },
+                                    "li",
+                                    {
+                                        role: "presentation",
+                                        className: this.state.panel.secondTab
+                                    },
                                     React.createElement(
-                                        'a',
+                                        "a",
                                         null,
                                         React.createElement(
-                                            'h3',
-                                            { className: this.props.tabs.Header },
-                                            'Profile Settings'
-                                        ),
-                                        React.createElement(
-                                            'h3',
-                                            { className: this.props.tabs.HeaderXS },
-                                            React.createElement('i', { className: 'ion-android-options' })
+                                            "h2",
+                                            null,
+                                            "Profile Settings"
                                         )
                                     )
                                 )
                             )
                         ),
                         React.createElement(
-                            'div',
-                            { className: this.state.panel.firstPanelClass },
+                            "div",
+                            { className: "middle-content" },
                             React.createElement(
-                                'div',
-                                { className: 'form-group' },
+                                "div",
+                                {
+                                    className: this.state.panel.firstPanelClass
+                                },
                                 React.createElement(
-                                    'h3',
-                                    { className: '', style: showDisp },
-                                    this.state.firstPanelData.displayName,
-                                    React.createElement('br', null)
+                                    "div",
+                                    { className: "form-group" },
+                                    React.createElement(
+                                        "h3",
+                                        { className: "", style: showDisp },
+                                        this.state.firstPanelData.displayName,
+                                        React.createElement("br", null)
+                                    ),
+                                    "<",
+                                    app.user.get("email"),
+                                    ">"
                                 ),
-                                '<',
-                                app.user.get("email"),
-                                '>'
+                                React.createElement(
+                                    "div",
+                                    { className: "form-group" },
+                                    React.createElement("input", {
+                                        className: "pull-left",
+                                        type: "checkbox",
+                                        checked: this.state.firstPanelData.showDisplayName,
+                                        onChange: this.handleChange.bind(this, "displayNameCheck")
+                                    }),
+                                    "\xA0",
+                                    React.createElement(
+                                        "label",
+                                        null,
+                                        "display name"
+                                    ),
+                                    React.createElement("input", {
+                                        type: "name",
+                                        className: "form-control",
+                                        readOnly: !this.state.firstPanelData.showDisplayName,
+                                        onChange: this.handleChange.bind(this, "dispNameChange"),
+                                        placeholder: "Enter name",
+                                        value: this.state.firstPanelData.displayName
+                                    })
+                                ),
+                                React.createElement(
+                                    "div",
+                                    { className: "pull-right" },
+                                    React.createElement(
+                                        "button",
+                                        {
+                                            type: "button",
+                                            className: "btn btn-primary",
+                                            onClick: this.handleClick.bind(this, "safeProfile"),
+                                            disabled: this.state.firstPanelData.showDisplayName == app.user.get("showDisplayName") && this.state.firstPanelData.displayName == app.user.get("displayName")
+                                        },
+                                        "Save"
+                                    ),
+                                    React.createElement(
+                                        "button",
+                                        {
+                                            type: "button",
+                                            className: "btn btn-default",
+                                            onClick: this.handleClick.bind(this, "resetProfile")
+                                        },
+                                        "Cancel"
+                                    )
+                                )
                             ),
                             React.createElement(
-                                'div',
-                                { className: 'form-group' },
-                                React.createElement('input', { className: 'pull-left', type: 'checkbox', checked: this.state.firstPanelData.showDisplayName, onChange: this.handleChange.bind(this, 'displayNameCheck') }),
-                                '\xA0',
+                                "div",
+                                {
+                                    className: this.state.panel.secondPanelClass
+                                },
                                 React.createElement(
-                                    'label',
-                                    null,
-                                    'display name'
-                                ),
-                                React.createElement('input', { type: 'name', className: 'form-control', readOnly: !this.state.firstPanelData.showDisplayName, onChange: this.handleChange.bind(this, 'dispNameChange'), placeholder: 'Enter name',
-                                    value: this.state.firstPanelData.displayName
-                                })
-                            ),
-                            React.createElement(
-                                'div',
-                                { className: 'pull-right' },
-                                React.createElement(
-                                    'button',
-                                    { type: 'button', className: 'btn btn-primary',
-                                        onClick: this.handleClick.bind(this, 'safeProfile'),
-                                        disabled: this.state.firstPanelData.showDisplayName == app.user.get("showDisplayName") && this.state.firstPanelData.displayName == app.user.get("displayName")
+                                    "div",
+                                    {
+                                        className: this.props.classes.classActSettSelect
                                     },
-                                    'Save'
+                                    React.createElement(
+                                        "div",
+                                        { className: "form-group" },
+                                        React.createElement(
+                                            "select",
+                                            {
+                                                className: "form-control",
+                                                onChange: this.handleChange.bind(this, "sessTime"),
+                                                value: this.state.sessionExpiration
+                                            },
+                                            React.createElement(
+                                                "option",
+                                                { value: "0", disabled: true },
+                                                "Select Session Time Out"
+                                            ),
+                                            React.createElement(
+                                                "option",
+                                                { value: "-1" },
+                                                "Disable Timeout"
+                                            ),
+                                            React.createElement(
+                                                "option",
+                                                { value: "600" },
+                                                "10 Minutes"
+                                            ),
+                                            React.createElement(
+                                                "option",
+                                                { value: "1800" },
+                                                "30 Minutes"
+                                            ),
+                                            React.createElement(
+                                                "option",
+                                                { value: "3600" },
+                                                "1 Hour"
+                                            ),
+                                            React.createElement(
+                                                "option",
+                                                { value: "10800" },
+                                                "3 Hours"
+                                            )
+                                        )
+                                    )
                                 ),
                                 React.createElement(
-                                    'button',
-                                    { type: 'button', className: 'btn btn-default', onClick: this.handleClick.bind(this, 'resetProfile') },
-                                    'Cancel'
-                                )
-                            )
-                        ),
-                        React.createElement(
-                            'div',
-                            { className: this.state.panel.secondPanelClass },
-                            React.createElement(
-                                'div',
-                                { className: this.props.classes.classActSettSelect },
-                                React.createElement(
-                                    'div',
-                                    { className: 'form-group' },
+                                    "div",
+                                    {
+                                        className: this.props.classes.classActSettSelect
+                                    },
                                     React.createElement(
-                                        'select',
-                                        { className: 'form-control', onChange: this.handleChange.bind(this, 'sessTime'), value: this.state.sessionExpiration },
+                                        "div",
+                                        { className: "form-group" },
                                         React.createElement(
-                                            'option',
-                                            { value: '0', disabled: true },
-                                            'Select Session Time Out'
-                                        ),
-                                        React.createElement(
-                                            'option',
-                                            { value: '-1' },
-                                            'Disable Timeout'
-                                        ),
-                                        React.createElement(
-                                            'option',
-                                            { value: '600' },
-                                            '10 Minutes'
-                                        ),
-                                        React.createElement(
-                                            'option',
-                                            { value: '1800' },
-                                            '30 Minutes'
-                                        ),
-                                        React.createElement(
-                                            'option',
-                                            { value: '3600' },
-                                            '1 Hour'
-                                        ),
-                                        React.createElement(
-                                            'option',
-                                            { value: '10800' },
-                                            '3 Hours'
+                                            "select",
+                                            {
+                                                className: "form-control",
+                                                onChange: this.handleChange.bind(this, "mailPerPage"),
+                                                value: this.state.mailPerPage
+                                            },
+                                            React.createElement(
+                                                "option",
+                                                { value: "0", disabled: true },
+                                                "Emails per page"
+                                            ),
+                                            React.createElement(
+                                                "option",
+                                                { value: "10" },
+                                                "10 Emails per page"
+                                            ),
+                                            React.createElement(
+                                                "option",
+                                                { value: "25" },
+                                                "25 Emails per page"
+                                            ),
+                                            React.createElement(
+                                                "option",
+                                                { value: "50" },
+                                                "50 Emails per page"
+                                            ),
+                                            React.createElement(
+                                                "option",
+                                                { value: "100" },
+                                                "100 Emails per page"
+                                            )
                                         )
                                     )
-                                )
-                            ),
-                            React.createElement(
-                                'div',
-                                { className: this.props.classes.classActSettSelect },
-                                React.createElement(
-                                    'div',
-                                    { className: 'form-group' },
-                                    React.createElement(
-                                        'select',
-                                        { className: 'form-control', onChange: this.handleChange.bind(this, 'mailPerPage'), value: this.state.mailPerPage },
-                                        React.createElement(
-                                            'option',
-                                            { value: '0', disabled: true },
-                                            'Emails per page'
-                                        ),
-                                        React.createElement(
-                                            'option',
-                                            { value: '10' },
-                                            '10 Emails per page'
-                                        ),
-                                        React.createElement(
-                                            'option',
-                                            { value: '25' },
-                                            '25 Emails per page'
-                                        ),
-                                        React.createElement(
-                                            'option',
-                                            { value: '50' },
-                                            '50 Emails per page'
-                                        ),
-                                        React.createElement(
-                                            'option',
-                                            { value: '100' },
-                                            '100 Emails per page'
-                                        )
-                                    )
-                                )
-                            ),
-                            React.createElement(
-                                'div',
-                                { className: this.props.classes.classActSettSelect },
-                                React.createElement(
-                                    'div',
-                                    { className: 'form-group' },
-                                    React.createElement(
-                                        'select',
-                                        { className: 'form-control', onChange: this.handleChange.bind(this, 'pgpStr'), value: this.state.defaultPGPStrength },
-                                        React.createElement(
-                                            'option',
-                                            { value: '0', disabled: true },
-                                            'Default PGP bits'
-                                        ),
-                                        this.PGPbitList()
-                                    )
-                                )
-                            ),
-                            React.createElement(
-                                'div',
-                                { className: this.props.classes.classActSettSelect + " hidden" },
-                                React.createElement(
-                                    'div',
-                                    { className: 'form-group' },
-                                    React.createElement(
-                                        'select',
-                                        { className: 'form-control', onChange: this.handleChange.bind(this, 'changeSound'), value: this.state.secondPanelData.notificationSound },
-                                        React.createElement(
-                                            'option',
-                                            { value: '0', disabled: true },
-                                            'New Email Notification Sound'
-                                        ),
-                                        React.createElement(
-                                            'option',
-                                            { value: '' },
-                                            'Disable Sound'
-                                        ),
-                                        React.createElement(
-                                            'option',
-                                            { value: '10' },
-                                            'Bell'
-                                        ),
-                                        React.createElement(
-                                            'option',
-                                            { value: '25' },
-                                            'lala'
-                                        ),
-                                        React.createElement(
-                                            'option',
-                                            { value: '50' },
-                                            'lolo'
-                                        ),
-                                        React.createElement(
-                                            'option',
-                                            { value: '100' },
-                                            'lambada'
-                                        )
-                                    )
-                                )
-                            ),
-                            React.createElement('div', { className: 'clearfix' }),
-                            React.createElement(
-                                'div',
-                                { className: this.props.classes.classActSettSelect + " hidden" },
-                                React.createElement(
-                                    'form',
-                                    { id: 'forwForm' },
-                                    React.createElement(
-                                        'div',
-                                        { className: 'form-group' },
-                                        React.createElement('input', { className: 'pull-left', type: 'checkbox', checked: this.state.secondPanelData.enableForwarding, onChange: this.handleChange.bind(this, 'enabForw') }),
-                                        '\xA0',
-                                        React.createElement(
-                                            'label',
-                                            null,
-                                            'Enable Email Forwarding'
-                                        ),
-                                        React.createElement('input', { type: 'email', name: 'email', id: 'emForwInp', className: 'form-control',
-                                            disabled: !this.state.secondPanelData.enableForwarding, placeholder: 'Email Forward',
-                                            value: this.state.secondPanelData.forwardingAddress,
-                                            onChange: this.handleChange.bind(this, 'entEmFow') })
-                                    )
-                                )
-                            ),
-                            React.createElement(
-                                'div',
-                                { className: this.props.classes.classActSettSelect + " hidden" },
-                                React.createElement(
-                                    'form',
-                                    { id: 'notForm' },
-                                    React.createElement(
-                                        'div',
-                                        { className: 'form-group' },
-                                        React.createElement('input', { className: 'pull-left', type: 'checkbox', checked: this.state.secondPanelData.enableNotification, onChange: this.handleChange.bind(this, 'enabEmNot') }),
-                                        '\xA0',
-                                        React.createElement(
-                                            'label',
-                                            null,
-                                            'Enable Email Notification'
-                                        ),
-                                        React.createElement('input', { type: 'email', name: 'email', id: 'emNotInp', className: 'form-control',
-                                            disabled: !this.state.secondPanelData.enableNotification, placeholder: 'Email Notification',
-                                            value: this.state.secondPanelData.notificationAddress,
-                                            onChange: this.handleChange.bind(this, 'entEmNot') })
-                                    )
-                                )
-                            ),
-                            React.createElement('div', { className: 'clearfix' }),
-                            React.createElement(
-                                'div',
-                                { className: this.props.classes.classActSettSelect },
-                                React.createElement(
-                                    'div',
-                                    { className: 'form-group' },
-                                    React.createElement(
-                                        'div',
-                                        { className: 'checkbox' },
-                                        React.createElement(
-                                            'label',
-                                            null,
-                                            React.createElement('input', { type: 'checkbox',
-                                                checked: this.state.remeberPassword,
-                                                onChange: this.handleChange.bind(this, 'remPass') }),
-                                            'Remember Password for Session'
-                                        )
-                                    )
-                                )
-                            ),
-                            React.createElement(
-                                'div',
-                                { className: 'pull-right dialog_buttons' },
-                                React.createElement(
-                                    'button',
-                                    { type: 'button', className: 'btn btn-primary', disabled: this.ifSecondPanelSave(), onClick: this.handleClick.bind(this, 'safeAccSett') },
-                                    'Save'
                                 ),
                                 React.createElement(
-                                    'button',
-                                    { type: 'button', className: 'btn btn-default', onClick: this.handleClick.bind(this, 'resetAccSett') },
-                                    'Cancel'
+                                    "div",
+                                    {
+                                        className: this.props.classes.classActSettSelect
+                                    },
+                                    React.createElement(
+                                        "div",
+                                        { className: "form-group" },
+                                        React.createElement(
+                                            "select",
+                                            {
+                                                className: "form-control",
+                                                onChange: this.handleChange.bind(this, "pgpStr"),
+                                                value: this.state.defaultPGPStrength
+                                            },
+                                            React.createElement(
+                                                "option",
+                                                { value: "0", disabled: true },
+                                                "Default PGP bits"
+                                            ),
+                                            this.PGPbitList()
+                                        )
+                                    )
+                                ),
+                                React.createElement(
+                                    "div",
+                                    {
+                                        className: this.props.classes.classActSettSelect + " hidden"
+                                    },
+                                    React.createElement(
+                                        "div",
+                                        { className: "form-group" },
+                                        React.createElement(
+                                            "select",
+                                            {
+                                                className: "form-control",
+                                                onChange: this.handleChange.bind(this, "changeSound"),
+                                                value: this.state.secondPanelData.notificationSound
+                                            },
+                                            React.createElement(
+                                                "option",
+                                                { value: "0", disabled: true },
+                                                "New Email Notification Sound"
+                                            ),
+                                            React.createElement(
+                                                "option",
+                                                { value: "" },
+                                                "Disable Sound"
+                                            ),
+                                            React.createElement(
+                                                "option",
+                                                { value: "10" },
+                                                "Bell"
+                                            ),
+                                            React.createElement(
+                                                "option",
+                                                { value: "25" },
+                                                "lala"
+                                            ),
+                                            React.createElement(
+                                                "option",
+                                                { value: "50" },
+                                                "lolo"
+                                            ),
+                                            React.createElement(
+                                                "option",
+                                                { value: "100" },
+                                                "lambada"
+                                            )
+                                        )
+                                    )
+                                ),
+                                React.createElement("div", { className: "clearfix" }),
+                                React.createElement(
+                                    "div",
+                                    {
+                                        className: this.props.classes.classActSettSelect + " hidden"
+                                    },
+                                    React.createElement(
+                                        "form",
+                                        { id: "forwForm" },
+                                        React.createElement(
+                                            "div",
+                                            { className: "form-group" },
+                                            React.createElement("input", {
+                                                className: "pull-left",
+                                                type: "checkbox",
+                                                checked: this.state.secondPanelData.enableForwarding,
+                                                onChange: this.handleChange.bind(this, "enabForw")
+                                            }),
+                                            "\xA0",
+                                            React.createElement(
+                                                "label",
+                                                null,
+                                                "Enable Email Forwarding"
+                                            ),
+                                            React.createElement("input", {
+                                                type: "email",
+                                                name: "email",
+                                                id: "emForwInp",
+                                                className: "form-control",
+                                                disabled: !this.state.secondPanelData.enableForwarding,
+                                                placeholder: "Email Forward",
+                                                value: this.state.secondPanelData.forwardingAddress,
+                                                onChange: this.handleChange.bind(this, "entEmFow")
+                                            })
+                                        )
+                                    )
+                                ),
+                                React.createElement(
+                                    "div",
+                                    {
+                                        className: this.props.classes.classActSettSelect + " hidden"
+                                    },
+                                    React.createElement(
+                                        "form",
+                                        { id: "notForm" },
+                                        React.createElement(
+                                            "div",
+                                            { className: "form-group" },
+                                            React.createElement("input", {
+                                                className: "pull-left",
+                                                type: "checkbox",
+                                                checked: this.state.secondPanelData.enableNotification,
+                                                onChange: this.handleChange.bind(this, "enabEmNot")
+                                            }),
+                                            "\xA0",
+                                            React.createElement(
+                                                "label",
+                                                null,
+                                                "Enable Email Notification"
+                                            ),
+                                            React.createElement("input", {
+                                                type: "email",
+                                                name: "email",
+                                                id: "emNotInp",
+                                                className: "form-control",
+                                                disabled: !this.state.secondPanelData.enableNotification,
+                                                placeholder: "Email Notification",
+                                                value: this.state.secondPanelData.notificationAddress,
+                                                onChange: this.handleChange.bind(this, "entEmNot")
+                                            })
+                                        )
+                                    )
+                                ),
+                                React.createElement("div", { className: "clearfix" }),
+                                React.createElement(
+                                    "div",
+                                    {
+                                        className: this.props.classes.classActSettSelect
+                                    },
+                                    React.createElement(
+                                        "div",
+                                        { className: "form-group" },
+                                        React.createElement(
+                                            "div",
+                                            { className: "checkbox" },
+                                            React.createElement(
+                                                "label",
+                                                null,
+                                                React.createElement("input", {
+                                                    type: "checkbox",
+                                                    checked: this.state.remeberPassword,
+                                                    onChange: this.handleChange.bind(this, "remPass")
+                                                }),
+                                                "Remember Password for Session"
+                                            )
+                                        )
+                                    )
+                                ),
+                                React.createElement(
+                                    "div",
+                                    { className: "pull-right dialog_buttons" },
+                                    React.createElement(
+                                        "button",
+                                        {
+                                            type: "button",
+                                            className: "btn btn-primary",
+                                            disabled: this.ifSecondPanelSave(),
+                                            onClick: this.handleClick.bind(this, "safeAccSett")
+                                        },
+                                        "Save"
+                                    ),
+                                    React.createElement(
+                                        "button",
+                                        {
+                                            type: "button",
+                                            className: "btn btn-default",
+                                            onClick: this.handleClick.bind(this, "resetAccSett")
+                                        },
+                                        "Cancel"
+                                    )
                                 )
                             )
                         )
                     )
                 ),
                 React.createElement(
-                    'div',
-                    { className: 'col-lg-5 col-xs-12 personal-info ' },
+                    "div",
+                    { className: "setting-right personal-info " },
+                    React.createElement(RightTop, null),
                     React.createElement(
-                        'div',
-                        { className: 'panel panel-default' },
+                        "div",
+                        { className: "setting-right-data" },
                         React.createElement(
-                            'div',
-                            { className: 'panel-heading' },
+                            "div",
+                            { className: "panel-heading" },
                             React.createElement(
-                                'h3',
-                                { className: 'panel-title personal-info-title' },
-                                'Help'
+                                "h2",
+                                { className: "panel-title personal-info-title" },
+                                "Help"
                             )
                         ),
                         React.createElement(
-                            'div',
-                            { className: 'panel-body' },
+                            "div",
+                            { className: "panel-body" },
                             React.createElement(
-                                'p',
+                                "h3",
                                 null,
-                                React.createElement(
-                                    'b',
-                                    null,
-                                    'Default key strength bits'
-                                ),
-                                ' - Select the strength of the cryptography to be used for your key strength. A lower number of bits might improve speed but reduce security dramatically. A higher number of bits will take more time to process and open upon login and may not be supported by all devices if exported. The minimum recommended key strength is 2048 bits.'
+                                "Default key strength bits"
                             ),
                             React.createElement(
-                                'p',
+                                "p",
                                 null,
-                                React.createElement(
-                                    'b',
-                                    null,
-                                    'Emails per page'
-                                ),
-                                ' - Select the number of emails you would like to be displayed per page in your inbox and folders.'
+                                "Select the strength of the cryptography to be used for your key strength. A lower number of bits might improve speed but reduce security dramatically. A higher number of bits will take more time to process and open upon login and may not be supported by all devices if exported. The minimum recommended key strength is 2048 bits."
                             ),
                             React.createElement(
-                                'p',
+                                "h3",
                                 null,
-                                React.createElement(
-                                    'b',
-                                    null,
-                                    'Timeout'
-                                ),
-                                ' - Select the amount of time before your current session logs out automatically and requires you to login again. You can select ',
-                                React.createElement(
-                                    'b',
-                                    null,
-                                    'Disable Timeout'
-                                ),
-                                ' to turn off this feature.(Not recommended)'
+                                "Emails per page"
                             ),
                             React.createElement(
-                                'p',
+                                "p",
                                 null,
+                                "Select the number of emails you would like to be displayed per page in your inbox and folders."
+                            ),
+                            React.createElement(
+                                "h3",
+                                null,
+                                "Timeout"
+                            ),
+                            React.createElement(
+                                "p",
+                                null,
+                                "Select the amount of time before your current session logs out automatically and requires you to login again. You can select",
+                                " ",
                                 React.createElement(
-                                    'b',
+                                    "b",
                                     null,
-                                    'Remember Password'
+                                    "Disable Timeout"
                                 ),
-                                ' - Check this box to keep your password in memory for the duration of the session. It will prevent the system from asking you every time you want to add or delete your email aliases or change to private keys. Enabling this feature can lower your security, if someone can gain access to your computer.'
+                                " to turn off this feature.(Not recommended)"
+                            ),
+                            React.createElement(
+                                "h3",
+                                null,
+                                "Remember Password"
+                            ),
+                            React.createElement(
+                                "p",
+                                null,
+                                "Check this box to keep your password in memory for the duration of the session. It will prevent the system from asking you every time you want to add or delete your email aliases or change to private keys. Enabling this feature can lower your security, if someone can gain access to your computer."
                             )
                         )
                     )
                 )
             );
         }
-
     });
 });

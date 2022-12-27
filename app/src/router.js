@@ -434,7 +434,7 @@ define([
                         rightPanel={Profil}
                         activePage={options}
                     />,
-                    document.getElementById("mainBody")
+                    document.getElementById("wrapper")
                 );
             });
             //}

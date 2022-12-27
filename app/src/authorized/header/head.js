@@ -33,6 +33,15 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                 case "leftSideCanvas":
                     console.log("left side canvas open button clicked");
                     break;
+                case "settings":
+                    app.mixins.canNavigate(function (decision) {
+                        if (decision) {
+                            Backbone.history.navigate("/settings/Profile", {
+                                trigger: true,
+                            });
+                        }
+                    });
+                    break;
             }
         },
         handleSearchChange: function (event) {
@@ -180,6 +189,16 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                 </span>
                                                 Copy my email address
                                             </button>
+                                        </li>
+                                        <li>
+                                            <a
+                                                onClick={this.handleClick.bind(
+                                                    this,
+                                                    "settings"
+                                                )}
+                                            >
+                                                Settings
+                                            </a>
                                         </li>
                                         <li>
                                             <a
