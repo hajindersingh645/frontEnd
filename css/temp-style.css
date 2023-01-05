@@ -15142,6 +15142,7 @@ header .user-dropdown .dropdown-menu a .__icon {
     width: 24px;
     height: 24px;
     float: left;
+    cursor: pointer;
 }
 .ellipsis-dropdown button:hover,
 .folder-menu .accordion-button:hover,
@@ -16221,6 +16222,7 @@ textarea::-webkit-scrollbar {
     text-decoration: none;
     font-size: 16px;
     color: #415067;
+    cursor: pointer;
 }
 .left-acco-menu .accordion-button:after {
     width: 11px;
@@ -16273,6 +16275,7 @@ textarea::-webkit-scrollbar {
     line-height: 18px;
     opacity: 0.5;
     text-decoration: none;
+    cursor: pointer;
 }
 .left-acco-menu .acco-menu-list ul li.active a {
     font-weight: 700;
@@ -16948,11 +16951,12 @@ textarea::-webkit-scrollbar {
     margin: 0;
     padding: 0 0 12px;
     line-height: 1.2;
+    color: inherit;
 }
 .setting-middle .remember-box {
     width: auto;
     float: left;
-    padding: 2px 0 0;
+    /* padding: 2px 0 0; */
 }
 .setting-middle .add-contact-btn {
     width: auto;
@@ -16966,6 +16970,9 @@ textarea::-webkit-scrollbar {
     background: 0 0;
     padding: 0;
     border: none;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
 }
 .setting-middle .add-contact-btn a i,
 .setting-middle .add-contact-btn button i {
@@ -16978,16 +16985,17 @@ textarea::-webkit-scrollbar {
 .setting-middle .add-contact-btn button.referesh-icon i {
     background: url("../images/icon-referesh-blue.svg") right top/24px no-repeat;
 }
-.setting-middle .add-contact-btn a span,
-.setting-middle .add-contact-btn button span {
+.setting-middle .add-contact-btn a span.icon,
+.setting-middle .add-contact-btn button span.icon {
     padding: 0 7px 0 0;
     font-size: 16px;
+    line-height: 1;
 }
 .setting-middle .middle-search {
     width: 100%;
     float: left;
     position: relative;
-    margin: 24px 0 0;
+    margin: 24px 0 16px;
 }
 .setting-middle .middle-search .form-control {
     height: 48px;
@@ -17016,6 +17024,7 @@ textarea::-webkit-scrollbar {
     padding: 1px 0 2px 32px;
     text-decoration: none;
     font-size: 14px;
+    cursor: pointer;
 }
 .setting-middle .info-text {
     width: 100%;
@@ -17983,6 +17992,7 @@ header .user-dropdown .dropdown-menu button:hover.logout-icon {
 .back-to-inbox-link a {
     background: url("../images/icon-inbox.svg") left top/24px no-repeat;
     color: #415067;
+    cursor: pointer;
 }
 .bread-crumb ul li:after {
     background: url("../images/icon-menu-arrow.svg") right top/7px no-repeat;
@@ -20683,10 +20693,16 @@ header .menu-icon.on-left-side {
 }
 
 /* Settings Page */
+.alert {
+    font-size: 13px;
+}
 #rightSettingPanel {
     min-height: 100vh;
     max-height: 100vh;
     height: 100vh;
+}
+.bread-crumb ul li a {
+    cursor: pointer;
 }
 .setting-middle .middle-content {
     border-bottom-left-radius: 12px;
@@ -20694,4 +20710,25 @@ header .menu-icon.on-left-side {
 }
 .accordion-header {
     line-height: 1.2;
+}
+
+.middle-content .fixed-width-btn {
+    height: auto;
+    line-height: inherit;
+}
+.middle-content .table-row {
+    padding-top: 0px;
+}
+.middle-content .mid-nav a{
+    cursor: pointer;
+}
+.middle-search .dataTables_filter label {
+    display: block;
+}
+
+.setting-middle .form-section {
+    padding: 0;
+}
+.setting-middle .form-section .form-group {
+    padding-bottom: 0px;
 }

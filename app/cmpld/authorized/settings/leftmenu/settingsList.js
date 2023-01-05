@@ -52,6 +52,11 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                             trigger: true
                         });
                         break;
+                    case "Aliases":
+                        Backbone.history.navigate("/settings/Aliases", {
+                            trigger: true
+                        });
+                        break;
                     case "Disposable-Aliases":
                         Backbone.history.navigate("/settings/Disposable-Aliases", {
                             trigger: true
@@ -233,7 +238,9 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                     null,
                                                     React.createElement(
                                                         "a",
-                                                        null,
+                                                        {
+                                                            onClick: this.handleClick.bind(this, "Aliases")
+                                                        },
                                                         "Alias"
                                                     )
                                                 ),
@@ -242,7 +249,9 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                     null,
                                                     React.createElement(
                                                         "a",
-                                                        null,
+                                                        {
+                                                            onClick: this.handleClick.bind(this, "Disposable-Aliases")
+                                                        },
                                                         "Disposable address"
                                                     )
                                                 ),
@@ -251,13 +260,17 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                     null,
                                                     React.createElement(
                                                         "a",
-                                                        null,
+                                                        {
+                                                            onClick: this.handleClick.bind(this, "Custom-Domain")
+                                                        },
                                                         "Custom domain"
                                                     )
                                                 ),
                                                 React.createElement(
                                                     "li",
-                                                    null,
+                                                    {
+                                                        onClick: this.handleClick.bind(this, "Delete-Account")
+                                                    },
                                                     React.createElement(
                                                         "a",
                                                         null,
@@ -310,7 +323,9 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                     null,
                                                     React.createElement(
                                                         "a",
-                                                        null,
+                                                        {
+                                                            onClick: this.handleClick.bind(this, "Password")
+                                                        },
                                                         "Password"
                                                     )
                                                 ),
@@ -319,7 +334,9 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                     null,
                                                     React.createElement(
                                                         "a",
-                                                        null,
+                                                        {
+                                                            onClick: this.handleClick.bind(this, "2-Step")
+                                                        },
                                                         "2AF"
                                                     )
                                                 ),
@@ -328,7 +345,9 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                     null,
                                                     React.createElement(
                                                         "a",
-                                                        null,
+                                                        {
+                                                            onClick: this.handleClick.bind(this, "PGP-Keys")
+                                                        },
                                                         "PGP Keys"
                                                     )
                                                 )
@@ -381,7 +400,9 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                     null,
                                                     React.createElement(
                                                         "a",
-                                                        null,
+                                                        {
+                                                            onClick: this.handleClick.bind(this, "Folders")
+                                                        },
                                                         "Folder / Label"
                                                     )
                                                 ),
@@ -390,7 +411,9 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                     null,
                                                     React.createElement(
                                                         "a",
-                                                        null,
+                                                        {
+                                                            onClick: this.handleClick.bind(this, "Filter")
+                                                        },
                                                         "Email filter"
                                                     )
                                                 ),
@@ -399,7 +422,9 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                     null,
                                                     React.createElement(
                                                         "a",
-                                                        null,
+                                                        {
+                                                            onClick: this.handleClick.bind(this, "BlackList")
+                                                        },
                                                         "Blacklist / Whitelist"
                                                     )
                                                 )
@@ -452,7 +477,9 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                     null,
                                                     React.createElement(
                                                         "a",
-                                                        null,
+                                                        {
+                                                            onClick: this.handleClick.bind(this, "Plan")
+                                                        },
                                                         "Upgrade"
                                                     )
                                                 ),
@@ -461,7 +488,9 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                     null,
                                                     React.createElement(
                                                         "a",
-                                                        null,
+                                                        {
+                                                            onClick: this.handleClick.bind(this, "Coupon")
+                                                        },
                                                         "Coupons"
                                                     )
                                                 )

@@ -2,6 +2,15 @@ define(["react", "app"], function (React, app) {
     "use strict";
 
     return React.createClass({
+        handleClick: function (action, event) {
+            switch (action) {
+                case "back-to-inbox":
+                    Backbone.history.navigate("/mail/Inbox", {
+                        trigger: true
+                    });
+                    break;
+            }
+        },
         render: function () {
             return React.createElement(
                 "div",
@@ -23,7 +32,9 @@ define(["react", "app"], function (React, app) {
                         { className: "back-to-inbox-link" },
                         React.createElement(
                             "a",
-                            null,
+                            {
+                                onClick: this.handleClick.bind(this, "back-to-inbox")
+                            },
                             "Back to inbox"
                         )
                     )

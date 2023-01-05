@@ -8,6 +8,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
 
         getInitialState: function () {
             return {
+                viewFlag: false,
                 firstPanelClass: "panel-body",
                 secondPanelClass: "panel-body hidden",
                 firstTab: "active",
@@ -56,16 +57,18 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
 
             delete ff[""];
             $.each(app.user.get("contacts"), function (index, contactData) {
-                //console.log(emailData);
-
                 var el = {
                     DT_RowId: index,
+                    checkbox: '<label class="container-checkbox"><input type="checkbox" name="inbox-email" /><span class="checkmark"></span></label>',
                     email: {
                         display: app.transform.escapeTags(app.transform.from64str(contactData["e"]))
                     },
                     name: {
                         display: app.transform.escapeTags(app.transform.from64str(contactData["n"]))
-                    }
+                    },
+                    edit: '<a class="table-icon edit-button"></a>',
+                    delete: '<button class="table-icon delete-button"></button>',
+                    options: '<div class="dropdown"><button class="btn btn-secondary dropdown-toggle table-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button></div>'
                 };
                 alEm.push(el);
             });
@@ -75,16 +78,15 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
         },
 
         componentDidMount: function () {
-            //var dtSet=this.state.contactsSet;
             var dtSet = this.getContacts();
 
             var thisComp = this;
 
             $("#table1").dataTable({
-                dom: '<"pull-left"f><"pull-right"p>"irt<"#bottomPagination">',
+                dom: '<"middle-search"f>',
                 data: dtSet,
 
-                columns: [{
+                columns: [{ data: "checkbox" }, {
                     data: {
                         _: "email.display",
                         sort: "email.display"
@@ -94,14 +96,14 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                         _: "name.display",
                         sort: "name.display"
                     }
-                }],
-                columnDefs: [{ sClass: "col-xs-6", targets: [0, 1] }, { orderDataType: "data-sort", targets: 0 }],
+                }, { data: "edit" }, { data: "delete" }, { data: "options" }],
+                columnDefs: [{ orderDataType: "data-sort", targets: 1 }],
                 order: [[0, "asc"]],
-                sPaginationType: "simple",
                 language: {
                     emptyTable: "No Contacts",
+                    info: "Showing _START_ to _END_ of _TOTAL_ entries",
                     sSearch: "",
-                    searchPlaceholder: "Search",
+                    searchPlaceholder: "Find something...",
                     paginate: {
                         sPrevious: "<i class='fa fa-chevron-left'></i>",
                         sNext: "<i class='fa fa-chevron-right'></i>"
@@ -113,14 +115,9 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
 
             $.validator.addMethod("pubCorrect", function (value, element) {
                 return thisComp.state.pubCorrect;
-
-                //return this.optional(element) || (parseFloat(value) > 0);
             }, "Public Key format is unknown");
 
             $("#pgpField").rules("add", {
-                //required: true,
-                //minlength: 200,
-                //maxlength: 900,
                 pubCorrect: true
             });
 
@@ -138,12 +135,9 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
             });
 
             $("#pinField").rules("add", {
-                //required: true,
                 minlength: 3,
                 maxlength: 100
             });
-
-            //	this.handleClick('addNewContact');
         },
 
         /**
@@ -243,9 +237,6 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                     $("#dialogOk").on("click", function () {
                         var id = thisComp.state.contactId;
 
-                        //console.log('ddd '+id);
-                        //	console.log(app.user.get("contacts")[id]);
-
                         var contacts = app.user.get("contacts");
                         delete contacts[id];
 
@@ -257,7 +248,6 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                 thisComp.handleClick("showFirst");
                                 $("#dialogPop").modal("hide");
                             } else if (result == "newerFound") {
-                                //app.notifications.systemMessage('newerFnd');
                                 $("#dialogPop").modal("hide");
                             }
                         });
@@ -272,17 +262,12 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
 
                     var id = $(event.target).parents("tr").attr("id");
 
-                    //console.log(id);
                     if (id != undefined) {
                         thisComp.setState({
                             contactId: id
                         });
                         thisComp.handleClick("editContact", id);
                     }
-
-                    //console.log($(event.target).parents('a').attr("class"));
-
-                    //console.log($(event.target).parents('tr').attr('id'));
 
                     break;
 
@@ -292,7 +277,6 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                     var thisComp = this;
 
                     app.globalF.getPublicKeyInfo(app.transform.from64str(contact["pgp"]), function (result) {
-                        //keyData=result;
                         thisComp.setState({
                             keyStrength: result["strength"],
                             keyFingerprint: result["fingerprint"],
@@ -319,10 +303,6 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                         button2onClick: "saveExistingContact"
                     });
 
-                    //console.log(this.state.contactId);
-
-                    //console.log(contact);
-
                     break;
 
                 case "saveNewContact":
@@ -336,8 +316,6 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
 
                         var contId = app.transform.to64str(thisComp.state.emailField);
 
-                        //console.log(contId);
-
                         contacts[contId] = {
                             n: app.transform.to64str(thisComp.state.nameField),
                             p: app.transform.to64str(thisComp.state.pinField),
@@ -345,9 +323,6 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                             pgp: app.transform.to64str(thisComp.state.pgpField),
                             pgpOn: thisComp.state.pgpField == "" ? false : thisComp.state.pgpOn
                         };
-
-                        //app.user.set({"contactsChanged": true});
-                        //	app.userObjects.updateObjects();
 
                         app.user.set({ contactsChanged: true });
 
@@ -358,12 +333,10 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                 thisComp.handleClick("showFirst");
                                 $("#dialogPop").modal("hide");
                             } else if (result == "newerFound") {
-                                //app.notifications.systemMessage('newerFnd');
                                 $("#dialogPop").modal("hide");
                             }
                         });
 
-                        //console.log(this.state.contactId);
                         thisComp.getContacts();
                         thisComp.handleClick("showFirst");
                     }
@@ -376,7 +349,6 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                     var validator = this.state.keyForm;
                     validator.form();
 
-                    //console.log(this.state.pgpOn);
                     if (validator.numberOfInvalids() == 0) {
                         var contacts = app.user.get("contacts");
 
@@ -395,25 +367,19 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                     thisComp.getContacts();
 
                                     thisComp.handleClick("showFirst");
-                                    //	$('#dialogPop').modal('hide');
-                                } else if (result == "newerFound") {
-                                    //app.notifications.systemMessage('newerFnd');
-                                    //$('#dialogPop').modal('hide');
-                                }
+                                } else if (result == "newerFound") {}
                             });
-
-                            //app.user.set({"contactsChanged": true});
-                            //app.userObjects.updateObjects();
-
-                            //console.log(this.state.contactId);
                         } else {
                             app.notifications.systemMessage("nthTochng");
                         }
-
-                        //thisComp.getContacts();
-                        //thisComp.handleClick('showFirst');
                     }
 
+                    break;
+
+                case "toggleDisplay":
+                    this.setState({
+                        viewFlag: !this.state.viewFlag
+                    });
                     break;
             }
         },
@@ -435,8 +401,6 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                     });
 
                     app.userObjects.updateObjects("userProfile", "", function (response) {
-                        //restore copy of the object if failed to save
-                        //  console.log(response);
                         if (response === "saved") {
                             app.user.set({ inProcess: false });
                         } else if (response === "newerFound") {
@@ -452,8 +416,6 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                     this.setState({
                         pgpOn: !this.state.pgpOn
                     });
-
-                    //console.log(event.target.value);
                     break;
 
                 case "changeName":
@@ -477,12 +439,10 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
 
                 case "changePGP":
                     var thisComp = this;
-                    //	console.log('ddd');
                     this.setState({
                         pgpField: event.target.value
                     }, function () {
                         app.globalF.getPublicKeyInfo(thisComp.state.pgpField, function (result) {
-                            //keyData=result;
                             thisComp.setState({
                                 keyStrength: result["strength"],
                                 keyFingerprint: result["fingerprint"],
@@ -515,7 +475,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                 },
                 React.createElement(
                     "div",
-                    { className: "setting-middle personal-info" },
+                    { className: "setting-middle contacts" },
                     React.createElement(
                         "div",
                         { className: "panel panel-default panel-setting" },
@@ -523,29 +483,42 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                             "div",
                             { className: "middle-top" },
                             React.createElement(
-                                "ul",
-                                { className: "nav nav-tabs tabbed-nav" },
+                                "div",
+                                {
+                                    className: `arrow-back ${ this.state.viewFlag ? "" : "d-none" }`
+                                },
+                                React.createElement("a", {
+                                    onClick: this.handleClick.bind(this, "toggleDisplay")
+                                })
+                            ),
+                            React.createElement(
+                                "h2",
+                                null,
+                                "Profile"
+                            ),
+                            React.createElement(
+                                "div",
+                                {
+                                    className: `bread-crumb ${ this.state.viewFlag ? "" : "d-none" }`
+                                },
                                 React.createElement(
-                                    "li",
+                                    "ul",
                                     null,
                                     React.createElement(
-                                        "h2",
+                                        "li",
                                         null,
-                                        "Profile"
-                                    )
-                                ),
-                                React.createElement(
-                                    "li",
-                                    {
-                                        role: "presentation",
-                                        className: this.state.firstTab
-                                    },
+                                        React.createElement(
+                                            "a",
+                                            {
+                                                onClick: this.handleClick.bind(this, "toggleDisplay")
+                                            },
+                                            "Contacts"
+                                        )
+                                    ),
                                     React.createElement(
-                                        "a",
-                                        {
-                                            onClick: this.handleClick.bind(this, "showFirst")
-                                        },
-                                        "Contacts"
+                                        "li",
+                                        null,
+                                        "Add contact"
                                     )
                                 )
                             )
@@ -555,85 +528,163 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                             { className: "middle-content" },
                             React.createElement(
                                 "div",
-                                { className: "middle-content-top" },
-                                React.createElement(
-                                    "h3",
-                                    null,
-                                    "Contacts"
-                                ),
+                                {
+                                    className: `the-view ${ this.state.viewFlag ? "d-none" : "" }`
+                                },
                                 React.createElement(
                                     "div",
-                                    { className: "middle-content-top-right" },
+                                    { className: "middle-content-top" },
                                     React.createElement(
-                                        "div",
-                                        { className: "remember-box" },
-                                        React.createElement(
-                                            "label",
-                                            { className: "container-checkbox with-label" },
-                                            React.createElement("input", {
-                                                type: "checkbox",
-                                                checked: this.state.rememberContacts,
-                                                onChange: this.handleChange.bind(this, "remCont")
-                                            }),
-                                            React.createElement("span", { className: "checkmark" }),
-                                            " ",
-                                            "Remember contacts"
-                                        )
+                                        "h3",
+                                        null,
+                                        "Contacts"
                                     ),
                                     React.createElement(
                                         "div",
-                                        { className: "add-contact-btn" },
+                                        { className: "middle-content-top-right" },
                                         React.createElement(
-                                            "a",
-                                            {
-                                                onClick: this.handleClick.bind(this, this.state.button1onClick)
-                                            },
+                                            "div",
+                                            { className: "remember-box" },
                                             React.createElement(
-                                                "span",
-                                                null,
-                                                "+"
-                                            ),
-                                            " Add contact"
+                                                "label",
+                                                { className: "container-checkbox with-label" },
+                                                React.createElement("input", {
+                                                    type: "checkbox",
+                                                    checked: this.state.rememberContacts,
+                                                    onChange: this.handleChange.bind(this, "remCont")
+                                                }),
+                                                React.createElement("span", { className: "checkmark" }),
+                                                " ",
+                                                "Remember contacts"
+                                            )
+                                        ),
+                                        React.createElement(
+                                            "div",
+                                            { className: "add-contact-btn" },
+                                            React.createElement(
+                                                "a",
+                                                {
+                                                    onClick: this.handleClick.bind(this, "toggleDisplay")
+                                                },
+                                                React.createElement(
+                                                    "span",
+                                                    { className: "icon" },
+                                                    "+"
+                                                ),
+                                                " ",
+                                                "Add contact"
+                                            )
                                         )
                                     )
-                                )
-                            ),
-                            React.createElement(
-                                "div",
-                                { className: "middle-search" },
-                                React.createElement("input", {
-                                    type: "search",
-                                    className: "form-control",
-                                    placeholder: "Find something..."
-                                }),
-                                React.createElement("button", { className: "sorting-btn" })
-                            ),
-                            React.createElement("div", { className: "clearfix" }),
-                            React.createElement(
-                                "div",
-                                { className: this.state.firstPanelClass },
+                                ),
                                 React.createElement(
-                                    "table",
-                                    {
-                                        className: " table table-hover table-striped datatable table-light rowSelectable clickable",
-                                        id: "table1",
-                                        onClick: this.handleClick.bind(this, "selectRow")
-                                    },
+                                    "div",
+                                    { className: "table-row" },
                                     React.createElement(
-                                        "thead",
-                                        null,
+                                        "div",
+                                        { className: "table-responsive" },
                                         React.createElement(
-                                            "tr",
-                                            null,
+                                            "table",
+                                            {
+                                                className: "table",
+                                                id: "table1",
+                                                onClick: this.handleClick.bind(this, "selectRow")
+                                            },
                                             React.createElement(
-                                                "th",
+                                                "colgroup",
                                                 null,
-                                                "email"
+                                                React.createElement("col", { width: "40" }),
+                                                React.createElement("col", null),
+                                                React.createElement("col", null),
+                                                React.createElement("col", { width: "60" }),
+                                                React.createElement("col", { width: "40" }),
+                                                React.createElement("col", { width: "50" })
                                             ),
                                             React.createElement(
-                                                "th",
+                                                "thead",
                                                 null,
-                                                "name"
+                                                React.createElement(
+                                                    "tr",
+                                                    null,
+                                                    React.createElement(
+                                                        "th",
+                                                        { scope: "col" },
+                                                        React.createElement(
+                                                            "label",
+                                                            { className: "container-checkbox" },
+                                                            React.createElement("input", { type: "checkbox" }),
+                                                            React.createElement("span", { className: "checkmark" })
+                                                        )
+                                                    ),
+                                                    React.createElement(
+                                                        "th",
+                                                        { scope: "col" },
+                                                        "Email",
+                                                        " ",
+                                                        React.createElement("button", { className: "btn-sorting" })
+                                                    ),
+                                                    React.createElement(
+                                                        "th",
+                                                        {
+                                                            scope: "col",
+                                                            className: "name-width"
+                                                        },
+                                                        "Name",
+                                                        " ",
+                                                        React.createElement("button", { className: "btn-sorting" })
+                                                    ),
+                                                    React.createElement("th", null),
+                                                    React.createElement(
+                                                        "th",
+                                                        { scope: "col" },
+                                                        React.createElement("button", { className: "trash-btn" })
+                                                    ),
+                                                    React.createElement(
+                                                        "th",
+                                                        { scope: "col" },
+                                                        React.createElement(
+                                                            "div",
+                                                            { className: "dropdown" },
+                                                            React.createElement("button", {
+                                                                className: "btn btn-secondary dropdown-toggle ellipsis-btn",
+                                                                type: "button",
+                                                                "data-bs-toggle": "dropdown",
+                                                                "aria-expanded": "false"
+                                                            }),
+                                                            React.createElement(
+                                                                "ul",
+                                                                { className: "dropdown-menu" },
+                                                                React.createElement(
+                                                                    "li",
+                                                                    null,
+                                                                    React.createElement(
+                                                                        "a",
+                                                                        { href: "#" },
+                                                                        "Action"
+                                                                    )
+                                                                ),
+                                                                React.createElement(
+                                                                    "li",
+                                                                    null,
+                                                                    React.createElement(
+                                                                        "a",
+                                                                        { href: "#" },
+                                                                        "Another action"
+                                                                    )
+                                                                ),
+                                                                React.createElement(
+                                                                    "li",
+                                                                    null,
+                                                                    React.createElement(
+                                                                        "a",
+                                                                        { href: "#" },
+                                                                        "Something here"
+                                                                    )
+                                                                )
+                                                            )
+                                                        )
+                                                    )
+                                                )
                                             )
                                         )
                                     )
@@ -641,113 +692,187 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                             ),
                             React.createElement(
                                 "div",
-                                { className: this.state.secondPanelClass },
+                                {
+                                    className: `the-creation ${ this.state.viewFlag ? "" : "d-none" }`
+                                },
                                 React.createElement(
-                                    "h3",
-                                    null,
-                                    this.state.secondPanelText
+                                    "div",
+                                    { className: "middle-content-top" },
+                                    React.createElement(
+                                        "h3",
+                                        null,
+                                        "Add contact"
+                                    )
                                 ),
                                 React.createElement(
                                     "div",
-                                    { className: classFullSettSelect },
+                                    { className: "form-section" },
                                     React.createElement(
                                         "form",
                                         { id: "editPGPkey", className: "" },
                                         React.createElement(
                                             "div",
-                                            { className: "form-group" },
-                                            React.createElement("input", {
-                                                type: "text",
-                                                name: "nameField",
-                                                className: "form-control",
-                                                id: "nameField",
-                                                placeholder: "name",
-                                                value: this.state.nameField,
-                                                onChange: this.handleChange.bind(this, "changeName")
-                                            })
-                                        ),
-                                        React.createElement(
-                                            "div",
-                                            { className: "form-group" },
-                                            React.createElement("input", {
-                                                type: "text",
-                                                name: "emailField",
-                                                readOnly: this.state.contactId != "" ? true : false,
-                                                className: "form-control",
-                                                id: "emailField",
-                                                placeholder: "email",
-                                                value: this.state.emailField,
-                                                onChange: this.handleChange.bind(this, "changeEmail")
-                                            })
-                                        ),
-                                        React.createElement(
-                                            "div",
-                                            { className: "form-group" },
-                                            React.createElement("input", {
-                                                type: "text",
-                                                name: "pinField",
-                                                className: "form-control",
-                                                id: "pinField",
-                                                placeholder: "pin",
-                                                value: this.state.pinField,
-                                                readOnly: this.state.pgpOn,
-                                                onChange: this.handleChange.bind(this, "changePin")
-                                            })
-                                        ),
-                                        React.createElement("div", { className: "clearfix" }),
-                                        React.createElement("input", {
-                                            className: "pull-left",
-                                            type: "checkbox",
-                                            onChange: this.handleChange.bind(this, "enablePublic"),
-                                            checked: this.state.pgpOn
-                                        }),
-                                        "\xA0",
-                                        " ",
-                                        React.createElement(
-                                            "label",
-                                            null,
-                                            "Contact Public Key"
-                                        ),
-                                        React.createElement(
-                                            "div",
-                                            {
-                                                className: !this.state.pgpOn ? "hidden" : ""
-                                            },
+                                            { className: "row" },
                                             React.createElement(
-                                                "p",
-                                                null,
-                                                "Strength:",
-                                                " ",
-                                                this.state.keyStrength != "" ? this.state.keyStrength + " bits" : ""
+                                                "div",
+                                                { className: "col-12" },
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "form-group" },
+                                                    React.createElement("input", {
+                                                        type: "text",
+                                                        name: "nameField",
+                                                        className: "form-control",
+                                                        id: "nameField",
+                                                        placeholder: "name",
+                                                        value: this.state.nameField,
+                                                        onChange: this.handleChange.bind(this, "changeName")
+                                                    })
+                                                )
                                             ),
                                             React.createElement(
-                                                "p",
-                                                null,
-                                                "Fingerprint:",
-                                                " ",
-                                                this.state.keyFingerprint
+                                                "div",
+                                                { className: "col-12" },
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "form-group" },
+                                                    React.createElement("input", {
+                                                        type: "text",
+                                                        name: "emailField",
+                                                        readOnly: this.state.contactId != "" ? true : false,
+                                                        className: "form-control",
+                                                        id: "emailField",
+                                                        placeholder: "email",
+                                                        value: this.state.emailField,
+                                                        onChange: this.handleChange.bind(this, "changeEmail")
+                                                    })
+                                                )
                                             ),
                                             React.createElement(
-                                                "p",
-                                                null,
-                                                "Created:",
-                                                " ",
-                                                this.state.keyDate != "" ? new Date(this.state.keyDate).toLocaleString() : ""
+                                                "div",
+                                                { className: "col-12" },
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "form-group" },
+                                                    React.createElement("input", {
+                                                        type: "text",
+                                                        name: "pinField",
+                                                        className: "form-control",
+                                                        id: "pinField",
+                                                        placeholder: "pin",
+                                                        value: this.state.pinField,
+                                                        readOnly: this.state.pgpOn,
+                                                        onChange: this.handleChange.bind(this, "changePin")
+                                                    })
+                                                )
+                                            ),
+                                            React.createElement(
+                                                "div",
+                                                { className: "col-12" },
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "form-group" },
+                                                    React.createElement(
+                                                        "div",
+                                                        { className: "key-checkbox-row" },
+                                                        React.createElement(
+                                                            "div",
+                                                            { className: "key-checkbox-top" },
+                                                            React.createElement(
+                                                                "label",
+                                                                { className: "container-checkbox with-label" },
+                                                                React.createElement("input", {
+                                                                    type: "checkbox",
+                                                                    onChange: this.handleChange.bind(this, "enablePublic"),
+                                                                    checked: this.state.pgpOn
+                                                                }),
+                                                                React.createElement("span", { className: "checkmark" }),
+                                                                " ",
+                                                                "Contact Public Key"
+                                                            )
+                                                        ),
+                                                        React.createElement(
+                                                            "div",
+                                                            {
+                                                                className: `
+                                                            key-list ${ !this.state.pgpOn ? "hidden" : "" }`
+                                                            },
+                                                            React.createElement(
+                                                                "ul",
+                                                                null,
+                                                                React.createElement(
+                                                                    "li",
+                                                                    null,
+                                                                    "Strength:",
+                                                                    " ",
+                                                                    this.state.keyStrength != "" ? this.state.keyStrength + " bits" : ""
+                                                                ),
+                                                                React.createElement(
+                                                                    "li",
+                                                                    null,
+                                                                    "Fingerprint:",
+                                                                    " ",
+                                                                    this.state.keyFingerprint
+                                                                ),
+                                                                React.createElement(
+                                                                    "li",
+                                                                    null,
+                                                                    "Created:",
+                                                                    " ",
+                                                                    this.state.keyDate != "" ? new Date(this.state.keyDate).toLocaleString() : ""
+                                                                )
+                                                            )
+                                                        )
+                                                    )
+                                                )
+                                            ),
+                                            React.createElement(
+                                                "div",
+                                                { className: "col-12" },
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "form-group" },
+                                                    React.createElement("textarea", {
+                                                        className: "form-control with-icon icon-key",
+                                                        rows: "8",
+                                                        id: "pgpField",
+                                                        name: "pgpField",
+                                                        readOnly: !this.state.pgpOn,
+                                                        value: this.state.pgpField,
+                                                        onChange: this.handleChange.bind(this, "changePGP"),
+                                                        placeholder: "Public Key"
+                                                    })
+                                                )
                                             )
                                         ),
-                                        React.createElement("textarea", {
-                                            className: "form-control",
-                                            rows: "8",
-                                            id: "pgpField",
-                                            name: "pgpField",
-                                            readOnly: !this.state.pgpOn,
-                                            value: this.state.pgpField,
-                                            onChange: this.handleChange.bind(this, "changePGP"),
-                                            placeholder: "Public Key"
-                                        })
+                                        React.createElement(
+                                            "div",
+                                            { className: "form-section-bottom" },
+                                            React.createElement(
+                                                "div",
+                                                { className: "btn-row" },
+                                                React.createElement(
+                                                    "button",
+                                                    {
+                                                        type: "button",
+                                                        className: "btn-border fixed-width-btn",
+                                                        onClick: this.handleClick.bind(this, this.state.button3onClick)
+                                                    },
+                                                    "Cancel"
+                                                ),
+                                                React.createElement(
+                                                    "button",
+                                                    {
+                                                        type: "button",
+                                                        className: "btn-blue fixed-width-btn",
+                                                        onClick: this.handleClick.bind(this, this.state.button2onClick)
+                                                    },
+                                                    "Save"
+                                                )
+                                            )
+                                        )
                                     )
                                 ),
-                                React.createElement("div", { className: "clearfix" }),
                                 React.createElement(
                                     "button",
                                     {
@@ -756,29 +881,6 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                         onClick: this.handleClick.bind(this, "deleteContact")
                                     },
                                     "Delete"
-                                ),
-                                React.createElement(
-                                    "div",
-                                    { className: "pull-right dialog_buttons" },
-                                    React.createElement(
-                                        "button",
-                                        {
-                                            type: "button",
-                                            className: "btn btn-primary",
-                                            onClick: this.handleClick.bind(this, this.state.button2onClick)
-                                        },
-                                        this.state.button2text
-                                    ),
-                                    React.createElement(
-                                        "button",
-                                        {
-                                            type: "button",
-                                            className: "btn btn-default " + this.state.button3visible,
-                                            disabled: !this.state.button3enabled,
-                                            onClick: this.handleClick.bind(this, this.state.button3onClick)
-                                        },
-                                        this.state.button3text
-                                    )
                                 )
                             )
                         )
@@ -786,7 +888,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                 ),
                 React.createElement(
                     "div",
-                    { className: "setting-right personal-info " },
+                    { className: "setting-right contacts " },
                     React.createElement(RightTop, null),
                     React.createElement(
                         "div",

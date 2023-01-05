@@ -116,7 +116,6 @@ define([
                     page == "settings" &&
                     app.user.get("profileVersion") > 1
                 ) {
-                    console.log(`settings`);
                     body = (
                         <SettingsCollection
                             rightPanel={this.props.rightPanel}

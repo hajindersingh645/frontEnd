@@ -1,8 +1,4 @@
-define([
-    "react",
-    "app",
-    "cmpld/authorized/settings/rightpanel/rightTop",
-], function (React, app, RightTop) {
+define(["react", "app"], function (React, app) {
     "use strict";
     return React.createClass({
         getInitialState: function () {
@@ -375,57 +371,69 @@ define([
         render: function () {
             return (
                 <div id="rightSettingPanel">
-                    <div className="setting-middle blacklist-whitelist">
-                        <div className="middle-top">
-                            <h2>Mailbox</h2>
-                        </div>
-                        <div className="middle-content">
-                            <div className="middle-content-top">
-                                <h3>Blacklist / Whitelist</h3>
-                                <div className="middle-content-top-right">
-                                    <div className="add-contact-btn">
+                    <div className="col-lg-7 col-xs-12 personal-info ">
+                        <div className="panel panel-default panel-setting">
+                            <div className="panel-heading">
+                                <button
+                                    type="button"
+                                    className={this.state.button1class}
+                                    onClick={this.handleClick.bind(
+                                        this,
+                                        "addFilterRule"
+                                    )}
+                                >
+                                    {" "}
+                                    Add Rule
+                                </button>
+                                <button
+                                    type="button"
+                                    className={this.state.button2class}
+                                    onClick={this.handleClick.bind(
+                                        this,
+                                        "clearFilterRules"
+                                    )}
+                                >
+                                    {" "}
+                                    Remove All Rules
+                                </button>
+
+                                <ul className="nav nav-tabs tabbed-nav">
+                                    <li
+                                        role="presentation"
+                                        className={this.state.firstTab}
+                                    >
                                         <a
-                                            className={this.state.button1class}
                                             onClick={this.handleClick.bind(
                                                 this,
-                                                "addFilterRule"
+                                                "showFirst"
                                             )}
                                         >
-                                            <span>+</span>
-                                            Add Rule
+                                            <h3 className={``}>
+                                                Black / White List
+                                            </h3>
+                                            <h3 className={``}>
+                                                <i className="ion-funnel"></i>
+                                            </h3>
                                         </a>
-                                        <a
-                                            className={this.state.button2class}
-                                            onClick={this.handleClick.bind(
-                                                this,
-                                                "clearFilterRules"
-                                            )}
-                                        >
-                                            Remove All Rules
-                                        </a>
-                                    </div>
-                                </div>
+                                    </li>
+                                </ul>
                             </div>
 
-                            <div
-                                className={`table-row ${this.state.firstPanelClass}`}
-                            >
-                                <div className="table-responsive">
-                                    <table
-                                        className="table"
-                                        id="table1"
-                                        onClick={this.handleClick.bind(
-                                            this,
-                                            "selectRow"
-                                        )}
-                                    >
-                                        <thead>
-                                            <tr>
-                                                <th>&nbsp;</th>
-                                            </tr>
-                                        </thead>
-                                    </table>
-                                </div>
+                            <div className={this.state.firstPanelClass}>
+                                <table
+                                    className=" table table-hover table-striped datatable table-light rowSelectable clickable"
+                                    id="table1"
+                                    onClick={this.handleClick.bind(
+                                        this,
+                                        "selectRow"
+                                    )}
+                                >
+                                    <thead>
+                                        <tr>
+                                            <th>&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                </table>
                             </div>
 
                             <div className={this.state.secondPanelClass}>
@@ -538,23 +546,23 @@ define([
                         </div>
                     </div>
 
-                    <div className="setting-right email-filters">
-                        <RightTop />
-                        <div className="setting-right-data">
-                            <div>
-                                <h2>Help</h2>
+                    <div className="col-lg-5 col-xs-12 personal-info ">
+                        <div className="panel panel-default">
+                            <div className="panel-heading">
+                                <h3 className="panel-title personal-info-title">
+                                    Help
+                                </h3>
                             </div>
 
                             <div className="panel-body">
-                                <h3>Blacklist</h3>
                                 <p>
-                                    Will be saved on server, any email coming
-                                    from outside of our server will be screened
-                                    before reaching your email box. You can
-                                    choose either to accept or drop email based
-                                    on sender's email address or domain.
-                                </p>
-                                <p>
+                                    <b>Black List</b> - Will be saved on server,
+                                    any email coming from outside of our server
+                                    will be screened before reaching your email
+                                    box. You can choose either to accept or drop
+                                    email based on sender's email address or
+                                    domain.
+                                    <br /> <br />
                                     Email address is always has higher priority,
                                     than domain, i.e if you create rule to drop
                                     any email originated from <b>yahoo.com</b>,
@@ -562,9 +570,8 @@ define([
                                     <b>'IamNigerianPrince@yahoo.com'</b> - it
                                     will drop any emails originated from
                                     yahoo.com, except coming from{" "}
-                                    <b>'IamNigerianPrince@yahoo.com'</b>.
-                                </p>
-                                <p>
+                                    <b>'IamNigerianPrince@yahoo.com'</b>.<br />
+                                    <br />
                                     This is <b>unencrypted list</b> of rules
                                     accessible by our server, in order to
                                     prevent mass spam attack of your email
@@ -573,11 +580,10 @@ define([
                                     rating will be added to our universal spam
                                     filter.
                                 </p>
-                                <h3>Note.</h3>
                                 <p>
-                                    This filter is not applicable to emails
-                                    originated from our server. Please use
-                                    'Email Filter' to screen those emails.
+                                    <b>Note.</b> This filter is not applicable
+                                    to emails originated from our server. Please
+                                    use 'Email Filter' to screen those emails.
                                 </p>
                             </div>
                         </div>

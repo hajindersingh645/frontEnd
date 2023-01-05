@@ -8,6 +8,7 @@ define(["react", "app", "cmpld/authorized/settings/leftmenu/settingsList"], func
                     coupon: "",
                     layout: "",
                     password: "",
+                    aliases: "",
                     disposable: "",
                     domain: "",
                     auth: "",
@@ -40,6 +41,7 @@ define(["react", "app", "cmpld/authorized/settings/leftmenu/settingsList"], func
                     coupon: "",
                     layout: "",
                     password: "",
+                    aliases: "",
                     disposable: "",
                     domain: "",
                     auth: "",
@@ -102,6 +104,9 @@ define(["react", "app", "cmpld/authorized/settings/leftmenu/settingsList"], func
 
                 case "Password":
                     thisComp.setActive(thisComp, "password");
+                    break;
+                case "Aliases":
+                    thisComp.setActive(thisComp, "aliases");
                     break;
                 case "Disposable-Aliases":
                     thisComp.setActive(thisComp, "disposable");

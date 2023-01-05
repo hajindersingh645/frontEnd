@@ -330,6 +330,7 @@ define([
                 "cmpld/authorized/settings/rightpanel/blackList",
                 "cmpld/authorized/authCollection",
                 "cmpld/authorized/updates/updateVersion1",
+                "cmpld/authorized/settings/rightpanel/aliasEmails"
             ], function (
                 Profile,
                 Layout,
@@ -338,7 +339,7 @@ define([
                 Contacts,
                 Step2,
                 Domains,
-                Aliases,
+                Disposable,
                 Pgp,
                 Webdiv,
                 Security,
@@ -349,7 +350,8 @@ define([
                 Plan,
                 blackList,
                 AuthCollection,
-                UpdateVersion1
+                UpdateVersion1,
+                Aliases
             ) {
                 //clearTimeout(app.mailMan.get('loading'));
 
@@ -379,7 +381,7 @@ define([
                         break;
 
                     case "Disposable-Aliases":
-                        Profil = Aliases;
+                        Profil = Disposable;
                         break;
 
                     case "PGP-Keys":
@@ -426,6 +428,9 @@ define([
                         break;
                     case "updateVersion1":
                         Profil = UpdateVersion1;
+                        break;
+                    case "Aliases":
+                        Profil = Aliases;
                         break;
                 }
                 React.render(

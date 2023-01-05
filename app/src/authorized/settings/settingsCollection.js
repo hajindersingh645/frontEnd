@@ -12,6 +12,7 @@ define([
                     coupon: "",
                     layout: "",
                     password: "",
+                    aliases: "",
                     disposable: "",
                     domain: "",
                     auth: "",
@@ -46,6 +47,7 @@ define([
                         coupon: "",
                         layout: "",
                         password: "",
+                        aliases: "",
                         disposable: "",
                         domain: "",
                         auth: "",
@@ -114,6 +116,9 @@ define([
 
                 case "Password":
                     thisComp.setActive(thisComp, "password");
+                    break;
+                case "Aliases":
+                    thisComp.setActive(thisComp, "aliases");
                     break;
                 case "Disposable-Aliases":
                     thisComp.setActive(thisComp, "disposable");

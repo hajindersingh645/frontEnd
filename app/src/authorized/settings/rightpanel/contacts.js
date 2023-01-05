@@ -13,6 +13,7 @@ define([
 
         getInitialState: function () {
             return {
+                viewFlag: false,
                 firstPanelClass: "panel-body",
                 secondPanelClass: "panel-body hidden",
                 firstTab: "active",
@@ -61,10 +62,10 @@ define([
 
             delete ff[""];
             $.each(app.user.get("contacts"), function (index, contactData) {
-                //console.log(emailData);
-
                 var el = {
                     DT_RowId: index,
+                    checkbox:
+                        '<label class="container-checkbox"><input type="checkbox" name="inbox-email" /><span class="checkmark"></span></label>',
                     email: {
                         display: app.transform.escapeTags(
                             app.transform.from64str(contactData["e"])
@@ -75,6 +76,10 @@ define([
                             app.transform.from64str(contactData["n"])
                         ),
                     },
+                    edit: '<a class="table-icon edit-button"></a>',
+                    delete: '<button class="table-icon delete-button"></button>',
+                    options:
+                        '<div class="dropdown"><button class="btn btn-secondary dropdown-toggle table-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button></div>',
                 };
                 alEm.push(el);
             });
@@ -84,16 +89,16 @@ define([
         },
 
         componentDidMount: function () {
-            //var dtSet=this.state.contactsSet;
             var dtSet = this.getContacts();
 
             var thisComp = this;
 
             $("#table1").dataTable({
-                dom: '<"pull-left"f><"pull-right"p>"irt<"#bottomPagination">',
+                dom: '<"middle-search"f>',
                 data: dtSet,
 
                 columns: [
+                    { data: "checkbox" },
                     {
                         data: {
                             _: "email.display",
@@ -106,17 +111,17 @@ define([
                             sort: "name.display",
                         },
                     },
+                    { data: "edit" },
+                    { data: "delete" },
+                    { data: "options" },
                 ],
-                columnDefs: [
-                    { sClass: "col-xs-6", targets: [0, 1] },
-                    { orderDataType: "data-sort", targets: 0 },
-                ],
+                columnDefs: [{ orderDataType: "data-sort", targets: 1 }],
                 order: [[0, "asc"]],
-                sPaginationType: "simple",
                 language: {
                     emptyTable: "No Contacts",
+                    info: "Showing _START_ to _END_ of _TOTAL_ entries",
                     sSearch: "",
-                    searchPlaceholder: "Search",
+                    searchPlaceholder: "Find something...",
                     paginate: {
                         sPrevious: "<i class='fa fa-chevron-left'></i>",
                         sNext: "<i class='fa fa-chevron-right'></i>",
@@ -130,16 +135,11 @@ define([
                 "pubCorrect",
                 function (value, element) {
                     return thisComp.state.pubCorrect;
-
-                    //return this.optional(element) || (parseFloat(value) > 0);
                 },
                 "Public Key format is unknown"
             );
 
             $("#pgpField").rules("add", {
-                //required: true,
-                //minlength: 200,
-                //maxlength: 900,
                 pubCorrect: true,
             });
 
@@ -157,12 +157,9 @@ define([
             });
 
             $("#pinField").rules("add", {
-                //required: true,
                 minlength: 3,
                 maxlength: 100,
             });
-
-            //	this.handleClick('addNewContact');
         },
 
         /**
@@ -271,9 +268,6 @@ define([
                     $("#dialogOk").on("click", function () {
                         var id = thisComp.state.contactId;
 
-                        //console.log('ddd '+id);
-                        //	console.log(app.user.get("contacts")[id]);
-
                         var contacts = app.user.get("contacts");
                         delete contacts[id];
 
@@ -288,7 +282,6 @@ define([
                                     thisComp.handleClick("showFirst");
                                     $("#dialogPop").modal("hide");
                                 } else if (result == "newerFound") {
-                                    //app.notifications.systemMessage('newerFnd');
                                     $("#dialogPop").modal("hide");
                                 }
                             }
@@ -304,17 +297,12 @@ define([
 
                     var id = $(event.target).parents("tr").attr("id");
 
-                    //console.log(id);
                     if (id != undefined) {
                         thisComp.setState({
                             contactId: id,
                         });
                         thisComp.handleClick("editContact", id);
                     }
-
-                    //console.log($(event.target).parents('a').attr("class"));
-
-                    //console.log($(event.target).parents('tr').attr('id'));
 
                     break;
 
@@ -326,7 +314,6 @@ define([
                     app.globalF.getPublicKeyInfo(
                         app.transform.from64str(contact["pgp"]),
                         function (result) {
-                            //keyData=result;
                             thisComp.setState({
                                 keyStrength: result["strength"],
                                 keyFingerprint: result["fingerprint"],
@@ -354,10 +341,6 @@ define([
                         button2onClick: "saveExistingContact",
                     });
 
-                    //console.log(this.state.contactId);
-
-                    //console.log(contact);
-
                     break;
 
                 case "saveNewContact":
@@ -373,8 +356,6 @@ define([
                             thisComp.state.emailField
                         );
 
-                        //console.log(contId);
-
                         contacts[contId] = {
                             n: app.transform.to64str(thisComp.state.nameField),
                             p: app.transform.to64str(thisComp.state.pinField),
@@ -385,9 +366,6 @@ define([
                                     ? false
                                     : thisComp.state.pgpOn,
                         };
-
-                        //app.user.set({"contactsChanged": true});
-                        //	app.userObjects.updateObjects();
 
                         app.user.set({ contactsChanged: true });
 
@@ -401,13 +379,11 @@ define([
                                     thisComp.handleClick("showFirst");
                                     $("#dialogPop").modal("hide");
                                 } else if (result == "newerFound") {
-                                    //app.notifications.systemMessage('newerFnd');
                                     $("#dialogPop").modal("hide");
                                 }
                             }
                         );
 
-                        //console.log(this.state.contactId);
                         thisComp.getContacts();
                         thisComp.handleClick("showFirst");
                     }
@@ -420,7 +396,6 @@ define([
                     var validator = this.state.keyForm;
                     validator.form();
 
-                    //console.log(this.state.pgpOn);
                     if (validator.numberOfInvalids() == 0) {
                         var contacts = app.user.get("contacts");
 
@@ -469,26 +444,21 @@ define([
                                         thisComp.getContacts();
 
                                         thisComp.handleClick("showFirst");
-                                        //	$('#dialogPop').modal('hide');
                                     } else if (result == "newerFound") {
-                                        //app.notifications.systemMessage('newerFnd');
-                                        //$('#dialogPop').modal('hide');
                                     }
                                 }
                             );
-
-                            //app.user.set({"contactsChanged": true});
-                            //app.userObjects.updateObjects();
-
-                            //console.log(this.state.contactId);
                         } else {
                             app.notifications.systemMessage("nthTochng");
                         }
-
-                        //thisComp.getContacts();
-                        //thisComp.handleClick('showFirst');
                     }
 
+                    break;
+
+                case "toggleDisplay":
+                    this.setState({
+                        viewFlag: !this.state.viewFlag,
+                    });
                     break;
             }
         },
@@ -513,8 +483,6 @@ define([
                         "userProfile",
                         "",
                         function (response) {
-                            //restore copy of the object if failed to save
-                            //  console.log(response);
                             if (response === "saved") {
                                 app.user.set({ inProcess: false });
                             } else if (response === "newerFound") {
@@ -531,8 +499,6 @@ define([
                     this.setState({
                         pgpOn: !this.state.pgpOn,
                     });
-
-                    //console.log(event.target.value);
                     break;
 
                 case "changeName":
@@ -556,7 +522,6 @@ define([
 
                 case "changePGP":
                     var thisComp = this;
-                    //	console.log('ddd');
                     this.setState(
                         {
                             pgpField: event.target.value,
@@ -565,7 +530,6 @@ define([
                             app.globalF.getPublicKeyInfo(
                                 thisComp.state.pgpField,
                                 function (result) {
-                                    //keyData=result;
                                     thisComp.setState({
                                         keyStrength: result["strength"],
                                         keyFingerprint: result["fingerprint"],
@@ -602,201 +566,358 @@ define([
                     className={this.props.classes.rightClass}
                     id="rightSettingPanel"
                 >
-                    <div className="setting-middle personal-info">
+                    <div className="setting-middle contacts">
                         <div className="panel panel-default panel-setting">
                             <div className="middle-top">
-                                <ul className="nav nav-tabs tabbed-nav">
-                                    <li>
-                                        <h2>Profile</h2>
-                                    </li>
-                                    <li
-                                        role="presentation"
-                                        className={this.state.firstTab}
-                                    >
-                                        <a
-                                            onClick={this.handleClick.bind(
-                                                this,
-                                                "showFirst"
-                                            )}
-                                        >
-                                            Contacts
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div className="middle-content">
-                                <div className="middle-content-top">
-                                    <h3>Contacts</h3>
-                                    <div className="middle-content-top-right">
-                                        <div className="remember-box">
-                                            <label className="container-checkbox with-label">
-                                                <input
-                                                    type="checkbox"
-                                                    checked={
-                                                        this.state
-                                                            .rememberContacts
-                                                    }
-                                                    onChange={this.handleChange.bind(
-                                                        this,
-                                                        "remCont"
-                                                    )}
-                                                />
-                                                <span className="checkmark"></span>{" "}
-                                                Remember contacts
-                                            </label>
-                                        </div>
-                                        <div className="add-contact-btn">
+                                <div
+                                    className={`arrow-back ${
+                                        this.state.viewFlag ? "" : "d-none"
+                                    }`}
+                                >
+                                    <a
+                                        onClick={this.handleClick.bind(
+                                            this,
+                                            "toggleDisplay"
+                                        )}
+                                    ></a>
+                                </div>
+                                <h2>Profile</h2>
+                                <div
+                                    className={`bread-crumb ${
+                                        this.state.viewFlag ? "" : "d-none"
+                                    }`}
+                                >
+                                    <ul>
+                                        <li>
                                             <a
                                                 onClick={this.handleClick.bind(
                                                     this,
-                                                    this.state.button1onClick
+                                                    "toggleDisplay"
                                                 )}
                                             >
-                                                <span>+</span> Add contact
+                                                Contacts
                                             </a>
+                                        </li>
+                                        <li>Add contact</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div className="middle-content">
+                                <div
+                                    className={`the-view ${
+                                        this.state.viewFlag ? "d-none" : ""
+                                    }`}
+                                >
+                                    <div className="middle-content-top">
+                                        <h3>Contacts</h3>
+                                        <div className="middle-content-top-right">
+                                            <div className="remember-box">
+                                                <label className="container-checkbox with-label">
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={
+                                                            this.state
+                                                                .rememberContacts
+                                                        }
+                                                        onChange={this.handleChange.bind(
+                                                            this,
+                                                            "remCont"
+                                                        )}
+                                                    />
+                                                    <span className="checkmark"></span>{" "}
+                                                    Remember contacts
+                                                </label>
+                                            </div>
+                                            <div className="add-contact-btn">
+                                                <a
+                                                    onClick={this.handleClick.bind(
+                                                        this,
+                                                        "toggleDisplay"
+                                                    )}
+                                                >
+                                                    <span className="icon">
+                                                        +
+                                                    </span>{" "}
+                                                    Add contact
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="table-row">
+                                        <div className="table-responsive">
+                                            <table
+                                                className="table"
+                                                id="table1"
+                                                onClick={this.handleClick.bind(
+                                                    this,
+                                                    "selectRow"
+                                                )}
+                                            >
+                                                <colgroup>
+                                                    <col width="40" />
+                                                    <col />
+                                                    <col />
+                                                    <col width="60" />
+                                                    <col width="40" />
+                                                    <col width="50" />
+                                                </colgroup>
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">
+                                                            <label className="container-checkbox">
+                                                                <input type="checkbox" />
+                                                                <span className="checkmark"></span>
+                                                            </label>
+                                                        </th>
+                                                        <th scope="col">
+                                                            Email{" "}
+                                                            <button className="btn-sorting"></button>
+                                                        </th>
+                                                        <th
+                                                            scope="col"
+                                                            className="name-width"
+                                                        >
+                                                            Name{" "}
+                                                            <button className="btn-sorting"></button>
+                                                        </th>
+                                                        <th></th>
+                                                        <th scope="col">
+                                                            <button className="trash-btn"></button>
+                                                        </th>
+                                                        <th scope="col">
+                                                            <div className="dropdown">
+                                                                <button
+                                                                    className="btn btn-secondary dropdown-toggle ellipsis-btn"
+                                                                    type="button"
+                                                                    data-bs-toggle="dropdown"
+                                                                    aria-expanded="false"
+                                                                ></button>
+                                                                <ul className="dropdown-menu">
+                                                                    <li>
+                                                                        <a href="#">
+                                                                            Action
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="#">
+                                                                            Another
+                                                                            action
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="#">
+                                                                            Something
+                                                                            here
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="middle-search">
-                                    <input
-                                        type="search"
-                                        className="form-control"
-                                        placeholder="Find something..."
-                                    />
-                                    <button className="sorting-btn"></button>
-                                </div>
-                                <div className="clearfix"></div>
-                                <div className={this.state.firstPanelClass}>
-                                    <table
-                                        className=" table table-hover table-striped datatable table-light rowSelectable clickable"
-                                        id="table1"
-                                        onClick={this.handleClick.bind(
-                                            this,
-                                            "selectRow"
-                                        )}
-                                    >
-                                        <thead>
-                                            <tr>
-                                                <th>email</th>
-                                                <th>name</th>
-                                            </tr>
-                                        </thead>
-                                    </table>
-                                </div>
-
-                                <div className={this.state.secondPanelClass}>
-                                    <h3>{this.state.secondPanelText}</h3>
-                                    <div className={classFullSettSelect}>
+                                <div
+                                    className={`the-creation ${
+                                        this.state.viewFlag ? "" : "d-none"
+                                    }`}
+                                >
+                                    <div className="middle-content-top">
+                                        <h3>Add contact</h3>
+                                    </div>
+                                    <div className="form-section">
                                         <form id="editPGPkey" className="">
-                                            <div className="form-group">
-                                                <input
-                                                    type="text"
-                                                    name="nameField"
-                                                    className="form-control"
-                                                    id="nameField"
-                                                    placeholder="name"
-                                                    value={this.state.nameField}
-                                                    onChange={this.handleChange.bind(
-                                                        this,
-                                                        "changeName"
-                                                    )}
-                                                />
+                                            <div className="row">
+                                                <div className="col-12">
+                                                    <div className="form-group">
+                                                        <input
+                                                            type="text"
+                                                            name="nameField"
+                                                            className="form-control"
+                                                            id="nameField"
+                                                            placeholder="name"
+                                                            value={
+                                                                this.state
+                                                                    .nameField
+                                                            }
+                                                            onChange={this.handleChange.bind(
+                                                                this,
+                                                                "changeName"
+                                                            )}
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="col-12">
+                                                    <div className="form-group">
+                                                        <input
+                                                            type="text"
+                                                            name="emailField"
+                                                            readOnly={
+                                                                this.state
+                                                                    .contactId !=
+                                                                ""
+                                                                    ? true
+                                                                    : false
+                                                            }
+                                                            className="form-control"
+                                                            id="emailField"
+                                                            placeholder="email"
+                                                            value={
+                                                                this.state
+                                                                    .emailField
+                                                            }
+                                                            onChange={this.handleChange.bind(
+                                                                this,
+                                                                "changeEmail"
+                                                            )}
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="col-12">
+                                                    <div className="form-group">
+                                                        <input
+                                                            type="text"
+                                                            name="pinField"
+                                                            className="form-control"
+                                                            id="pinField"
+                                                            placeholder="pin"
+                                                            value={
+                                                                this.state
+                                                                    .pinField
+                                                            }
+                                                            readOnly={
+                                                                this.state.pgpOn
+                                                            }
+                                                            onChange={this.handleChange.bind(
+                                                                this,
+                                                                "changePin"
+                                                            )}
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="col-12">
+                                                    <div className="form-group">
+                                                        <div className="key-checkbox-row">
+                                                            <div className="key-checkbox-top">
+                                                                <label className="container-checkbox with-label">
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        onChange={this.handleChange.bind(
+                                                                            this,
+                                                                            "enablePublic"
+                                                                        )}
+                                                                        checked={
+                                                                            this
+                                                                                .state
+                                                                                .pgpOn
+                                                                        }
+                                                                    />
+                                                                    <span className="checkmark"></span>{" "}
+                                                                    Contact
+                                                                    Public Key
+                                                                </label>
+                                                            </div>
+                                                            <div
+                                                                className={`
+                                                            key-list ${
+                                                                !this.state
+                                                                    .pgpOn
+                                                                    ? "hidden"
+                                                                    : ""
+                                                            }`}
+                                                            >
+                                                                <ul>
+                                                                    <li>
+                                                                        Strength:{" "}
+                                                                        {this
+                                                                            .state
+                                                                            .keyStrength !=
+                                                                        ""
+                                                                            ? this
+                                                                                  .state
+                                                                                  .keyStrength +
+                                                                              " bits"
+                                                                            : ""}
+                                                                    </li>
+                                                                    <li>
+                                                                        Fingerprint:{" "}
+                                                                        {
+                                                                            this
+                                                                                .state
+                                                                                .keyFingerprint
+                                                                        }
+                                                                    </li>
+                                                                    <li>
+                                                                        Created:{" "}
+                                                                        {this
+                                                                            .state
+                                                                            .keyDate !=
+                                                                        ""
+                                                                            ? new Date(
+                                                                                  this.state.keyDate
+                                                                              ).toLocaleString()
+                                                                            : ""}
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-12">
+                                                    <div className="form-group">
+                                                        <textarea
+                                                            className="form-control with-icon icon-key"
+                                                            rows="8"
+                                                            id="pgpField"
+                                                            name="pgpField"
+                                                            readOnly={
+                                                                !this.state
+                                                                    .pgpOn
+                                                            }
+                                                            value={
+                                                                this.state
+                                                                    .pgpField
+                                                            }
+                                                            onChange={this.handleChange.bind(
+                                                                this,
+                                                                "changePGP"
+                                                            )}
+                                                            placeholder="Public Key"
+                                                        ></textarea>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div className="form-group">
-                                                <input
-                                                    type="text"
-                                                    name="emailField"
-                                                    readOnly={
-                                                        this.state.contactId !=
-                                                        ""
-                                                            ? true
-                                                            : false
-                                                    }
-                                                    className="form-control"
-                                                    id="emailField"
-                                                    placeholder="email"
-                                                    value={
-                                                        this.state.emailField
-                                                    }
-                                                    onChange={this.handleChange.bind(
-                                                        this,
-                                                        "changeEmail"
-                                                    )}
-                                                />
+                                            <div className="form-section-bottom">
+                                                <div className="btn-row">
+                                                    <button
+                                                        type="button"
+                                                        className="btn-border fixed-width-btn"
+                                                        onClick={this.handleClick.bind(
+                                                            this,
+                                                            this.state
+                                                                .button3onClick
+                                                        )}
+                                                    >
+                                                        Cancel
+                                                    </button>
+                                                    <button
+                                                        type="button"
+                                                        className="btn-blue fixed-width-btn"
+                                                        onClick={this.handleClick.bind(
+                                                            this,
+                                                            this.state
+                                                                .button2onClick
+                                                        )}
+                                                    >
+                                                        Save
+                                                    </button>
+                                                </div>
                                             </div>
-                                            <div className="form-group">
-                                                <input
-                                                    type="text"
-                                                    name="pinField"
-                                                    className="form-control"
-                                                    id="pinField"
-                                                    placeholder="pin"
-                                                    value={this.state.pinField}
-                                                    readOnly={this.state.pgpOn}
-                                                    onChange={this.handleChange.bind(
-                                                        this,
-                                                        "changePin"
-                                                    )}
-                                                />
-                                            </div>
-                                            <div className="clearfix"></div>
-                                            <input
-                                                className="pull-left"
-                                                type="checkbox"
-                                                onChange={this.handleChange.bind(
-                                                    this,
-                                                    "enablePublic"
-                                                )}
-                                                checked={this.state.pgpOn}
-                                            />
-                                            &nbsp;{" "}
-                                            <label>Contact Public Key</label>
-                                            <div
-                                                className={
-                                                    !this.state.pgpOn
-                                                        ? "hidden"
-                                                        : ""
-                                                }
-                                            >
-                                                <p>
-                                                    Strength:{" "}
-                                                    {this.state.keyStrength !=
-                                                    ""
-                                                        ? this.state
-                                                              .keyStrength +
-                                                          " bits"
-                                                        : ""}
-                                                </p>
-                                                <p>
-                                                    Fingerprint:{" "}
-                                                    {this.state.keyFingerprint}
-                                                </p>
-                                                <p>
-                                                    Created:{" "}
-                                                    {this.state.keyDate != ""
-                                                        ? new Date(
-                                                              this.state.keyDate
-                                                          ).toLocaleString()
-                                                        : ""}
-                                                </p>
-                                            </div>
-                                            <textarea
-                                                className="form-control"
-                                                rows="8"
-                                                id="pgpField"
-                                                name="pgpField"
-                                                readOnly={!this.state.pgpOn}
-                                                value={this.state.pgpField}
-                                                onChange={this.handleChange.bind(
-                                                    this,
-                                                    "changePGP"
-                                                )}
-                                                placeholder="Public Key"
-                                            ></textarea>
                                         </form>
                                     </div>
 
-                                    <div className="clearfix"></div>
                                     <button
                                         type="button"
                                         className={
@@ -810,42 +931,12 @@ define([
                                     >
                                         Delete
                                     </button>
-
-                                    <div className="pull-right dialog_buttons">
-                                        <button
-                                            type="button"
-                                            className="btn btn-primary"
-                                            onClick={this.handleClick.bind(
-                                                this,
-                                                this.state.button2onClick
-                                            )}
-                                        >
-                                            {this.state.button2text}
-                                        </button>
-
-                                        <button
-                                            type="button"
-                                            className={
-                                                "btn btn-default " +
-                                                this.state.button3visible
-                                            }
-                                            disabled={
-                                                !this.state.button3enabled
-                                            }
-                                            onClick={this.handleClick.bind(
-                                                this,
-                                                this.state.button3onClick
-                                            )}
-                                        >
-                                            {this.state.button3text}
-                                        </button>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div className="setting-right personal-info ">
+                    <div className="setting-right contacts ">
                         <RightTop />
                         <div className="setting-right-data">
                             <div className="panel-heading">

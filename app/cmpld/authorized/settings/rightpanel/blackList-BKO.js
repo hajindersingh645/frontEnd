@@ -1,4 +1,4 @@
-define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], function (React, app, RightTop) {
+define(["react", "app"], function (React, app) {
     "use strict";
 
     return React.createClass({
@@ -313,83 +313,81 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
                 { id: "rightSettingPanel" },
                 React.createElement(
                     "div",
-                    { className: "setting-middle blacklist-whitelist" },
+                    { className: "col-lg-7 col-xs-12 personal-info " },
                     React.createElement(
                         "div",
-                        { className: "middle-top" },
-                        React.createElement(
-                            "h2",
-                            null,
-                            "Mailbox"
-                        )
-                    ),
-                    React.createElement(
-                        "div",
-                        { className: "middle-content" },
+                        { className: "panel panel-default panel-setting" },
                         React.createElement(
                             "div",
-                            { className: "middle-content-top" },
+                            { className: "panel-heading" },
                             React.createElement(
-                                "h3",
-                                null,
-                                "Blacklist / Whitelist"
+                                "button",
+                                {
+                                    type: "button",
+                                    className: this.state.button1class,
+                                    onClick: this.handleClick.bind(this, "addFilterRule")
+                                },
+                                " ",
+                                "Add Rule"
                             ),
                             React.createElement(
-                                "div",
-                                { className: "middle-content-top-right" },
+                                "button",
+                                {
+                                    type: "button",
+                                    className: this.state.button2class,
+                                    onClick: this.handleClick.bind(this, "clearFilterRules")
+                                },
+                                " ",
+                                "Remove All Rules"
+                            ),
+                            React.createElement(
+                                "ul",
+                                { className: "nav nav-tabs tabbed-nav" },
                                 React.createElement(
-                                    "div",
-                                    { className: "add-contact-btn" },
+                                    "li",
+                                    {
+                                        role: "presentation",
+                                        className: this.state.firstTab
+                                    },
                                     React.createElement(
                                         "a",
                                         {
-                                            className: this.state.button1class,
-                                            onClick: this.handleClick.bind(this, "addFilterRule")
+                                            onClick: this.handleClick.bind(this, "showFirst")
                                         },
                                         React.createElement(
-                                            "span",
-                                            null,
-                                            "+"
+                                            "h3",
+                                            { className: `` },
+                                            "Black / White List"
                                         ),
-                                        "Add Rule"
-                                    ),
-                                    React.createElement(
-                                        "a",
-                                        {
-                                            className: this.state.button2class,
-                                            onClick: this.handleClick.bind(this, "clearFilterRules")
-                                        },
-                                        "Remove All Rules"
+                                        React.createElement(
+                                            "h3",
+                                            { className: `` },
+                                            React.createElement("i", { className: "ion-funnel" })
+                                        )
                                     )
                                 )
                             )
                         ),
                         React.createElement(
                             "div",
-                            {
-                                className: `table-row ${ this.state.firstPanelClass }`
-                            },
+                            { className: this.state.firstPanelClass },
                             React.createElement(
-                                "div",
-                                { className: "table-responsive" },
+                                "table",
+                                {
+                                    className: " table table-hover table-striped datatable table-light rowSelectable clickable",
+                                    id: "table1",
+                                    onClick: this.handleClick.bind(this, "selectRow")
+                                },
                                 React.createElement(
-                                    "table",
-                                    {
-                                        className: "table",
-                                        id: "table1",
-                                        onClick: this.handleClick.bind(this, "selectRow")
-                                    },
+                                    "thead",
+                                    null,
                                     React.createElement(
-                                        "thead",
+                                        "tr",
                                         null,
                                         React.createElement(
-                                            "tr",
+                                            "th",
                                             null,
-                                            React.createElement(
-                                                "th",
-                                                null,
-                                                "\xA0"
-                                            )
+                                            "\xA0"
                                         )
                                     )
                                 )
@@ -514,17 +512,16 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
                 ),
                 React.createElement(
                     "div",
-                    { className: "setting-right email-filters" },
-                    React.createElement(RightTop, null),
+                    { className: "col-lg-5 col-xs-12 personal-info " },
                     React.createElement(
                         "div",
-                        { className: "setting-right-data" },
+                        { className: "panel panel-default" },
                         React.createElement(
                             "div",
-                            null,
+                            { className: "panel-heading" },
                             React.createElement(
-                                "h2",
-                                null,
+                                "h3",
+                                { className: "panel-title personal-info-title" },
                                 "Help"
                             )
                         ),
@@ -532,18 +529,17 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
                             "div",
                             { className: "panel-body" },
                             React.createElement(
-                                "h3",
-                                null,
-                                "Blacklist"
-                            ),
-                            React.createElement(
                                 "p",
                                 null,
-                                "Will be saved on server, any email coming from outside of our server will be screened before reaching your email box. You can choose either to accept or drop email based on sender's email address or domain."
-                            ),
-                            React.createElement(
-                                "p",
-                                null,
+                                React.createElement(
+                                    "b",
+                                    null,
+                                    "Black List"
+                                ),
+                                " - Will be saved on server, any email coming from outside of our server will be screened before reaching your email box. You can choose either to accept or drop email based on sender's email address or domain.",
+                                React.createElement("br", null),
+                                " ",
+                                React.createElement("br", null),
                                 "Email address is always has higher priority, than domain, i.e if you create rule to drop any email originated from ",
                                 React.createElement(
                                     "b",
@@ -564,11 +560,9 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
                                     null,
                                     "'IamNigerianPrince@yahoo.com'"
                                 ),
-                                "."
-                            ),
-                            React.createElement(
-                                "p",
-                                null,
+                                ".",
+                                React.createElement("br", null),
+                                React.createElement("br", null),
                                 "This is ",
                                 React.createElement(
                                     "b",
@@ -578,14 +572,14 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
                                 " of rules accessible by our server, in order to prevent mass spam attack of your email address. This list will be scanned time to time and domains having very high spam rating will be added to our universal spam filter."
                             ),
                             React.createElement(
-                                "h3",
-                                null,
-                                "Note."
-                            ),
-                            React.createElement(
                                 "p",
                                 null,
-                                "This filter is not applicable to emails originated from our server. Please use 'Email Filter' to screen those emails."
+                                React.createElement(
+                                    "b",
+                                    null,
+                                    "Note."
+                                ),
+                                " This filter is not applicable to emails originated from our server. Please use 'Email Filter' to screen those emails."
                             )
                         )
                     )

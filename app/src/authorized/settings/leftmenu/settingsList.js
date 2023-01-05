@@ -47,6 +47,11 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                             trigger: true,
                         });
                         break;
+                    case "Aliases":
+                        Backbone.history.navigate("/settings/Aliases", {
+                            trigger: true,
+                        });
+                        break;
                     case "Disposable-Aliases":
                         Backbone.history.navigate(
                             "/settings/Disposable-Aliases",
@@ -214,17 +219,41 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a>Alias</a>
+                                                        <a
+                                                            onClick={this.handleClick.bind(
+                                                                this,
+                                                                "Aliases"
+                                                            )}
+                                                        >
+                                                            Alias
+                                                        </a>
                                                     </li>
                                                     <li>
-                                                        <a>
+                                                        <a
+                                                            onClick={this.handleClick.bind(
+                                                                this,
+                                                                "Disposable-Aliases"
+                                                            )}
+                                                        >
                                                             Disposable address
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a>Custom domain</a>
+                                                        <a
+                                                            onClick={this.handleClick.bind(
+                                                                this,
+                                                                "Custom-Domain"
+                                                            )}
+                                                        >
+                                                            Custom domain
+                                                        </a>
                                                     </li>
-                                                    <li>
+                                                    <li
+                                                        onClick={this.handleClick.bind(
+                                                            this,
+                                                            "Delete-Account"
+                                                        )}
+                                                    >
                                                         <a>Delete account</a>
                                                     </li>
                                                 </ul>
@@ -255,13 +284,34 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                             <div className="acco-menu-list">
                                                 <ul>
                                                     <li>
-                                                        <a>Password</a>
+                                                        <a
+                                                            onClick={this.handleClick.bind(
+                                                                this,
+                                                                "Password"
+                                                            )}
+                                                        >
+                                                            Password
+                                                        </a>
                                                     </li>
                                                     <li>
-                                                        <a>2AF</a>
+                                                        <a
+                                                            onClick={this.handleClick.bind(
+                                                                this,
+                                                                "2-Step"
+                                                            )}
+                                                        >
+                                                            2AF
+                                                        </a>
                                                     </li>
                                                     <li>
-                                                        <a>PGP Keys</a>
+                                                        <a
+                                                            onClick={this.handleClick.bind(
+                                                                this,
+                                                                "PGP-Keys"
+                                                            )}
+                                                        >
+                                                            PGP Keys
+                                                        </a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -294,13 +344,32 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                             <div className="acco-menu-list">
                                                 <ul>
                                                     <li>
-                                                        <a>Folder / Label</a>
+                                                        <a
+                                                            onClick={this.handleClick.bind(
+                                                                this,
+                                                                "Folders"
+                                                            )}
+                                                        >
+                                                            Folder / Label
+                                                        </a>
                                                     </li>
                                                     <li>
-                                                        <a>Email filter</a>
+                                                        <a
+                                                            onClick={this.handleClick.bind(
+                                                                this,
+                                                                "Filter"
+                                                            )}
+                                                        >
+                                                            Email filter
+                                                        </a>
                                                     </li>
                                                     <li>
-                                                        <a>
+                                                        <a
+                                                            onClick={this.handleClick.bind(
+                                                                this,
+                                                                "BlackList"
+                                                            )}
+                                                        >
                                                             Blacklist /
                                                             Whitelist
                                                         </a>
@@ -336,10 +405,24 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                             <div className="acco-menu-list">
                                                 <ul>
                                                     <li>
-                                                        <a>Upgrade</a>
+                                                        <a
+                                                            onClick={this.handleClick.bind(
+                                                                this,
+                                                                "Plan"
+                                                            )}
+                                                        >
+                                                            Upgrade
+                                                        </a>
                                                     </li>
                                                     <li>
-                                                        <a>Coupons</a>
+                                                        <a
+                                                            onClick={this.handleClick.bind(
+                                                                this,
+                                                                "Coupon"
+                                                            )}
+                                                        >
+                                                            Coupons
+                                                        </a>
                                                     </li>
                                                 </ul>
                                             </div>
