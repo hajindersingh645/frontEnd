@@ -15,7 +15,7 @@ define([
             return {
                 viewFlag: false,
                 firstPanelClass: "panel-body",
-                secondPanelClass: "panel-body hidden",
+                secondPanelClass: "panel-body d-none",
                 firstTab: "active",
 
                 secondPanelText: "New Contact",
@@ -195,7 +195,7 @@ define([
                 case "showFirst":
                     this.setState({
                         firstPanelClass: "panel-body",
-                        secondPanelClass: "panel-body hidden",
+                        secondPanelClass: "panel-body d-none",
                         firstTab: "active",
 
                         button1visible: "",
@@ -240,17 +240,17 @@ define([
                         function (result) {
                             if (result) {
                                 thisComp.setState({
-                                    firstPanelClass: "panel-body hidden",
+                                    firstPanelClass: "panel-body d-none",
                                     secondPanelClass: "panel-body",
                                     firstTab: "active",
 
                                     secondPanelText: "New Contact",
 
-                                    button1visible: "hidden",
+                                    button1visible: "d-none",
 
                                     button2onClick: "saveNewContact",
 
-                                    button4visible: "hidden",
+                                    button4visible: "d-none",
                                 });
                             }
                         }
@@ -322,13 +322,13 @@ define([
                         }
                     );
                     this.setState({
-                        firstPanelClass: "panel-body hidden",
+                        firstPanelClass: "panel-body d-none",
                         secondPanelClass: "panel-body",
                         firstTab: "active",
 
                         secondPanelText: "Edit Contact",
 
-                        button1visible: "hidden",
+                        button1visible: "d-none",
 
                         contactId: event,
                         nameField: app.transform.from64str(contact["n"]),
@@ -735,9 +735,9 @@ define([
                                                         <input
                                                             type="text"
                                                             name="nameField"
-                                                            className="form-control"
+                                                            className="form-control with-icon icon-name"
                                                             id="nameField"
-                                                            placeholder="name"
+                                                            placeholder="Enter name"
                                                             value={
                                                                 this.state
                                                                     .nameField
@@ -761,9 +761,9 @@ define([
                                                                     ? true
                                                                     : false
                                                             }
-                                                            className="form-control"
+                                                            className="form-control with-icon icon-email"
                                                             id="emailField"
-                                                            placeholder="email"
+                                                            placeholder="Enter email"
                                                             value={
                                                                 this.state
                                                                     .emailField
@@ -780,9 +780,9 @@ define([
                                                         <input
                                                             type="text"
                                                             name="pinField"
-                                                            className="form-control"
+                                                            className="form-control with-icon icon-pin"
                                                             id="pinField"
-                                                            placeholder="pin"
+                                                            placeholder="Enter pin"
                                                             value={
                                                                 this.state
                                                                     .pinField
@@ -824,7 +824,7 @@ define([
                                                             key-list ${
                                                                 !this.state
                                                                     .pgpOn
-                                                                    ? "hidden"
+                                                                    ? "d-none"
                                                                     : ""
                                                             }`}
                                                             >
@@ -867,9 +867,8 @@ define([
                                                 </div>
                                                 <div className="col-12">
                                                     <div className="form-group">
-                                                        <textarea
+                                                        <input
                                                             className="form-control with-icon icon-key"
-                                                            rows="8"
                                                             id="pgpField"
                                                             name="pgpField"
                                                             readOnly={
@@ -885,11 +884,26 @@ define([
                                                                 "changePGP"
                                                             )}
                                                             placeholder="Public Key"
-                                                        ></textarea>
+                                                        />
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="form-section-bottom">
+                                                <div className="delete-item">
+                                                    <button
+                                                        type="button"
+                                                        className={
+                                                            this.state
+                                                                .button4visible
+                                                        }
+                                                        onClick={this.handleClick.bind(
+                                                            this,
+                                                            "deleteContact"
+                                                        )}
+                                                    >
+                                                        Delete
+                                                    </button>
+                                                </div>
                                                 <div className="btn-row">
                                                     <button
                                                         type="button"
@@ -917,20 +931,6 @@ define([
                                             </div>
                                         </form>
                                     </div>
-
-                                    <button
-                                        type="button"
-                                        className={
-                                            "btn btn-danger pull-left " +
-                                            this.state.button4visible
-                                        }
-                                        onClick={this.handleClick.bind(
-                                            this,
-                                            "deleteContact"
-                                        )}
-                                    >
-                                        Delete
-                                    </button>
                                 </div>
                             </div>
                         </div>

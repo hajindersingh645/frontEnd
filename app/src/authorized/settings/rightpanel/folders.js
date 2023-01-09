@@ -31,7 +31,7 @@ define([
                 folderSet: {},
                 tagsSet: {},
 
-                inputSelectClass: "form-group col-xs-12 col-sm-6 col-lg-5",
+                inputSelectClass: "form-group",
                 inputSelectOnchange: "changeFolderExpiration",
                 nameField: "",
                 expireFolder: "",
@@ -154,14 +154,9 @@ define([
                     { data: "options" },
                 ],
                 columnDefs: [
-                    { sClass: "col-xs-6 col-lg-10", targets: 0 },
-                    { sClass: "hidden", targets: [1] },
-                    {
-                        sClass: "col-xs-2 col-lg-2 text-align-center",
-                        targets: [2],
-                    },
+                    { sClass: "d-none", targets: [2] },
 
-                    { bSortable: false, aTargets: [1, 2] },
+                    { bSortable: false, aTargets: [2, 3] },
                     { orderDataType: "data-sort", targets: 0 },
                 ],
                 order: [[1, "desc"]],
@@ -189,8 +184,6 @@ define([
                     { data: "options" },
                 ],
                 columnDefs: [
-                    { sClass: "col-xs-11", targets: 0 },
-                    { sClass: "col-xs-1 text-align-center", targets: [1] },
                     { bSortable: false, aTargets: [1] },
                     { orderDataType: "data-sort", targets: 0 },
                 ],
@@ -450,7 +443,7 @@ define([
                         inputNameClass: "d-none",
                         inputNameOnchange: "changeLabelName",
 
-                        inputLabelClass: "form-group col-xs-12",
+                        inputLabelClass: "form-group",
 
                         inputSelectClass: "d-none",
                         inputSelectOnchange: "",
@@ -721,11 +714,9 @@ define([
 
                         secondPanelText: "Edit Folder",
 
-                        inputNameClass:
-                            "form-group col-xs-12 col-sm-6 col-lg-7",
+                        inputNameClass: "form-group ",
                         inputNameOnchange: "changeFolderName",
-                        inputSelectClass:
-                            "form-group col-xs-12 col-sm-6 col-lg-5",
+                        inputSelectClass: "form-group ",
                         inputSelectOnchange: "changeFolderExpiration",
 
                         inputLabelClass: "d-none",
@@ -842,6 +833,17 @@ define([
                                         <span className="icon">+</span>
                                         {this.state.button1text}
                                     </a>
+                                    <a
+                                        className={this.state.button3visible}
+                                        onClick={this.handleClick.bind(
+                                            this,
+                                            this.state.button3Click
+                                        )}
+                                        disabled={!this.state.button3enabled}
+                                    >
+                                        <span className="icon">+</span>
+                                        {this.state.button3text}
+                                    </a>
                                 </div>
                             </div>
 
@@ -876,6 +878,7 @@ define([
                                                     Title
                                                     <button className="btn-sorting"></button>
                                                 </th>
+                                                <th scope="col">Main</th>
                                                 <th
                                                     scope="col"
                                                     className="name-width"
@@ -925,7 +928,7 @@ define([
                             >
                                 <div className="table-responsive">
                                     <table
-                                        className=" table table-hover table-striped datatable table-light"
+                                        className="table"
                                         id="table2"
                                         onClick={this.handleClick.bind(
                                             this,
@@ -997,97 +1000,141 @@ define([
                                 <div className="middle-content-top">
                                     <h3>{this.state.secondPanelText}</h3>
                                 </div>
+                                <div className="form-section">
+                                    <form id="addNewFolderForm" className="">
+                                        <div className="row">
+                                            <div
+                                                className={`col-md-6 ${this.state.inputLabelClass}`}
+                                            >
+                                                <input
+                                                    type="text"
+                                                    name="labelName"
+                                                    className="form-control with-icon icon-email"
+                                                    id="labelName"
+                                                    placeholder="name"
+                                                    value={
+                                                        this.state.labelField
+                                                    }
+                                                    onChange={this.handleChange.bind(
+                                                        this,
+                                                        "changeLabelField"
+                                                    )}
+                                                />
+                                            </div>
 
-                                <form id="addNewFolderForm" className="">
-                                    <div className={this.state.inputLabelClass}>
-                                        <input
-                                            type="text"
-                                            name="labelName"
-                                            className="form-control"
-                                            id="labelName"
-                                            placeholder="name"
-                                            value={this.state.labelField}
-                                            onChange={this.handleChange.bind(
-                                                this,
-                                                "changeLabelField"
-                                            )}
-                                        />
-                                    </div>
-
-                                    <div className={this.state.inputNameClass}>
-                                        <input
-                                            type="text"
-                                            name="fromName"
-                                            className="form-control"
-                                            id="folderName"
-                                            placeholder="name"
-                                            value={this.state.nameField}
-                                            onChange={this.handleChange.bind(
-                                                this,
-                                                "changeNameField"
-                                            )}
-                                        />
-                                    </div>
-
-                                    <div
-                                        className={this.state.inputSelectClass}
-                                    >
-                                        <select
-                                            className="form-control"
-                                            defaultValue="0"
-                                            id="expireFold"
-                                            value={this.state.expireFolder}
-                                            onChange={this.handleChange.bind(
-                                                this,
-                                                "changeExpiration"
-                                            )}
-                                        >
-                                            <option value="0" disabled>
-                                                Message Will Expire
-                                            </option>
-                                            <option value="-1">Never</option>
-                                            <option value="1">1 day</option>
-                                            <option value="7">7 days</option>
-                                            <option value="30">30 days</option>
-                                            <option value="180">6 month</option>
-                                            <option value="365">1 year</option>
-                                        </select>
-                                    </div>
-                                </form>
-
-                                <button
-                                    type="button"
-                                    className={this.state.deleteFolderClass}
-                                    onClick={this.handleClick.bind(
-                                        this,
-                                        "deleteFolder"
-                                    )}
-                                >
-                                    Delete Folder
-                                </button>
-
-                                <div className="pull-right dialog_buttons">
-                                    <button
-                                        type="button"
-                                        className="btn btn-primary"
-                                        onClick={this.handleClick.bind(
-                                            this,
-                                            this.state.button5Click
-                                        )}
-                                    >
-                                        {" "}
-                                        {this.state.button5text}
-                                    </button>
-                                    <button
-                                        type="button"
-                                        className="btn btn-default"
-                                        onClick={this.handleClick.bind(
-                                            this,
-                                            this.state.button4Click
-                                        )}
-                                    >
-                                        Cancel
-                                    </button>
+                                            <div className="col-md-6">
+                                                <div
+                                                    className={
+                                                        this.state
+                                                            .inputNameClass
+                                                    }
+                                                >
+                                                    <input
+                                                        type="text"
+                                                        name="fromName"
+                                                        className="form-control with-icon icon-email"
+                                                        id="folderName"
+                                                        placeholder="name"
+                                                        value={
+                                                            this.state.nameField
+                                                        }
+                                                        onChange={this.handleChange.bind(
+                                                            this,
+                                                            "changeNameField"
+                                                        )}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div
+                                                    className={
+                                                        this.state
+                                                            .inputSelectClass
+                                                    }
+                                                >
+                                                    <div className="select-icon icon-calendar"></div>
+                                                    <select
+                                                        className="form-select with-icon icon-calendar"
+                                                        defaultValue="0"
+                                                        id="expireFold"
+                                                        value={
+                                                            this.state
+                                                                .expireFolder
+                                                        }
+                                                        onChange={this.handleChange.bind(
+                                                            this,
+                                                            "changeExpiration"
+                                                        )}
+                                                    >
+                                                        <option
+                                                            value="0"
+                                                            disabled
+                                                        >
+                                                            Message Will Expire
+                                                        </option>
+                                                        <option value="-1">
+                                                            Never
+                                                        </option>
+                                                        <option value="1">
+                                                            1 day
+                                                        </option>
+                                                        <option value="7">
+                                                            7 days
+                                                        </option>
+                                                        <option value="30">
+                                                            30 days
+                                                        </option>
+                                                        <option value="180">
+                                                            6 month
+                                                        </option>
+                                                        <option value="365">
+                                                            1 year
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="form-section-bottom">
+                                            <div className="delete-item">
+                                                <button
+                                                    type="button"
+                                                    className={
+                                                        this.state
+                                                            .deleteFolderClass
+                                                    }
+                                                    onClick={this.handleClick.bind(
+                                                        this,
+                                                        "deleteFolder"
+                                                    )}
+                                                >
+                                                    Delete Folder
+                                                </button>
+                                            </div>
+                                            <div className="btn-row">
+                                                <button
+                                                    type="button"
+                                                    className="btn-border fixed-width-btn"
+                                                    onClick={this.handleClick.bind(
+                                                        this,
+                                                        this.state.button4Click
+                                                    )}
+                                                >
+                                                    Cancel
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    className="btn-blue fixed-width-btn"
+                                                    onClick={this.handleClick.bind(
+                                                        this,
+                                                        this.state.button5Click
+                                                    )}
+                                                >
+                                                    {" "}
+                                                    {this.state.button5text}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>

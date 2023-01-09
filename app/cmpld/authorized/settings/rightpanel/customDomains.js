@@ -22,8 +22,8 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
             return {
                 viewFlag: false,
                 firstPanelClass: "panel-body",
-                secondPanelClass: "panel-body hidden",
-                thirdPanelClass: "panel-body hidden",
+                secondPanelClass: "panel-body d-none",
+                thirdPanelClass: "panel-body d-none",
 
                 firstTab: "active",
 
@@ -262,8 +262,8 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                 case "showFirst":
                     this.setState({
                         firstPanelClass: "panel-body",
-                        secondPanelClass: "panel-body hidden",
-                        thirdPanelClass: "panel-body hidden",
+                        secondPanelClass: "panel-body d-none",
+                        thirdPanelClass: "panel-body d-none",
 
                         firstTab: "active",
 
@@ -295,11 +295,11 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                             thisComp.generateKeys(thisComp);
 
                             thisComp.setState({
-                                firstPanelClass: "panel-body hidden",
+                                firstPanelClass: "panel-body d-none",
                                 secondPanelClass: "panel-body",
                                 firstTab: "active",
 
-                                button1visible: "hidden"
+                                button1visible: "d-none"
                             });
                         } else {
                             //console.log(this.props.activePage);
@@ -317,13 +317,13 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
 
                 case "showThird":
                     this.setState({
-                        firstPanelClass: "panel-body hidden",
-                        secondPanelClass: "panel-body hidden",
+                        firstPanelClass: "panel-body d-none",
+                        secondPanelClass: "panel-body d-none",
                         thirdPanelClass: "panel-body",
 
                         firstTab: "active",
 
-                        button1visible: "hidden",
+                        button1visible: "d-none",
 
                         newdomain: "",
                         domainBase: "",

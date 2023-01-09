@@ -17033,7 +17033,8 @@ textarea::-webkit-scrollbar {
     margin: 16px 0 0;
     font-size: 12px;
 }
-.setting-middle .token-download {
+.setting-middle .token-download,
+.setting-middle .delete-item {
     width: auto;
     float: left;
     padding: 30px 0 10px;
@@ -17041,7 +17042,9 @@ textarea::-webkit-scrollbar {
 .compare-plans a,
 .compare-plans button,
 .setting-middle .token-download a,
-.setting-middle .token-download button {
+.setting-middle .token-download button,
+.setting-middle .delete-item a,
+.setting-middle .delete-item button {
     width: auto;
     float: left;
     padding: 2px 0 0 34px;
@@ -17265,7 +17268,7 @@ textarea::-webkit-scrollbar {
     font-size: 12px;
     text-transform: uppercase;
 }
-.upgrade-details-top .upgrade-details-left .plan-details span {
+.upgrade-details-top .upgrade-details-left .plan-details span.icon-plan {
     padding: 4px 10px;
     border-radius: 4px;
     float: left;
@@ -17294,6 +17297,7 @@ textarea::-webkit-scrollbar {
 .upgrade-details-top .upgrade-details-left .bottom-row .btn-blue,
 .upgrade-details-top .upgrade-details-right .btn-border {
     width: 100%;
+    height: auto;
 }
 .upgrade-details-top .upgrade-details-right {
     width: 100%;
@@ -17339,7 +17343,7 @@ textarea::-webkit-scrollbar {
     box-shadow: none;
     color: #415067;
 }
-.upgrade-details-bottom .accordion-button span {
+.upgrade-details-bottom .accordion-button span.icon {
     width: 20px;
     height: 20px;
     display: inline-block;
@@ -17501,7 +17505,8 @@ textarea::-webkit-scrollbar {
     }
     .compare-plans,
     .form-section-bottom .checkbox-left,
-    .setting-middle .token-download {
+    .setting-middle .token-download,
+    .setting-middle .delete-item {
         padding: 52px 0 0;
     }
     .setting-middle .generate-new-keys {
@@ -18293,6 +18298,17 @@ textarea {
     color: #68a353;
     background: url("../images/icon-download.svg") left center/24px no-repeat;
 }
+.setting-middle .delete-item a,
+.setting-middle .delete-item button {
+    color: #ff0000;
+    background: url("../images/icon-delete.svg") left center/24px no-repeat;
+}
+.setting-middle .delete-item a:hover,
+.setting-middle .delete-item button:hover {
+    text-decoration: none;
+    color: #415067;
+    background: url("../images/icon-delete.svg") left center/24px no-repeat;
+}
 .setting-middle .token-download a:hover,
 .setting-middle .token-download button:hover {
     text-decoration: none;
@@ -18363,7 +18379,7 @@ textarea {
 .upgrade-details-top .upgrade-details-left {
     border: 1px solid #eee;
 }
-.upgrade-details-top .upgrade-details-left .plan-details span {
+.upgrade-details-top .upgrade-details-left .plan-details span.icon-plan {
     background: #415067;
     color: #fff;
 }
@@ -18411,7 +18427,7 @@ textarea {
     opacity: 0.5;
     background: url("../images/icon-close-2.svg") left center/24px no-repeat;
 }
-.upgrade-details-bottom .accordion-button span {
+.upgrade-details-bottom .accordion-button span.icon {
     background: url("../images/icon-arrow-down.svg") right top/20px no-repeat;
 }
 @media screen and (min-width: 768px) {
@@ -20719,7 +20735,7 @@ header .menu-icon.on-left-side {
 .middle-content .table-row {
     padding-top: 0px;
 }
-.middle-content .mid-nav a{
+.middle-content .mid-nav a {
     cursor: pointer;
 }
 .middle-search .dataTables_filter label {
@@ -20731,4 +20747,35 @@ header .menu-icon.on-left-side {
 }
 .setting-middle .form-section .form-group {
     padding-bottom: 0px;
+}
+
+.editor {
+    border: solid 1px #eaedf3;
+    border-radius: 8px;
+    background-color: #fbfcfc;
+}
+.editor .c-editor-actions {
+    background-color: #f4f5f6;
+    border-bottom: solid 1px #eaedf3;
+    padding: 10px 15px;
+}
+
+.com-the-con-editor__settings {
+    min-height: 121px;
+    max-height: 121px;
+    overflow-y: auto;
+    border: none;
+}
+.invalid {
+    color: red;
+    font-size: small;
+    margin-top: 11px;
+}
+.upgrade-details-bottom .accordion-item {
+    float: none;
+    clear: both;
+    overflow: hidden;
+}
+.upgrade-details-bottom .accordion .accordion-item:not(:last-child) {
+    padding-bottom: 32px;
 }

@@ -11,7 +11,7 @@ define([
                 firstTab: "active",
 
                 secondTab: "",
-                secondPanelClass: "panel-body hidden",
+                secondPanelClass: "panel-body d-none",
 
                 detailVisible: "",
                 detailButtonVisible: "",
@@ -19,14 +19,14 @@ define([
                 editDisabled: true,
 
                 editPlanButtonClass: "",
-                saveButtonClass: "hidden",
+                saveButtonClass: "d-none",
                 toPay: 0,
                 forPlan: "",
 
-                mobileViewClass: "visible-xs",
-                desktopViewClass: "hidden-xs",
+                mobileViewClass: "d-block-xs",
+                desktopViewClass: "d-none-xs",
 
-                cancelEditClass: "hidden",
+                cancelEditClass: "d-none",
 
                 GBpayNow: "",
                 GBprice: 0,
@@ -57,9 +57,9 @@ define([
                 cycleStart: "",
                 cycleEnd: "",
                 monthlyCharge: 0,
-                bitcoinPay: "hidden",
-                paypalPay: "hidden",
-                monthChargeClass: "hidden",
+                bitcoinPay: "d-none",
+                paypalPay: "d-none",
+                monthChargeClass: "d-none",
                 planSelector: 1,
                 howMuch: 0,
                 paymentVersion: 0,
@@ -266,13 +266,13 @@ define([
                         firstTab: "active",
 
                         secondTab: "",
-                        secondPanelClass: "panel-body hidden",
+                        secondPanelClass: "panel-body d-none",
 
                         editDisabled: true,
-                        cancelEditClass: "hidden",
+                        cancelEditClass: "d-none",
 
                         editPlanButtonClass: "",
-                        saveButtonClass: "hidden",
+                        saveButtonClass: "d-none",
                         paym: "",
                     });
 
@@ -280,7 +280,7 @@ define([
 
                 case "showSecond":
                     this.setState({
-                        firstPanelClass: "panel-body hidden",
+                        firstPanelClass: "panel-body d-none",
                         firstTab: "",
 
                         secondTab: "active",
@@ -369,7 +369,7 @@ define([
                 case "showDetail":
                     this.setState({
                         detailVisible: "",
-                        detailButtonVisible: "hidden",
+                        detailButtonVisible: "d-none",
                         //firstPanelClass:"panel-body hidden",
                         //secondPanelClass:"panel-body"
                     });
@@ -881,145 +881,113 @@ define([
             //if pastdue and alrd paid then missing balance
 
             options.push(
-                <tr key="1c">
-                    <td className="col-md-6">
-                        <b>Current Plan:</b>
-                    </td>
-                    <td>
-                        From:{" "}
+                <div className="information-table-row" key="1c">
+                    <label>Start date:</label>
+                    <div className="information-row-right">
                         {new Date(
                             app.user.get("userPlan")["cycleStart"] * 1000
                         ).toLocaleDateString()}
-                        <br />
-                        Until:{" "}
+                    </div>
+                </div>
+            );
+
+            options.push(
+                <div className="information-table-row" key="1cc">
+                    <label>End date:</label>
+                    <div className="information-row-right">
                         {new Date(
                             app.user.get("userPlan")["cycleEnd"] * 1000
                         ).toLocaleDateString()}
-                    </td>
-
-                    <td className="col-md-3">
-                        Status: <b>{ys}</b>
-                        <div className="pull-right dialog_buttons">
-                            <button
-                                type="button"
-                                className={
-                                    app.user.get("userPlan")["needFill"]
-                                        ? "btn btn-primary pull-right"
-                                        : "hidden"
-                                }
-                                onClick={this.handleClick.bind(
-                                    this,
-                                    "payEnough"
-                                )}
-                            >
-                                Pay Missing Balance of {toP}
-                            </button>
-
-                            <button
-                                type="button"
-                                className={
-                                    app.user.get("userPlan")["needRenew"]
-                                        ? "btn btn-primary pull-right"
-                                        : "hidden"
-                                }
-                                onClick={this.handleClick.bind(this, "renew")}
-                            >
-                                Renew Plan ( $
-                                {app.user.get("userPlan")["renewAmount"]} )
-                            </button>
-                        </div>
-                    </td>
-                </tr>
+                    </div>
+                </div>
             );
 
             options.push(
-                <tr key="2a">
-                    <td>
-                        <b>
-                            {app.user.get("userPlan")["planSelected"] == 1
-                                ? "Yearly"
-                                : "Monthly"}{" "}
-                            Cost:
-                        </b>
-                    </td>
-                    <td>
+                <div className="information-table-row" key="1cd">
+                    <label>Status:</label>
+                    <div className="information-row-right">
+                        <b>{ys}</b>
+                    </div>
+                </div>
+            );
+
+            options.push(
+                <div className="information-table-row" key="2a">
+                    <label>
+                        {app.user.get("userPlan")["planSelected"] == 1
+                            ? "Yearly"
+                            : "Monthly"}{" "}
+                        Cost:
+                    </label>
+                    <div className="information-row-right">
                         {accounting.formatMoney(
                             app.user.get("userPlan")["monthlyCharge"]
                         )}
-                    </td>
-                    <td></td>
-                </tr>
+                    </div>
+                </div>
             );
 
             options.push(
-                <tr key="2c">
-                    <td>
+                <div className="information-table-row" key="2c">
+                    <label>
                         <b>Paid This Cycle:</b>
-                    </td>
-                    <td>
+                    </label>
+                    <div className="information-row-right">
                         {accounting.formatMoney(
                             app.user.get("userPlan")["alrdPaid"]
                         )}
-                    </td>
-                    <td></td>
-                </tr>
+                    </div>
+                </div>
             );
 
             //if(app.user.get("userPlan")['balance']>0){
             options.push(
-                <tr
+                <div
+                    className="information-table-row"
                     key="3a"
                     className={
-                        app.user.get("userPlan")["balance"] == 0 ? "hidden" : ""
+                        app.user.get("userPlan")["balance"] == 0 ? "d-none" : ""
                     }
                 >
-                    <td>
-                        <b>Previous Unpaid Balance:</b>
-                    </td>
-                    <td>
+                    <label>Previous Unpaid Balance:</label>
+                    <div className="information-row-right">
                         {accounting.formatMoney(
                             app.user.get("userPlan")["balance"]
                         )}
-                    </td>
-                    <td></td>
-                </tr>
+                    </div>
+                </div>
             );
 
             options.push(
-                <tr
+                <div
+                    className="information-table-row"
                     key="3b"
                     className={
                         app.user.get("userPlan")["currentPlanBalance"] == 0
-                            ? "hidden"
+                            ? "d-none"
                             : ""
                     }
                 >
-                    <td>
-                        <b>Unused Credit:</b>
-                    </td>
-                    <td>
+                    <label>Unused Credit:</label>
+                    <div className="information-row-right">
                         {accounting.formatMoney(
                             app.user.get("userPlan")["currentPlanBalance"]
                         )}
-                    </td>
-                    <td></td>
-                </tr>
+                    </div>
+                </div>
             );
 
             options.push(
-                <tr key="3c">
-                    <td>
-                        <b>Rewards:</b>
-                    </td>
-                    <td>
+                <div className="information-table-row" key="3c">
+                    <label>Rewards:</label>
+                    <div className="information-row-right">
                         {accounting.formatMoney(
                             app.user.get("userPlan")["rewardCollected"],
                             "$",
                             3
                         )}
-                    </td>
-                    <td></td>
-                </tr>
+                    </div>
+                </div>
             );
 
             //}
@@ -1038,30 +1006,26 @@ define([
                     " => " + (bxS > 1000 ? bxS / 1000 + " Gb" : bxS + " MB");
             }
             options.push(
-                <tr key="1">
-                    <td className="col-xs-5 no-right-padding">
-                        <b>Mailbox Size:</b>
-                    </td>
-                    <td className="col-xs-7">
+                <div className="information-table-row" key="1">
+                    <label>Mailbox Size:</label>
+                    <div className="information-row-right">
                         {app.user.get("userPlan")["planData"]["bSize"] >= 1000
                             ? app.user.get("userPlan")["planData"]["bSize"] /
                                   1000 +
                               " Gb"
                             : app.user.get("userPlan")["planData"]["bSize"] +
                               " MB"}
-                    </td>
-                </tr>
+                    </div>
+                </div>
             );
 
             options.push(
-                <tr key="2" className="">
-                    <td className="col-xs-5 no-right-padding">
-                        <b>Custom Domain:</b>
-                    </td>
-                    <td className="col-xs-7">
+                <div className="information-table-row" key="2">
+                    <label>Custom Domain:</label>
+                    <div className="information-row-right">
                         {app.user.get("userPlan")["planData"]["cDomain"]}
-                    </td>
-                </tr>
+                    </div>
+                </div>
             );
 
             var alDif = "";
@@ -1069,12 +1033,12 @@ define([
                 var alDif = " => " + this.state.newaliases;
             }
             options.push(
-                <tr key="3" className="">
-                    <td className="col-xs-5">
-                        <b>Custom Aliases:</b>
-                    </td>
-                    <td>{app.user.get("userPlan")["planData"]["alias"]}</td>
-                </tr>
+                <div className="information-table-row" key="3">
+                    <label>Custom Aliases:</label>
+                    <div className="information-row-right">
+                        {app.user.get("userPlan")["planData"]["alias"]}
+                    </div>
+                </div>
             );
 
             return options;
@@ -1125,7 +1089,7 @@ define([
                                             className={
                                                 this.state.secondTab == "active"
                                                     ? ""
-                                                    : "hidden"
+                                                    : "d-none"
                                             }
                                         >
                                             <h3
@@ -1148,70 +1112,173 @@ define([
                             </div>
 
                             <div className={this.state.firstPanelClass}>
-                                <h3
-                                    className={
-                                        app.user.get("userPlan")["pastDue"] ===
-                                        1
-                                            ? "txt-color-red"
-                                            : "hidden"
-                                    }
-                                >
-                                    Please Pay your balance to send and receive
-                                    emails. Your email functionality is limited
-                                    to access to previous emails only.
-                                </h3>
-
-                                <h3
-                                    className={
-                                        app.user.get("userPlan")["needRenew"]
-                                            ? "txt-color-red"
-                                            : "hidden"
-                                    }
-                                >
-                                    Please renew your service soon to avoid
-                                    service interruption. Your email
-                                    functionality will be limited to access to
-                                    previous emails only.
-                                </h3>
-
-                                <h3
-                                    className={
-                                        (app.user.get("userPlan")[
-                                            "planSelected"
-                                        ] == 2 ||
+                                <div className="middle-content-top">
+                                    <h3
+                                        className={
                                             app.user.get("userPlan")[
-                                                "planSelected"
-                                            ] == 3) &&
-                                        app.user.get("userPlan")["pastDue"] !==
-                                            1
-                                            ? "txt-color-red"
-                                            : "hidden"
-                                    }
-                                    style={{ marginBottom: "20px" }}
-                                >
-                                    Please upgrade to yearly subscription to
-                                    unlock premium features.{" "}
-                                    <button
-                                        type="button"
-                                        className="btn btn-primary pull-right"
-                                        onClick={this.handleClick.bind(
-                                            this,
-                                            "upgradeMember"
-                                        )}
+                                                "pastDue"
+                                            ] === 1
+                                                ? "txt-color-red"
+                                                : "d-none"
+                                        }
                                     >
-                                        Upgrade{" "}
-                                        {accounting.formatMoney(
+                                        Please Pay your balance to send and
+                                        receive emails. Your email functionality
+                                        is limited to access to previous emails
+                                        only.
+                                    </h3>
+
+                                    <h3
+                                        className={
                                             app.user.get("userPlan")[
-                                                "yearSubscr"
-                                            ] /
-                                                100 +
+                                                "needRenew"
+                                            ]
+                                                ? "txt-color-red"
+                                                : "d-none"
+                                        }
+                                    >
+                                        Please renew your service soon to avoid
+                                        service interruption. Your email
+                                        functionality will be limited to access
+                                        to previous emails only.
+                                    </h3>
+                                    <h3
+                                        className={
+                                            (app.user.get("userPlan")[
+                                                "planSelected"
+                                            ] == 2 ||
                                                 app.user.get("userPlan")[
-                                                    "balance"
-                                                ]
-                                        )}{" "}
-                                        for a year
-                                    </button>
-                                </h3>
+                                                    "planSelected"
+                                                ] == 3) &&
+                                            app.user.get("userPlan")[
+                                                "pastDue"
+                                            ] !== 1
+                                                ? "txt-color-red"
+                                                : "d-none"
+                                        }
+                                        style={{ marginBottom: "20px" }}
+                                    >
+                                        Please upgrade to yearly subscription to
+                                        unlock premium features.
+                                    </h3>
+                                </div>
+                                <div className="upgrade-details-top">
+                                    <div className="upgrade-details-left">
+                                        <div className="top-row">
+                                            <div className="row">
+                                                <div className="col-5">
+                                                    <div className="plan-details">
+                                                        <span className="icon-plan">
+                                                            Free
+                                                        </span>{" "}
+                                                        Plan
+                                                    </div>
+                                                </div>
+                                                <div className="col-7">
+                                                    <div className="pricing">
+                                                        <sup>$</sup>
+                                                        <span>0.00</span>
+                                                        <sup className="sup-opacity">
+                                                            / Month
+                                                        </sup>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="bottom-row">
+                                            <div className="row">
+                                                <div className="col-sm-6">
+                                                    <div className="storage">
+                                                        <div className="storage-count">
+                                                            {accounting.toFixed(
+                                                                app.user.get(
+                                                                    "mailboxSize"
+                                                                ) /
+                                                                    1024 /
+                                                                    1024 /
+                                                                    1024,
+                                                                2
+                                                            )}{" "}
+                                                            GB{" "}
+                                                            <span>
+                                                                /{" "}
+                                                                {app.user.get(
+                                                                    "userPlan"
+                                                                )["planData"][
+                                                                    "bSize"
+                                                                ] / 1000}{" "}
+                                                                GB
+                                                            </span>
+                                                        </div>
+                                                        <div className="storage-bar">
+                                                            <span></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-sm-6">
+                                                    <div
+                                                        className={
+                                                            (app.user.get(
+                                                                "userPlan"
+                                                            )["planSelected"] ==
+                                                                2 ||
+                                                                app.user.get(
+                                                                    "userPlan"
+                                                                )[
+                                                                    "planSelected"
+                                                                ] == 3) &&
+                                                            app.user.get(
+                                                                "userPlan"
+                                                            )["pastDue"] !== 1
+                                                                ? "txt-color-red"
+                                                                : "d-none"
+                                                        }
+                                                        style={{
+                                                            marginBottom:
+                                                                "20px",
+                                                        }}
+                                                    >
+                                                        <button
+                                                            type="button"
+                                                            className="btn-blue"
+                                                            onClick={this.handleClick.bind(
+                                                                this,
+                                                                "upgradeMember"
+                                                            )}
+                                                        >
+                                                            Upgrade{" "}
+                                                            {accounting.formatMoney(
+                                                                app.user.get(
+                                                                    "userPlan"
+                                                                )[
+                                                                    "yearSubscr"
+                                                                ] /
+                                                                    100 +
+                                                                    app.user.get(
+                                                                        "userPlan"
+                                                                    )["balance"]
+                                                            )}{" "}
+                                                            for a year
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="upgrade-details-right">
+                                        <div className="title">
+                                            Next payment
+                                        </div>
+                                        <div className="date">
+                                            on Nov 30, 2022
+                                        </div>
+                                        <div className="btn-box">
+                                            <button className="btn-border">
+                                                Payments
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div className="upgrade-details-bottom">
                                     <div className="accordion">
@@ -1229,25 +1296,25 @@ define([
                                                     aria-controls="plan-details-account-collapse"
                                                 >
                                                     Account:
-                                                    <span></span>
+                                                    <span className="icon"></span>
                                                 </button>
                                             </h2>
                                             <div
+                                                id="plan-details-account-collapse"
                                                 className="accordion-collapse collapse show"
                                                 aria-labelledby="plan-details-account"
                                                 data-bs-parent="#plan-details-account-data"
                                             >
                                                 <div className="accordion-body">
-                                                    <div className="table-row">
-                                                        <div className="table-responsive">
-                                                            <table className="table">
-                                                                {this.accountDataTable()}
-                                                            </table>
+                                                    <div className="form-section">
+                                                        <div className="information-table">
+                                                            {this.accountDataTable()}
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div className="float-none"></div>
                                         <div className="accordion-item">
                                             <h2
                                                 className="accordion-header"
@@ -1263,10 +1330,11 @@ define([
                                                 >
                                                     Your current plan have
                                                     following features:
-                                                    <span></span>
+                                                    <span className="icon"></span>
                                                 </button>
                                             </h2>
                                             <div
+                                                id="plan-details-current-features-collapse"
                                                 className="accordion-collapse collapse show"
                                                 aria-labelledby="plan-details-current-features"
                                                 data-bs-parent="#plan-details-current-features-data"
@@ -1274,14 +1342,15 @@ define([
                                                 <div className="accordion-body">
                                                     <div className="table-row">
                                                         <div className="table-responsive">
-                                                            <table className="table">
+                                                            <div className="information-table">
                                                                 {this.planTable()}
-                                                            </table>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div className="float-none"></div>
                                         <div className="accordion-item">
                                             <h2
                                                 className="accordion-header"
@@ -1296,10 +1365,11 @@ define([
                                                     aria-controls="plan-details-add-remove-features-collapse"
                                                 >
                                                     Add/Remove features:
-                                                    <span></span>
+                                                    <span className="icon"></span>
                                                 </button>
                                             </h2>
                                             <div
+                                                id="plan-details-add-remove-features-collapse"
                                                 className="accordion-collapse collapse show"
                                                 aria-labelledby="plan-details-add-remove-features"
                                                 data-bs-parent="#plan-details-add-remove-features-data"
@@ -1319,15 +1389,15 @@ define([
                                                                         </b>
                                                                     </h5>
                                                                     <div className="form-horizontal margin-left-0">
-                                                                        <label className="col-lg-7 col-sm-12 control-label">
+                                                                        <label>
                                                                             Set
                                                                             Space
                                                                             in
                                                                             GB:
                                                                         </label>
-                                                                        <div className="col-lg-5 col-sm-12">
+                                                                        <div>
                                                                             <select
-                                                                                className="form-control"
+                                                                                className="form-select"
                                                                                 onChange={this.handleChange.bind(
                                                                                     this,
                                                                                     "changeGB"
@@ -1405,8 +1475,8 @@ define([
                                                                                     .state
                                                                                     .boxBy !=
                                                                                 ""
-                                                                                    ? "col-lg-7 col-sm-12 control-label"
-                                                                                    : "hidden"
+                                                                                    ? ""
+                                                                                    : "d-none"
                                                                             }
                                                                         >
                                                                             {
@@ -1422,8 +1492,8 @@ define([
                                                                                     .state
                                                                                     .boxBy !=
                                                                                 ""
-                                                                                    ? "col-lg-5 col-sm-12 control-label text-align-left"
-                                                                                    : "hidden"
+                                                                                    ? ""
+                                                                                    : "d-none"
                                                                             }
                                                                         >
                                                                             {
@@ -1441,8 +1511,8 @@ define([
                                                                                     .state
                                                                                     .GBpayNow !==
                                                                                 ""
-                                                                                    ? "col-lg-7 col-sm-12 control-label"
-                                                                                    : "hidden"
+                                                                                    ? ""
+                                                                                    : "d-none"
                                                                             }
                                                                         >
                                                                             Amount
@@ -1456,8 +1526,8 @@ define([
                                                                                     .state
                                                                                     .GBpayNow !==
                                                                                 ""
-                                                                                    ? "col-lg-5 col-sm-12 control-label text-align-left"
-                                                                                    : "hidden"
+                                                                                    ? ""
+                                                                                    : "d-none"
                                                                             }
                                                                         >
                                                                             $
@@ -1468,14 +1538,14 @@ define([
                                                                             }
                                                                         </label>
 
-                                                                        <div className="clearfix"></div>
+                                                                        <div className="float-none"></div>
                                                                         <span
                                                                             className={
                                                                                 this
                                                                                     .state
                                                                                     .boxWarning
                                                                                     ? "txt-color-red"
-                                                                                    : "hidden"
+                                                                                    : "d-none"
                                                                             }
                                                                         >
                                                                             Your
@@ -1507,7 +1577,7 @@ define([
                                                                                         .state
                                                                                         .boxWarning
                                                                                         ? "btn btn-primary pull-right"
-                                                                                        : "hidden"
+                                                                                        : "d-none"
                                                                                 }
                                                                                 onClick={this.handleClick.bind(
                                                                                     this,
@@ -1535,15 +1605,15 @@ define([
                                                                         </b>
                                                                     </h5>
                                                                     <div className="form-horizontal margin-left-0">
-                                                                        <label className="col-lg-7 col-sm-12 control-label">
+                                                                        <label className="">
                                                                             Number
                                                                             Of
                                                                             Domains:
                                                                         </label>
 
-                                                                        <div className="col-lg-5 col-sm-12">
+                                                                        <div className="">
                                                                             <select
-                                                                                className="form-control"
+                                                                                className="form-select"
                                                                                 onChange={this.handleChange.bind(
                                                                                     this,
                                                                                     "changeDomain"
@@ -1620,8 +1690,8 @@ define([
                                                                                     .state
                                                                                     .domBy !=
                                                                                 ""
-                                                                                    ? "col-lg-7 col-sm-12 control-label"
-                                                                                    : "hidden"
+                                                                                    ? ""
+                                                                                    : "d-none"
                                                                             }
                                                                         >
                                                                             {
@@ -1637,8 +1707,8 @@ define([
                                                                                     .state
                                                                                     .domBy !=
                                                                                 ""
-                                                                                    ? "col-lg-5 col-sm-12 control-label text-align-left"
-                                                                                    : "hidden"
+                                                                                    ? ""
+                                                                                    : "d-none"
                                                                             }
                                                                         >
                                                                             {
@@ -1655,8 +1725,8 @@ define([
                                                                                     .state
                                                                                     .dompayNow !==
                                                                                 ""
-                                                                                    ? "col-lg-7 col-sm-12 control-label"
-                                                                                    : "hidden"
+                                                                                    ? ""
+                                                                                    : "d-none"
                                                                             }
                                                                         >
                                                                             Amount
@@ -1670,8 +1740,8 @@ define([
                                                                                     .state
                                                                                     .dompayNow !==
                                                                                 ""
-                                                                                    ? "col-lg-5 col-sm-12 control-label text-align-left"
-                                                                                    : "hidden"
+                                                                                    ? ""
+                                                                                    : "d-none"
                                                                             }
                                                                         >
                                                                             $
@@ -1681,14 +1751,14 @@ define([
                                                                                     .dompayNow
                                                                             }
                                                                         </label>
-                                                                        <div className="clearfix"></div>
+                                                                        <div className="float-none"></div>
                                                                         <span
                                                                             className={
                                                                                 this
                                                                                     .state
                                                                                     .domWarning
                                                                                     ? "txt-color-red"
-                                                                                    : "hidden"
+                                                                                    : "d-none"
                                                                             }
                                                                         >
                                                                             Your
@@ -1721,7 +1791,7 @@ define([
                                                                                         .state
                                                                                         .domWarning
                                                                                         ? "btn btn-primary pull-right"
-                                                                                        : "hidden"
+                                                                                        : "d-none"
                                                                                 }
                                                                                 onClick={this.handleClick.bind(
                                                                                     this,
@@ -1749,15 +1819,15 @@ define([
                                                                         </b>
                                                                     </h5>
                                                                     <div className="form-horizontal margin-left-0">
-                                                                        <label className="col-lg-8 col-sm-12 control-label">
+                                                                        <label className="">
                                                                             Number
                                                                             of
                                                                             aliases:
                                                                         </label>
 
-                                                                        <div className="col-lg-4 col-sm-12">
+                                                                        <div className="">
                                                                             <select
-                                                                                className="form-control"
+                                                                                className="form-select"
                                                                                 onChange={this.handleChange.bind(
                                                                                     this,
                                                                                     "changeAl"
@@ -1834,8 +1904,8 @@ define([
                                                                                     .state
                                                                                     .alBy !=
                                                                                 ""
-                                                                                    ? "col-lg-7 col-sm-12 control-label"
-                                                                                    : "hidden"
+                                                                                    ? ""
+                                                                                    : "d-none"
                                                                             }
                                                                         >
                                                                             {
@@ -1851,8 +1921,8 @@ define([
                                                                                     .state
                                                                                     .alBy !=
                                                                                 ""
-                                                                                    ? "col-lg-5 col-sm-12 control-label text-align-left"
-                                                                                    : "hidden"
+                                                                                    ? ""
+                                                                                    : "d-none"
                                                                             }
                                                                         >
                                                                             {
@@ -1869,8 +1939,8 @@ define([
                                                                                     .state
                                                                                     .alpayNow !==
                                                                                 ""
-                                                                                    ? "col-lg-7 col-sm-12 control-label"
-                                                                                    : "hidden"
+                                                                                    ? ""
+                                                                                    : "d-none"
                                                                             }
                                                                         >
                                                                             Amount
@@ -1884,8 +1954,8 @@ define([
                                                                                     .state
                                                                                     .alpayNow !==
                                                                                 ""
-                                                                                    ? "col-lg-5 col-sm-12 control-label text-align-left"
-                                                                                    : "hidden"
+                                                                                    ? ""
+                                                                                    : "d-none"
                                                                             }
                                                                         >
                                                                             $
@@ -1901,7 +1971,7 @@ define([
                                                                                     .state
                                                                                     .alWarning
                                                                                     ? "txt-color-red"
-                                                                                    : "hidden"
+                                                                                    : "d-none"
                                                                             }
                                                                         >
                                                                             Your
@@ -1934,7 +2004,7 @@ define([
                                                                                         .state
                                                                                         .alWarning
                                                                                         ? "btn btn-primary pull-right"
-                                                                                        : "hidden"
+                                                                                        : "d-none"
                                                                                 }
                                                                                 onClick={this.handleClick.bind(
                                                                                     this,
@@ -1956,21 +2026,29 @@ define([
                                                 </div>
                                             </div>
                                         </div>
+                                        <div className="float-none"></div>
                                     </div>
                                 </div>
                             </div>
 
                             <div className={this.state.secondPanelClass}>
-                                <h3 className="hidden">Payment</h3>
+                                <h3 className="d-none">Payment</h3>
 
-                                <div
-                                    className="pull-right dialog_buttons"
-                                    style={{ lineHeight: "40px" }}
-                                >
+                                <div className="btn-row">
                                     {/*<button type="submit" className="btn btn-primary" onClick={this.handleClick.bind(this, 'payPal')}>Pay With PayPal</button>*/}
                                     <button
+                                        type="button"
+                                        className="btn-border fixed-width-btn"
+                                        onClick={this.handleClick.bind(
+                                            this,
+                                            "showFirst"
+                                        )}
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
                                         type="submit"
-                                        className="btn btn-primary"
+                                        className="btn-blue fixed-width-btn"
                                         form="crypF"
                                         onClick={this.handleClick.bind(
                                             this,
@@ -1981,7 +2059,7 @@ define([
                                     </button>
                                     <button
                                         type="submit"
-                                        className="btn btn-primary"
+                                        className="btn-blue fixed-width-btn"
                                         form="perfF"
                                         onClick={this.handleClick.bind(
                                             this,
@@ -1992,7 +2070,7 @@ define([
                                     </button>
                                     <button
                                         type="submit"
-                                        className="btn btn-primary"
+                                        className="btn-blue fixed-width-btn"
                                         onClick={this.handleClick.bind(
                                             this,
                                             "stripe"
@@ -2000,39 +2078,24 @@ define([
                                     >
                                         Pay With stripe (Credit / Debit Card)
                                     </button>
-
-                                    <button
-                                        type="button"
-                                        className="btn btn-default"
-                                        onClick={this.handleClick.bind(
-                                            this,
-                                            "showFirst"
-                                        )}
-                                    >
-                                        Cancel
-                                    </button>
                                 </div>
 
-                                <div className="clearfix"></div>
-                                <div className="bold margin-top-20">
-                                    Info:{" "}
-                                    <i className="">
-                                        It may take some time to reflect new
-                                        balance after successfull payment.{" "}
-                                        <br /> If you pay with bitcoin, make
-                                        sure you enter exact amount you are
-                                        willing to pay, otherwise it may be
-                                        marked as mispayment.
-                                    </i>
+                                <div className="float-none"></div>
+                                <div className="info-text">
+                                    Info: It may take some time to reflect new
+                                    balance after successfull payment. <br /> If
+                                    you pay with bitcoin, make sure you enter
+                                    exact amount you are willing to pay,
+                                    otherwise it may be marked as mispayment.
                                 </div>
 
-                                <div className="clearfix"></div>
+                                <div className="float-none"></div>
 
                                 <div
                                     className={
                                         this.state.paym == "paypal"
                                             ? ""
-                                            : "hidden"
+                                            : "d-none"
                                     }
                                     id="paypal-button-container"
                                 ></div>
@@ -2041,7 +2104,7 @@ define([
                                     className={
                                         this.state.paym == "stripe"
                                             ? ""
-                                            : "hidden"
+                                            : "d-none"
                                     }
                                     id="stripe-container"
                                 >
@@ -2049,7 +2112,7 @@ define([
                                         <div id="payment-element"></div>
                                         <button id="submit">
                                             <div
-                                                className="spinner hidden"
+                                                className="spinner d-none"
                                                 id="spinner"
                                             ></div>
                                             <span id="button-text">
@@ -2058,153 +2121,171 @@ define([
                                         </button>
                                         <div
                                             id="payment-message"
-                                            className="hidden"
+                                            className="d-none"
                                         ></div>
                                     </form>
                                 </div>
                             </div>
                         </div>
+                        <form
+                            className="d-none"
+                            id="perfF"
+                            action="https://perfectmoney.com/api/step1.asp"
+                            method="POST"
+                            target="_blank"
+                        >
+                            <input
+                                type="hidden"
+                                name="PAYEE_ACCOUNT"
+                                value={app.defaults.get("perfectMecrh")}
+                            />
+                            <input
+                                type="hidden"
+                                name="PAYEE_NAME"
+                                value="Cyber Fear"
+                            />
+                            <input
+                                type="hidden"
+                                name="PAYMENT_AMOUNT"
+                                value={this.state.toPay}
+                            />
+                            <input
+                                type="hidden"
+                                name="PAYMENT_UNITS"
+                                value="USD"
+                            />
+                            <input
+                                type="hidden"
+                                name="STATUS_URL"
+                                value="https://cyberfear.com/api/PerfectPaidstatus"
+                            />
+                            <input
+                                type="hidden"
+                                name="PAYMENT_URL"
+                                value="https://cyberfear.com/api/Pe"
+                            />
+                            <input
+                                type="hidden"
+                                name="PAYMENT_URL_METHOD"
+                                value="POST"
+                            />
+                            <input
+                                type="hidden"
+                                name="NOPAYMENT_URL"
+                                value="https://cyberfear.com/api/Pe"
+                            />
+                            <input
+                                type="hidden"
+                                name="NOPAYMENT_URL_METHOD"
+                                value="LINK"
+                            />
+                            <input
+                                type="hidden"
+                                name="SUGGESTED_MEMO"
+                                value=""
+                            />
+                            <input
+                                type="hidden"
+                                name="userId"
+                                value={app.user.get("userId")}
+                            />
+                            <input
+                                type="hidden"
+                                name="paymentFor"
+                                value={this.state.forPlan}
+                            />
+                            <input
+                                type="hidden"
+                                name="howMuch"
+                                value={this.state.howMuch}
+                            />
+                            <input
+                                type="hidden"
+                                name="BAGGAGE_FIELDS"
+                                value="userId paymentFor howMuch"
+                            />
+                        </form>
+
+                        <form
+                            className="d-none"
+                            id="crypF"
+                            action="https://www.coinpayments.net/index.php"
+                            method="post"
+                            target="_blank"
+                            ref="crypto"
+                        >
+                            <input
+                                type="hidden"
+                                name="cmd"
+                                value="_pay_simple"
+                            />
+                            <input type="hidden" name="reset" value="1" />
+                            <input
+                                type="hidden"
+                                name="first_name"
+                                value="anonymous"
+                            />
+                            <input
+                                type="hidden"
+                                name="last_name"
+                                value="anonymous"
+                            />
+                            <input
+                                type="hidden"
+                                name="email"
+                                value="anonymous@cyberfear.com"
+                            />
+                            <input
+                                type="hidden"
+                                name="merchant"
+                                value={app.defaults.get("coinMecrh")}
+                            />
+                            <input
+                                type="hidden"
+                                name="item_amount"
+                                value={this.state.howMuch}
+                            />
+                            <input
+                                type="hidden"
+                                name="item_name"
+                                value={this.state.forPlan}
+                            />
+                            <input
+                                type="hidden"
+                                name="item_desc"
+                                value={this.state.forPlan}
+                            />
+                            <input
+                                type="hidden"
+                                name="custom"
+                                value={app.user.get("userId")}
+                            />
+                            <input type="hidden" name="currency" value="USD" />
+                            <input
+                                type="hidden"
+                                name="amountf"
+                                value={this.state.toPay}
+                            />
+                            <input
+                                type="hidden"
+                                name="want_shipping"
+                                value="0"
+                            />
+                            <input
+                                type="hidden"
+                                name="success_url"
+                                value="https://cyberfear.com/api/Pe"
+                            />
+                            <input
+                                type="hidden"
+                                name="cancel_url"
+                                value="https://cyberfear.com/api/Pe"
+                            />
+                        </form>
                     </div>
-
-                    <form
-                        className="hidden"
-                        id="perfF"
-                        action="https://perfectmoney.com/api/step1.asp"
-                        method="POST"
-                        target="_blank"
-                    >
-                        <input
-                            type="hidden"
-                            name="PAYEE_ACCOUNT"
-                            value={app.defaults.get("perfectMecrh")}
-                        />
-                        <input
-                            type="hidden"
-                            name="PAYEE_NAME"
-                            value="Cyber Fear"
-                        />
-                        <input
-                            type="hidden"
-                            name="PAYMENT_AMOUNT"
-                            value={this.state.toPay}
-                        />
-                        <input type="hidden" name="PAYMENT_UNITS" value="USD" />
-                        <input
-                            type="hidden"
-                            name="STATUS_URL"
-                            value="https://cyberfear.com/api/PerfectPaidstatus"
-                        />
-                        <input
-                            type="hidden"
-                            name="PAYMENT_URL"
-                            value="https://cyberfear.com/api/Pe"
-                        />
-                        <input
-                            type="hidden"
-                            name="PAYMENT_URL_METHOD"
-                            value="POST"
-                        />
-                        <input
-                            type="hidden"
-                            name="NOPAYMENT_URL"
-                            value="https://cyberfear.com/api/Pe"
-                        />
-                        <input
-                            type="hidden"
-                            name="NOPAYMENT_URL_METHOD"
-                            value="LINK"
-                        />
-                        <input type="hidden" name="SUGGESTED_MEMO" value="" />
-                        <input
-                            type="hidden"
-                            name="userId"
-                            value={app.user.get("userId")}
-                        />
-                        <input
-                            type="hidden"
-                            name="paymentFor"
-                            value={this.state.forPlan}
-                        />
-                        <input
-                            type="hidden"
-                            name="howMuch"
-                            value={this.state.howMuch}
-                        />
-                        <input
-                            type="hidden"
-                            name="BAGGAGE_FIELDS"
-                            value="userId paymentFor howMuch"
-                        />
-                    </form>
-
-                    <form
-                        className="hidden"
-                        id="crypF"
-                        action="https://www.coinpayments.net/index.php"
-                        method="post"
-                        target="_blank"
-                        ref="crypto"
-                    >
-                        <input type="hidden" name="cmd" value="_pay_simple" />
-                        <input type="hidden" name="reset" value="1" />
-                        <input
-                            type="hidden"
-                            name="first_name"
-                            value="anonymous"
-                        />
-                        <input
-                            type="hidden"
-                            name="last_name"
-                            value="anonymous"
-                        />
-                        <input
-                            type="hidden"
-                            name="email"
-                            value="anonymous@cyberfear.com"
-                        />
-                        <input
-                            type="hidden"
-                            name="merchant"
-                            value={app.defaults.get("coinMecrh")}
-                        />
-                        <input
-                            type="hidden"
-                            name="item_amount"
-                            value={this.state.howMuch}
-                        />
-                        <input
-                            type="hidden"
-                            name="item_name"
-                            value={this.state.forPlan}
-                        />
-                        <input
-                            type="hidden"
-                            name="item_desc"
-                            value={this.state.forPlan}
-                        />
-                        <input
-                            type="hidden"
-                            name="custom"
-                            value={app.user.get("userId")}
-                        />
-                        <input type="hidden" name="currency" value="USD" />
-                        <input
-                            type="hidden"
-                            name="amountf"
-                            value={this.state.toPay}
-                        />
-                        <input type="hidden" name="want_shipping" value="0" />
-                        <input
-                            type="hidden"
-                            name="success_url"
-                            value="https://cyberfear.com/api/Pe"
-                        />
-                        <input
-                            type="hidden"
-                            name="cancel_url"
-                            value="https://cyberfear.com/api/Pe"
-                        />
-                    </form>
+                    <div className="setting-right alias-email upgrade-plan">
+                        <RightTop />
+                    </div>
                 </div>
             );
         },

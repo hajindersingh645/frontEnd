@@ -1,10 +1,11 @@
 define(["react", "app", "accounting"], function (React, app, accounting) {
     return React.createClass({
-        //getInitialState : function() {
-        //return {
-        //	setings:{profile:'active'}
-        //};
-        //},
+        getInitialState: function () {
+            return {
+                setings: { profile: "active" },
+                activeLink: "",
+            };
+        },
         boxSize: function () {
             return (
                 <div>
@@ -32,27 +33,42 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
 
                 switch (i) {
                     case "Profile":
+                        this.setState({
+                            activeLink: `Profile`,
+                        });
                         Backbone.history.navigate("/settings/Profile", {
                             trigger: true,
                         });
                         break;
                     case "Layout":
+                        this.setState({
+                            activeLink: `Layout`,
+                        });
                         Backbone.history.navigate("/settings/Layout", {
                             trigger: true,
                         });
                         break;
 
                     case "Password":
+                        this.setState({
+                            activeLink: `Password`,
+                        });
                         Backbone.history.navigate("/settings/Password", {
                             trigger: true,
                         });
                         break;
                     case "Aliases":
+                        this.setState({
+                            activeLink: `Aliases`,
+                        });
                         Backbone.history.navigate("/settings/Aliases", {
                             trigger: true,
                         });
                         break;
                     case "Disposable-Aliases":
+                        this.setState({
+                            activeLink: `Disposable-Aliases`,
+                        });
                         Backbone.history.navigate(
                             "/settings/Disposable-Aliases",
                             {
@@ -61,71 +77,110 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                         );
                         break;
                     case "Custom-Domain":
+                        this.setState({
+                            activeLink: `Custom-Domain`,
+                        });
                         Backbone.history.navigate("/settings/Custom-Domain", {
                             trigger: true,
                         });
                         break;
                     case "2-Step":
+                        this.setState({
+                            activeLink: `2-Step`,
+                        });
                         Backbone.history.navigate("/settings/2-Step", {
                             trigger: true,
                         });
                         break;
                     case "Contacts":
+                        this.setState({
+                            activeLink: `Contacts`,
+                        });
                         Backbone.history.navigate("/settings/Contacts", {
                             trigger: true,
                         });
                         break;
                     case "WebDiv":
+                        this.setState({
+                            activeLink: `WebDiv`,
+                        });
                         Backbone.history.navigate("/settings/WebDiv", {
                             trigger: true,
                         });
                         break;
                     case "PGP-Keys":
+                        this.setState({
+                            activeLink: `PGP-Keys`,
+                        });
                         Backbone.history.navigate("/settings/PGP-Keys", {
                             trigger: true,
                         });
                         break;
 
                     case "AdminPanel":
+                        this.setState({
+                            activeLink: `AdminPanel`,
+                        });
                         Backbone.history.navigate("/settings/AdminPanel", {
                             trigger: true,
                         });
                         break;
 
                     case "Filter":
+                        this.setState({
+                            activeLink: `Filter`,
+                        });
                         Backbone.history.navigate("/settings/Filter", {
                             trigger: true,
                         });
                         break;
                     case "BlackList":
+                        this.setState({
+                            activeLink: `BlackList`,
+                        });
                         Backbone.history.navigate("/settings/Black-List", {
                             trigger: true,
                         });
                         break;
                     case "Folders":
+                        this.setState({
+                            activeLink: `Folders`,
+                        });
                         Backbone.history.navigate("/settings/Folders", {
                             trigger: true,
                         });
                         break;
 
                     case "Security-Log":
+                        this.setState({
+                            activeLink: `Security-Log`,
+                        });
                         Backbone.history.navigate("/settings/Security-Log", {
                             trigger: true,
                         });
                         break;
                     case "Coupon":
+                        this.setState({
+                            activeLink: `Coupon`,
+                        });
                         Backbone.history.navigate("/settings/Coupons", {
                             trigger: true,
                         });
                         break;
 
                     case "Plan":
+                        this.setState({
+                            activeLink: `Plan`,
+                        });
                         Backbone.history.navigate("/settings/Plan", {
                             trigger: true,
                         });
                         break;
 
                     case "Delete-Account":
+                        this.setState({
+                            activeLink: `Delete-Account`,
+                        });
                         Backbone.history.navigate("/settings/Delete-Account", {
                             trigger: true,
                         });
@@ -208,7 +263,15 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                         <div className="accordion-body">
                                             <div className="acco-menu-list">
                                                 <ul>
-                                                    <li className="active">
+                                                    <li
+                                                        className={`${
+                                                            this.state
+                                                                .activeLink ===
+                                                            `Contacts`
+                                                                ? "active"
+                                                                : ""
+                                                        }`}
+                                                    >
                                                         <a
                                                             onClick={this.handleClick.bind(
                                                                 this,
@@ -218,7 +281,15 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                             Contacts
                                                         </a>
                                                     </li>
-                                                    <li>
+                                                    <li
+                                                        className={`${
+                                                            this.state
+                                                                .activeLink ===
+                                                            `Aliases`
+                                                                ? "active"
+                                                                : ""
+                                                        }`}
+                                                    >
                                                         <a
                                                             onClick={this.handleClick.bind(
                                                                 this,
@@ -228,7 +299,15 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                             Alias
                                                         </a>
                                                     </li>
-                                                    <li>
+                                                    <li
+                                                        className={`${
+                                                            this.state
+                                                                .activeLink ===
+                                                            `Disposable-Aliases`
+                                                                ? "active"
+                                                                : ""
+                                                        }`}
+                                                    >
                                                         <a
                                                             onClick={this.handleClick.bind(
                                                                 this,
@@ -238,7 +317,15 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                             Disposable address
                                                         </a>
                                                     </li>
-                                                    <li>
+                                                    <li
+                                                        className={`${
+                                                            this.state
+                                                                .activeLink ===
+                                                            `Custom-Domain`
+                                                                ? "active"
+                                                                : ""
+                                                        }`}
+                                                    >
                                                         <a
                                                             onClick={this.handleClick.bind(
                                                                 this,
@@ -249,12 +336,22 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                         </a>
                                                     </li>
                                                     <li
-                                                        onClick={this.handleClick.bind(
-                                                            this,
-                                                            "Delete-Account"
-                                                        )}
+                                                        className={`${
+                                                            this.state
+                                                                .activeLink ===
+                                                            `Delete-Account`
+                                                                ? "active"
+                                                                : ""
+                                                        }`}
                                                     >
-                                                        <a>Delete account</a>
+                                                        <a
+                                                            onClick={this.handleClick.bind(
+                                                                this,
+                                                                "Delete-Account"
+                                                            )}
+                                                        >
+                                                            Delete account
+                                                        </a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -283,7 +380,15 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                         <div className="accordion-body">
                                             <div className="acco-menu-list">
                                                 <ul>
-                                                    <li>
+                                                    <li
+                                                        className={`${
+                                                            this.state
+                                                                .activeLink ===
+                                                            `Password`
+                                                                ? "active"
+                                                                : ""
+                                                        }`}
+                                                    >
                                                         <a
                                                             onClick={this.handleClick.bind(
                                                                 this,
@@ -293,7 +398,15 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                             Password
                                                         </a>
                                                     </li>
-                                                    <li>
+                                                    <li
+                                                        className={`${
+                                                            this.state
+                                                                .activeLink ===
+                                                            `2-Step`
+                                                                ? "active"
+                                                                : ""
+                                                        }`}
+                                                    >
                                                         <a
                                                             onClick={this.handleClick.bind(
                                                                 this,
@@ -303,7 +416,15 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                             2AF
                                                         </a>
                                                     </li>
-                                                    <li>
+                                                    <li
+                                                        className={`${
+                                                            this.state
+                                                                .activeLink ===
+                                                            `PGP-Keys`
+                                                                ? "active"
+                                                                : ""
+                                                        }`}
+                                                    >
                                                         <a
                                                             onClick={this.handleClick.bind(
                                                                 this,
@@ -343,7 +464,15 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                         <div className="accordion-body">
                                             <div className="acco-menu-list">
                                                 <ul>
-                                                    <li>
+                                                    <li
+                                                        className={`${
+                                                            this.state
+                                                                .activeLink ===
+                                                            `Folders`
+                                                                ? "active"
+                                                                : ""
+                                                        }`}
+                                                    >
                                                         <a
                                                             onClick={this.handleClick.bind(
                                                                 this,
@@ -353,7 +482,15 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                             Folder / Label
                                                         </a>
                                                     </li>
-                                                    <li>
+                                                    <li
+                                                        className={`${
+                                                            this.state
+                                                                .activeLink ===
+                                                            `Filter`
+                                                                ? "active"
+                                                                : ""
+                                                        }`}
+                                                    >
                                                         <a
                                                             onClick={this.handleClick.bind(
                                                                 this,
@@ -363,7 +500,15 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                             Email filter
                                                         </a>
                                                     </li>
-                                                    <li>
+                                                    <li
+                                                        className={`${
+                                                            this.state
+                                                                .activeLink ===
+                                                            `BlackList`
+                                                                ? "active"
+                                                                : ""
+                                                        }`}
+                                                    >
                                                         <a
                                                             onClick={this.handleClick.bind(
                                                                 this,
@@ -404,7 +549,15 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                         <div className="accordion-body">
                                             <div className="acco-menu-list">
                                                 <ul>
-                                                    <li>
+                                                    <li
+                                                        className={`${
+                                                            this.state
+                                                                .activeLink ===
+                                                            `Plan`
+                                                                ? "active"
+                                                                : ""
+                                                        }`}
+                                                    >
                                                         <a
                                                             onClick={this.handleClick.bind(
                                                                 this,
@@ -414,7 +567,15 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                             Upgrade
                                                         </a>
                                                     </li>
-                                                    <li>
+                                                    <li
+                                                        className={`${
+                                                            this.state
+                                                                .activeLink ===
+                                                            `Coupon`
+                                                                ? "active"
+                                                                : ""
+                                                        }`}
+                                                    >
                                                         <a
                                                             onClick={this.handleClick.bind(
                                                                 this,

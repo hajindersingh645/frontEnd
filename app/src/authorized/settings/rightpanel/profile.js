@@ -10,9 +10,9 @@ define([
         getInitialState: function () {
             return {
                 panel: {
-                    firstPanelClass: "panel-body hidden",
+                    firstPanelClass: "panel-body d-none",
                     secondPanelClass: "panel-body",
-                    firstTab: "hidden",
+                    firstTab: "d-none",
                     secondTab: "active",
                 },
 
@@ -62,8 +62,6 @@ define([
                 minlength: 3,
                 maxlength: 200,
             });
-
-            //this.handleClick('showAccSett');
         },
         ifSecondPanelSave: function () {
             if (
@@ -246,7 +244,7 @@ define([
                     this.setState({
                         panel: {
                             firstPanelClass: "panel-body",
-                            secondPanelClass: "panel-body hidden",
+                            secondPanelClass: "panel-body d-none",
                             firstTab: "active",
                             secondTab: "",
                         },
@@ -256,7 +254,7 @@ define([
                 case "showAccSett":
                     this.setState({
                         panel: {
-                            firstPanelClass: "panel-body hidden",
+                            firstPanelClass: "panel-body d-none",
                             secondPanelClass: "panel-body",
                             firstTab: "",
                             secondTab: "active",
@@ -344,33 +342,12 @@ define([
                             app.user.set({ password: "" });
                             app.user.set({ secondPassword: "" });
                         }
-                        /*
-                        app.user.set({"enableForwarding": this.state.secondPanelData.enableForwarding});
-                        app.user.set({"enableNotification": this.state.secondPanelData.enableNotification});
-
-
-                        if (this.state.secondPanelData.enableForwarding) {
-                            app.user.set({"forwardingAddress": this.state.secondPanelData.forwardingAddress});
-                        }
-
-                        if (this.state.secondPanelData.notificationSound != 0) {
-                            app.user.set({"notificationSound": this.state.secondPanelData.notificationSound});
-                        }
-
-                        if (this.state.secondPanelData.enableNotification) {
-                            app.user.set({"notificationAddress": this.state.secondPanelData.notificationAddress});
-                        }
-                        */
 
                         app.userObjects.updateObjects(
                             "userProfile",
                             "",
                             function (response) {
-                                //restore copy of the object if failed to save
                                 if (response === "success") {
-                                    //app.user.set({"DecryptedProfileObject":profile});
-                                    //app.userObjects.set({"EncryptedProfileObject":newProfObj});
-                                    //console.log('ura');
                                 } else if (response === "failed") {
                                 } else if (response === "nothing") {
                                 }
@@ -378,7 +355,6 @@ define([
                         );
                     }
 
-                    //	console.log(changeObj, 'saveAccountSettings');
                     break;
 
                 case "safeProfile":
@@ -433,13 +409,12 @@ define([
          * @returns {JSX}
          */
         render: function () {
-            //{/* onClick={this.handleClick.bind(this, 'showAccSett')}*/}
             var showDisp = {
                 visibility: !this.state.firstPanelData.showDisplayName
-                    ? "hidden"
+                    ? "d-none"
                     : "",
             };
-            //console.log('ddsd');
+
             return (
                 <div
                     className={this.props.classes.rightClass}
@@ -451,23 +426,10 @@ define([
                                 <ul>
                                     <li
                                         role="presentation"
-                                        className={this.state.panel.firstTab}
-                                    >
-                                        <a
-                                            onClick={this.handleClick.bind(
-                                                this,
-                                                "showUprof"
-                                            )}
-                                        >
-                                            <h2>Info</h2>
-                                        </a>
-                                    </li>
-                                    <li
-                                        role="presentation"
                                         className={this.state.panel.secondTab}
                                     >
                                         <a>
-                                            <h2>Profile Settings</h2>
+                                            <h2>Account Settings</h2>
                                         </a>
                                     </li>
                                 </ul>
@@ -476,82 +438,105 @@ define([
                                 <div
                                     className={this.state.panel.firstPanelClass}
                                 >
-                                    <div className="form-group">
-                                        <h3 className="" style={showDisp}>
-                                            {
-                                                this.state.firstPanelData
-                                                    .displayName
-                                            }
-                                            <br />
-                                        </h3>
-                                        &lt;{app.user.get("email")}&gt;
-                                    </div>
+                                    <div className="form-section">
+                                        <div className="row">
+                                            <div className="col-12">
+                                                <div className="form-group">
+                                                    <h3
+                                                        className=""
+                                                        style={showDisp}
+                                                    >
+                                                        {
+                                                            this.state
+                                                                .firstPanelData
+                                                                .displayName
+                                                        }
+                                                        <br />
+                                                    </h3>
+                                                    &lt;{app.user.get("email")}
+                                                    &gt;
+                                                </div>
+                                            </div>
+                                            <div className="col-12">
+                                                <div className="form-group">
+                                                    <label className="container-checkbox with-label">
+                                                        <input
+                                                            className="pull-left"
+                                                            type="checkbox"
+                                                            checked={
+                                                                this.state
+                                                                    .firstPanelData
+                                                                    .showDisplayName
+                                                            }
+                                                            onChange={this.handleChange.bind(
+                                                                this,
+                                                                "displayNameCheck"
+                                                            )}
+                                                        />
+                                                        <span className="checkmark"></span>
+                                                        display name
+                                                    </label>
 
-                                    <div className="form-group">
-                                        <input
-                                            className="pull-left"
-                                            type="checkbox"
-                                            checked={
-                                                this.state.firstPanelData
-                                                    .showDisplayName
-                                            }
-                                            onChange={this.handleChange.bind(
-                                                this,
-                                                "displayNameCheck"
-                                            )}
-                                        />
-                                        &nbsp;
-                                        <label>display name</label>
-                                        <input
-                                            type="name"
-                                            className="form-control"
-                                            readOnly={
-                                                !this.state.firstPanelData
-                                                    .showDisplayName
-                                            }
-                                            onChange={this.handleChange.bind(
-                                                this,
-                                                "dispNameChange"
-                                            )}
-                                            placeholder="Enter name"
-                                            value={
-                                                this.state.firstPanelData
-                                                    .displayName
-                                            }
-                                        />
-                                    </div>
-
-                                    <div className="pull-right">
-                                        <button
-                                            type="button"
-                                            className="btn btn-primary"
-                                            onClick={this.handleClick.bind(
-                                                this,
-                                                "safeProfile"
-                                            )}
-                                            disabled={
-                                                this.state.firstPanelData
-                                                    .showDisplayName ==
-                                                    app.user.get(
-                                                        "showDisplayName"
-                                                    ) &&
-                                                this.state.firstPanelData
-                                                    .displayName ==
-                                                    app.user.get("displayName")
-                                            }
-                                        >
-                                            Save
-                                        </button>
-                                        <button
-                                            type="button"
-                                            className="btn btn-default"
-                                            onClick={this.handleClick.bind(
-                                                this,
-                                                "resetProfile"
-                                            )}
-                                        >
-                                            Cancel
-                                        </button>
+                                                    <input
+                                                        type="name"
+                                                        className="form-control"
+                                                        readOnly={
+                                                            !this.state
+                                                                .firstPanelData
+                                                                .showDisplayName
+                                                        }
+                                                        onChange={this.handleChange.bind(
+                                                            this,
+                                                            "dispNameChange"
+                                                        )}
+                                                        placeholder="Enter name"
+                                                        value={
+                                                            this.state
+                                                                .firstPanelData
+                                                                .displayName
+                                                        }
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="form-section-bottom">
+                                            <div className="btn-row">
+                                                <button
+                                                    type="button"
+                                                    className="btn-border fixed-width-btn"
+                                                    onClick={this.handleClick.bind(
+                                                        this,
+                                                        "resetProfile"
+                                                    )}
+                                                >
+                                                    Cancel
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    className="btn-blue fixed-width-btn"
+                                                    onClick={this.handleClick.bind(
+                                                        this,
+                                                        "safeProfile"
+                                                    )}
+                                                    disabled={
+                                                        this.state
+                                                            .firstPanelData
+                                                            .showDisplayName ==
+                                                            app.user.get(
+                                                                "showDisplayName"
+                                                            ) &&
+                                                        this.state
+                                                            .firstPanelData
+                                                            .displayName ==
+                                                            app.user.get(
+                                                                "displayName"
+                                                            )
+                                                    }
+                                                >
+                                                    Save
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -560,291 +545,298 @@ define([
                                         this.state.panel.secondPanelClass
                                     }
                                 >
-                                    <div
-                                        className={
-                                            this.props.classes
-                                                .classActSettSelect
-                                        }
-                                    >
-                                        <div className="form-group">
-                                            <select
-                                                className="form-control"
-                                                onChange={this.handleChange.bind(
-                                                    this,
-                                                    "sessTime"
-                                                )}
-                                                value={
-                                                    this.state.sessionExpiration
-                                                }
-                                            >
-                                                <option value="0" disabled>
-                                                    Select Session Time Out
-                                                </option>
-                                                <option value="-1">
-                                                    Disable Timeout
-                                                </option>
-                                                <option value="600">
-                                                    10 Minutes
-                                                </option>
-                                                <option value="1800">
-                                                    30 Minutes
-                                                </option>
-                                                <option value="3600">
-                                                    1 Hour
-                                                </option>
-                                                <option value="10800">
-                                                    3 Hours
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div
-                                        className={
-                                            this.props.classes
-                                                .classActSettSelect
-                                        }
-                                    >
-                                        <div className="form-group">
-                                            <select
-                                                className="form-control"
-                                                onChange={this.handleChange.bind(
-                                                    this,
-                                                    "mailPerPage"
-                                                )}
-                                                value={this.state.mailPerPage}
-                                            >
-                                                <option value="0" disabled>
-                                                    Emails per page
-                                                </option>
-                                                <option value="10">
-                                                    10 Emails per page
-                                                </option>
-                                                <option value="25">
-                                                    25 Emails per page
-                                                </option>
-                                                <option value="50">
-                                                    50 Emails per page
-                                                </option>
-                                                <option value="100">
-                                                    100 Emails per page
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div
-                                        className={
-                                            this.props.classes
-                                                .classActSettSelect
-                                        }
-                                    >
-                                        <div className="form-group">
-                                            <select
-                                                className="form-control"
-                                                onChange={this.handleChange.bind(
-                                                    this,
-                                                    "pgpStr"
-                                                )}
-                                                value={
-                                                    this.state
-                                                        .defaultPGPStrength
-                                                }
-                                            >
-                                                <option value="0" disabled>
-                                                    Default PGP bits
-                                                </option>
-                                                {this.PGPbitList()}
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div
-                                        className={
-                                            this.props.classes
-                                                .classActSettSelect + " hidden"
-                                        }
-                                    >
-                                        <div className="form-group">
-                                            <select
-                                                className="form-control"
-                                                onChange={this.handleChange.bind(
-                                                    this,
-                                                    "changeSound"
-                                                )}
-                                                value={
-                                                    this.state.secondPanelData
-                                                        .notificationSound
-                                                }
-                                            >
-                                                <option value="0" disabled>
-                                                    New Email Notification Sound
-                                                </option>
-                                                <option value="">
-                                                    Disable Sound
-                                                </option>
-                                                <option value="10">Bell</option>
-                                                <option value="25">lala</option>
-                                                <option value="50">lolo</option>
-                                                <option value="100">
-                                                    lambada
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div className="clearfix"></div>
-                                    <div
-                                        className={
-                                            this.props.classes
-                                                .classActSettSelect + " hidden"
-                                        }
-                                    >
-                                        <form id="forwForm">
-                                            <div className="form-group">
-                                                <input
-                                                    className="pull-left"
-                                                    type="checkbox"
-                                                    checked={
-                                                        this.state
-                                                            .secondPanelData
-                                                            .enableForwarding
-                                                    }
-                                                    onChange={this.handleChange.bind(
-                                                        this,
-                                                        "enabForw"
-                                                    )}
-                                                />
-                                                &nbsp;
-                                                <label>
-                                                    Enable Email Forwarding
-                                                </label>
-                                                <input
-                                                    type="email"
-                                                    name="email"
-                                                    id="emForwInp"
-                                                    className="form-control"
-                                                    disabled={
-                                                        !this.state
-                                                            .secondPanelData
-                                                            .enableForwarding
-                                                    }
-                                                    placeholder="Email Forward"
-                                                    value={
-                                                        this.state
-                                                            .secondPanelData
-                                                            .forwardingAddress
-                                                    }
-                                                    onChange={this.handleChange.bind(
-                                                        this,
-                                                        "entEmFow"
-                                                    )}
-                                                />
-                                            </div>
-                                        </form>
-                                    </div>
-
-                                    <div
-                                        className={
-                                            this.props.classes
-                                                .classActSettSelect + " hidden"
-                                        }
-                                    >
-                                        <form id="notForm">
-                                            <div className="form-group">
-                                                <input
-                                                    className="pull-left"
-                                                    type="checkbox"
-                                                    checked={
-                                                        this.state
-                                                            .secondPanelData
-                                                            .enableNotification
-                                                    }
-                                                    onChange={this.handleChange.bind(
-                                                        this,
-                                                        "enabEmNot"
-                                                    )}
-                                                />
-                                                &nbsp;
-                                                <label>
-                                                    Enable Email Notification
-                                                </label>
-                                                <input
-                                                    type="email"
-                                                    name="email"
-                                                    id="emNotInp"
-                                                    className="form-control"
-                                                    disabled={
-                                                        !this.state
-                                                            .secondPanelData
-                                                            .enableNotification
-                                                    }
-                                                    placeholder="Email Notification"
-                                                    value={
-                                                        this.state
-                                                            .secondPanelData
-                                                            .notificationAddress
-                                                    }
-                                                    onChange={this.handleChange.bind(
-                                                        this,
-                                                        "entEmNot"
-                                                    )}
-                                                />
-                                            </div>
-                                        </form>
-                                    </div>
-
-                                    <div className="clearfix"></div>
-
-                                    <div
-                                        className={
-                                            this.props.classes
-                                                .classActSettSelect
-                                        }
-                                    >
-                                        <div className="form-group">
-                                            <div className="checkbox">
-                                                <label>
-                                                    <input
-                                                        type="checkbox"
-                                                        checked={
-                                                            this.state
-                                                                .remeberPassword
-                                                        }
+                                    <div className="form-section">
+                                        <div className="row">
+                                            <div className="col-12">
+                                                <div className="form-group">
+                                                    <select
+                                                        className="form-select"
                                                         onChange={this.handleChange.bind(
                                                             this,
-                                                            "remPass"
+                                                            "sessTime"
                                                         )}
-                                                    />
-                                                    Remember Password for
-                                                    Session
-                                                </label>
+                                                        value={
+                                                            this.state
+                                                                .sessionExpiration
+                                                        }
+                                                    >
+                                                        <option
+                                                            value="0"
+                                                            disabled
+                                                        >
+                                                            Select Session Time
+                                                            Out
+                                                        </option>
+                                                        <option value="-1">
+                                                            Disable Timeout
+                                                        </option>
+                                                        <option value="600">
+                                                            10 Minutes
+                                                        </option>
+                                                        <option value="1800">
+                                                            30 Minutes
+                                                        </option>
+                                                        <option value="3600">
+                                                            1 Hour
+                                                        </option>
+                                                        <option value="10800">
+                                                            3 Hours
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div className="col-12">
+                                                <div className="form-group">
+                                                    <select
+                                                        className="form-select"
+                                                        onChange={this.handleChange.bind(
+                                                            this,
+                                                            "mailPerPage"
+                                                        )}
+                                                        value={
+                                                            this.state
+                                                                .mailPerPage
+                                                        }
+                                                    >
+                                                        <option
+                                                            value="0"
+                                                            disabled
+                                                        >
+                                                            Emails per page
+                                                        </option>
+                                                        <option value="10">
+                                                            10 Emails per page
+                                                        </option>
+                                                        <option value="25">
+                                                            25 Emails per page
+                                                        </option>
+                                                        <option value="50">
+                                                            50 Emails per page
+                                                        </option>
+                                                        <option value="100">
+                                                            100 Emails per page
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div className="col-12">
+                                                <div className="form-group">
+                                                    <select
+                                                        className="form-select"
+                                                        onChange={this.handleChange.bind(
+                                                            this,
+                                                            "pgpStr"
+                                                        )}
+                                                        value={
+                                                            this.state
+                                                                .defaultPGPStrength
+                                                        }
+                                                    >
+                                                        <option
+                                                            value="0"
+                                                            disabled
+                                                        >
+                                                            Default PGP bits
+                                                        </option>
+                                                        {this.PGPbitList()}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div className="col-12">
+                                                <div className="form-group">
+                                                    <select
+                                                        className="form-control"
+                                                        onChange={this.handleChange.bind(
+                                                            this,
+                                                            "changeSound"
+                                                        )}
+                                                        value={
+                                                            this.state
+                                                                .secondPanelData
+                                                                .notificationSound
+                                                        }
+                                                    >
+                                                        <option
+                                                            value="0"
+                                                            disabled
+                                                        >
+                                                            New Email
+                                                            Notification Sound
+                                                        </option>
+                                                        <option value="">
+                                                            Disable Sound
+                                                        </option>
+                                                        <option value="10">
+                                                            Bell
+                                                        </option>
+                                                        <option value="25">
+                                                            lala
+                                                        </option>
+                                                        <option value="50">
+                                                            lolo
+                                                        </option>
+                                                        <option value="100">
+                                                            lambada
+                                                        </option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div className="pull-right dialog_buttons">
-                                        <button
-                                            type="button"
-                                            className="btn btn-primary"
-                                            disabled={this.ifSecondPanelSave()}
-                                            onClick={this.handleClick.bind(
-                                                this,
-                                                "safeAccSett"
-                                            )}
-                                        >
-                                            Save
-                                        </button>
-                                        <button
-                                            type="button"
-                                            className="btn btn-default"
-                                            onClick={this.handleClick.bind(
-                                                this,
-                                                "resetAccSett"
-                                            )}
-                                        >
-                                            Cancel
-                                        </button>
+                                    <div
+                                        className={
+                                            this.props.classes
+                                                .classActSettSelect + " d-none"
+                                        }
+                                    >
+                                        <div className="form-section">
+                                            <form id="forwForm">
+                                                <div className="row">
+                                                    <div className="form-group">
+                                                        <label className="container-checkbox with-label">
+                                                            <input
+                                                                type="checkbox"
+                                                                checked={
+                                                                    this.state
+                                                                        .secondPanelData
+                                                                        .enableForwarding
+                                                                }
+                                                                onChange={this.handleChange.bind(
+                                                                    this,
+                                                                    "enabForw"
+                                                                )}
+                                                            />
+                                                            <span className="checkmark"></span>
+                                                            Enable Email
+                                                            Forwarding
+                                                        </label>
+                                                        <input
+                                                            type="email"
+                                                            name="email"
+                                                            id="emForwInp"
+                                                            className="form-control with-icon icon-email"
+                                                            disabled={
+                                                                !this.state
+                                                                    .secondPanelData
+                                                                    .enableForwarding
+                                                            }
+                                                            placeholder="Email Forward"
+                                                            value={
+                                                                this.state
+                                                                    .secondPanelData
+                                                                    .forwardingAddress
+                                                            }
+                                                            onChange={this.handleChange.bind(
+                                                                this,
+                                                                "entEmFow"
+                                                            )}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        className={
+                                            this.props.classes
+                                                .classActSettSelect + " d-none"
+                                        }
+                                    >
+                                        <div className="form-section">
+                                            <form id="notForm">
+                                                <div className="row">
+                                                    <div className="col-12">
+                                                        <div className="form-group">
+                                                            <label className="container-checkbox with-label">
+                                                                <input
+                                                                    className="pull-left"
+                                                                    type="checkbox"
+                                                                    checked={
+                                                                        this
+                                                                            .state
+                                                                            .secondPanelData
+                                                                            .enableNotification
+                                                                    }
+                                                                    onChange={this.handleChange.bind(
+                                                                        this,
+                                                                        "enabEmNot"
+                                                                    )}
+                                                                />
+                                                                <span className="checkmark"></span>
+                                                                Enable Email
+                                                                Notification
+                                                            </label>
+                                                            <input
+                                                                type="email"
+                                                                name="email"
+                                                                id="emNotInp"
+                                                                className="form-control with-icon icon-email"
+                                                                disabled={
+                                                                    !this.state
+                                                                        .secondPanelData
+                                                                        .enableNotification
+                                                                }
+                                                                placeholder="Email Notification"
+                                                                value={
+                                                                    this.state
+                                                                        .secondPanelData
+                                                                        .notificationAddress
+                                                                }
+                                                                onChange={this.handleChange.bind(
+                                                                    this,
+                                                                    "entEmNot"
+                                                                )}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                    <div className="form-section-bottom">
+                                        <div className="checkbox-left">
+                                            <label className="container-checkbox with-label">
+                                                <input
+                                                    type="checkbox"
+                                                    checked={
+                                                        this.state
+                                                            .remeberPassword
+                                                    }
+                                                    onChange={this.handleChange.bind(
+                                                        this,
+                                                        "remPass"
+                                                    )}
+                                                />
+                                                <span className="checkmark"></span>
+                                                Remember Password for Session
+                                            </label>
+                                        </div>
+                                        <div className="btn-row">
+                                            <button
+                                                type="button"
+                                                className="btn-border fixed-width-btn"
+                                                onClick={this.handleClick.bind(
+                                                    this,
+                                                    "resetAccSett"
+                                                )}
+                                            >
+                                                Cancel
+                                            </button>
+                                            <button
+                                                type="button"
+                                                className="btn-blue fixed-width-btn"
+                                                disabled={this.ifSecondPanelSave()}
+                                                onClick={this.handleClick.bind(
+                                                    this,
+                                                    "safeAccSett"
+                                                )}
+                                            >
+                                                Save
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

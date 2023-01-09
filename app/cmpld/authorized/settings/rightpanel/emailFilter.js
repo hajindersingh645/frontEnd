@@ -27,18 +27,18 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
         getInitialState: function () {
             return {
                 firstPanelClass: "panel-body",
-                secondPanelClass: "panel-body hidden",
+                secondPanelClass: "panel-body d-none",
                 firstTab: "active",
                 secondTab: "",
-                secondPanelText: "Add New Rule",
+                secondPanelText: "Add new Email filter",
 
                 button1class: "btn btn-primary pull-right",
                 button2class: "btn btn-warning pull-right margin-right-30",
 
-                inputNameClass: "form-group col-xs-12 col-sm-6 col-lg-7",
+                inputNameClass: "form-group",
                 inputNameChange: "changeFolderName",
 
-                inputSelectClass: "form-group col-xs-12 col-sm-6 col-lg-6",
+                inputSelectClass: "form-group",
 
                 inputSelectChange: "changeFolderExpiration",
 
@@ -73,10 +73,13 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
                 var to = "<span><b>" + app.transform.escapeTags(folderName) + "</b></span>";
                 var el = {
                     DT_RowId: index,
+                    checkbox: '<label class="container-checkbox"><input type="checkbox" name="inbox-email" /><span class="checkmark"></span></label>',
                     text: {
                         display: from + match + text + "<span>will be moved to </span> " + to,
                         index: index
-                    }
+                    },
+                    delete: '<button class="table-icon delete-button"></button>',
+                    options: '<div class="dropdown"><button class="btn btn-secondary dropdown-toggle table-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button></div>'
                 };
 
                 alEm.push(el);
@@ -113,21 +116,22 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
 
             require(["dataTable", "dataTableBoot"], function (DataTable, dataTableBoot) {
                 $("#table1").dataTable({
-                    dom: '<"pull-left"f><"pull-right"p>"irt<"#bottomPagination">',
+                    // dom: '<"pull-left"f><"pull-right"p>"irt<"#bottomPagination">',
+                    dom: '<"middle-search"f>',
                     data: dtSet,
-                    columns: [{
+                    columns: [{ data: "checkbox" }, {
                         data: {
                             _: "text.display",
                             sort: "text.index"
                         }
-                    }],
-                    columnDefs: [{ sClass: "col-xs-12", targets: [0] }, { orderDataType: "data-sort", targets: 0 }],
-                    order: [[0, "asc"]],
-                    sPaginationType: "simple",
+                    }, { data: "delete" }, { data: "options" }],
+                    columnDefs: [{ orderDataType: "data-sort", targets: 1 }],
+                    order: [[1, "asc"]],
                     language: {
                         emptyTable: "Empty",
                         sSearch: "",
-                        searchPlaceholder: "Search",
+                        searchPlaceholder: "Find something...",
+                        info: "Showing _START_ to _END_ of _TOTAL_ entries",
                         paginate: {
                             sPrevious: "<i class='fa fa-chevron-left'></i>",
                             sNext: "<i class='fa fa-chevron-right'></i>"
@@ -188,7 +192,7 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
                 case "showFirst":
                     this.setState({
                         firstPanelClass: "panel-body",
-                        secondPanelClass: "panel-body hidden",
+                        secondPanelClass: "panel-body d-none",
 
                         firstTab: "active",
                         secondTab: "",
@@ -196,7 +200,7 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
                         button1class: "btn btn-primary pull-right",
                         button2class: "btn btn-warning pull-right margin-right-30",
 
-                        secondPanelText: "Add New Rule",
+                        secondPanelText: "Add new Email filter",
 
                         ruleId: "",
                         fieldFrom: "sender",
@@ -242,18 +246,18 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
                     app.globalF.checkPlanLimits("filter", Object.keys(app.user.get("filter")).length, function (result) {
                         if (result) {
                             thisComp.setState({
-                                firstPanelClass: "panel-body hidden",
+                                firstPanelClass: "panel-body d-none",
                                 secondPanelClass: "panel-body ",
                                 firstTab: "active",
-                                secondTab: "",
+                                secondTab: "bingo",
 
-                                secondPanelText: "Add New Rule",
+                                secondPanelText: "Add new Email filter",
 
-                                deleteButtonClass: "hidden",
+                                deleteButtonClass: "d-none",
                                 saveButtonText: "Add",
 
-                                button1class: "hidden",
-                                button2class: "hidden"
+                                button1class: "d-none",
+                                button2class: "d-none"
                             });
                         }
                     });
@@ -298,17 +302,16 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
                     var filter = app.user.get("filter");
                     var id = event;
 
-                    console.log(id);
                     this.setState({
-                        firstPanelClass: "panel-body hidden",
+                        firstPanelClass: "panel-body d-none",
                         secondPanelClass: "panel-body ",
                         firstTab: "active",
-                        secondTab: "",
+                        secondTab: "bingo",
 
                         secondPanelText: "Edit Rule",
 
-                        button1class: "hidden",
-                        button2class: "hidden",
+                        button1class: "d-none",
+                        button2class: "d-none",
                         deleteButtonClass: "",
                         saveButtonText: "Save",
 
@@ -369,8 +372,7 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
         /**
          *
          * @returns {JSX}
-         */
-        render: function () {
+         */render: function () {
             return React.createElement(
                 "div",
                 { id: "rightSettingPanel" },
@@ -381,9 +383,44 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
                         "div",
                         { className: "middle-top" },
                         React.createElement(
+                            "div",
+                            {
+                                className: `arrow-back ${ this.state.secondTab === "bingo" ? "" : "d-none" }`
+                            },
+                            React.createElement("a", {
+                                onClick: this.handleClick.bind(this, "showFirst")
+                            })
+                        ),
+                        React.createElement(
                             "h2",
                             null,
                             "Mailbox"
+                        ),
+                        React.createElement(
+                            "div",
+                            {
+                                className: `bread-crumb  ${ this.state.secondTab === "bingo" ? "" : "d-none" }`
+                            },
+                            React.createElement(
+                                "ul",
+                                null,
+                                React.createElement(
+                                    "li",
+                                    null,
+                                    React.createElement(
+                                        "a",
+                                        {
+                                            onClick: this.handleClick.bind(this, "showFirst")
+                                        },
+                                        "Email filter"
+                                    )
+                                ),
+                                React.createElement(
+                                    "li",
+                                    null,
+                                    this.state.secondPanelText
+                                )
+                            )
                         )
                     ),
                     React.createElement(
@@ -391,83 +428,38 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
                         { className: "middle-content" },
                         React.createElement(
                             "div",
-                            { className: "middle-content-top" },
-                            React.createElement(
-                                "h3",
-                                null,
-                                "Email filters"
-                            ),
-                            React.createElement(
-                                "div",
-                                { className: "middle-content-top-right" },
-                                React.createElement(
-                                    "div",
-                                    { className: "add-contact-btn" },
-                                    React.createElement(
-                                        "a",
-                                        {
-                                            onClick: this.handleClick.bind(this, "addFilterRule")
-                                        },
-                                        React.createElement(
-                                            "span",
-                                            null,
-                                            "+"
-                                        ),
-                                        "Add Rule"
-                                    )
-                                )
-                            )
-                        ),
-                        React.createElement(
-                            "div",
-                            { className: "panel-heading" },
-                            React.createElement(
-                                "button",
-                                {
-                                    type: "button",
-                                    className: this.state.button2class,
-                                    onClick: this.handleClick.bind(this, "clearFilterRules")
-                                },
-                                " ",
-                                "Remove All Rules"
-                            ),
-                            React.createElement(
-                                "ul",
-                                { className: "nav nav-tabs tabbed-nav" },
-                                React.createElement(
-                                    "li",
-                                    {
-                                        role: "presentation",
-                                        className: this.state.firstTab
-                                    },
-                                    React.createElement(
-                                        "a",
-                                        {
-                                            onClick: this.handleClick.bind(this, "showFirst")
-                                        },
-                                        React.createElement(
-                                            "h3",
-                                            {
-                                                className: this.props.tabs.Header
-                                            },
-                                            "Filter"
-                                        ),
-                                        React.createElement(
-                                            "h3",
-                                            {
-                                                className: this.props.tabs.HeaderXS
-                                            },
-                                            React.createElement("i", { className: "ion-funnel" })
-                                        )
-                                    )
-                                )
-                            )
-                        ),
-                        React.createElement(
-                            "div",
                             {
                                 className: `table-row ${ this.state.firstPanelClass }`
                             },
+                            React.createElement(
+                                "div",
+                                { className: "middle-content-top" },
+                                React.createElement(
+                                    "h3",
+                                    null,
+                                    "Email filters"
+                                ),
+                                React.createElement(
+                                    "div",
+                                    { className: "middle-content-top-right" },
+                                    React.createElement(
+                                        "div",
+                                        { className: "add-contact-btn" },
+                                        React.createElement(
+                                            "a",
+                                            {
+                                                onClick: this.handleClick.bind(this, "addFilterRule")
+                                            },
+                                            React.createElement(
+                                                "span",
+                                                { className: "icon" },
+                                                "+"
+                                            ),
+                                            "Add Rule"
+                                        )
+                                    )
+                                )
+                            ),
                             React.createElement(
                                 "div",
                                 { className: "table-responsive" },
@@ -479,6 +471,14 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
                                         onClick: this.handleClick.bind(this, "selectRow")
                                     },
                                     React.createElement(
+                                        "colgroup",
+                                        null,
+                                        React.createElement("col", { width: "40" }),
+                                        React.createElement("col", null),
+                                        React.createElement("col", { width: "40" }),
+                                        React.createElement("col", { width: "50" })
+                                    ),
+                                    React.createElement(
                                         "thead",
                                         null,
                                         React.createElement(
@@ -486,8 +486,68 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
                                             null,
                                             React.createElement(
                                                 "th",
-                                                null,
-                                                "\xA0"
+                                                { scope: "col" },
+                                                React.createElement(
+                                                    "label",
+                                                    { className: "container-checkbox" },
+                                                    React.createElement("input", { type: "checkbox" }),
+                                                    React.createElement("span", { className: "checkmark" })
+                                                )
+                                            ),
+                                            React.createElement(
+                                                "th",
+                                                { scope: "col" },
+                                                "Filters"
+                                            ),
+                                            React.createElement(
+                                                "th",
+                                                { scope: "col" },
+                                                React.createElement("button", { className: "trash-btn" })
+                                            ),
+                                            React.createElement(
+                                                "th",
+                                                { scope: "col" },
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "dropdown" },
+                                                    React.createElement("button", {
+                                                        className: "btn btn-secondary dropdown-toggle ellipsis-btn",
+                                                        type: "button",
+                                                        "data-bs-toggle": "dropdown",
+                                                        "aria-expanded": "false"
+                                                    }),
+                                                    React.createElement(
+                                                        "ul",
+                                                        { className: "dropdown-menu" },
+                                                        React.createElement(
+                                                            "li",
+                                                            null,
+                                                            React.createElement(
+                                                                "a",
+                                                                { href: "#" },
+                                                                "Action"
+                                                            )
+                                                        ),
+                                                        React.createElement(
+                                                            "li",
+                                                            null,
+                                                            React.createElement(
+                                                                "a",
+                                                                { href: "#" },
+                                                                "Another action"
+                                                            )
+                                                        ),
+                                                        React.createElement(
+                                                            "li",
+                                                            null,
+                                                            React.createElement(
+                                                                "a",
+                                                                { href: "#" },
+                                                                "Something here"
+                                                            )
+                                                        )
+                                                    )
+                                                )
                                             )
                                         )
                                     )
@@ -498,137 +558,179 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
                             "div",
                             { className: this.state.secondPanelClass },
                             React.createElement(
-                                "h3",
-                                null,
-                                this.state.secondPanelText
-                            ),
-                            React.createElement(
                                 "div",
-                                { className: this.state.inputSelectClass },
+                                { className: "middle-content-top" },
                                 React.createElement(
-                                    "select",
-                                    {
-                                        className: "form-control",
-                                        id: "fromField",
-                                        onChange: this.handleChange.bind(this, "changeFrom"),
-                                        value: this.state.fieldFrom
-                                    },
-                                    React.createElement(
-                                        "option",
-                                        { value: "sender" },
-                                        "From"
-                                    ),
-                                    React.createElement(
-                                        "option",
-                                        { value: "rcpt" },
-                                        "To"
-                                    ),
-                                    React.createElement(
-                                        "option",
-                                        { value: "subject" },
-                                        "Subject"
-                                    )
+                                    "h3",
+                                    null,
+                                    this.state.secondPanelText
                                 )
                             ),
                             React.createElement(
                                 "div",
-                                { className: this.state.inputSelectClass },
+                                { className: "form-section" },
                                 React.createElement(
-                                    "select",
-                                    {
-                                        className: "form-control",
-                                        id: "matchField",
-                                        onChange: this.handleChange.bind(this, "changeMatch"),
-                                        value: this.state.fieldMatch
-                                    },
+                                    "form",
+                                    { id: "addRuleForm", className: "" },
                                     React.createElement(
-                                        "option",
-                                        { value: "relaxed" },
-                                        "Contains"
-                                    ),
-                                    React.createElement(
-                                        "option",
-                                        { value: "negative" },
-                                        "Does not Contain"
-                                    ),
-                                    React.createElement(
-                                        "option",
-                                        { value: "strict" },
-                                        "match"
-                                    )
-                                )
-                            ),
-                            React.createElement(
-                                "form",
-                                { id: "addRuleForm", className: "" },
-                                React.createElement(
-                                    "div",
-                                    {
-                                        className: this.state.inputSelectClass
-                                    },
-                                    React.createElement("input", {
-                                        type: "text",
-                                        name: "fromName",
-                                        className: "form-control",
-                                        id: "textField",
-                                        placeholder: "text",
-                                        onChange: this.handleChange.bind(this, "changeText"),
-                                        value: this.state.fieldText
-                                    })
-                                ),
-                                React.createElement(
-                                    "div",
-                                    {
-                                        className: this.state.inputSelectClass
-                                    },
-                                    React.createElement(
-                                        "select",
-                                        {
-                                            className: "form-control",
-                                            defaultValue: "0",
-                                            id: "destinationField",
-                                            onChange: this.handleChange.bind(this, "changeDestination"),
-                                            value: this.state.fieldFolder
-                                        },
+                                        "div",
+                                        { className: "row" },
                                         React.createElement(
-                                            "option",
-                                            { value: "0", disabled: true },
-                                            "Move To"
+                                            "div",
+                                            { className: "col-md-6" },
+                                            React.createElement(
+                                                "div",
+                                                {
+                                                    className: this.state.inputSelectClass
+                                                },
+                                                React.createElement(
+                                                    "select",
+                                                    {
+                                                        className: "form-select",
+                                                        id: "fromField",
+                                                        onChange: this.handleChange.bind(this, "changeFrom"),
+                                                        value: this.state.fieldFrom
+                                                    },
+                                                    React.createElement(
+                                                        "option",
+                                                        { value: "sender" },
+                                                        "From"
+                                                    ),
+                                                    React.createElement(
+                                                        "option",
+                                                        { value: "rcpt" },
+                                                        "To"
+                                                    ),
+                                                    React.createElement(
+                                                        "option",
+                                                        { value: "subject" },
+                                                        "Subject"
+                                                    )
+                                                )
+                                            )
                                         ),
-                                        this.getFolders()
+                                        React.createElement(
+                                            "div",
+                                            { className: "col-md-6" },
+                                            React.createElement(
+                                                "div",
+                                                {
+                                                    className: this.state.inputSelectClass
+                                                },
+                                                React.createElement(
+                                                    "select",
+                                                    {
+                                                        className: "form-select",
+                                                        id: "matchField",
+                                                        onChange: this.handleChange.bind(this, "changeMatch"),
+                                                        value: this.state.fieldMatch
+                                                    },
+                                                    React.createElement(
+                                                        "option",
+                                                        { value: "relaxed" },
+                                                        "Contains"
+                                                    ),
+                                                    React.createElement(
+                                                        "option",
+                                                        { value: "negative" },
+                                                        "Does not Contain"
+                                                    ),
+                                                    React.createElement(
+                                                        "option",
+                                                        { value: "strict" },
+                                                        "match"
+                                                    )
+                                                )
+                                            )
+                                        ),
+                                        React.createElement(
+                                            "div",
+                                            { className: "col-md-6" },
+                                            React.createElement(
+                                                "div",
+                                                {
+                                                    className: this.state.inputSelectClass
+                                                },
+                                                React.createElement("input", {
+                                                    type: "text",
+                                                    name: "fromName",
+                                                    className: "form-control",
+                                                    id: "textField",
+                                                    placeholder: "text",
+                                                    onChange: this.handleChange.bind(this, "changeText"),
+                                                    value: this.state.fieldText
+                                                })
+                                            )
+                                        ),
+                                        React.createElement(
+                                            "div",
+                                            { className: "col-md-6" },
+                                            React.createElement(
+                                                "div",
+                                                {
+                                                    className: this.state.inputSelectClass
+                                                },
+                                                React.createElement(
+                                                    "select",
+                                                    {
+                                                        className: "form-select",
+                                                        defaultValue: "0",
+                                                        id: "destinationField",
+                                                        onChange: this.handleChange.bind(this, "changeDestination"),
+                                                        value: this.state.fieldFolder
+                                                    },
+                                                    React.createElement(
+                                                        "option",
+                                                        {
+                                                            value: "0",
+                                                            disabled: true
+                                                        },
+                                                        "Move To"
+                                                    ),
+                                                    this.getFolders()
+                                                )
+                                            )
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "div",
+                                        { className: "form-section-bottom" },
+                                        React.createElement(
+                                            "div",
+                                            { className: "delete-item" },
+                                            React.createElement(
+                                                "button",
+                                                {
+                                                    type: "button",
+                                                    className: this.state.deleteButtonClass,
+                                                    onClick: this.handleClick.bind(this, "deleteRule")
+                                                },
+                                                "Delete"
+                                            )
+                                        ),
+                                        React.createElement(
+                                            "div",
+                                            { className: "btn-row" },
+                                            React.createElement(
+                                                "button",
+                                                {
+                                                    type: "button",
+                                                    className: "btn-border fixed-width-btn",
+                                                    onClick: this.handleClick.bind(this, "showFirst")
+                                                },
+                                                "Cancel"
+                                            ),
+                                            React.createElement(
+                                                "button",
+                                                {
+                                                    type: "button",
+                                                    className: "btn-blue fixed-width-btn",
+                                                    onClick: this.handleClick.bind(this, "saveRule")
+                                                },
+                                                this.state.saveButtonText
+                                            )
+                                        )
                                     )
-                                )
-                            ),
-                            React.createElement("div", { className: "clearfix" }),
-                            React.createElement(
-                                "button",
-                                {
-                                    type: "button",
-                                    className: "btn btn-danger " + this.state.deleteButtonClass,
-                                    onClick: this.handleClick.bind(this, "deleteRule")
-                                },
-                                "Delete"
-                            ),
-                            React.createElement(
-                                "div",
-                                { className: "pull-right dialog_buttons" },
-                                React.createElement(
-                                    "button",
-                                    {
-                                        type: "button",
-                                        className: "btn btn-primary",
-                                        onClick: this.handleClick.bind(this, "saveRule")
-                                    },
-                                    this.state.saveButtonText
-                                ),
-                                React.createElement(
-                                    "button",
-                                    {
-                                        type: "button",
-                                        className: "btn btn-default",
-                                        onClick: this.handleClick.bind(this, "showFirst")
-                                    },
-                                    "Cancel"
                                 )
                             )
                         )

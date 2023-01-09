@@ -11,9 +11,9 @@ define([
                 viewFlag: false,
                 panel: {
                     firstPanelClass: "panel-body",
-                    secondPanelClass: "panel-body hidden",
+                    secondPanelClass: "panel-body d-none",
                     firstTab: "active",
-                    secondTab: app.user.get("oneStep") ? "hidden" : "",
+                    secondTab: app.user.get("oneStep") ? "d-none" : "",
                 },
 
                 saveButton1Panel: { text: "Save", enabled: true, iClass: "" },
@@ -32,14 +32,14 @@ define([
                     text: app.defaults.get("secondPassfield"),
                 },
 
-                secAlertText: app.user.get("oneStep") ? "" : "hidden",
+                secAlertText: app.user.get("oneStep") ? "" : "d-none",
 
                 paswordForm: {},
                 secForm: {},
-                button2Class: app.user.get("oneStep") ? "hidden" : "",
+                button2Class: app.user.get("oneStep") ? "d-none" : "",
                 button3Class: app.user.get("oneStep")
                     ? "btn btn-default"
-                    : "hidden",
+                    : "d-none",
             };
         },
         componentWillUnmount: function () {
@@ -137,9 +137,9 @@ define([
                     this.setState({
                         panel: {
                             firstPanelClass: "panel-body",
-                            secondPanelClass: "panel-body hidden",
+                            secondPanelClass: "panel-body d-none",
                             firstTab: "active",
-                            secondTab: app.user.get("oneStep") ? "hidden" : "",
+                            secondTab: app.user.get("oneStep") ? "d-none" : "",
                         },
                     });
 
@@ -148,7 +148,7 @@ define([
                 case "showSecond":
                     this.setState({
                         panel: {
-                            firstPanelClass: "panel-body hidden",
+                            firstPanelClass: "panel-body d-none",
                             secondPanelClass: "panel-body",
                             firstTab: "",
                             secondTab: "active",
@@ -214,7 +214,7 @@ define([
                 case "enableSecondPass":
                     this.setState({
                         panel: {
-                            firstPanelClass: "panel-body hidden",
+                            firstPanelClass: "panel-body d-none",
                             secondPanelClass: "panel-body",
                             firstTab: "",
                             secondTab: "active",
@@ -288,7 +288,7 @@ define([
                                             thisComp.setState({
                                                 secAlertText: "",
                                                 button3Class: "btn btn-default",
-                                                button2Class: "hidden",
+                                                button2Class: "d-none",
                                             });
 
                                             app.user.set({ password: "" });
@@ -499,8 +499,8 @@ define([
                                 if (result["response"] == "success") {
                                     if (result["data"] == "saved") {
                                         thisComp.setState({
-                                            secAlertText: "hidden",
-                                            button3Class: "hidden",
+                                            secAlertText: "d-none",
+                                            button3Class: "d-none",
                                             button2Class: "",
                                         });
                                     } else if (result["data"] == "newerFound") {
@@ -570,13 +570,13 @@ define([
                         this.setState({
                             panel: {
                                 firstPanelClass: "panel-body",
-                                secondPanelClass: "panel-body hidden",
+                                secondPanelClass: "panel-body d-none",
                                 firstTab: "active",
-                                secondTab: "hidden",
+                                secondTab: "d-none",
                             },
                             secAlertText: app.user.get("oneStep")
                                 ? ""
-                                : "hidden",
+                                : "d-none",
                         });
                     }
 

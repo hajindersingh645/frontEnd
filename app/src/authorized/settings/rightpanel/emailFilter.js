@@ -30,18 +30,18 @@ define([
         getInitialState: function () {
             return {
                 firstPanelClass: "panel-body",
-                secondPanelClass: "panel-body hidden",
+                secondPanelClass: "panel-body d-none",
                 firstTab: "active",
                 secondTab: "",
-                secondPanelText: "Add New Rule",
+                secondPanelText: "Add new Email filter",
 
                 button1class: "btn btn-primary pull-right",
                 button2class: "btn btn-warning pull-right margin-right-30",
 
-                inputNameClass: "form-group col-xs-12 col-sm-6 col-lg-7",
+                inputNameClass: "form-group",
                 inputNameChange: "changeFolderName",
 
-                inputSelectClass: "form-group col-xs-12 col-sm-6 col-lg-6",
+                inputSelectClass: "form-group",
 
                 inputSelectChange: "changeFolderExpiration",
 
@@ -103,6 +103,8 @@ define([
                     "</b></span>";
                 var el = {
                     DT_RowId: index,
+                    checkbox:
+                        '<label class="container-checkbox"><input type="checkbox" name="inbox-email" /><span class="checkmark"></span></label>',
                     text: {
                         display:
                             from +
@@ -112,6 +114,9 @@ define([
                             to,
                         index: index,
                     },
+                    delete: '<button class="table-icon delete-button"></button>',
+                    options:
+                        '<div class="dropdown"><button class="btn btn-secondary dropdown-toggle table-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button></div>',
                 };
 
                 alEm.push(el);
@@ -151,26 +156,27 @@ define([
                 dataTableBoot
             ) {
                 $("#table1").dataTable({
-                    dom: '<"pull-left"f><"pull-right"p>"irt<"#bottomPagination">',
+                    // dom: '<"pull-left"f><"pull-right"p>"irt<"#bottomPagination">',
+                    dom: '<"middle-search"f>',
                     data: dtSet,
                     columns: [
+                        { data: "checkbox" },
                         {
                             data: {
                                 _: "text.display",
                                 sort: "text.index",
                             },
                         },
+                        { data: "delete" },
+                        { data: "options" },
                     ],
-                    columnDefs: [
-                        { sClass: "col-xs-12", targets: [0] },
-                        { orderDataType: "data-sort", targets: 0 },
-                    ],
-                    order: [[0, "asc"]],
-                    sPaginationType: "simple",
+                    columnDefs: [{ orderDataType: "data-sort", targets: 1 }],
+                    order: [[1, "asc"]],
                     language: {
                         emptyTable: "Empty",
                         sSearch: "",
-                        searchPlaceholder: "Search",
+                        searchPlaceholder: "Find something...",
+                        info: "Showing _START_ to _END_ of _TOTAL_ entries",
                         paginate: {
                             sPrevious: "<i class='fa fa-chevron-left'></i>",
                             sNext: "<i class='fa fa-chevron-right'></i>",
@@ -231,7 +237,7 @@ define([
                 case "showFirst":
                     this.setState({
                         firstPanelClass: "panel-body",
-                        secondPanelClass: "panel-body hidden",
+                        secondPanelClass: "panel-body d-none",
 
                         firstTab: "active",
                         secondTab: "",
@@ -240,7 +246,7 @@ define([
                         button2class:
                             "btn btn-warning pull-right margin-right-30",
 
-                        secondPanelText: "Add New Rule",
+                        secondPanelText: "Add new Email filter",
 
                         ruleId: "",
                         fieldFrom: "sender",
@@ -295,18 +301,18 @@ define([
                         function (result) {
                             if (result) {
                                 thisComp.setState({
-                                    firstPanelClass: "panel-body hidden",
+                                    firstPanelClass: "panel-body d-none",
                                     secondPanelClass: "panel-body ",
                                     firstTab: "active",
-                                    secondTab: "",
+                                    secondTab: "bingo",
 
-                                    secondPanelText: "Add New Rule",
+                                    secondPanelText: "Add new Email filter",
 
-                                    deleteButtonClass: "hidden",
+                                    deleteButtonClass: "d-none",
                                     saveButtonText: "Add",
 
-                                    button1class: "hidden",
-                                    button2class: "hidden",
+                                    button1class: "d-none",
+                                    button2class: "d-none",
                                 });
                             }
                         }
@@ -369,17 +375,16 @@ define([
                     var filter = app.user.get("filter");
                     var id = event;
 
-                    console.log(id);
                     this.setState({
-                        firstPanelClass: "panel-body hidden",
+                        firstPanelClass: "panel-body d-none",
                         secondPanelClass: "panel-body ",
                         firstTab: "active",
-                        secondTab: "",
+                        secondTab: "bingo",
 
                         secondPanelText: "Edit Rule",
 
-                        button1class: "hidden",
-                        button2class: "hidden",
+                        button1class: "d-none",
+                        button2class: "d-none",
                         deleteButtonClass: "",
                         saveButtonText: "Save",
 
@@ -453,26 +458,45 @@ define([
                 <div id="rightSettingPanel">
                     <div className="setting-middle email-filters">
                         <div className="middle-top">
+                            <div
+                                className={`arrow-back ${
+                                    this.state.secondTab === "bingo"
+                                        ? ""
+                                        : "d-none"
+                                }`}
+                            >
+                                <a
+                                    onClick={this.handleClick.bind(
+                                        this,
+                                        "showFirst"
+                                    )}
+                                ></a>
+                            </div>
                             <h2>Mailbox</h2>
-                        </div>
-                        <div className="middle-content">
-                            <div className="middle-content-top">
-                                <h3>Email filters</h3>
-                                <div className="middle-content-top-right">
-                                    <div className="add-contact-btn">
+                            <div
+                                className={`bread-crumb  ${
+                                    this.state.secondTab === "bingo"
+                                        ? ""
+                                        : "d-none"
+                                }`}
+                            >
+                                <ul>
+                                    <li>
                                         <a
                                             onClick={this.handleClick.bind(
                                                 this,
-                                                "addFilterRule"
+                                                "showFirst"
                                             )}
                                         >
-                                            <span>+</span>
-                                            Add Rule
+                                            Email filter
                                         </a>
-                                    </div>
-                                </div>
+                                    </li>
+                                    <li>{this.state.secondPanelText}</li>
+                                </ul>
                             </div>
-                            <div className="panel-heading">
+                        </div>
+                        <div className="middle-content">
+                            {/* <div className="panel-heading">
                                 <button
                                     type="button"
                                     className={this.state.button2class}
@@ -484,40 +508,27 @@ define([
                                     {" "}
                                     Remove All Rules
                                 </button>
-
-                                <ul className="nav nav-tabs tabbed-nav">
-                                    <li
-                                        role="presentation"
-                                        className={this.state.firstTab}
-                                    >
-                                        <a
-                                            onClick={this.handleClick.bind(
-                                                this,
-                                                "showFirst"
-                                            )}
-                                        >
-                                            <h3
-                                                className={
-                                                    this.props.tabs.Header
-                                                }
-                                            >
-                                                Filter
-                                            </h3>
-                                            <h3
-                                                className={
-                                                    this.props.tabs.HeaderXS
-                                                }
-                                            >
-                                                <i className="ion-funnel"></i>
-                                            </h3>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+                            </div> */}
 
                             <div
                                 className={`table-row ${this.state.firstPanelClass}`}
                             >
+                                <div className="middle-content-top">
+                                    <h3>Email filters</h3>
+                                    <div className="middle-content-top-right">
+                                        <div className="add-contact-btn">
+                                            <a
+                                                onClick={this.handleClick.bind(
+                                                    this,
+                                                    "addFilterRule"
+                                                )}
+                                            >
+                                                <span className="icon">+</span>
+                                                Add Rule
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div className="table-responsive">
                                     <table
                                         className="table"
@@ -527,9 +538,53 @@ define([
                                             "selectRow"
                                         )}
                                     >
+                                        <colgroup>
+                                            <col width="40" />
+                                            <col />
+                                            <col width="40" />
+                                            <col width="50" />
+                                        </colgroup>
                                         <thead>
                                             <tr>
-                                                <th>&nbsp;</th>
+                                                <th scope="col">
+                                                    <label className="container-checkbox">
+                                                        <input type="checkbox" />
+                                                        <span className="checkmark"></span>
+                                                    </label>
+                                                </th>
+                                                <th scope="col">Filters</th>
+                                                <th scope="col">
+                                                    <button className="trash-btn"></button>
+                                                </th>
+                                                <th scope="col">
+                                                    <div className="dropdown">
+                                                        <button
+                                                            className="btn btn-secondary dropdown-toggle ellipsis-btn"
+                                                            type="button"
+                                                            data-bs-toggle="dropdown"
+                                                            aria-expanded="false"
+                                                        ></button>
+                                                        <ul className="dropdown-menu">
+                                                            <li>
+                                                                <a href="#">
+                                                                    Action
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#">
+                                                                    Another
+                                                                    action
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#">
+                                                                    Something
+                                                                    here
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </th>
                                             </tr>
                                         </thead>
                                     </table>
@@ -537,118 +592,169 @@ define([
                             </div>
 
                             <div className={this.state.secondPanelClass}>
-                                <h3>{this.state.secondPanelText}</h3>
-
-                                <div className={this.state.inputSelectClass}>
-                                    <select
-                                        className="form-control"
-                                        id="fromField"
-                                        onChange={this.handleChange.bind(
-                                            this,
-                                            "changeFrom"
-                                        )}
-                                        value={this.state.fieldFrom}
-                                    >
-                                        <option value="sender">From</option>
-                                        <option value="rcpt">To</option>
-                                        <option value="subject">Subject</option>
-                                    </select>
+                                <div className="middle-content-top">
+                                    <h3>{this.state.secondPanelText}</h3>
                                 </div>
-                                <div className={this.state.inputSelectClass}>
-                                    <select
-                                        className="form-control"
-                                        id="matchField"
-                                        onChange={this.handleChange.bind(
-                                            this,
-                                            "changeMatch"
-                                        )}
-                                        value={this.state.fieldMatch}
-                                    >
-                                        <option value="relaxed">
-                                            Contains
-                                        </option>
-                                        <option value="negative">
-                                            Does not Contain
-                                        </option>
-                                        <option value="strict">match</option>
-                                    </select>
-                                </div>
-                                <form id="addRuleForm" className="">
-                                    <div
-                                        className={this.state.inputSelectClass}
-                                    >
-                                        <input
-                                            type="text"
-                                            name="fromName"
-                                            className="form-control"
-                                            id="textField"
-                                            placeholder="text"
-                                            onChange={this.handleChange.bind(
-                                                this,
-                                                "changeText"
-                                            )}
-                                            value={this.state.fieldText}
-                                        />
-                                    </div>
 
-                                    <div
-                                        className={this.state.inputSelectClass}
-                                    >
-                                        <select
-                                            className="form-control"
-                                            defaultValue="0"
-                                            id="destinationField"
-                                            onChange={this.handleChange.bind(
-                                                this,
-                                                "changeDestination"
-                                            )}
-                                            value={this.state.fieldFolder}
-                                        >
-                                            <option value="0" disabled>
-                                                Move To
-                                            </option>
+                                <div className="form-section">
+                                    <form id="addRuleForm" className="">
+                                        <div className="row">
+                                            <div className="col-md-6">
+                                                <div
+                                                    className={
+                                                        this.state
+                                                            .inputSelectClass
+                                                    }
+                                                >
+                                                    <select
+                                                        className="form-select"
+                                                        id="fromField"
+                                                        onChange={this.handleChange.bind(
+                                                            this,
+                                                            "changeFrom"
+                                                        )}
+                                                        value={
+                                                            this.state.fieldFrom
+                                                        }
+                                                    >
+                                                        <option value="sender">
+                                                            From
+                                                        </option>
+                                                        <option value="rcpt">
+                                                            To
+                                                        </option>
+                                                        <option value="subject">
+                                                            Subject
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div
+                                                    className={
+                                                        this.state
+                                                            .inputSelectClass
+                                                    }
+                                                >
+                                                    <select
+                                                        className="form-select"
+                                                        id="matchField"
+                                                        onChange={this.handleChange.bind(
+                                                            this,
+                                                            "changeMatch"
+                                                        )}
+                                                        value={
+                                                            this.state
+                                                                .fieldMatch
+                                                        }
+                                                    >
+                                                        <option value="relaxed">
+                                                            Contains
+                                                        </option>
+                                                        <option value="negative">
+                                                            Does not Contain
+                                                        </option>
+                                                        <option value="strict">
+                                                            match
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div
+                                                    className={
+                                                        this.state
+                                                            .inputSelectClass
+                                                    }
+                                                >
+                                                    <input
+                                                        type="text"
+                                                        name="fromName"
+                                                        className="form-control"
+                                                        id="textField"
+                                                        placeholder="text"
+                                                        onChange={this.handleChange.bind(
+                                                            this,
+                                                            "changeText"
+                                                        )}
+                                                        value={
+                                                            this.state.fieldText
+                                                        }
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div
+                                                    className={
+                                                        this.state
+                                                            .inputSelectClass
+                                                    }
+                                                >
+                                                    <select
+                                                        className="form-select"
+                                                        defaultValue="0"
+                                                        id="destinationField"
+                                                        onChange={this.handleChange.bind(
+                                                            this,
+                                                            "changeDestination"
+                                                        )}
+                                                        value={
+                                                            this.state
+                                                                .fieldFolder
+                                                        }
+                                                    >
+                                                        <option
+                                                            value="0"
+                                                            disabled
+                                                        >
+                                                            Move To
+                                                        </option>
 
-                                            {this.getFolders()}
-                                        </select>
-                                    </div>
-                                </form>
-
-                                <div className="clearfix"></div>
-                                <button
-                                    type="button"
-                                    className={
-                                        "btn btn-danger " +
-                                        this.state.deleteButtonClass
-                                    }
-                                    onClick={this.handleClick.bind(
-                                        this,
-                                        "deleteRule"
-                                    )}
-                                >
-                                    Delete
-                                </button>
-
-                                <div className="pull-right dialog_buttons">
-                                    <button
-                                        type="button"
-                                        className="btn btn-primary"
-                                        onClick={this.handleClick.bind(
-                                            this,
-                                            "saveRule"
-                                        )}
-                                    >
-                                        {this.state.saveButtonText}
-                                    </button>
-                                    <button
-                                        type="button"
-                                        className="btn btn-default"
-                                        onClick={this.handleClick.bind(
-                                            this,
-                                            "showFirst"
-                                        )}
-                                    >
-                                        Cancel
-                                    </button>
+                                                        {this.getFolders()}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="form-section-bottom">
+                                            <div className="delete-item">
+                                                <button
+                                                    type="button"
+                                                    className={
+                                                        this.state
+                                                            .deleteButtonClass
+                                                    }
+                                                    onClick={this.handleClick.bind(
+                                                        this,
+                                                        "deleteRule"
+                                                    )}
+                                                >
+                                                    Delete
+                                                </button>
+                                            </div>
+                                            <div className="btn-row">
+                                                <button
+                                                    type="button"
+                                                    className="btn-border fixed-width-btn"
+                                                    onClick={this.handleClick.bind(
+                                                        this,
+                                                        "showFirst"
+                                                    )}
+                                                >
+                                                    Cancel
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    className="btn-blue fixed-width-btn"
+                                                    onClick={this.handleClick.bind(
+                                                        this,
+                                                        "saveRule"
+                                                    )}
+                                                >
+                                                    {this.state.saveButtonText}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>

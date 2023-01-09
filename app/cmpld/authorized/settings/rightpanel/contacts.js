@@ -10,7 +10,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
             return {
                 viewFlag: false,
                 firstPanelClass: "panel-body",
-                secondPanelClass: "panel-body hidden",
+                secondPanelClass: "panel-body d-none",
                 firstTab: "active",
 
                 secondPanelText: "New Contact",
@@ -170,7 +170,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                 case "showFirst":
                     this.setState({
                         firstPanelClass: "panel-body",
-                        secondPanelClass: "panel-body hidden",
+                        secondPanelClass: "panel-body d-none",
                         firstTab: "active",
 
                         button1visible: "",
@@ -212,17 +212,17 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                     app.globalF.checkPlanLimits("contacts", Object.keys(app.user.get("contacts")).length, function (result) {
                         if (result) {
                             thisComp.setState({
-                                firstPanelClass: "panel-body hidden",
+                                firstPanelClass: "panel-body d-none",
                                 secondPanelClass: "panel-body",
                                 firstTab: "active",
 
                                 secondPanelText: "New Contact",
 
-                                button1visible: "hidden",
+                                button1visible: "d-none",
 
                                 button2onClick: "saveNewContact",
 
-                                button4visible: "hidden"
+                                button4visible: "d-none"
                             });
                         }
                     });
@@ -284,13 +284,13 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                         });
                     });
                     this.setState({
-                        firstPanelClass: "panel-body hidden",
+                        firstPanelClass: "panel-body d-none",
                         secondPanelClass: "panel-body",
                         firstTab: "active",
 
                         secondPanelText: "Edit Contact",
 
-                        button1visible: "hidden",
+                        button1visible: "d-none",
 
                         contactId: event,
                         nameField: app.transform.from64str(contact["n"]),
@@ -722,9 +722,9 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                                     React.createElement("input", {
                                                         type: "text",
                                                         name: "nameField",
-                                                        className: "form-control",
+                                                        className: "form-control with-icon icon-name",
                                                         id: "nameField",
-                                                        placeholder: "name",
+                                                        placeholder: "Enter name",
                                                         value: this.state.nameField,
                                                         onChange: this.handleChange.bind(this, "changeName")
                                                     })
@@ -740,9 +740,9 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                                         type: "text",
                                                         name: "emailField",
                                                         readOnly: this.state.contactId != "" ? true : false,
-                                                        className: "form-control",
+                                                        className: "form-control with-icon icon-email",
                                                         id: "emailField",
-                                                        placeholder: "email",
+                                                        placeholder: "Enter email",
                                                         value: this.state.emailField,
                                                         onChange: this.handleChange.bind(this, "changeEmail")
                                                     })
@@ -757,9 +757,9 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                                     React.createElement("input", {
                                                         type: "text",
                                                         name: "pinField",
-                                                        className: "form-control",
+                                                        className: "form-control with-icon icon-pin",
                                                         id: "pinField",
-                                                        placeholder: "pin",
+                                                        placeholder: "Enter pin",
                                                         value: this.state.pinField,
                                                         readOnly: this.state.pgpOn,
                                                         onChange: this.handleChange.bind(this, "changePin")
@@ -795,7 +795,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                                             "div",
                                                             {
                                                                 className: `
-                                                            key-list ${ !this.state.pgpOn ? "hidden" : "" }`
+                                                            key-list ${ !this.state.pgpOn ? "d-none" : "" }`
                                                             },
                                                             React.createElement(
                                                                 "ul",
@@ -832,9 +832,8 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                                 React.createElement(
                                                     "div",
                                                     { className: "form-group" },
-                                                    React.createElement("textarea", {
+                                                    React.createElement("input", {
                                                         className: "form-control with-icon icon-key",
-                                                        rows: "8",
                                                         id: "pgpField",
                                                         name: "pgpField",
                                                         readOnly: !this.state.pgpOn,
@@ -848,6 +847,19 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                         React.createElement(
                                             "div",
                                             { className: "form-section-bottom" },
+                                            React.createElement(
+                                                "div",
+                                                { className: "delete-item" },
+                                                React.createElement(
+                                                    "button",
+                                                    {
+                                                        type: "button",
+                                                        className: this.state.button4visible,
+                                                        onClick: this.handleClick.bind(this, "deleteContact")
+                                                    },
+                                                    "Delete"
+                                                )
+                                            ),
                                             React.createElement(
                                                 "div",
                                                 { className: "btn-row" },
@@ -872,15 +884,6 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                             )
                                         )
                                     )
-                                ),
-                                React.createElement(
-                                    "button",
-                                    {
-                                        type: "button",
-                                        className: "btn btn-danger pull-left " + this.state.button4visible,
-                                        onClick: this.handleClick.bind(this, "deleteContact")
-                                    },
-                                    "Delete"
                                 )
                             )
                         )

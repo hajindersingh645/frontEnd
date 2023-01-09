@@ -43,7 +43,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
             return {
                 viewFlag: false,
                 firstPanelClass: "panel-body",
-                secondPanelClass: "panel-body hidden",
+                secondPanelClass: "panel-body d-none",
                 firstTab: "active",
 
                 button1text: "Add Domain",
@@ -83,7 +83,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                 privPass: true,
                 privmatch: true,
                 privpassText: "",
-                privtextVisible: "hidden",
+                privtextVisible: "d-none",
                 privTextDisabled: true,
 
                 keyDate: "",
@@ -229,7 +229,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                     if (!app.user.get("inProcess")) {
                         this.setState({
                             firstPanelClass: "panel-body",
-                            secondPanelClass: "panel-body hidden",
+                            secondPanelClass: "panel-body d-none",
                             firstTab: "active",
 
                             txtArea1value: "",
@@ -266,7 +266,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
 
                     var id = this.state.keyId;
                     this.setState({
-                        firstPanelClass: "panel-body hidden",
+                        firstPanelClass: "panel-body d-none",
                         secondPanelClass: "panel-body",
                         firstTab: "active",
 
@@ -298,7 +298,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                         button4iClass: "",
                         button4text: "Generate New Keys",
                         button4onClick: "generateNewKeys",
-                        button5class: "hidden",
+                        button5class: "d-none",
 
                         keyDate: keys[id]["date"],
                         keyModified: keys[id]["keysModified"]
@@ -431,7 +431,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                     });
 
                     this.setState({
-                        firstPanelClass: "panel-body hidden",
+                        firstPanelClass: "panel-body d-none",
                         secondPanelClass: "panel-body",
                         firstTab: "active",
 
@@ -450,9 +450,9 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                         button2text: "OK",
                         button2onClick: "showFirst",
 
-                        button4visible: "hidden",
+                        button4visible: "d-none",
                         button5class: "",
-                        button3visible: "hidden",
+                        button3visible: "d-none",
 
                         keyId: event,
                         keyModified: keys[event]["keysModified"],

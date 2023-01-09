@@ -4,7 +4,8 @@ define([
     "dataTable",
     "dataTableBoot",
     "cmpld/authorized/settings/rightpanel/rightTop",
-], function (React, app, DataTable, dataTableBoot, RightTop) {
+    "quill",
+], function (React, app, DataTable, dataTableBoot, RightTop, Quill) {
     "use strict";
     return React.createClass({
         /**
@@ -14,9 +15,9 @@ define([
             return {
                 viewFlag: false,
                 firstPanelClass: "panel-body",
-                secondPanelClass: "panel-body hidden",
-                thirdPanelClass: "panel-body hidden",
-                fourthPanelClass: "panel-body hidden",
+                secondPanelClass: "panel-body d-none",
+                thirdPanelClass: "panel-body d-none",
+                fourthPanelClass: "panel-body d-none",
                 firstTab: "active",
                 secondTab: "",
 
@@ -41,7 +42,7 @@ define([
                 button3enabled: true,
                 button3iClass: "",
                 button3text: "Add Disposable",
-                button3visible: "hidden",
+                button3visible: "d-none",
                 isDefault: false,
 
                 includeSignature: false,
@@ -322,7 +323,7 @@ define([
 
                     if (keys["addrType"] == 1) {
                         this.setState({
-                            deleteAlias: "hidden",
+                            deleteAlias: "d-none",
                         });
                     } else {
                         this.setState({
@@ -331,16 +332,16 @@ define([
                     }
 
                     this.setState({
-                        firstPanelClass: "panel-body hidden",
-                        secondPanelClass: "panel-body hidden",
-                        thirdPanelClass: "panel-body hidden",
+                        firstPanelClass: "panel-body d-none",
+                        secondPanelClass: "panel-body d-none",
+                        thirdPanelClass: "panel-body d-none",
                         fourthPanelClass: "panel-body",
                         firstTab: "active",
                         secondTab: "",
 
                         button1enabled: true,
                         button1iClass: "",
-                        button1visible: "hidden",
+                        button1visible: "d-none",
 
                         aliasId: event,
                         aliasEmail: app.transform.from64str(event),
@@ -370,15 +371,15 @@ define([
                 case "showFirst":
                     this.setState({
                         firstPanelClass: "panel-body",
-                        secondPanelClass: "panel-body hidden",
-                        thirdPanelClass: "panel-body hidden",
-                        fourthPanelClass: "panel-body hidden",
+                        secondPanelClass: "panel-body d-none",
+                        thirdPanelClass: "panel-body d-none",
+                        fourthPanelClass: "panel-body d-none",
                         firstTab: "active",
                         secondTab: "",
 
                         button1visible: "",
 
-                        button3visible: "hidden",
+                        button3visible: "d-none",
 
                         isDefault: false,
                         aliasId: "",
@@ -403,15 +404,15 @@ define([
 
                 case "showSecond":
                     this.setState({
-                        firstPanelClass: "panel-body hidden",
-                        secondPanelClass: "panel-body hidden",
+                        firstPanelClass: "panel-body d-none",
+                        secondPanelClass: "panel-body d-none",
                         thirdPanelClass: "panel-body ",
-                        fourthPanelClass: "panel-body hidden",
+                        fourthPanelClass: "panel-body d-none",
                         firstTab: "",
                         secondTab: "active",
                         aliasId: "",
 
-                        button1visible: "hidden",
+                        button1visible: "d-none",
                         button3visible: "",
                     });
                     break;
@@ -427,13 +428,13 @@ define([
                         function (result) {
                             if (result) {
                                 thisComp.setState({
-                                    firstPanelClass: "panel-body hidden",
+                                    firstPanelClass: "panel-body d-none",
                                     secondPanelClass: "panel-body ",
-                                    thirdPanelClass: "panel-body hidden",
+                                    thirdPanelClass: "panel-body d-none",
                                     firstTab: "active",
                                     secondTab: "",
 
-                                    button1visible: "hidden",
+                                    button1visible: "d-none",
                                     signature:
                                         '<div>Sent using Encrypted Email Service -&nbsp;<a href="https://cyberfear.com/index.html#createUser/' +
                                         app.user.get("userPlan")["coupon"] +
@@ -1017,15 +1018,157 @@ define([
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="editor">
-                                            <div
-                                                id="summernote1"
-                                                className="col-col-xs-12 summernote"
-                                            >
-                                                {this.state.signature}
+                                        <div className="com-content-editor editor">
+                                            <div className="c-editor-actions">
+                                                <div
+                                                    className="c-editor-formating ql-formats"
+                                                    id="editor_toolbar"
+                                                >
+                                                    <button
+                                                        type="submit"
+                                                        className="ql-bold"
+                                                    >
+                                                        <span className="icon">
+                                                            <svg
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                viewBox="0 0 48 48"
+                                                            >
+                                                                <path d="M14 36V8h11.4q3.3 0 5.725 2.1t2.425 5.3q0 1.9-1.05 3.5t-2.8 2.45v.3q2.15.7 3.475 2.5 1.325 1.8 1.325 4.05 0 3.4-2.625 5.6Q29.25 36 25.75 36Zm4.3-16.15h6.8q1.75 0 3.025-1.15t1.275-2.9q0-1.75-1.275-2.925Q26.85 11.7 25.1 11.7h-6.8Zm0 12.35h7.2q1.9 0 3.3-1.25t1.4-3.15q0-1.85-1.4-3.1t-3.3-1.25h-7.2Z" />
+                                                            </svg>
+                                                        </span>
+                                                    </button>
+                                                    <button
+                                                        type="submit"
+                                                        className="ql-italic"
+                                                    >
+                                                        <span className="icon">
+                                                            <svg
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                viewBox="0 0 48 48"
+                                                            >
+                                                                <path d="M10 40v-5h6.85l8.9-22H18V8h20v5h-6.85l-8.9 22H30v5Z" />
+                                                            </svg>
+                                                        </span>
+                                                    </button>
+                                                    <button
+                                                        type="submit"
+                                                        className="ql-underline"
+                                                    >
+                                                        <span className="icon">
+                                                            <svg
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                viewBox="0 0 48 48"
+                                                            >
+                                                                <path d="M10 42v-3h28v3Zm14-8q-5.05 0-8.525-3.45Q12 27.1 12 22.1V6h4v16.2q0 3.3 2.3 5.55T24 30q3.4 0 5.7-2.25Q32 25.5 32 22.2V6h4v16.1q0 5-3.475 8.45Q29.05 34 24 34Z" />
+                                                            </svg>
+                                                        </span>
+                                                    </button>
+                                                    <button
+                                                        type="submit"
+                                                        className="ql-blockquote"
+                                                    >
+                                                        <span className="icon">
+                                                            <svg
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                viewBox="0 0 48 48"
+                                                            >
+                                                                <path d="M29 23h8v-8h-8Zm-18 0h8v-8h-8Zm20.3 11 4-8H26V12h14v14.4L36.2 34Zm-18 0 4-8H8V12h14v14.4L18.2 34ZM15 19Zm18 0Z" />
+                                                            </svg>
+                                                        </span>
+                                                    </button>
+                                                    <button
+                                                        type="submit"
+                                                        className="ql-list"
+                                                        value="ordered"
+                                                    >
+                                                        <span className="icon">
+                                                            <svg
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                viewBox="0 0 48 48"
+                                                            >
+                                                                <path d="M6 40v-1.7h4.2V37H8.1v-1.7h2.1V34H6v-1.7h5.9V40Zm10.45-2.45v-3H42v3ZM6 27.85v-1.6l3.75-4.4H6v-1.7h5.9v1.6l-3.8 4.4h3.8v1.7Zm10.45-2.45v-3H42v3ZM8.1 15.8V9.7H6V8h3.8v7.8Zm8.35-2.55v-3H42v3Z" />
+                                                            </svg>
+                                                        </span>
+                                                    </button>
+                                                    <button
+                                                        type="submit"
+                                                        className="ql-list"
+                                                        value="bullet"
+                                                    >
+                                                        <span className="icon">
+                                                            <svg
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                viewBox="0 0 48 48"
+                                                            >
+                                                                <path d="M8.55 39q-1.05 0-1.8-.725T6 36.55q0-1.05.75-1.8t1.8-.75q1 0 1.725.75.725.75.725 1.8 0 1-.725 1.725Q9.55 39 8.55 39ZM16 38v-3h26v3ZM8.55 26.5q-1.05 0-1.8-.725T6 24q0-1.05.75-1.775.75-.725 1.8-.725 1 0 1.725.75Q11 23 11 24t-.725 1.75q-.725.75-1.725.75Zm7.45-1v-3h26v3ZM8.5 14q-1.05 0-1.775-.725Q6 12.55 6 11.5q0-1.05.725-1.775Q7.45 9 8.5 9q1.05 0 1.775.725Q11 10.45 11 11.5q0 1.05-.725 1.775Q9.55 14 8.5 14Zm7.5-1v-3h26v3Z" />
+                                                            </svg>
+                                                        </span>
+                                                    </button>
+                                                    <button
+                                                        type="submit"
+                                                        className="ql-link"
+                                                    >
+                                                        <span className="icon">
+                                                            <svg
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                viewBox="0 0 48 48"
+                                                            >
+                                                                <path d="M22.5 34H14q-4.15 0-7.075-2.925T4 24q0-4.15 2.925-7.075T14 14h8.5v3H14q-2.9 0-4.95 2.05Q7 21.1 7 24q0 2.9 2.05 4.95Q11.1 31 14 31h8.5Zm-6.25-8.5v-3h15.5v3ZM25.5 34v-3H34q2.9 0 4.95-2.05Q41 26.9 41 24q0-2.9-2.05-4.95Q36.9 17 34 17h-8.5v-3H34q4.15 0 7.075 2.925T44 24q0 4.15-2.925 7.075T34 34Z" />
+                                                            </svg>
+                                                        </span>
+                                                    </button>
+                                                    <button
+                                                        type="button"
+                                                        onClick={this.handleClick.bind(
+                                                            this,
+                                                            "attachFile"
+                                                        )}
+                                                    >
+                                                        <span className="icon">
+                                                            <svg
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                viewBox="0 0 24 24"
+                                                            >
+                                                                <path d="M21.586 10.461l-10.05 10.075c-1.95 1.949-5.122 1.949-7.071 0s-1.95-5.122 0-7.072l10.628-10.585c1.17-1.17 3.073-1.17 4.243 0 1.169 1.17 1.17 3.072 0 4.242l-8.507 8.464c-.39.39-1.024.39-1.414 0s-.39-1.024 0-1.414l7.093-7.05-1.415-1.414-7.093 7.049c-1.172 1.172-1.171 3.073 0 4.244s3.071 1.171 4.242 0l8.507-8.464c.977-.977 1.464-2.256 1.464-3.536 0-2.769-2.246-4.999-5-4.999-1.28 0-2.559.488-3.536 1.465l-10.627 10.583c-1.366 1.368-2.05 3.159-2.05 4.951 0 3.863 3.13 7 7 7 1.792 0 3.583-.684 4.95-2.05l10.05-10.075-1.414-1.414z" />
+                                                            </svg>
+                                                        </span>
+                                                    </button>
+                                                    <button
+                                                        type="submit"
+                                                        className="ql-clean"
+                                                    >
+                                                        <span className="icon">
+                                                            <svg
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                viewBox="0 0 48 48"
+                                                            >
+                                                                <path d="M25.35 21.8 21.5 18l1.2-2.8h-3.95l-5.2-5.2H40v5H28.25ZM40.3 45.2 22.85 27.7 18.45 38H13l6-14.1L2.8 7.7l2.1-2.1 37.5 37.5Z" />
+                                                            </svg>
+                                                        </span>
+                                                    </button>
+                                                </div>
                                             </div>
+                                            <div id="toolbar"></div>
+                                            <div
+                                                className="com-the-con-editor__settings"
+                                                id="com-the-con-editor__disposable"
+                                            ></div>
                                         </div>
                                         <div className="form-section-bottom">
+                                            <div className="delete-item">
+                                                <button
+                                                    type="button"
+                                                    className={
+                                                        this.state.deleteAlias
+                                                    }
+                                                    onClick={this.handleClick.bind(
+                                                        this,
+                                                        "deleteAlias"
+                                                    )}
+                                                >
+                                                    Delete Alias
+                                                </button>
+                                            </div>
                                             <div className="btn-row">
                                                 <button
                                                     type="button"
@@ -1050,19 +1193,6 @@ define([
                                             </div>
                                         </div>
                                     </form>
-                                    <button
-                                        type="button"
-                                        className={
-                                            "btn btn-danger " +
-                                            this.state.deleteAlias
-                                        }
-                                        onClick={this.handleClick.bind(
-                                            this,
-                                            "deleteAlias"
-                                        )}
-                                    >
-                                        Delete Alias
-                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -1185,25 +1315,24 @@ define([
         componentDidMount: function () {
             var thsComp = this;
 
-            $(".summernote").summernote({
-                shortcuts: false,
-                toolbar: [
-                    ["style", ["style"]],
-                    ["font", ["bold", "italic", "underline", "clear"]],
-                    ["fontname", ["fontname"]],
-                    ["para", ["paragraph"]],
-                    ["insert", ["link", "hr"]],
-                    ["view", ["codeview"]],
-                ],
-                //onChange: function(contents, $editable) {
-                //	thisComp.handleChange('editSignature',contents);
-                //},
-                height: 150,
-                minHeight: 50,
-                maxHeight: 250,
-            });
-
             $(".note-editable").attr("contenteditable", "false");
+
+            // Initiate editor toolbar [Quill]
+            const quill = new Quill("#com-the-con-editor__disposable", {
+                modules: {
+                    toolbar: "#editor_toolbar",
+                },
+                handlers: {
+                    link: function (value) {
+                        if (value) {
+                            const href = prompt("Enter the URL");
+                            this.quill.format("link", href);
+                        } else {
+                            this.quill.format("link", false);
+                        }
+                    },
+                },
+            });
 
             var thsComp = this;
 

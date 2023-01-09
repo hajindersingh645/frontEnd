@@ -26,7 +26,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                 folderSet: {},
                 tagsSet: {},
 
-                inputSelectClass: "form-group col-xs-12 col-sm-6 col-lg-5",
+                inputSelectClass: "form-group",
                 inputSelectOnchange: "changeFolderExpiration",
                 nameField: "",
                 expireFolder: "",
@@ -127,10 +127,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                         sort: "folder.display"
                     }
                 }, { data: "isMain" }, { data: "expire" }, { data: "delete" }, { data: "options" }],
-                columnDefs: [{ sClass: "col-xs-6 col-lg-10", targets: 0 }, { sClass: "hidden", targets: [1] }, {
-                    sClass: "col-xs-2 col-lg-2 text-align-center",
-                    targets: [2]
-                }, { bSortable: false, aTargets: [1, 2] }, { orderDataType: "data-sort", targets: 0 }],
+                columnDefs: [{ sClass: "d-none", targets: [2] }, { bSortable: false, aTargets: [2, 3] }, { orderDataType: "data-sort", targets: 0 }],
                 order: [[1, "desc"]],
                 language: {
                     emptyTable: "Empty",
@@ -149,7 +146,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                 dom: '<"middle-search"f>',
                 data: tagSet,
                 columns: [{ data: "checkbox" }, { data: "label" }, { data: "edit" }, { data: "delete" }, { data: "options" }],
-                columnDefs: [{ sClass: "col-xs-11", targets: 0 }, { sClass: "col-xs-1 text-align-center", targets: [1] }, { bSortable: false, aTargets: [1] }, { orderDataType: "data-sort", targets: 0 }],
+                columnDefs: [{ bSortable: false, aTargets: [1] }, { orderDataType: "data-sort", targets: 0 }],
                 order: [[0, "desc"]],
                 language: {
                     emptyTable: "Empty",
@@ -386,7 +383,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                         inputNameClass: "d-none",
                         inputNameOnchange: "changeLabelName",
 
-                        inputLabelClass: "form-group col-xs-12",
+                        inputLabelClass: "form-group",
 
                         inputSelectClass: "d-none",
                         inputSelectOnchange: "",
@@ -613,9 +610,9 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
 
                         secondPanelText: "Edit Folder",
 
-                        inputNameClass: "form-group col-xs-12 col-sm-6 col-lg-7",
+                        inputNameClass: "form-group ",
                         inputNameOnchange: "changeFolderName",
-                        inputSelectClass: "form-group col-xs-12 col-sm-6 col-lg-5",
+                        inputSelectClass: "form-group ",
                         inputSelectOnchange: "changeFolderExpiration",
 
                         inputLabelClass: "d-none",
@@ -743,6 +740,20 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                         "+"
                                     ),
                                     this.state.button1text
+                                ),
+                                React.createElement(
+                                    "a",
+                                    {
+                                        className: this.state.button3visible,
+                                        onClick: this.handleClick.bind(this, this.state.button3Click),
+                                        disabled: !this.state.button3enabled
+                                    },
+                                    React.createElement(
+                                        "span",
+                                        { className: "icon" },
+                                        "+"
+                                    ),
+                                    this.state.button3text
                                 )
                             )
                         ),
@@ -791,6 +802,11 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                                 { scope: "col" },
                                                 "Title",
                                                 React.createElement("button", { className: "btn-sorting" })
+                                            ),
+                                            React.createElement(
+                                                "th",
+                                                { scope: "col" },
+                                                "Main"
                                             ),
                                             React.createElement(
                                                 "th",
@@ -866,7 +882,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                 React.createElement(
                                     "table",
                                     {
-                                        className: " table table-hover table-striped datatable table-light",
+                                        className: "table",
                                         id: "table2",
                                         onClick: this.handleClick.bind(this, "selectRowTab2")
                                     },
@@ -974,116 +990,148 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                 )
                             ),
                             React.createElement(
-                                "form",
-                                { id: "addNewFolderForm", className: "" },
+                                "div",
+                                { className: "form-section" },
                                 React.createElement(
-                                    "div",
-                                    { className: this.state.inputLabelClass },
-                                    React.createElement("input", {
-                                        type: "text",
-                                        name: "labelName",
-                                        className: "form-control",
-                                        id: "labelName",
-                                        placeholder: "name",
-                                        value: this.state.labelField,
-                                        onChange: this.handleChange.bind(this, "changeLabelField")
-                                    })
-                                ),
-                                React.createElement(
-                                    "div",
-                                    { className: this.state.inputNameClass },
-                                    React.createElement("input", {
-                                        type: "text",
-                                        name: "fromName",
-                                        className: "form-control",
-                                        id: "folderName",
-                                        placeholder: "name",
-                                        value: this.state.nameField,
-                                        onChange: this.handleChange.bind(this, "changeNameField")
-                                    })
-                                ),
-                                React.createElement(
-                                    "div",
-                                    {
-                                        className: this.state.inputSelectClass
-                                    },
+                                    "form",
+                                    { id: "addNewFolderForm", className: "" },
                                     React.createElement(
-                                        "select",
-                                        {
-                                            className: "form-control",
-                                            defaultValue: "0",
-                                            id: "expireFold",
-                                            value: this.state.expireFolder,
-                                            onChange: this.handleChange.bind(this, "changeExpiration")
-                                        },
+                                        "div",
+                                        { className: "row" },
                                         React.createElement(
-                                            "option",
-                                            { value: "0", disabled: true },
-                                            "Message Will Expire"
+                                            "div",
+                                            {
+                                                className: `col-md-6 ${ this.state.inputLabelClass }`
+                                            },
+                                            React.createElement("input", {
+                                                type: "text",
+                                                name: "labelName",
+                                                className: "form-control with-icon icon-email",
+                                                id: "labelName",
+                                                placeholder: "name",
+                                                value: this.state.labelField,
+                                                onChange: this.handleChange.bind(this, "changeLabelField")
+                                            })
                                         ),
                                         React.createElement(
-                                            "option",
-                                            { value: "-1" },
-                                            "Never"
+                                            "div",
+                                            { className: "col-md-6" },
+                                            React.createElement(
+                                                "div",
+                                                {
+                                                    className: this.state.inputNameClass
+                                                },
+                                                React.createElement("input", {
+                                                    type: "text",
+                                                    name: "fromName",
+                                                    className: "form-control with-icon icon-email",
+                                                    id: "folderName",
+                                                    placeholder: "name",
+                                                    value: this.state.nameField,
+                                                    onChange: this.handleChange.bind(this, "changeNameField")
+                                                })
+                                            )
                                         ),
                                         React.createElement(
-                                            "option",
-                                            { value: "1" },
-                                            "1 day"
+                                            "div",
+                                            { className: "col-md-6" },
+                                            React.createElement(
+                                                "div",
+                                                {
+                                                    className: this.state.inputSelectClass
+                                                },
+                                                React.createElement("div", { className: "select-icon icon-calendar" }),
+                                                React.createElement(
+                                                    "select",
+                                                    {
+                                                        className: "form-select with-icon icon-calendar",
+                                                        defaultValue: "0",
+                                                        id: "expireFold",
+                                                        value: this.state.expireFolder,
+                                                        onChange: this.handleChange.bind(this, "changeExpiration")
+                                                    },
+                                                    React.createElement(
+                                                        "option",
+                                                        {
+                                                            value: "0",
+                                                            disabled: true
+                                                        },
+                                                        "Message Will Expire"
+                                                    ),
+                                                    React.createElement(
+                                                        "option",
+                                                        { value: "-1" },
+                                                        "Never"
+                                                    ),
+                                                    React.createElement(
+                                                        "option",
+                                                        { value: "1" },
+                                                        "1 day"
+                                                    ),
+                                                    React.createElement(
+                                                        "option",
+                                                        { value: "7" },
+                                                        "7 days"
+                                                    ),
+                                                    React.createElement(
+                                                        "option",
+                                                        { value: "30" },
+                                                        "30 days"
+                                                    ),
+                                                    React.createElement(
+                                                        "option",
+                                                        { value: "180" },
+                                                        "6 month"
+                                                    ),
+                                                    React.createElement(
+                                                        "option",
+                                                        { value: "365" },
+                                                        "1 year"
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "div",
+                                        { className: "form-section-bottom" },
+                                        React.createElement(
+                                            "div",
+                                            { className: "delete-item" },
+                                            React.createElement(
+                                                "button",
+                                                {
+                                                    type: "button",
+                                                    className: this.state.deleteFolderClass,
+                                                    onClick: this.handleClick.bind(this, "deleteFolder")
+                                                },
+                                                "Delete Folder"
+                                            )
                                         ),
                                         React.createElement(
-                                            "option",
-                                            { value: "7" },
-                                            "7 days"
-                                        ),
-                                        React.createElement(
-                                            "option",
-                                            { value: "30" },
-                                            "30 days"
-                                        ),
-                                        React.createElement(
-                                            "option",
-                                            { value: "180" },
-                                            "6 month"
-                                        ),
-                                        React.createElement(
-                                            "option",
-                                            { value: "365" },
-                                            "1 year"
+                                            "div",
+                                            { className: "btn-row" },
+                                            React.createElement(
+                                                "button",
+                                                {
+                                                    type: "button",
+                                                    className: "btn-border fixed-width-btn",
+                                                    onClick: this.handleClick.bind(this, this.state.button4Click)
+                                                },
+                                                "Cancel"
+                                            ),
+                                            React.createElement(
+                                                "button",
+                                                {
+                                                    type: "button",
+                                                    className: "btn-blue fixed-width-btn",
+                                                    onClick: this.handleClick.bind(this, this.state.button5Click)
+                                                },
+                                                " ",
+                                                this.state.button5text
+                                            )
                                         )
                                     )
-                                )
-                            ),
-                            React.createElement(
-                                "button",
-                                {
-                                    type: "button",
-                                    className: this.state.deleteFolderClass,
-                                    onClick: this.handleClick.bind(this, "deleteFolder")
-                                },
-                                "Delete Folder"
-                            ),
-                            React.createElement(
-                                "div",
-                                { className: "pull-right dialog_buttons" },
-                                React.createElement(
-                                    "button",
-                                    {
-                                        type: "button",
-                                        className: "btn btn-primary",
-                                        onClick: this.handleClick.bind(this, this.state.button5Click)
-                                    },
-                                    " ",
-                                    this.state.button5text
-                                ),
-                                React.createElement(
-                                    "button",
-                                    {
-                                        type: "button",
-                                        className: "btn btn-default",
-                                        onClick: this.handleClick.bind(this, this.state.button4Click)
-                                    },
-                                    "Cancel"
                                 )
                             )
                         )

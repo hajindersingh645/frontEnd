@@ -27,8 +27,8 @@ define([
             return {
                 viewFlag: false,
                 firstPanelClass: "panel-body",
-                secondPanelClass: "panel-body hidden",
-                thirdPanelClass: "panel-body hidden",
+                secondPanelClass: "panel-body d-none",
+                thirdPanelClass: "panel-body d-none",
 
                 firstTab: "active",
 
@@ -308,8 +308,8 @@ define([
                 case "showFirst":
                     this.setState({
                         firstPanelClass: "panel-body",
-                        secondPanelClass: "panel-body hidden",
-                        thirdPanelClass: "panel-body hidden",
+                        secondPanelClass: "panel-body d-none",
+                        thirdPanelClass: "panel-body d-none",
 
                         firstTab: "active",
 
@@ -344,11 +344,11 @@ define([
                                 thisComp.generateKeys(thisComp);
 
                                 thisComp.setState({
-                                    firstPanelClass: "panel-body hidden",
+                                    firstPanelClass: "panel-body d-none",
                                     secondPanelClass: "panel-body",
                                     firstTab: "active",
 
-                                    button1visible: "hidden",
+                                    button1visible: "d-none",
                                 });
                             } else {
                                 //console.log(this.props.activePage);
@@ -367,13 +367,13 @@ define([
 
                 case "showThird":
                     this.setState({
-                        firstPanelClass: "panel-body hidden",
-                        secondPanelClass: "panel-body hidden",
+                        firstPanelClass: "panel-body d-none",
+                        secondPanelClass: "panel-body d-none",
                         thirdPanelClass: "panel-body",
 
                         firstTab: "active",
 
-                        button1visible: "hidden",
+                        button1visible: "d-none",
 
                         newdomain: "",
                         domainBase: "",
