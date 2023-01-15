@@ -13,6 +13,9 @@ define([
                 secondTab: "",
                 secondPanelClass: "panel-body d-none",
 
+                thirdTab: "",
+                thirdPanelClass: "panel-body d-none",
+
                 detailVisible: "",
                 detailButtonVisible: "",
                 //editDisabled:true,
@@ -268,6 +271,9 @@ define([
                         secondTab: "",
                         secondPanelClass: "panel-body d-none",
 
+                        thirdTab: "",
+                        thirdPanelClass: "panel-body d-none",
+
                         editDisabled: true,
                         cancelEditClass: "d-none",
 
@@ -285,6 +291,22 @@ define([
 
                         secondTab: "active",
                         secondPanelClass: "panel-body",
+
+                        thirdTab: "",
+                        thirdPanelClass: "panel-body d-none",
+                    });
+                    break;
+
+                case "showThird":
+                    this.setState({
+                        firstPanelClass: "panel-body d-none",
+                        firstTab: "",
+
+                        secondTab: "",
+                        secondPanelClass: "panel-body d-none",
+
+                        thirdTab: "active",
+                        thirdPanelClass: "panel-body",
                     });
                     break;
 
@@ -1065,20 +1087,7 @@ define([
                                                 "showFirst"
                                             )}
                                         >
-                                            <h3
-                                                className={
-                                                    this.props.tabs.Header
-                                                }
-                                            >
-                                                Features
-                                            </h3>
-                                            <h3
-                                                className={
-                                                    this.props.tabs.HeaderXS
-                                                }
-                                            >
-                                                <i className="ion-bag"></i>
-                                            </h3>
+                                            Features
                                         </a>
                                     </li>
                                     <li
@@ -1092,20 +1101,20 @@ define([
                                                     : "d-none"
                                             }
                                         >
-                                            <h3
-                                                className={
-                                                    this.props.tabs.Header
-                                                }
-                                            >
-                                                Pay Now
-                                            </h3>
-                                            <h3
-                                                className={
-                                                    this.props.tabs.HeaderXS
-                                                }
-                                            >
-                                                <i className="fa fa-credit-card"></i>
-                                            </h3>
+                                            Pay Now
+                                        </a>
+                                    </li>
+                                    <li
+                                        role="presentation"
+                                        className={this.state.thirdTab}
+                                    >
+                                        <a
+                                            onClick={this.handleClick.bind(
+                                                this,
+                                                "showThird"
+                                            )}
+                                        >
+                                            Plans
                                         </a>
                                     </li>
                                 </ul>
@@ -2124,6 +2133,589 @@ define([
                                             className="d-none"
                                         ></div>
                                     </form>
+                                </div>
+                            </div>
+
+                            <div className={this.state.thirdPanelClass}>
+                                <h3>Choose a Plan:</h3>
+                                <p className="f12">
+                                    Simple pricing. No hidden fees. Advanced
+                                    features.
+                                </p>
+                                <div className="tab-section">
+                                    <ul
+                                        className="nav nav-tabs"
+                                        id="myTab"
+                                        role="tablist"
+                                    >
+                                        <li
+                                            className="nav-item"
+                                            role="presentation"
+                                        >
+                                            <button
+                                                className="nav-link active"
+                                                id="monthly-tab"
+                                                data-bs-toggle="tab"
+                                                data-bs-target="#monthly"
+                                                type="button"
+                                                role="tab"
+                                                aria-controls="Monthly"
+                                                aria-selected="true"
+                                            >
+                                                Monthly
+                                            </button>
+                                        </li>
+                                        <li
+                                            className="nav-item"
+                                            role="presentation"
+                                        >
+                                            <button
+                                                className="nav-link"
+                                                id="year-tab"
+                                                data-bs-toggle="tab"
+                                                data-bs-target="#year"
+                                                type="button"
+                                                role="tab"
+                                                aria-controls="year"
+                                                aria-selected="false"
+                                            >
+                                                <strong>1 Year</strong>
+                                                <span className="low-opacity">
+                                                    Save 30%
+                                                </span>
+                                            </button>
+                                        </li>
+                                        <li
+                                            className="nav-item"
+                                            role="presentation"
+                                        >
+                                            <button
+                                                className="nav-link"
+                                                id="year-2-tab"
+                                                data-bs-toggle="tab"
+                                                data-bs-target="#year-2"
+                                                type="button"
+                                                role="tab"
+                                                aria-controls="year-2"
+                                                aria-selected="false"
+                                            >
+                                                <strong>2 Years</strong>
+                                                <span>Save 40%</span>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                    <div
+                                        className="tab-content"
+                                        id="additional-plans"
+                                    >
+                                        <div
+                                            className="tab-pane fade active show"
+                                            id="monthly"
+                                            role="tabpanel"
+                                            aria-labelledby="monthly-tab"
+                                        >
+                                            <div className="tab-content-top">
+                                                <div className="tab-content-left">
+                                                    <div
+                                                        className="btn-group"
+                                                        role="group"
+                                                        aria-label="Basic radio toggle button group"
+                                                    >
+                                                        <div className="radio-box">
+                                                            <input
+                                                                type="radio"
+                                                                className="btn-check"
+                                                                name="plan"
+                                                                id="free"
+                                                                autocomplete="off"
+                                                                defaultChecked={
+                                                                    true
+                                                                }
+                                                            />
+                                                            <label
+                                                                className="btn btn-outline-primary"
+                                                                htmlFor="free"
+                                                            >
+                                                                {" "}
+                                                                <span className="dot"></span>{" "}
+                                                                <span className="plan-name">
+                                                                    Free
+                                                                </span>{" "}
+                                                                <span className="plan-text">
+                                                                    Current plan
+                                                                </span>{" "}
+                                                                <span className="plan-price">
+                                                                    $0.00{" "}
+                                                                    <span>
+                                                                        / Month
+                                                                    </span>
+                                                                </span>{" "}
+                                                            </label>
+                                                        </div>
+                                                        <div className="radio-box">
+                                                            <input
+                                                                type="radio"
+                                                                className="btn-check"
+                                                                name="plan"
+                                                                id="basic"
+                                                                autocomplete="off"
+                                                            />
+                                                            <label
+                                                                className="btn btn-outline-primary"
+                                                                htmlFor="basic"
+                                                            >
+                                                                {" "}
+                                                                <span className="dot"></span>{" "}
+                                                                <span className="plan-name">
+                                                                    Basic
+                                                                </span>{" "}
+                                                                <span className="plan-text">
+                                                                    Current plan
+                                                                </span>{" "}
+                                                                <span className="plan-price">
+                                                                    $24{" "}
+                                                                    <span>
+                                                                        / Month
+                                                                    </span>
+                                                                </span>{" "}
+                                                            </label>
+                                                        </div>
+                                                        <div className="radio-box">
+                                                            <input
+                                                                type="radio"
+                                                                className="btn-check"
+                                                                name="plan"
+                                                                id="standard"
+                                                                autocomplete="off"
+                                                            />
+                                                            <label
+                                                                className="btn btn-outline-primary"
+                                                                htmlFor="standard"
+                                                            >
+                                                                {" "}
+                                                                <span className="dot"></span>{" "}
+                                                                <span className="plan-name">
+                                                                    Standard
+                                                                </span>{" "}
+                                                                <span className="plan-text">
+                                                                    Current plan
+                                                                </span>{" "}
+                                                                <span className="plan-price">
+                                                                    $60{" "}
+                                                                    <span>
+                                                                        / Month
+                                                                    </span>
+                                                                </span>{" "}
+                                                            </label>
+                                                        </div>
+                                                        <div className="radio-box">
+                                                            <input
+                                                                type="radio"
+                                                                className="btn-check"
+                                                                name="plan"
+                                                                id="professional"
+                                                                autocomplete="off"
+                                                            />
+                                                            <label
+                                                                className="btn btn-outline-primary"
+                                                                htmlFor="professional"
+                                                            >
+                                                                {" "}
+                                                                <span className="dot"></span>{" "}
+                                                                <span className="plan-name">
+                                                                    Professional
+                                                                </span>{" "}
+                                                                <span className="plan-text">
+                                                                    Current plan
+                                                                </span>{" "}
+                                                                <span className="plan-price">
+                                                                    $180{" "}
+                                                                    <span>
+                                                                        / Month
+                                                                    </span>
+                                                                </span>{" "}
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="tab-content-right">
+                                                    <h3>Features:</h3>
+                                                    <div className="plan-features">
+                                                        <ul>
+                                                            <li>
+                                                                1 GB Storage
+                                                            </li>
+                                                            <li>
+                                                                60/hour sending
+                                                                limit
+                                                            </li>
+                                                            <li>
+                                                                1 Custom aliases
+                                                            </li>
+                                                            <li>
+                                                                10 Custom Disp.
+                                                                aliases
+                                                            </li>
+                                                            <li>Inbox rules</li>
+                                                            <li className="not-include">
+                                                                Custom domain
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="form-section-bottom">
+                                                <div className="compare-plans">
+                                                    <button>
+                                                        Compare plans
+                                                    </button>
+                                                </div>
+                                                <div className="btn-row">
+                                                    <button className="btn-blue fixed-width-btn">
+                                                        Choose plan
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            className="tab-pane fade"
+                                            id="year"
+                                            role="tabpanel"
+                                            aria-labelledby="year-tab"
+                                        >
+                                            <div className="tab-content-top">
+                                                <div className="tab-content-left">
+                                                    <div
+                                                        className="btn-group"
+                                                        role="group"
+                                                        aria-label="Basic radio toggle button group"
+                                                    >
+                                                        <div className="radio-box">
+                                                            <input
+                                                                type="radio"
+                                                                className="btn-check"
+                                                                name="year-plan"
+                                                                id="year-free"
+                                                                autocomplete="off"
+                                                                defaultChecked={
+                                                                    true
+                                                                }
+                                                            />
+                                                            <label
+                                                                className="btn btn-outline-primary"
+                                                                htmlFor="year-free"
+                                                            >
+                                                                {" "}
+                                                                <span className="dot"></span>{" "}
+                                                                <span className="plan-name">
+                                                                    Free
+                                                                </span>{" "}
+                                                                <span className="plan-text">
+                                                                    Current plan
+                                                                </span>{" "}
+                                                                <span className="plan-price">
+                                                                    $0.00{" "}
+                                                                    <span>
+                                                                        / Month
+                                                                    </span>
+                                                                </span>{" "}
+                                                            </label>
+                                                        </div>
+                                                        <div className="radio-box">
+                                                            <input
+                                                                type="radio"
+                                                                className="btn-check"
+                                                                name="year-plan"
+                                                                id="year-basic"
+                                                                autocomplete="off"
+                                                            />
+                                                            <label
+                                                                className="btn btn-outline-primary"
+                                                                htmlFor="year-basic"
+                                                            >
+                                                                {" "}
+                                                                <span className="dot"></span>{" "}
+                                                                <span className="plan-name">
+                                                                    Basic
+                                                                </span>{" "}
+                                                                <span className="plan-text">
+                                                                    Current plan
+                                                                </span>{" "}
+                                                                <span className="plan-price">
+                                                                    $24{" "}
+                                                                    <span>
+                                                                        / Month
+                                                                    </span>
+                                                                </span>{" "}
+                                                            </label>
+                                                        </div>
+                                                        <div className="radio-box">
+                                                            <input
+                                                                type="radio"
+                                                                className="btn-check"
+                                                                name="year-plan"
+                                                                id="year-standard"
+                                                                autocomplete="off"
+                                                            />
+                                                            <label
+                                                                className="btn btn-outline-primary"
+                                                                htmlFor="year-standard"
+                                                            >
+                                                                {" "}
+                                                                <span className="dot"></span>{" "}
+                                                                <span className="plan-name">
+                                                                    Standard
+                                                                </span>{" "}
+                                                                <span className="plan-text">
+                                                                    Current plan
+                                                                </span>{" "}
+                                                                <span className="plan-price">
+                                                                    $60{" "}
+                                                                    <span>
+                                                                        / Month
+                                                                    </span>
+                                                                </span>{" "}
+                                                            </label>
+                                                        </div>
+                                                        <div className="radio-box">
+                                                            <input
+                                                                type="radio"
+                                                                className="btn-check"
+                                                                name="year-plan"
+                                                                id="year-professional"
+                                                                autocomplete="off"
+                                                            />
+                                                            <label
+                                                                className="btn btn-outline-primary"
+                                                                htmlFor="year-professional"
+                                                            >
+                                                                {" "}
+                                                                <span className="dot"></span>{" "}
+                                                                <span className="plan-name">
+                                                                    Professional
+                                                                </span>{" "}
+                                                                <span className="plan-text">
+                                                                    Current plan
+                                                                </span>{" "}
+                                                                <span className="plan-price">
+                                                                    $180{" "}
+                                                                    <span>
+                                                                        / Month
+                                                                    </span>
+                                                                </span>{" "}
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="tab-content-right">
+                                                    <h3>Features:</h3>
+                                                    <div className="plan-features">
+                                                        <ul>
+                                                            <li>
+                                                                1 GB Storage
+                                                            </li>
+                                                            <li>
+                                                                60/hour sending
+                                                                limit
+                                                            </li>
+                                                            <li>
+                                                                1 Custom aliases
+                                                            </li>
+                                                            <li>
+                                                                10 Custom Disp.
+                                                                aliases
+                                                            </li>
+                                                            <li>Inbox rules</li>
+                                                            <li className="not-include">
+                                                                Custom domain
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="form-section-bottom">
+                                                <div className="compare-plans">
+                                                    <button>
+                                                        Compare plans
+                                                    </button>
+                                                </div>
+                                                <div className="btn-row">
+                                                    <button className="btn-blue fixed-width-btn">
+                                                        Choose plan
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            className="tab-pane fade"
+                                            id="year-2"
+                                            role="tabpanel"
+                                            aria-labelledby="year-2-tab"
+                                        >
+                                            <div className="tab-content-top">
+                                                <div className="tab-content-left">
+                                                    <div
+                                                        className="btn-group"
+                                                        role="group"
+                                                        aria-label="Basic radio toggle button group"
+                                                    >
+                                                        <div className="radio-box">
+                                                            <input
+                                                                type="radio"
+                                                                className="btn-check"
+                                                                name="year-2-plan"
+                                                                id="year-2-free"
+                                                                autocomplete="off"
+                                                                defaultChecked={
+                                                                    true
+                                                                }
+                                                            />
+                                                            <label
+                                                                className="btn btn-outline-primary"
+                                                                htmlFor="year-2-free"
+                                                            >
+                                                                {" "}
+                                                                <span className="dot"></span>{" "}
+                                                                <span className="plan-name">
+                                                                    Free
+                                                                </span>{" "}
+                                                                <span className="plan-text">
+                                                                    Current plan
+                                                                </span>{" "}
+                                                                <span className="plan-price">
+                                                                    $0.00{" "}
+                                                                    <span>
+                                                                        / Month
+                                                                    </span>
+                                                                </span>{" "}
+                                                            </label>
+                                                        </div>
+                                                        <div className="radio-box">
+                                                            <input
+                                                                type="radio"
+                                                                className="btn-check"
+                                                                name="year-2-plan"
+                                                                id="year-2-basic"
+                                                                autocomplete="off"
+                                                            />
+                                                            <label
+                                                                className="btn btn-outline-primary"
+                                                                htmlFor="year-2-basic"
+                                                            >
+                                                                {" "}
+                                                                <span className="dot"></span>{" "}
+                                                                <span className="plan-name">
+                                                                    Basic
+                                                                </span>{" "}
+                                                                <span className="plan-text">
+                                                                    Current plan
+                                                                </span>{" "}
+                                                                <span className="plan-price">
+                                                                    $24{" "}
+                                                                    <span>
+                                                                        / Month
+                                                                    </span>
+                                                                </span>{" "}
+                                                            </label>
+                                                        </div>
+                                                        <div className="radio-box">
+                                                            <input
+                                                                type="radio"
+                                                                className="btn-check"
+                                                                name="year-2-plan"
+                                                                id="year-2-standard"
+                                                                autocomplete="off"
+                                                            />
+                                                            <label
+                                                                className="btn btn-outline-primary"
+                                                                htmlFor="year-2-standard"
+                                                            >
+                                                                {" "}
+                                                                <span className="dot"></span>{" "}
+                                                                <span className="plan-name">
+                                                                    Standard
+                                                                </span>{" "}
+                                                                <span className="plan-text">
+                                                                    Current plan
+                                                                </span>{" "}
+                                                                <span className="plan-price">
+                                                                    $60{" "}
+                                                                    <span>
+                                                                        / Month
+                                                                    </span>
+                                                                </span>{" "}
+                                                            </label>
+                                                        </div>
+                                                        <div className="radio-box">
+                                                            <input
+                                                                type="radio"
+                                                                className="btn-check"
+                                                                name="year-2-plan"
+                                                                id="year-2-professional"
+                                                                autocomplete="off"
+                                                            />
+                                                            <label
+                                                                className="btn btn-outline-primary"
+                                                                htmlFor="year-2-professional"
+                                                            >
+                                                                {" "}
+                                                                <span className="dot"></span>{" "}
+                                                                <span className="plan-name">
+                                                                    Professional
+                                                                </span>{" "}
+                                                                <span className="plan-text">
+                                                                    Current plan
+                                                                </span>{" "}
+                                                                <span className="plan-price">
+                                                                    $180{" "}
+                                                                    <span>
+                                                                        / Month
+                                                                    </span>
+                                                                </span>{" "}
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="tab-content-right">
+                                                    <h3>Features:</h3>
+                                                    <div className="plan-features">
+                                                        <ul>
+                                                            <li>
+                                                                1 GB Storage
+                                                            </li>
+                                                            <li>
+                                                                60/hour sending
+                                                                limit
+                                                            </li>
+                                                            <li>
+                                                                1 Custom aliases
+                                                            </li>
+                                                            <li>
+                                                                10 Custom Disp.
+                                                                aliases
+                                                            </li>
+                                                            <li>Inbox rules</li>
+                                                            <li className="not-include">
+                                                                Custom domain
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="form-section-bottom">
+                                                <div className="compare-plans">
+                                                    <button>
+                                                        Compare plans
+                                                    </button>
+                                                </div>
+                                                <div className="btn-row">
+                                                    <button className="btn-blue fixed-width-btn">
+                                                        Choose plan
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

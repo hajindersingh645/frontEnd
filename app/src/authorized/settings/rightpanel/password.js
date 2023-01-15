@@ -660,7 +660,9 @@ define([
                             <h2>Security</h2>
                             <div className="bread-crumb">
                                 <ul>
-                                    <li>Password</li>
+                                    <li>
+                                        <a>Password</a>
+                                    </li>
                                     <li>
                                         {this.state.viewFlag ? (
                                             <a
@@ -793,7 +795,7 @@ define([
                                     this.state.viewFlag ? "" : "d-none"
                                 }`}
                             >
-                                <div className="middle-content-top">
+                                <div className="middle-content-top with-stacked">
                                     <div
                                         role="alert"
                                         className="alert alert-warning"

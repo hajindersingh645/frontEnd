@@ -116,8 +116,7 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
 
             require(["dataTable", "dataTableBoot"], function (DataTable, dataTableBoot) {
                 $("#table1").dataTable({
-                    // dom: '<"pull-left"f><"pull-right"p>"irt<"#bottomPagination">',
-                    dom: '<"middle-search"f>',
+                    dom: '<"middle-search"f>t<"mid-pagination-row"<"pagi-left"i><"pagi-right"p>>',
                     data: dtSet,
                     columns: [{ data: "checkbox" }, {
                         data: {
@@ -125,13 +124,13 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
                             sort: "text.index"
                         }
                     }, { data: "delete" }, { data: "options" }],
-                    columnDefs: [{ orderDataType: "data-sort", targets: 1 }],
+                    columnDefs: [{ orderDataType: "data-sort", targets: 1 }, { sClass: "data-cols type_full", targets: [1] }],
                     order: [[1, "asc"]],
                     language: {
                         emptyTable: "Empty",
                         sSearch: "",
                         searchPlaceholder: "Find something...",
-                        info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                        info: "Showing _START_ - _END_ of _TOTAL_ result",
                         paginate: {
                             sPrevious: "<i class='fa fa-chevron-left'></i>",
                             sNext: "<i class='fa fa-chevron-right'></i>"
@@ -476,7 +475,7 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
                                         React.createElement("col", { width: "40" }),
                                         React.createElement("col", null),
                                         React.createElement("col", { width: "40" }),
-                                        React.createElement("col", { width: "50" })
+                                        React.createElement("col", { width: "40" })
                                     ),
                                     React.createElement(
                                         "thead",

@@ -767,7 +767,6 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                             React.createElement("col", { width: "40" }),
                                             React.createElement("col", null),
                                             React.createElement("col", { width: "40" }),
-                                            React.createElement("col", { width: "40" }),
                                             React.createElement("col", { width: "50" })
                                         ),
                                         React.createElement(
@@ -792,11 +791,6 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                                     "Email",
                                                     " ",
                                                     React.createElement("button", { className: "btn-sorting" })
-                                                ),
-                                                React.createElement(
-                                                    "td",
-                                                    null,
-                                                    "\xA0"
                                                 ),
                                                 React.createElement(
                                                     "th",
@@ -1271,7 +1265,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                         DT_RowId: email64,
                         checkbox: '<label class="container-checkbox"><input type="checkbox" name="inbox-email" /><span class="checkmark"></span></label>',
                         email: app.transform.from64str(emailData["email"]),
-                        dispose: '<button class="disposed-button"></button>',
+                        // dispose: '<button class="disposed-button"></button>',
                         delete: '<button class="table-icon delete-button"></button>',
                         options: '<div class="dropdown"><button class="btn btn-secondary dropdown-toggle table-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button></div>'
                     };
@@ -1308,16 +1302,18 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
             var thsComp = this;
 
             $("#table2").dataTable({
-                dom: '<"middle-search"f>',
+                dom: '<"middle-search"f>t<"mid-pagination-row"<"pagi-left"i><"pagi-right"p>>',
                 data: thsComp.getDisposableDataData(),
-                columns: [{ data: "checkbox" }, { data: "email" }, { data: "dispose" }, { data: "delete" }, { data: "options" }],
-                columnDefs: [{ bSortable: false, aTargets: [2] }, { orderDataType: "data-sort", targets: 1 }],
+                columns: [{ data: "checkbox" }, { data: "email" },
+                // { data: "dispose" },
+                { data: "delete" }, { data: "options" }],
+                columnDefs: [{ orderDataType: "data-sort", targets: 1 }, { sClass: "data-cols", targets: [1] }],
                 order: [[1, "asc"]],
                 language: {
                     emptyTable: "Empty",
                     sSearch: "",
                     searchPlaceholder: "Find something...",
-                    info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                    info: "Showing _START_ - _END_ of _TOTAL_ result",
                     infoEmpty: "No entries",
                     paginate: {
                         sPrevious: "<i class='fa fa-chevron-left'></i>",

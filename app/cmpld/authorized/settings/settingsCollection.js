@@ -24,8 +24,8 @@ define(["react", "app", "cmpld/authorized/settings/leftmenu/settingsList"], func
                     adminPanel: ""
                 },
                 setTabs: {
-                    Header: "panel-title personal-info-title hidden-xs",
-                    HeaderXS: "panel-title personal-info-title settings-tab-xs visible-xs"
+                    Header: "panel-title personal-info-title d-none-xs",
+                    HeaderXS: "panel-title personal-info-title settings-tab-xs d-block-xs"
                 },
                 classes: {
                     rightClass: "",

@@ -94,7 +94,7 @@ define([
             var thisComp = this;
 
             $("#table1").dataTable({
-                dom: '<"middle-search"f>',
+                dom: '<"middle-search"f>t<"mid-pagination-row"<"pagi-left"i><"pagi-right"p>>',
                 data: dtSet,
 
                 columns: [
@@ -115,11 +115,14 @@ define([
                     { data: "delete" },
                     { data: "options" },
                 ],
-                columnDefs: [{ orderDataType: "data-sort", targets: 1 }],
+                columnDefs: [
+                    { orderDataType: "data-sort", targets: 1 },
+                    { sClass: "data-cols", targets: [1, 2] },
+                ],
                 order: [[0, "asc"]],
                 language: {
                     emptyTable: "No Contacts",
-                    info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                    info: "Showing _START_ - _END_ of _TOTAL_ result",
                     sSearch: "",
                     searchPlaceholder: "Find something...",
                     paginate: {
@@ -292,17 +295,45 @@ define([
 
                     break;
 
-                case "selectRow":
-                    var thisComp = this;
-
-                    var id = $(event.target).parents("tr").attr("id");
-
-                    if (id != undefined) {
-                        thisComp.setState({
-                            contactId: id,
-                        });
-                        thisComp.handleClick("editContact", id);
+                case "handleSelectAll":
+                    if (event.target.checked) {
+                        $("table .container-checkbox input").prop(
+                            "checked",
+                            true
+                        );
+                        $("table tr").addClass("selected");
+                    } else {
+                        $("table .container-checkbox input").prop(
+                            "checked",
+                            false
+                        );
+                        $("table tr").removeClass("selected");
                     }
+
+                    break;
+                case "selectRow":
+                    if (
+                        $(event.target).prop("tagName").toUpperCase() ===
+                        "INPUT"
+                    ) {
+                        if (event.target.checked) {
+                            $(event.target).closest("tr").addClass("selected");
+                        } else {
+                            $(event.target)
+                                .closest("tr")
+                                .removeClass("selected");
+                        }
+                    }
+                    // var thisComp = this;
+
+                    // var id = $(event.target).parents("tr").attr("id");
+
+                    // if (id != undefined) {
+                    //     thisComp.setState({
+                    //         contactId: id,
+                    //     });
+                    //     thisComp.handleClick("editContact", id);
+                    // }
 
                     break;
 
@@ -657,15 +688,21 @@ define([
                                                     <col width="40" />
                                                     <col />
                                                     <col />
-                                                    <col width="60" />
                                                     <col width="40" />
-                                                    <col width="50" />
+                                                    <col width="40" />
+                                                    <col width="40" />
                                                 </colgroup>
                                                 <thead>
                                                     <tr>
                                                         <th scope="col">
                                                             <label className="container-checkbox">
-                                                                <input type="checkbox" />
+                                                                <input
+                                                                    type="checkbox"
+                                                                    onChange={this.handleClick.bind(
+                                                                        this,
+                                                                        "handleSelectAll"
+                                                                    )}
+                                                                />
                                                                 <span className="checkmark"></span>
                                                             </label>
                                                         </th>

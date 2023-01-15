@@ -83,7 +83,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
             var thisComp = this;
 
             $("#table1").dataTable({
-                dom: '<"middle-search"f>',
+                dom: '<"middle-search"f>t<"mid-pagination-row"<"pagi-left"i><"pagi-right"p>>',
                 data: dtSet,
 
                 columns: [{ data: "checkbox" }, {
@@ -97,11 +97,11 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                         sort: "name.display"
                     }
                 }, { data: "edit" }, { data: "delete" }, { data: "options" }],
-                columnDefs: [{ orderDataType: "data-sort", targets: 1 }],
+                columnDefs: [{ orderDataType: "data-sort", targets: 1 }, { sClass: "data-cols", targets: [1, 2] }],
                 order: [[0, "asc"]],
                 language: {
                     emptyTable: "No Contacts",
-                    info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                    info: "Showing _START_ - _END_ of _TOTAL_ result",
                     sSearch: "",
                     searchPlaceholder: "Find something...",
                     paginate: {
@@ -257,17 +257,34 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
 
                     break;
 
-                case "selectRow":
-                    var thisComp = this;
-
-                    var id = $(event.target).parents("tr").attr("id");
-
-                    if (id != undefined) {
-                        thisComp.setState({
-                            contactId: id
-                        });
-                        thisComp.handleClick("editContact", id);
+                case "handleSelectAll":
+                    if (event.target.checked) {
+                        $("table .container-checkbox input").prop("checked", true);
+                        $("table tr").addClass("selected");
+                    } else {
+                        $("table .container-checkbox input").prop("checked", false);
+                        $("table tr").removeClass("selected");
                     }
+
+                    break;
+                case "selectRow":
+                    if ($(event.target).prop("tagName").toUpperCase() === "INPUT") {
+                        if (event.target.checked) {
+                            $(event.target).closest("tr").addClass("selected");
+                        } else {
+                            $(event.target).closest("tr").removeClass("selected");
+                        }
+                    }
+                    // var thisComp = this;
+
+                    // var id = $(event.target).parents("tr").attr("id");
+
+                    // if (id != undefined) {
+                    //     thisComp.setState({
+                    //         contactId: id,
+                    //     });
+                    //     thisComp.handleClick("editContact", id);
+                    // }
 
                     break;
 
@@ -596,9 +613,9 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                                 React.createElement("col", { width: "40" }),
                                                 React.createElement("col", null),
                                                 React.createElement("col", null),
-                                                React.createElement("col", { width: "60" }),
                                                 React.createElement("col", { width: "40" }),
-                                                React.createElement("col", { width: "50" })
+                                                React.createElement("col", { width: "40" }),
+                                                React.createElement("col", { width: "40" })
                                             ),
                                             React.createElement(
                                                 "thead",
@@ -612,7 +629,10 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                                         React.createElement(
                                                             "label",
                                                             { className: "container-checkbox" },
-                                                            React.createElement("input", { type: "checkbox" }),
+                                                            React.createElement("input", {
+                                                                type: "checkbox",
+                                                                onChange: this.handleClick.bind(this, "handleSelectAll")
+                                                            }),
                                                             React.createElement("span", { className: "checkmark" })
                                                         )
                                                     ),

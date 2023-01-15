@@ -16,7 +16,7 @@ define(["react", "app"], function (React, app) {
                     <div className="top-data">
                         <div className="icon-notification">
                             <button>
-                                <span></span>
+                                <span>12</span>
                             </button>
                         </div>
                         <div className="back-to-inbox-link">

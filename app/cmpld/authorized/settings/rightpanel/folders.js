@@ -99,7 +99,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                     DT_RowId: label64,
                     checkbox: '<label class="container-checkbox"><input type="checkbox" name="inbox-email" /><span class="checkmark"></span></label>',
                     label: app.transform.escapeTags(app.transform.from64str(label64)),
-                    edit: '<button class="disposed-button"></button>',
+                    // edit: '<button class="disposed-button"></button>',
                     delete: '<button class="table-icon delete-button"></button>',
                     options: '<div class="dropdown"><button class="btn btn-secondary dropdown-toggle table-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button></div>'
                 };
@@ -118,8 +118,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
             var thisComp = this;
 
             $("#table1").dataTable({
-                // dom: '<"pull-left"f><"pull-right"p>"irt<"#bottomPagination">',
-                dom: '<"middle-search"f>',
+                dom: '<"middle-search"f>t<"mid-pagination-row"<"pagi-left"i><"pagi-right"p>>',
                 data: folderSet,
                 columns: [{ data: "checkbox" }, {
                     data: {
@@ -127,13 +126,13 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                         sort: "folder.display"
                     }
                 }, { data: "isMain" }, { data: "expire" }, { data: "delete" }, { data: "options" }],
-                columnDefs: [{ sClass: "d-none", targets: [2] }, { bSortable: false, aTargets: [2, 3] }, { orderDataType: "data-sort", targets: 0 }],
+                columnDefs: [{ sClass: "d-none", targets: [2] }, { sClass: "data-cols", targets: [1, 2] }, { bSortable: false, aTargets: [2, 3] }, { orderDataType: "data-sort", targets: 0 }],
                 order: [[1, "desc"]],
                 language: {
                     emptyTable: "Empty",
                     sSearch: "",
                     searchPlaceholder: "Find something...",
-                    info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                    info: "Showing _START_ - _END_ of _TOTAL_ result",
                     paginate: {
                         sPrevious: "<i class='fa fa-chevron-left'></i>",
                         sNext: "<i class='fa fa-chevron-right'></i>"
@@ -142,17 +141,18 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
             });
 
             $("#table2").dataTable({
-                // dom: '<"pull-left"f><"pull-right"p>"irt<"#bottomPagination">',
-                dom: '<"middle-search"f>',
+                dom: '<"middle-search"f>t<"mid-pagination-row"<"pagi-left"i><"pagi-right"p>>',
                 data: tagSet,
-                columns: [{ data: "checkbox" }, { data: "label" }, { data: "edit" }, { data: "delete" }, { data: "options" }],
-                columnDefs: [{ bSortable: false, aTargets: [1] }, { orderDataType: "data-sort", targets: 0 }],
-                order: [[0, "desc"]],
+                columns: [{ data: "checkbox" }, { data: "label" },
+                // { data: "edit" },
+                { data: "delete" }, { data: "options" }],
+                columnDefs: [{ sClass: "data-cols", targets: [1] }, { bSortable: false, aTargets: [1] }, { orderDataType: "data-sort", targets: 0 }],
+                order: [[1, "desc"]],
                 language: {
                     emptyTable: "Empty",
                     sSearch: "",
                     searchPlaceholder: "Find something...",
-                    info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                    info: "Showing _START_ - _END_ of _TOTAL_ result",
                     paginate: {
                         sPrevious: "<i class='fa fa-chevron-left'></i>",
                         sNext: "<i class='fa fa-chevron-right'></i>"
@@ -173,9 +173,6 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                     var seed = app.transform.to64str(thisComp.state.nameField);
 
                     $.each(folders, function (fldIndex, fldData) {
-                        //console.log(fldData['name']);
-                        //console.log(fldData['name']==seed);
-
                         if (fldData["name"] == seed) {
                             isSuccess = false;
                         }
@@ -200,9 +197,6 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                 console.log(seed);
 
                 $.each(tags, function (tagIndex, tagData) {
-                    //	console.log(fldData['name']);
-                    //	console.log(fldData['name']==seed);
-
                     if (tagIndex == seed) {
                         isSuccess = false;
                     }
@@ -213,8 +207,6 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                 } else {
                     return false;
                 }
-
-                //return true;
             }, "Label Already Exist");
 
             $("#folderName").rules("add", {
@@ -234,8 +226,6 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
             $("#expireFold").rules("add", {
                 required: true
             });
-
-            //this.handleClick('addFolder');
         },
 
         componentWillUpdate: function (nextProps, nextState) {
@@ -779,7 +769,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                         React.createElement("col", null),
                                         React.createElement("col", { width: "50" }),
                                         React.createElement("col", { width: "40" }),
-                                        React.createElement("col", { width: "50" })
+                                        React.createElement("col", { width: "40" })
                                     ),
                                     React.createElement(
                                         "thead",
@@ -892,7 +882,6 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                         React.createElement("col", { width: "40" }),
                                         React.createElement("col", null),
                                         React.createElement("col", { width: "50" }),
-                                        React.createElement("col", { width: "40" }),
                                         React.createElement("col", { width: "50" })
                                     ),
                                     React.createElement(
@@ -907,21 +896,19 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                                 React.createElement(
                                                     "label",
                                                     { className: "container-checkbox" },
-                                                    React.createElement("input", {
-                                                        type: "checkbox",
-                                                        onclick: "toggle(this)"
-                                                    }),
-                                                    React.createElement("span", { className: "checkmark" }),
-                                                    " "
+                                                    React.createElement("input", { type: "checkbox" }),
+                                                    React.createElement("span", { className: "checkmark" })
                                                 )
                                             ),
                                             React.createElement(
                                                 "th",
-                                                { scope: "col" },
+                                                {
+                                                    scope: "col",
+                                                    className: "name-width"
+                                                },
                                                 "Title",
                                                 React.createElement("button", { className: "btn-sorting" })
                                             ),
-                                            React.createElement("th", { scope: "col" }),
                                             React.createElement(
                                                 "th",
                                                 { scope: "col" },

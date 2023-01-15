@@ -197,7 +197,7 @@ define([
             });
 
             $("#table1").dataTable({
-                dom: '<"middle-search"f>',
+                dom: '<"middle-search"f>t<"mid-pagination-row"<"pagi-left"i><"pagi-right"p>>',
                 data: thsComp.getAliasData(),
                 columns: [
                     { data: "checkbox" },
@@ -208,7 +208,8 @@ define([
                     { data: "options" },
                 ],
                 columnDefs: [
-                    { orderDataType: "data-sort", targets: [0, 3, 4, 5] },
+                    { orderDataType: "data-sort", targets: [1, 2] },
+                    { sClass: "data-cols", targets: [1, 2] },
                 ],
                 order: [
                     [2, "desc"],
@@ -219,7 +220,7 @@ define([
                     sSearch: "",
                     searchPlaceholder: "Find something...",
                     // info: "_START_ to _END_ of _TOTAL_",
-                    info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                    info: "Showing _START_ - _END_ of _TOTAL_ result",
                     infoEmpty: "No entries",
                     paginate: {
                         sPrevious: "<i class='fa fa-chevron-left'></i>",
@@ -411,9 +412,9 @@ define([
                                                 <col width="40" />
                                                 <col />
                                                 <col />
-                                                <col width="60" />
                                                 <col width="40" />
-                                                <col width="50" />
+                                                <col width="40" />
+                                                <col width="40" />
                                             </colgroup>
                                             <thead>
                                                 <tr>

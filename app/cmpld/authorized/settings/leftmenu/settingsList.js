@@ -246,7 +246,10 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                 { className: "accordion-item" },
                                 React.createElement(
                                     "h2",
-                                    { className: "accordion-header", id: "" },
+                                    {
+                                        className: "accordion-header",
+                                        id: "headingProfile"
+                                    },
                                     React.createElement(
                                         "button",
                                         {
@@ -352,7 +355,10 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                 { className: "accordion-item" },
                                 React.createElement(
                                     "h2",
-                                    { className: "accordion-header", id: "" },
+                                    {
+                                        className: "accordion-header",
+                                        id: "headingSecurity"
+                                    },
                                     React.createElement(
                                         "button",
                                         {

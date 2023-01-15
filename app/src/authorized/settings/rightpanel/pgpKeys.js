@@ -102,8 +102,7 @@ define([
             var thisComp = this;
 
             $("#table1").dataTable({
-                // dom: '<"pull-left"f><"pull-right"p>"irt<"#bottomPagination">',
-                dom: '<"middle-search"f>',
+                dom: '<"middle-search"f>t<"mid-pagination-row"<"pagi-left"i><"pagi-right"p>>',
                 data: dtSet,
 
                 columns: [
@@ -119,11 +118,15 @@ define([
                     { data: "delete" },
                     { data: "options" },
                 ],
-                columnDefs: [{ orderDataType: "data-sort", targets: 1 }],
+                columnDefs: [
+                    { orderDataType: "data-sort", targets: 1 },
+                    { sClass: "data-cols", targets: [1] },
+                ],
                 order: [[1, "asc"]],
                 language: {
                     emptyTable: "No Keys",
                     sSearch: "",
+                    info: "Showing _START_ - _END_ of _TOTAL_ result",
                     searchPlaceholder: "Find something...",
                     paginate: {
                         sPrevious: "<i class='fa fa-chevron-left'></i>",
@@ -263,6 +266,21 @@ define([
          */
         handleClick: function (action, event) {
             switch (action) {
+                case "copyClipboard":
+                    if (!navigator.clipboard) {
+                    } else {
+                        try {
+                            navigator.clipboard
+                                .writeText(
+                                    $(event.target)
+                                        .parent(".blue-bg-text")
+                                        .find(".to-copy")
+                                        .text()
+                                )
+                                .then(function () {});
+                        } catch (e) {}
+                    }
+                    break;
                 case "email":
                     break;
 
@@ -820,10 +838,10 @@ define([
                                             <colgroup>
                                                 <col width="40" />
                                                 <col />
-                                                <col />
                                                 <col width="60" />
                                                 <col width="40" />
-                                                <col width="50" />
+                                                <col width="40" />
+                                                <col width="40" />
                                             </colgroup>
                                             <thead>
                                                 <tr>
@@ -837,12 +855,7 @@ define([
                                                         Address{" "}
                                                         <button className="btn-sorting"></button>
                                                     </th>
-                                                    <th
-                                                        scope="col"
-                                                        className="name-width"
-                                                    >
-                                                        Bit
-                                                    </th>
+                                                    <th scope="col">Bit</th>
                                                     <th></th>
                                                     <th scope="col">
                                                         <button className="trash-btn"></button>
@@ -1161,6 +1174,36 @@ define([
                                     >
                                         https://en.wikipedia.org/wiki/Public_key_fingerprint
                                     </a>
+                                    <a
+                                        className="__copy"
+                                        onClick={this.handleClick.bind(
+                                            this,
+                                            "copyClipboard"
+                                        )}
+                                    >
+                                        <span className="icon">
+                                            <svg
+                                                width="20"
+                                                height="20"
+                                                viewBox="0 0 17 17"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path
+                                                    d="M10.625 8.97812V11.2094C10.625 13.0688 9.88125 13.8125 8.02188 13.8125H5.79063C3.93125 13.8125 3.1875 13.0688 3.1875 11.2094V8.97812C3.1875 7.11875 3.93125 6.375 5.79063 6.375H8.02188C9.88125 6.375 10.625 7.11875 10.625 8.97812Z"
+                                                    strokeWidth="1.0625"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                />
+                                                <path
+                                                    d="M13.8125 5.79063V8.02188C13.8125 9.88125 13.0688 10.625 11.2094 10.625H10.625V8.97812C10.625 7.11875 9.88125 6.375 8.02188 6.375H6.375V5.79063C6.375 3.93125 7.11875 3.1875 8.97812 3.1875H11.2094C13.0688 3.1875 13.8125 3.93125 13.8125 5.79063Z"
+                                                    strokeWidth="1.0625"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                />
+                                            </svg>
+                                        </span>
+                                    </a>
                                 </div>
                                 <h3>The private key password</h3>
                                 <p>
@@ -1180,11 +1223,71 @@ define([
                                     <a href="https://en.wikipedia.org/wiki/Pretty_Good_Privacy">
                                         https://en.wikipedia.org/wiki/Pretty_Good_Privacy
                                     </a>
+                                    <a
+                                        className="__copy"
+                                        onClick={this.handleClick.bind(
+                                            this,
+                                            "copyClipboard"
+                                        )}
+                                    >
+                                        <span className="icon">
+                                            <svg
+                                                width="20"
+                                                height="20"
+                                                viewBox="0 0 17 17"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path
+                                                    d="M10.625 8.97812V11.2094C10.625 13.0688 9.88125 13.8125 8.02188 13.8125H5.79063C3.93125 13.8125 3.1875 13.0688 3.1875 11.2094V8.97812C3.1875 7.11875 3.93125 6.375 5.79063 6.375H8.02188C9.88125 6.375 10.625 7.11875 10.625 8.97812Z"
+                                                    strokeWidth="1.0625"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                />
+                                                <path
+                                                    d="M13.8125 5.79063V8.02188C13.8125 9.88125 13.0688 10.625 11.2094 10.625H10.625V8.97812C10.625 7.11875 9.88125 6.375 8.02188 6.375H6.375V5.79063C6.375 3.93125 7.11875 3.1875 8.97812 3.1875H11.2094C13.0688 3.1875 13.8125 3.93125 13.8125 5.79063Z"
+                                                    strokeWidth="1.0625"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                />
+                                            </svg>
+                                        </span>
+                                    </a>
                                 </div>
                                 <p>and the</p>
                                 <div className="blue-bg-text">
                                     <a href="http://www.pgpi.org/">
-                                        PGP Home Page
+                                        http://www.pgpi.org/
+                                    </a>
+                                    <a
+                                        className="__copy"
+                                        onClick={this.handleClick.bind(
+                                            this,
+                                            "copyClipboard"
+                                        )}
+                                    >
+                                        <span className="icon">
+                                            <svg
+                                                width="20"
+                                                height="20"
+                                                viewBox="0 0 17 17"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path
+                                                    d="M10.625 8.97812V11.2094C10.625 13.0688 9.88125 13.8125 8.02188 13.8125H5.79063C3.93125 13.8125 3.1875 13.0688 3.1875 11.2094V8.97812C3.1875 7.11875 3.93125 6.375 5.79063 6.375H8.02188C9.88125 6.375 10.625 7.11875 10.625 8.97812Z"
+                                                    strokeWidth="1.0625"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                />
+                                                <path
+                                                    d="M13.8125 5.79063V8.02188C13.8125 9.88125 13.0688 10.625 11.2094 10.625H10.625V8.97812C10.625 7.11875 9.88125 6.375 8.02188 6.375H6.375V5.79063C6.375 3.93125 7.11875 3.1875 8.97812 3.1875H11.2094C13.0688 3.1875 13.8125 3.93125 13.8125 5.79063Z"
+                                                    strokeWidth="1.0625"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                />
+                                            </svg>
+                                        </span>
                                     </a>
                                 </div>
                             </div>

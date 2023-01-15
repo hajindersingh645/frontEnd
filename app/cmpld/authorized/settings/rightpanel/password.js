@@ -554,7 +554,11 @@ define(["react", "app", "ajaxQueue", "cmpld/authorized/settings/rightpanel/right
                                 React.createElement(
                                     "li",
                                     null,
-                                    "Password"
+                                    React.createElement(
+                                        "a",
+                                        null,
+                                        "Password"
+                                    )
                                 ),
                                 React.createElement(
                                     "li",
@@ -704,7 +708,7 @@ define(["react", "app", "ajaxQueue", "cmpld/authorized/settings/rightpanel/right
                             },
                             React.createElement(
                                 "div",
-                                { className: "middle-content-top" },
+                                { className: "middle-content-top with-stacked" },
                                 React.createElement(
                                     "div",
                                     {

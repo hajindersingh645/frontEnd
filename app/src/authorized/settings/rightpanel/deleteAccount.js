@@ -88,7 +88,7 @@ define([
                             <h2>Profile</h2>
                         </div>
                         <div className="middle-content red-border">
-                            <div className="middle-content-top">
+                            <div className="middle-content-top with-stacked">
                                 <h3>Delete Account</h3>
                                 <p>
                                     All data including: emails, history of your

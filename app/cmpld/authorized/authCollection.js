@@ -1,4 +1,4 @@
-define(["react", "app", "xss", "cmpld/authorized/mailbox/mailboxCollection", "cmpld/authorized/settings/settingsCollection", "cmpld/authorized/updates/updateVersion1", "cmpld/modals/secondPass", "cmpld/modals/syncUserObj", "cmpld/modals/logOutForce", "cmpld/modals/infoPop", "cmpld/modals/askForPass", "cmpld/modals/dialogPop", "cmpld/modals/dontInterrupt", "offline"], function (React, app, xss, MailboxCollection, SettingsCollection, UpdateCollection, SecondPass, SyncUserObj, LogOutForce, InfoPop, AskForPass, DialogPop, DontInterrupt, offline) {
+define(["react", "app", "xss", "cmpld/authorized/mailbox/mailboxCollection", "cmpld/authorized/settings/settingsCollection", "cmpld/authorized/updates/updateVersion1", "cmpld/modals/secondPass", "cmpld/modals/syncUserObj", "cmpld/modals/logOutForce", "cmpld/modals/infoPop", "cmpld/modals/askForPass", "cmpld/modals/dialogPop", "cmpld/modals/dontInterrupt", "cmpld/modals/loading", "offline"], function (React, app, xss, MailboxCollection, SettingsCollection, UpdateCollection, SecondPass, SyncUserObj, LogOutForce, InfoPop, AskForPass, DialogPop, DontInterrupt, Loading, offline) {
     return React.createClass({
         getInitialState: function () {
             return {
@@ -77,10 +77,15 @@ define(["react", "app", "xss", "cmpld/authorized/mailbox/mailboxCollection", "cm
                         updateValue: this.updateValue
                     });
                 } else if (page == "settings" && app.user.get("profileVersion") > 1) {
-                    body = React.createElement(SettingsCollection, {
-                        rightPanel: this.props.rightPanel,
-                        activePage: this.props.activePage
-                    });
+                    body = React.createElement(
+                        "div",
+                        null,
+                        React.createElement(Loading, null),
+                        React.createElement(SettingsCollection, {
+                            rightPanel: this.props.rightPanel,
+                            activePage: this.props.activePage
+                        })
+                    );
                 } else if (page == "settings" && app.user.get("profileVersion") == 1 && this.props.activePage == "updateVersion1") {
                     console.log(`settings`);
                     body = React.createElement(SettingsCollection, {

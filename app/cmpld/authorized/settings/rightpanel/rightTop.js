@@ -24,7 +24,11 @@ define(["react", "app"], function (React, app) {
                         React.createElement(
                             "button",
                             null,
-                            React.createElement("span", null)
+                            React.createElement(
+                                "span",
+                                null,
+                                "12"
+                            )
                         )
                     ),
                     React.createElement(

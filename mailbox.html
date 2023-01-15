@@ -475,6 +475,11 @@
                             dataDisplay.description
                         );
                     }
+
+                    // accordion fix
+                    $("#settingsAccordion").on("show.bs.collapse", function () {
+                        console.log("showing");
+                    });
                 } catch (e) {
                     console.info("!!BUG!!");
                 }

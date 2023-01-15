@@ -242,7 +242,10 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                         <div className="left-acco-menu">
                             <div className="accordion" id="settingsAccordion">
                                 <div className="accordion-item">
-                                    <h2 className="accordion-header" id="">
+                                    <h2
+                                        className="accordion-header"
+                                        id="headingProfile"
+                                    >
                                         <button
                                             className="accordion-button icon-profile collapsed"
                                             type="button"
@@ -359,7 +362,10 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                     </div>
                                 </div>
                                 <div className="accordion-item">
-                                    <h2 className="accordion-header" id="">
+                                    <h2
+                                        className="accordion-header"
+                                        id="headingSecurity"
+                                    >
                                         <button
                                             className="accordion-button icon-security collapsed"
                                             type="button"

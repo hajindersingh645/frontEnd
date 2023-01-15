@@ -117,7 +117,7 @@ define([
                     label: app.transform.escapeTags(
                         app.transform.from64str(label64)
                     ),
-                    edit: '<button class="disposed-button"></button>',
+                    // edit: '<button class="disposed-button"></button>',
                     delete: '<button class="table-icon delete-button"></button>',
                     options:
                         '<div class="dropdown"><button class="btn btn-secondary dropdown-toggle table-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button></div>',
@@ -137,8 +137,7 @@ define([
             var thisComp = this;
 
             $("#table1").dataTable({
-                // dom: '<"pull-left"f><"pull-right"p>"irt<"#bottomPagination">',
-                dom: '<"middle-search"f>',
+                dom: '<"middle-search"f>t<"mid-pagination-row"<"pagi-left"i><"pagi-right"p>>',
                 data: folderSet,
                 columns: [
                     { data: "checkbox" },
@@ -155,7 +154,7 @@ define([
                 ],
                 columnDefs: [
                     { sClass: "d-none", targets: [2] },
-
+                    { sClass: "data-cols", targets: [1, 2] },
                     { bSortable: false, aTargets: [2, 3] },
                     { orderDataType: "data-sort", targets: 0 },
                 ],
@@ -164,7 +163,7 @@ define([
                     emptyTable: "Empty",
                     sSearch: "",
                     searchPlaceholder: "Find something...",
-                    info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                    info: "Showing _START_ - _END_ of _TOTAL_ result",
                     paginate: {
                         sPrevious: "<i class='fa fa-chevron-left'></i>",
                         sNext: "<i class='fa fa-chevron-right'></i>",
@@ -173,26 +172,26 @@ define([
             });
 
             $("#table2").dataTable({
-                // dom: '<"pull-left"f><"pull-right"p>"irt<"#bottomPagination">',
-                dom: '<"middle-search"f>',
+                dom: '<"middle-search"f>t<"mid-pagination-row"<"pagi-left"i><"pagi-right"p>>',
                 data: tagSet,
                 columns: [
                     { data: "checkbox" },
                     { data: "label" },
-                    { data: "edit" },
+                    // { data: "edit" },
                     { data: "delete" },
                     { data: "options" },
                 ],
                 columnDefs: [
+                    { sClass: "data-cols", targets: [1] },
                     { bSortable: false, aTargets: [1] },
                     { orderDataType: "data-sort", targets: 0 },
                 ],
-                order: [[0, "desc"]],
+                order: [[1, "desc"]],
                 language: {
                     emptyTable: "Empty",
                     sSearch: "",
                     searchPlaceholder: "Find something...",
-                    info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                    info: "Showing _START_ - _END_ of _TOTAL_ result",
                     paginate: {
                         sPrevious: "<i class='fa fa-chevron-left'></i>",
                         sNext: "<i class='fa fa-chevron-right'></i>",
@@ -217,9 +216,6 @@ define([
                         );
 
                         $.each(folders, function (fldIndex, fldData) {
-                            //console.log(fldData['name']);
-                            //console.log(fldData['name']==seed);
-
                             if (fldData["name"] == seed) {
                                 isSuccess = false;
                             }
@@ -248,9 +244,6 @@ define([
                     console.log(seed);
 
                     $.each(tags, function (tagIndex, tagData) {
-                        //	console.log(fldData['name']);
-                        //	console.log(fldData['name']==seed);
-
                         if (tagIndex == seed) {
                             isSuccess = false;
                         }
@@ -261,8 +254,6 @@ define([
                     } else {
                         return false;
                     }
-
-                    //return true;
                 },
                 "Label Already Exist"
             );
@@ -284,8 +275,6 @@ define([
             $("#expireFold").rules("add", {
                 required: true,
             });
-
-            //this.handleClick('addFolder');
         },
 
         componentWillUpdate: function (nextProps, nextState) {
@@ -864,7 +853,7 @@ define([
                                             <col />
                                             <col width="50" />
                                             <col width="40" />
-                                            <col width="50" />
+                                            <col width="40" />
                                         </colgroup>
                                         <thead>
                                             <tr>
@@ -939,25 +928,23 @@ define([
                                             <col width="40" />
                                             <col />
                                             <col width="50" />
-                                            <col width="40" />
                                             <col width="50" />
                                         </colgroup>
                                         <thead>
                                             <tr>
                                                 <th scope="col">
                                                     <label className="container-checkbox">
-                                                        <input
-                                                            type="checkbox"
-                                                            onclick="toggle(this)"
-                                                        />
-                                                        <span className="checkmark"></span>{" "}
+                                                        <input type="checkbox" />
+                                                        <span className="checkmark"></span>
                                                     </label>
                                                 </th>
-                                                <th scope="col">
+                                                <th
+                                                    scope="col"
+                                                    className="name-width"
+                                                >
                                                     Title
                                                     <button className="btn-sorting"></button>
                                                 </th>
-                                                <th scope="col"></th>
                                                 <th scope="col">
                                                     <button className="trash-btn"></button>
                                                 </th>

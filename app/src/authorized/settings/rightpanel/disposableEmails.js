@@ -875,7 +875,6 @@ define([
                                                 <col width="40" />
                                                 <col />
                                                 <col width="40" />
-                                                <col width="40" />
                                                 <col width="50" />
                                             </colgroup>
                                             <thead>
@@ -890,7 +889,6 @@ define([
                                                         Email{" "}
                                                         <button className="btn-sorting"></button>
                                                     </th>
-                                                    <td>&nbsp;</td>
                                                     <th scope="col">
                                                         <button className="trash-btn"></button>
                                                     </th>
@@ -1299,7 +1297,7 @@ define([
                         checkbox:
                             '<label class="container-checkbox"><input type="checkbox" name="inbox-email" /><span class="checkmark"></span></label>',
                         email: app.transform.from64str(emailData["email"]),
-                        dispose: '<button class="disposed-button"></button>',
+                        // dispose: '<button class="disposed-button"></button>',
                         delete: '<button class="table-icon delete-button"></button>',
                         options:
                             '<div class="dropdown"><button class="btn btn-secondary dropdown-toggle table-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button></div>',
@@ -1337,25 +1335,25 @@ define([
             var thsComp = this;
 
             $("#table2").dataTable({
-                dom: '<"middle-search"f>',
+                dom: '<"middle-search"f>t<"mid-pagination-row"<"pagi-left"i><"pagi-right"p>>',
                 data: thsComp.getDisposableDataData(),
                 columns: [
                     { data: "checkbox" },
                     { data: "email" },
-                    { data: "dispose" },
+                    // { data: "dispose" },
                     { data: "delete" },
                     { data: "options" },
                 ],
                 columnDefs: [
-                    { bSortable: false, aTargets: [2] },
                     { orderDataType: "data-sort", targets: 1 },
+                    { sClass: "data-cols", targets: [1] },
                 ],
                 order: [[1, "asc"]],
                 language: {
                     emptyTable: "Empty",
                     sSearch: "",
                     searchPlaceholder: "Find something...",
-                    info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                    info: "Showing _START_ - _END_ of _TOTAL_ result",
                     infoEmpty: "No entries",
                     paginate: {
                         sPrevious: "<i class='fa fa-chevron-left'></i>",

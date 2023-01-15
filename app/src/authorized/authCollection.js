@@ -12,6 +12,7 @@ define([
     "cmpld/modals/askForPass",
     "cmpld/modals/dialogPop",
     "cmpld/modals/dontInterrupt",
+    "cmpld/modals/loading",
     "offline",
 ], function (
     React,
@@ -27,6 +28,7 @@ define([
     AskForPass,
     DialogPop,
     DontInterrupt,
+    Loading,
     offline
 ) {
     return React.createClass({
@@ -117,10 +119,13 @@ define([
                     app.user.get("profileVersion") > 1
                 ) {
                     body = (
-                        <SettingsCollection
-                            rightPanel={this.props.rightPanel}
-                            activePage={this.props.activePage}
-                        />
+                        <div>
+                            <Loading />
+                            <SettingsCollection
+                                rightPanel={this.props.rightPanel}
+                                activePage={this.props.activePage}
+                            />
+                        </div>
                     );
                 } else if (
                     page == "settings" &&

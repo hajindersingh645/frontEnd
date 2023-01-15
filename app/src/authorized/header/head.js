@@ -127,7 +127,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                         <div className="right-top-data">
                             <div className="icon-notification">
                                 <button>
-                                    <span></span>
+                                    <span>12</span>
                                 </button>
                             </div>
                             <div className="user-dropdown">

@@ -170,6 +170,13 @@ define(["react", "app", "qrcode", "cmpld/authorized/settings/rightpanel/rightTop
          */
         handleClick: function (action, event) {
             switch (action) {
+                case "copyClipboard":
+                    if (!navigator.clipboard) {} else {
+                        try {
+                            navigator.clipboard.writeText($(event.target).parent(".blue-bg-text").find(".to-copy").text()).then(function () {});
+                        } catch (e) {}
+                    }
+                    break;
                 case "show1Panel":
                     this.handleClick("resetGoogleForm");
                     //this.whatToShow();
@@ -856,6 +863,39 @@ define(["react", "app", "qrcode", "cmpld/authorized/settings/rightpanel/rightTop
                                         target: `_blank`
                                     },
                                     "https://www.yubico.com/start/"
+                                ),
+                                React.createElement(
+                                    "a",
+                                    {
+                                        className: "__copy",
+                                        onClick: this.handleClick.bind(this, "copyClipboard")
+                                    },
+                                    React.createElement(
+                                        "span",
+                                        { className: "icon" },
+                                        React.createElement(
+                                            "svg",
+                                            {
+                                                width: "20",
+                                                height: "20",
+                                                viewBox: "0 0 17 17",
+                                                fill: "none",
+                                                xmlns: "http://www.w3.org/2000/svg"
+                                            },
+                                            React.createElement("path", {
+                                                d: "M10.625 8.97812V11.2094C10.625 13.0688 9.88125 13.8125 8.02188 13.8125H5.79063C3.93125 13.8125 3.1875 13.0688 3.1875 11.2094V8.97812C3.1875 7.11875 3.93125 6.375 5.79063 6.375H8.02188C9.88125 6.375 10.625 7.11875 10.625 8.97812Z",
+                                                strokeWidth: "1.0625",
+                                                strokeLinecap: "round",
+                                                strokeLinejoin: "round"
+                                            }),
+                                            React.createElement("path", {
+                                                d: "M13.8125 5.79063V8.02188C13.8125 9.88125 13.0688 10.625 11.2094 10.625H10.625V8.97812C10.625 7.11875 9.88125 6.375 8.02188 6.375H6.375V5.79063C6.375 3.93125 7.11875 3.1875 8.97812 3.1875H11.2094C13.0688 3.1875 13.8125 3.93125 13.8125 5.79063Z",
+                                                strokeWidth: "1.0625",
+                                                strokeLinecap: "round",
+                                                strokeLinejoin: "round"
+                                            })
+                                        )
+                                    )
                                 )
                             )
                         )

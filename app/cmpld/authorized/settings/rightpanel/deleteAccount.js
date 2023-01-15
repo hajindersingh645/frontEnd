@@ -88,7 +88,7 @@ define(["react", "app", "accounting", "cmpld/authorized/settings/rightpanel/righ
                         { className: "middle-content red-border" },
                         React.createElement(
                             "div",
-                            { className: "middle-content-top" },
+                            { className: "middle-content-top with-stacked" },
                             React.createElement(
                                 "h3",
                                 null,

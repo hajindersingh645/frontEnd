@@ -28,9 +28,9 @@ define([
                     adminPanel: "",
                 },
                 setTabs: {
-                    Header: "panel-title personal-info-title hidden-xs",
+                    Header: "panel-title personal-info-title d-none-xs",
                     HeaderXS:
-                        "panel-title personal-info-title settings-tab-xs visible-xs",
+                        "panel-title personal-info-title settings-tab-xs d-block-xs",
                 },
                 classes: {
                     rightClass: "",

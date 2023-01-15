@@ -149,7 +149,11 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                             React.createElement(
                                 "button",
                                 null,
-                                React.createElement("span", null)
+                                React.createElement(
+                                    "span",
+                                    null,
+                                    "12"
+                                )
                             )
                         ),
                         React.createElement(
