@@ -347,12 +347,69 @@ define([
                     );
 
                     break;
-
-                case "selectRow":
-                    var id = $(event.target).parents("tr").attr("id");
-                    if (id != undefined) {
-                        this.handleClick("editRule", id);
+                case "handleSelectAll":
+                    if (event.target.checked) {
+                        $("table .container-checkbox input").prop(
+                            "checked",
+                            true
+                        );
+                        $("table tr").addClass("selected");
+                    } else {
+                        $("table .container-checkbox input").prop(
+                            "checked",
+                            false
+                        );
+                        $("table tr").removeClass("selected");
                     }
+
+                    break;
+                case "selectRow":
+                    var thisComp = this;
+                    if (
+                        $(event.target).prop("tagName").toUpperCase() ===
+                        "INPUT"
+                    ) {
+                        if (event.target.checked) {
+                            $(event.target).closest("tr").addClass("selected");
+                        } else {
+                            $(event.target)
+                                .closest("tr")
+                                .removeClass("selected");
+                        }
+                    }
+
+                    // Edit click functionality
+                    if ($(event.target).prop("tagName").toUpperCase() === "A") {
+                        var id = $(event.target).parents("tr").attr("id");
+
+                        if (id != undefined) {
+                            thisComp.setState({
+                                ruleId: id,
+                            });
+                            thisComp.handleClick("editRule", id);
+                        }
+                    }
+                    // Delete click functionality
+                    if (
+                        $(event.target).prop("tagName").toUpperCase() ===
+                        "BUTTON"
+                    ) {
+                        if (event.target.classList.contains("delete-button")) {
+                            var id = $(event.target).parents("tr").attr("id");
+
+                            if (id != undefined) {
+                                thisComp.setState({
+                                    ruleId: id,
+                                });
+                                thisComp.handleClick("deleteRule", id);
+                            }
+                        }
+                    }
+
+                    // var id = $(event.target).parents("tr").attr("id");
+                    // if (id != undefined) {
+                    //     this.handleClick("editRule", id);
+                    // }
 
                     break;
             }
@@ -470,7 +527,13 @@ define([
                                             <tr>
                                                 <th scope="col">
                                                     <label className="container-checkbox">
-                                                        <input type="checkbox" />
+                                                        <input
+                                                            type="checkbox"
+                                                            onChange={this.handleClick.bind(
+                                                                this,
+                                                                "handleSelectAll"
+                                                            )}
+                                                        />
                                                         <span className="checkmark"></span>
                                                     </label>
                                                 </th>

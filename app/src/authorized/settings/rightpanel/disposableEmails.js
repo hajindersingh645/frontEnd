@@ -754,15 +754,35 @@ define([
                     var thisComp = this;
                     var keys = app.user.get("allKeys");
 
+                    // Select element
                     if (
-                        $(event.target).parents("a").attr("class") ==
-                        "deleteDispos"
+                        $(event.target).prop("tagName").toUpperCase() ===
+                        "INPUT"
                     ) {
-                        thisComp.setState({
-                            aliasId: $(event.target).parents("tr").attr("id"),
-                        });
+                        if (event.target.checked) {
+                            $(event.target).closest("tr").addClass("selected");
+                        } else {
+                            $(event.target)
+                                .closest("tr")
+                                .removeClass("selected");
+                        }
+                    }
 
-                        thisComp.handleClick("deleteDisposable");
+                    // Delete click functionality
+                    if (
+                        $(event.target).prop("tagName").toUpperCase() ===
+                        "BUTTON"
+                    ) {
+                        if (event.target.classList.contains("delete-button")) {
+                            var id = $(event.target).parents("tr").attr("id");
+
+                            if (id != undefined) {
+                                thisComp.setState({
+                                    aliasId: id,
+                                });
+                                thisComp.handleClick("deleteDisposable");
+                            }
+                        }
                     }
 
                     break;
@@ -771,6 +791,22 @@ define([
                     this.setState({
                         viewFlag: !this.state.viewFlag,
                     });
+                    break;
+                case "handleSelectAll":
+                    if (event.target.checked) {
+                        $("table .container-checkbox input").prop(
+                            "checked",
+                            true
+                        );
+                        $("table tr").addClass("selected");
+                    } else {
+                        $("table .container-checkbox input").prop(
+                            "checked",
+                            false
+                        );
+                        $("table tr").removeClass("selected");
+                    }
+
                     break;
             }
         },
@@ -800,8 +836,6 @@ define([
         },
 
         render: function () {
-            var classFullSettSelect = "col-xs-12";
-
             return (
                 <div id="rightSettingPanel">
                     <div className="setting-middle disposable-email">
@@ -881,7 +915,13 @@ define([
                                                 <tr>
                                                     <th scope="col">
                                                         <label className="container-checkbox">
-                                                            <input type="checkbox" />
+                                                            <input
+                                                                type="checkbox"
+                                                                onChange={this.handleClick.bind(
+                                                                    this,
+                                                                    "handleSelectAll"
+                                                                )}
+                                                            />
                                                             <span className="checkmark"></span>
                                                         </label>
                                                     </th>
@@ -1153,20 +1193,6 @@ define([
                                             ></div>
                                         </div>
                                         <div className="form-section-bottom">
-                                            <div className="delete-item">
-                                                <button
-                                                    type="button"
-                                                    className={
-                                                        this.state.deleteAlias
-                                                    }
-                                                    onClick={this.handleClick.bind(
-                                                        this,
-                                                        "deleteAlias"
-                                                    )}
-                                                >
-                                                    Delete Alias
-                                                </button>
-                                            </div>
                                             <div className="btn-row">
                                                 <button
                                                     type="button"

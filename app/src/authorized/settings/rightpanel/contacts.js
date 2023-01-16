@@ -25,7 +25,7 @@ define([
                 button1onClick: "addNewContact",
 
                 button2text: "Save",
-                button2onClick: "saveContact",
+                button2onClick: "saveNewContact",
 
                 button3enabled: true,
                 button3visible: "",
@@ -197,6 +197,7 @@ define([
             switch (action) {
                 case "showFirst":
                     this.setState({
+                        viewFlag: false,
                         firstPanelClass: "panel-body",
                         secondPanelClass: "panel-body d-none",
                         firstTab: "active",
@@ -312,6 +313,7 @@ define([
 
                     break;
                 case "selectRow":
+                    var thisComp = this;
                     if (
                         $(event.target).prop("tagName").toUpperCase() ===
                         "INPUT"
@@ -324,16 +326,33 @@ define([
                                 .removeClass("selected");
                         }
                     }
-                    // var thisComp = this;
+                    // Edit click functionality
+                    if ($(event.target).prop("tagName").toUpperCase() === "A") {
+                        var id = $(event.target).parents("tr").attr("id");
 
-                    // var id = $(event.target).parents("tr").attr("id");
+                        if (id != undefined) {
+                            thisComp.setState({
+                                contactId: id,
+                            });
+                            thisComp.handleClick("editContact", id);
+                        }
+                    }
+                    // Delete click functionality
+                    if (
+                        $(event.target).prop("tagName").toUpperCase() ===
+                        "BUTTON"
+                    ) {
+                        if (event.target.classList.contains("delete-button")) {
+                            var id = $(event.target).parents("tr").attr("id");
 
-                    // if (id != undefined) {
-                    //     thisComp.setState({
-                    //         contactId: id,
-                    //     });
-                    //     thisComp.handleClick("editContact", id);
-                    // }
+                            if (id != undefined) {
+                                thisComp.setState({
+                                    contactId: id,
+                                });
+                                thisComp.handleClick("deleteContact", id);
+                            }
+                        }
+                    }
 
                     break;
 
@@ -353,6 +372,7 @@ define([
                         }
                     );
                     this.setState({
+                        viewFlag: true,
                         firstPanelClass: "panel-body d-none",
                         secondPanelClass: "panel-body",
                         firstTab: "active",
@@ -489,6 +509,7 @@ define([
                 case "toggleDisplay":
                     this.setState({
                         viewFlag: !this.state.viewFlag,
+                        button4visible: "d-none",
                     });
                     break;
             }

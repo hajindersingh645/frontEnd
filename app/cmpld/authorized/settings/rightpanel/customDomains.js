@@ -58,7 +58,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                 dom: '<"middle-search"f>t<"mid-pagination-row"<"pagi-left"i><"pagi-right"p>>',
                 data: [],
 
-                columns: [{ data: "domain" }, { data: "status" }],
+                columns: [{ data: "checkbox" }, { data: "domain" }, { data: "check" }, { data: "delete" }, { data: "options" }],
                 columnDefs: [{ sClass: "data-cols", targets: [1] }, { orderDataType: "data-sort", targets: 1 }],
 
                 language: {
@@ -194,14 +194,20 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
 
                             var el = {
                                 DT_RowId: domain64,
+                                checkbox: '<label class="container-checkbox"><input type="checkbox" name="inbox-email" /><span class="checkmark"></span></label>',
                                 domain: app.transform.from64str(domain64),
-                                status: inf
+                                check: '<button class="check-button"></button>',
+                                delete: '<button class="table-icon delete-button">' + inf + "</button>",
+                                options: '<div class="dropdown"><button class="btn btn-secondary dropdown-toggle table-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button></div>'
                             };
                         } else {
                             var el = {
                                 DT_RowId: domain64,
+                                checkbox: '<label class="container-checkbox"><input type="checkbox" name="inbox-email" /><span class="checkmark"></span></label>',
                                 domain: app.transform.from64str(domain64),
-                                status: '<a class="deleteDomain">delete</a>'
+                                check: '<button class="check-button"></button>',
+                                delete: '<button class="table-icon delete-button deleteDomain"></button>',
+                                options: '<div class="dropdown"><button class="btn btn-secondary dropdown-toggle table-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button></div>'
                             };
                         }
 
@@ -227,6 +233,16 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
          */
         handleClick: function (action, event) {
             switch (action) {
+                case "handleSelectAll":
+                    if (event.target.checked) {
+                        $("table .container-checkbox input").prop("checked", true);
+                        $("table tr").addClass("selected");
+                    } else {
+                        $("table .container-checkbox input").prop("checked", false);
+                        $("table tr").removeClass("selected");
+                    }
+
+                    break;
                 case "email":
                     break;
                 case "copyToClipboard":
@@ -578,18 +594,39 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                 case "selectRow":
                     //domainID:""
 
-                    var id = $(event.target).parents("tr").attr("id");
-                    if (id != undefined) {
-                        this.setState({
-                            domainID: $(event.target).parents("tr").attr("id")
-                        });
-                        this.handleClick("showThird", $(event.target).parents("tr").attr("id"));
+                    // Select row
+                    if ($(event.target).prop("tagName").toUpperCase() === "INPUT") {
+                        if (event.target.checked) {
+                            $(event.target).closest("tr").addClass("selected");
+                        } else {
+                            $(event.target).closest("tr").removeClass("selected");
+                        }
                     }
 
-                    //$(event.target).parents('tr').toggleClass('highlight');
-                    //console.log($(event.target).parents('a').attr("class"));
+                    // Delete click functionality
+                    if ($(event.target).prop("tagName").toUpperCase() === "BUTTON") {
+                        if (event.target.classList.contains("delete-button")) {
+                            var id = $(event.target).parents("tr").attr("id");
 
-                    //console.log($(event.target).attr("class"));
+                            if (id != undefined) {
+                                thisComp.setState({
+                                    domainID: $(event.target).parents("tr").attr("id")
+                                });
+                                thisComp.handleClick("deleteContact", id);
+                            }
+                        }
+                    }
+
+                    // var id = $(event.target).parents("tr").attr("id");
+                    // if (id != undefined) {
+                    //     this.setState({
+                    //         domainID: $(event.target).parents("tr").attr("id"),
+                    //     });
+                    //     this.handleClick(
+                    //         "showThird",
+                    //         $(event.target).parents("tr").attr("id")
+                    //     );
+                    // }
 
                     break;
                 case "toggleDisplay":
@@ -779,19 +816,74 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                                     React.createElement(
                                                         "label",
                                                         { className: "container-checkbox" },
-                                                        React.createElement("input", { type: "checkbox" }),
+                                                        React.createElement("input", {
+                                                            type: "checkbox",
+                                                            onChange: this.handleClick.bind(this, "handleSelectAll")
+                                                        }),
                                                         React.createElement("span", { className: "checkmark" })
                                                     )
                                                 ),
                                                 React.createElement(
                                                     "th",
-                                                    null,
-                                                    "\xA0"
+                                                    { scope: "col" },
+                                                    "Email",
+                                                    " ",
+                                                    React.createElement("button", { className: "btn-sorting" })
                                                 ),
                                                 React.createElement(
                                                     "th",
                                                     null,
                                                     "\xA0"
+                                                ),
+                                                React.createElement(
+                                                    "th",
+                                                    { scope: "col" },
+                                                    React.createElement("button", { className: "trash-btn" })
+                                                ),
+                                                React.createElement(
+                                                    "th",
+                                                    { scope: "col" },
+                                                    React.createElement(
+                                                        "div",
+                                                        { className: "dropdown" },
+                                                        React.createElement("button", {
+                                                            className: "btn btn-secondary dropdown-toggle ellipsis-btn",
+                                                            type: "button",
+                                                            "data-bs-toggle": "dropdown",
+                                                            "aria-expanded": "false"
+                                                        }),
+                                                        React.createElement(
+                                                            "ul",
+                                                            { className: "dropdown-menu" },
+                                                            React.createElement(
+                                                                "li",
+                                                                null,
+                                                                React.createElement(
+                                                                    "a",
+                                                                    { href: "#" },
+                                                                    "Action"
+                                                                )
+                                                            ),
+                                                            React.createElement(
+                                                                "li",
+                                                                null,
+                                                                React.createElement(
+                                                                    "a",
+                                                                    { href: "#" },
+                                                                    "Another action"
+                                                                )
+                                                            ),
+                                                            React.createElement(
+                                                                "li",
+                                                                null,
+                                                                React.createElement(
+                                                                    "a",
+                                                                    { href: "#" },
+                                                                    "Something here"
+                                                                )
+                                                            )
+                                                        )
+                                                    )
                                                 )
                                             )
                                         )
@@ -818,10 +910,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                 { className: "form-section" },
                                 React.createElement(
                                     "form",
-                                    {
-                                        id: "addNewCustomDoaminForm",
-                                        className: ""
-                                    },
+                                    { id: "addNewAliasForm", className: "" },
                                     React.createElement(
                                         "div",
                                         { className: `row` },

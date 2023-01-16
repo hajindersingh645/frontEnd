@@ -11,13 +11,13 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                 "div",
                 null,
                 React.createElement(
-                    "div",
+                    "span",
                     { className: "used_one" },
                     accounting.toFixed(app.user.get("mailboxSize") / 1024 / 1024 / 1024, 2),
                     " ",
-                    "GB"
+                    "GB",
+                    " "
                 ),
-                " ",
                 React.createElement(
                     "span",
                     null,

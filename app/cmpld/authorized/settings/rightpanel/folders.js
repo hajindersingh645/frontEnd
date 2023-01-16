@@ -481,10 +481,54 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
 
                     break;
 
+                case "handleSelectAll":
+                    // get parent table id
+                    var parentTableId = $(event.target).parents("table").attr("id");
+                    if (parentTableId != undefined) {
+                        if (event.target.checked) {
+                            $(`#${ parentTableId }`).find(".container-checkbox input").prop("checked", true);
+                            $(`#${ parentTableId }`).find("tr").addClass("selected");
+                        } else {
+                            $(`#${ parentTableId }`).find(".container-checkbox input").prop("checked", false);
+                            $(`#${ parentTableId }`).find("tr").removeClass("selected");
+                        }
+                    }
+
+                    break;
+
                 case "selectRowTab1":
-                    var id = $(event.target).parents("tr").attr("id");
-                    if (id != undefined) {
-                        this.handleClick("editFolder", id);
+                    var thisComp = this;
+                    if ($(event.target).prop("tagName").toUpperCase() === "INPUT") {
+                        if (event.target.checked) {
+                            $(event.target).closest("tr").addClass("selected");
+                        } else {
+                            $(event.target).closest("tr").removeClass("selected");
+                        }
+                    }
+
+                    // Edit click functionality
+                    if ($(event.target).prop("tagName").toUpperCase() === "B") {
+                        var id = $(event.target).parents("tr").attr("id");
+
+                        if (id != undefined) {
+                            thisComp.setState({
+                                folderId: id
+                            });
+                            thisComp.handleClick("editFolder", id);
+                        }
+                    }
+                    // Delete click functionality
+                    if ($(event.target).prop("tagName").toUpperCase() === "BUTTON") {
+                        if (event.target.classList.contains("delete-button")) {
+                            var id = $(event.target).parents("tr").attr("id");
+
+                            if (id != undefined) {
+                                thisComp.setState({
+                                    folderId: id
+                                });
+                                thisComp.handleClick("deleteFolder", id);
+                            }
+                        }
                     }
 
                     break;
@@ -505,24 +549,32 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                     break;
 
                 case "selectRowTab2":
-                    //$(event.target).parents('tr').toggleClass('highlight');
-
                     var thisComp = this;
                     var tags = app.user.get("tags");
+                    if ($(event.target).prop("tagName").toUpperCase() === "INPUT") {
+                        if (event.target.checked) {
+                            $(event.target).closest("tr").addClass("selected");
+                        } else {
+                            $(event.target).closest("tr").removeClass("selected");
+                        }
+                    }
 
-                    if ($(event.target).parents("a").attr("class") == "deleteLabel") {
-                        delete tags[$(event.target).parents("tr").attr("id")];
+                    // Delete click functionality
+                    if ($(event.target).prop("tagName").toUpperCase() === "BUTTON") {
+                        if (event.target.classList.contains("delete-button")) {
+                            delete tags[$(event.target).parents("tr").attr("id")];
 
-                        app.userObjects.updateObjects("labelSettings", "", function (result) {
-                            if (result == "saved") {
-                                thisComp.setState({
-                                    getTags: thisComp.getTags()
-                                });
-                            } else if (result == "newerFound") {
-                                //app.notifications.systemMessage('newerFnd');
-                                thisComp.handleClick("showFirst");
-                            }
-                        });
+                            app.userObjects.updateObjects("labelSettings", "", function (result) {
+                                if (result == "saved") {
+                                    thisComp.setState({
+                                        getTags: thisComp.getTags()
+                                    });
+                                } else if (result == "newerFound") {
+                                    //app.notifications.systemMessage('newerFnd');
+                                    thisComp.handleClick("showFirst");
+                                }
+                            });
+                        }
                     }
 
                     break;

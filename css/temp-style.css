@@ -15748,6 +15748,7 @@ header .user-dropdown .dropdown-menu li button {
     margin: 0 auto;
     border: none;
     padding: 0;
+    cursor: pointer;
 }
 .middle-section .inbox-list ul li.selected:hover p,
 .table-responsive .table-icon:hover {
@@ -16144,7 +16145,7 @@ textarea::-webkit-scrollbar {
     }
 }
 .left-side {
-    width: 291px;
+    width: 301px;
     float: left;
     left: 0;
     height: 100%;
@@ -16324,7 +16325,7 @@ textarea::-webkit-scrollbar {
 @media screen and (min-width: 1366px) {
     .left-setting {
         display: block !important;
-        width: 21%;
+        /* width: 21%; */
     }
     .left-acco-menu {
         padding: 20px 30px 0 15px;
@@ -17413,6 +17414,14 @@ textarea::-webkit-scrollbar {
     padding: 15px 0;
     border-radius: 0;
 }
+.tab-section .nav-tabs li button.nav-link:not(.active):hover {
+    background: rgb(233, 241, 254);
+}
+.tab-section .nav-tabs li button.nav-link:not(.active):hover span.low-opacity,
+.tab-section .nav-tabs li button.nav-link:not(.active):hover span {
+    background: rgb(213, 229, 253);
+    color: rgb(34, 119, 246);
+}
 .tab-section .nav-tabs li .nav-link span {
     font-size: 10px;
     padding: 4px 6px;
@@ -17423,6 +17432,9 @@ textarea::-webkit-scrollbar {
     width: 100%;
     float: left;
     display: block;
+}
+.tab-section .tab-content-left .btn-group > .radio-box:not(:last-child) {
+    margin-bottom: 6px;
 }
 .tab-section .tab-content-left .btn {
     width: 100%;
@@ -17476,7 +17488,7 @@ textarea::-webkit-scrollbar {
     font-weight: 700;
     font-size: 20px;
 }
-.tab-section .tab-content-left .btn .plan-price span {
+.tab-section .tab-content-left .btn .plan-price span.duration {
     font-weight: 500;
     font-size: 10px;
 }
@@ -17599,7 +17611,7 @@ textarea::-webkit-scrollbar {
     .tab-section .tab-content-left .btn .plan-price {
         font-size: 24px;
     }
-    .tab-section .tab-content-left .btn .plan-price span {
+    .tab-section .tab-content-left .btn .plan-price span.duration {
         font-size: 12px;
     }
     .tab-section .tab-content-right {
@@ -17640,12 +17652,12 @@ textarea::-webkit-scrollbar {
         /* width: 709px;
         left: 291px; */
         width: 50%;
-        left: 21%;
+        left: 301px;
         padding: 8px;
     }
     .setting-right {
         /* width: calc(100% - 1000px); */
-        width: 29%;
+        width: calc(50% - 301px);
         padding: 0;
     }
     .setting-right .setting-right-top {
@@ -17694,7 +17706,7 @@ textarea::-webkit-scrollbar {
         /* width: 709px;
         left: 291px; */
         width: 50%;
-        left: 21%;
+        left: 301px;
         padding: 8px;
     }
     .setting-middle .middle-content {
@@ -18448,8 +18460,10 @@ textarea {
     color: #415067;
 }
 .tab-section .nav-tabs li .nav-link.active {
-    background: rgba(34, 119, 246, 0.1);
-    color: #0b4db0;
+    /* background: rgba(34, 119, 246, 0.1);
+    color: #0b4db0; */
+    background: rgba(34, 119, 246, 1);
+    color: #fff;
 }
 .tab-section .nav-tabs li .nav-link span {
     background: #f37d58;
@@ -18462,6 +18476,7 @@ textarea {
 .tab-section .tab-content-left .btn {
     border: 2px solid #fff;
     color: #415067;
+    background: rgb(251, 252, 252);
 }
 .tab-section .tab-content-left .btn .dot {
     background: #fff;
@@ -18875,8 +18890,9 @@ progress {
 .storage-count .used_one,
 .storage-count .used_one span {
     color: #415067 !important;
-    opacity: 1;
-    font-weight: 700;
+    opacity: 1 !important;
+    font-weight: 700 !important;
+    display: inline;
 }
 .offcanvas-start {
     width: 290px;

@@ -2246,7 +2246,7 @@ define([
                                                                 </span>{" "}
                                                                 <span className="plan-price">
                                                                     $0.00{" "}
-                                                                    <span>
+                                                                    <span className="duration">
                                                                         / Month
                                                                     </span>
                                                                 </span>{" "}
@@ -2274,7 +2274,7 @@ define([
                                                                 </span>{" "}
                                                                 <span className="plan-price">
                                                                     $24{" "}
-                                                                    <span>
+                                                                    <span className="duration">
                                                                         / Month
                                                                     </span>
                                                                 </span>{" "}
@@ -2302,7 +2302,7 @@ define([
                                                                 </span>{" "}
                                                                 <span className="plan-price">
                                                                     $60{" "}
-                                                                    <span>
+                                                                    <span className="duration">
                                                                         / Month
                                                                     </span>
                                                                 </span>{" "}
@@ -2330,7 +2330,7 @@ define([
                                                                 </span>{" "}
                                                                 <span className="plan-price">
                                                                     $180{" "}
-                                                                    <span>
+                                                                    <span className="duration">
                                                                         / Month
                                                                     </span>
                                                                 </span>{" "}
@@ -2415,7 +2415,7 @@ define([
                                                                 </span>{" "}
                                                                 <span className="plan-price">
                                                                     $0.00{" "}
-                                                                    <span>
+                                                                    <span className="duration">
                                                                         / Month
                                                                     </span>
                                                                 </span>{" "}
@@ -2443,7 +2443,7 @@ define([
                                                                 </span>{" "}
                                                                 <span className="plan-price">
                                                                     $24{" "}
-                                                                    <span>
+                                                                    <span className="duration">
                                                                         / Month
                                                                     </span>
                                                                 </span>{" "}
@@ -2471,7 +2471,7 @@ define([
                                                                 </span>{" "}
                                                                 <span className="plan-price">
                                                                     $60{" "}
-                                                                    <span>
+                                                                    <span className="duration">
                                                                         / Month
                                                                     </span>
                                                                 </span>{" "}
@@ -2499,7 +2499,7 @@ define([
                                                                 </span>{" "}
                                                                 <span className="plan-price">
                                                                     $180{" "}
-                                                                    <span>
+                                                                    <span className="duration">
                                                                         / Month
                                                                     </span>
                                                                 </span>{" "}
@@ -2584,7 +2584,7 @@ define([
                                                                 </span>{" "}
                                                                 <span className="plan-price">
                                                                     $0.00{" "}
-                                                                    <span>
+                                                                    <span className="duration">
                                                                         / Month
                                                                     </span>
                                                                 </span>{" "}
@@ -2612,7 +2612,7 @@ define([
                                                                 </span>{" "}
                                                                 <span className="plan-price">
                                                                     $24{" "}
-                                                                    <span>
+                                                                    <span className="duration">
                                                                         / Month
                                                                     </span>
                                                                 </span>{" "}
@@ -2640,7 +2640,7 @@ define([
                                                                 </span>{" "}
                                                                 <span className="plan-price">
                                                                     $60{" "}
-                                                                    <span>
+                                                                    <span className="duration">
                                                                         / Month
                                                                     </span>
                                                                 </span>{" "}
@@ -2668,7 +2668,7 @@ define([
                                                                 </span>{" "}
                                                                 <span className="plan-price">
                                                                     $180{" "}
-                                                                    <span>
+                                                                    <span className="duration">
                                                                         / Month
                                                                     </span>
                                                                 </span>{" "}

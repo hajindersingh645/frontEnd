@@ -63,7 +63,13 @@ define([
                 dom: '<"middle-search"f>t<"mid-pagination-row"<"pagi-left"i><"pagi-right"p>>',
                 data: [],
 
-                columns: [{ data: "domain" }, { data: "status" }],
+                columns: [
+                    { data: "checkbox" },
+                    { data: "domain" },
+                    { data: "check" },
+                    { data: "delete" },
+                    { data: "options" },
+                ],
                 columnDefs: [
                     { sClass: "data-cols", targets: [1] },
                     { orderDataType: "data-sort", targets: 1 },
@@ -237,14 +243,27 @@ define([
 
                                 var el = {
                                     DT_RowId: domain64,
+                                    checkbox:
+                                        '<label class="container-checkbox"><input type="checkbox" name="inbox-email" /><span class="checkmark"></span></label>',
                                     domain: app.transform.from64str(domain64),
-                                    status: inf,
+                                    check: '<button class="check-button"></button>',
+                                    delete:
+                                        '<button class="table-icon delete-button">' +
+                                        inf +
+                                        "</button>",
+                                    options:
+                                        '<div class="dropdown"><button class="btn btn-secondary dropdown-toggle table-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button></div>',
                                 };
                             } else {
                                 var el = {
                                     DT_RowId: domain64,
+                                    checkbox:
+                                        '<label class="container-checkbox"><input type="checkbox" name="inbox-email" /><span class="checkmark"></span></label>',
                                     domain: app.transform.from64str(domain64),
-                                    status: '<a class="deleteDomain">delete</a>',
+                                    check: '<button class="check-button"></button>',
+                                    delete: '<button class="table-icon delete-button deleteDomain"></button>',
+                                    options:
+                                        '<div class="dropdown"><button class="btn btn-secondary dropdown-toggle table-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button></div>',
                                 };
                             }
 
@@ -271,6 +290,22 @@ define([
          */
         handleClick: function (action, event) {
             switch (action) {
+                case "handleSelectAll":
+                    if (event.target.checked) {
+                        $("table .container-checkbox input").prop(
+                            "checked",
+                            true
+                        );
+                        $("table tr").addClass("selected");
+                    } else {
+                        $("table .container-checkbox input").prop(
+                            "checked",
+                            false
+                        );
+                        $("table tr").removeClass("selected");
+                    }
+
+                    break;
                 case "email":
                     break;
                 case "copyToClipboard":
@@ -679,21 +714,49 @@ define([
                 case "selectRow":
                     //domainID:""
 
-                    var id = $(event.target).parents("tr").attr("id");
-                    if (id != undefined) {
-                        this.setState({
-                            domainID: $(event.target).parents("tr").attr("id"),
-                        });
-                        this.handleClick(
-                            "showThird",
-                            $(event.target).parents("tr").attr("id")
-                        );
+                    // Select row
+                    if (
+                        $(event.target).prop("tagName").toUpperCase() ===
+                        "INPUT"
+                    ) {
+                        if (event.target.checked) {
+                            $(event.target).closest("tr").addClass("selected");
+                        } else {
+                            $(event.target)
+                                .closest("tr")
+                                .removeClass("selected");
+                        }
                     }
 
-                    //$(event.target).parents('tr').toggleClass('highlight');
-                    //console.log($(event.target).parents('a').attr("class"));
+                    // Delete click functionality
+                    if (
+                        $(event.target).prop("tagName").toUpperCase() ===
+                        "BUTTON"
+                    ) {
+                        if (event.target.classList.contains("delete-button")) {
+                            var id = $(event.target).parents("tr").attr("id");
 
-                    //console.log($(event.target).attr("class"));
+                            if (id != undefined) {
+                                thisComp.setState({
+                                    domainID: $(event.target)
+                                        .parents("tr")
+                                        .attr("id"),
+                                });
+                                thisComp.handleClick("deleteContact", id);
+                            }
+                        }
+                    }
+
+                    // var id = $(event.target).parents("tr").attr("id");
+                    // if (id != undefined) {
+                    //     this.setState({
+                    //         domainID: $(event.target).parents("tr").attr("id"),
+                    //     });
+                    //     this.handleClick(
+                    //         "showThird",
+                    //         $(event.target).parents("tr").attr("id")
+                    //     );
+                    // }
 
                     break;
                 case "toggleDisplay":
@@ -847,12 +910,53 @@ define([
                                                 <tr>
                                                     <th scope="col">
                                                         <label className="container-checkbox">
-                                                            <input type="checkbox" />
+                                                            <input
+                                                                type="checkbox"
+                                                                onChange={this.handleClick.bind(
+                                                                    this,
+                                                                    "handleSelectAll"
+                                                                )}
+                                                            />
                                                             <span className="checkmark"></span>
                                                         </label>
                                                     </th>
+                                                    <th scope="col">
+                                                        Email{" "}
+                                                        <button className="btn-sorting"></button>
+                                                    </th>
                                                     <th>&nbsp;</th>
-                                                    <th>&nbsp;</th>
+                                                    <th scope="col">
+                                                        <button className="trash-btn"></button>
+                                                    </th>
+                                                    <th scope="col">
+                                                        <div className="dropdown">
+                                                            <button
+                                                                className="btn btn-secondary dropdown-toggle ellipsis-btn"
+                                                                type="button"
+                                                                data-bs-toggle="dropdown"
+                                                                aria-expanded="false"
+                                                            ></button>
+                                                            <ul className="dropdown-menu">
+                                                                <li>
+                                                                    <a href="#">
+                                                                        Action
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">
+                                                                        Another
+                                                                        action
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">
+                                                                        Something
+                                                                        here
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </th>
                                                 </tr>
                                             </thead>
                                         </table>
@@ -870,10 +974,7 @@ define([
                                 </div>
 
                                 <div className="form-section">
-                                    <form
-                                        id="addNewCustomDoaminForm"
-                                        className=""
-                                    >
+                                    <form id="addNewAliasForm" className="">
                                         <div className={`row`}>
                                             <div className="col-12">
                                                 <div className="form-group">

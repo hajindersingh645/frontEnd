@@ -287,6 +287,7 @@ define([
                 case "showFirst":
                     if (!app.user.get("inProcess")) {
                         this.setState({
+                            viewFlag: false,
                             firstPanelClass: "panel-body",
                             secondPanelClass: "panel-body d-none",
                             firstTab: "active",
@@ -326,7 +327,9 @@ define([
                     var keys = app.user.get("allKeys");
 
                     var id = this.state.keyId;
+                    console.log(keys[id]);
                     this.setState({
+                        viewFlag: true,
                         firstPanelClass: "panel-body d-none",
                         secondPanelClass: "panel-body",
                         firstTab: "active",
@@ -535,6 +538,7 @@ define([
                         firstPanelClass: "panel-body d-none",
                         secondPanelClass: "panel-body",
                         firstTab: "active",
+                        viewFlag: true,
 
                         keyEmail: app.transform.from64str(keys[event]["email"]),
                         keyName: app.transform.from64str(
@@ -568,12 +572,54 @@ define([
 
                     break;
 
+                case "handleSelectAll":
+                    if (event.target.checked) {
+                        $("table .container-checkbox input").prop(
+                            "checked",
+                            true
+                        );
+                        $("table tr").addClass("selected");
+                    } else {
+                        $("table .container-checkbox input").prop(
+                            "checked",
+                            false
+                        );
+                        $("table tr").removeClass("selected");
+                    }
+
+                    break;
+
                 case "selectRow":
                     var thisComp = this;
 
-                    var id = $(event.target).parents("tr").attr("id");
-                    if (id != undefined) {
-                        thisComp.handleClick("viewKey", id);
+                    // var id = $(event.target).parents("tr").attr("id");
+                    // if (id != undefined) {
+                    //     thisComp.handleClick("viewKey", id);
+                    // }
+
+                    // Select row element
+                    if (
+                        $(event.target).prop("tagName").toUpperCase() ===
+                        "INPUT"
+                    ) {
+                        if (event.target.checked) {
+                            $(event.target).closest("tr").addClass("selected");
+                        } else {
+                            $(event.target)
+                                .closest("tr")
+                                .removeClass("selected");
+                        }
+                    }
+                    // Edit click functionality
+                    if ($(event.target).prop("tagName").toUpperCase() === "A") {
+                        var id = $(event.target).parents("tr").attr("id");
+
+                        if (id != undefined) {
+                            thisComp.setState({
+                                keyId: id,
+                            });
+                            thisComp.handleClick("editKey", id);
+                        }
                     }
 
                     break;
@@ -847,7 +893,13 @@ define([
                                                 <tr>
                                                     <th scope="col">
                                                         <label className="container-checkbox">
-                                                            <input type="checkbox" />
+                                                            <input
+                                                                type="checkbox"
+                                                                onChange={this.handleClick.bind(
+                                                                    this,
+                                                                    "handleSelectAll"
+                                                                )}
+                                                            />
                                                             <span className="checkmark"></span>
                                                         </label>
                                                     </th>

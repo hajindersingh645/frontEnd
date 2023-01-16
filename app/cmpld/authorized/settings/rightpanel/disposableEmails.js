@@ -621,12 +621,27 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                     var thisComp = this;
                     var keys = app.user.get("allKeys");
 
-                    if ($(event.target).parents("a").attr("class") == "deleteDispos") {
-                        thisComp.setState({
-                            aliasId: $(event.target).parents("tr").attr("id")
-                        });
+                    // Select element
+                    if ($(event.target).prop("tagName").toUpperCase() === "INPUT") {
+                        if (event.target.checked) {
+                            $(event.target).closest("tr").addClass("selected");
+                        } else {
+                            $(event.target).closest("tr").removeClass("selected");
+                        }
+                    }
 
-                        thisComp.handleClick("deleteDisposable");
+                    // Delete click functionality
+                    if ($(event.target).prop("tagName").toUpperCase() === "BUTTON") {
+                        if (event.target.classList.contains("delete-button")) {
+                            var id = $(event.target).parents("tr").attr("id");
+
+                            if (id != undefined) {
+                                thisComp.setState({
+                                    aliasId: id
+                                });
+                                thisComp.handleClick("deleteDisposable");
+                            }
+                        }
                     }
 
                     break;
@@ -635,6 +650,16 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                     this.setState({
                         viewFlag: !this.state.viewFlag
                     });
+                    break;
+                case "handleSelectAll":
+                    if (event.target.checked) {
+                        $("table .container-checkbox input").prop("checked", true);
+                        $("table tr").addClass("selected");
+                    } else {
+                        $("table .container-checkbox input").prop("checked", false);
+                        $("table tr").removeClass("selected");
+                    }
+
                     break;
             }
         },
@@ -658,8 +683,6 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
         },
 
         render: function () {
-            var classFullSettSelect = "col-xs-12";
-
             return React.createElement(
                 "div",
                 { id: "rightSettingPanel" },
@@ -781,7 +804,10 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                                     React.createElement(
                                                         "label",
                                                         { className: "container-checkbox" },
-                                                        React.createElement("input", { type: "checkbox" }),
+                                                        React.createElement("input", {
+                                                            type: "checkbox",
+                                                            onChange: this.handleClick.bind(this, "handleSelectAll")
+                                                        }),
                                                         React.createElement("span", { className: "checkmark" })
                                                     )
                                                 ),
@@ -1131,19 +1157,6 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                     React.createElement(
                                         "div",
                                         { className: "form-section-bottom" },
-                                        React.createElement(
-                                            "div",
-                                            { className: "delete-item" },
-                                            React.createElement(
-                                                "button",
-                                                {
-                                                    type: "button",
-                                                    className: this.state.deleteAlias,
-                                                    onClick: this.handleClick.bind(this, "deleteAlias")
-                                                },
-                                                "Delete Alias"
-                                            )
-                                        ),
                                         React.createElement(
                                             "div",
                                             { className: "btn-row" },

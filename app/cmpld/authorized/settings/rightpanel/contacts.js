@@ -20,7 +20,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                 button1onClick: "addNewContact",
 
                 button2text: "Save",
-                button2onClick: "saveContact",
+                button2onClick: "saveNewContact",
 
                 button3enabled: true,
                 button3visible: "",
@@ -169,6 +169,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
             switch (action) {
                 case "showFirst":
                     this.setState({
+                        viewFlag: false,
                         firstPanelClass: "panel-body",
                         secondPanelClass: "panel-body d-none",
                         firstTab: "active",
@@ -268,6 +269,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
 
                     break;
                 case "selectRow":
+                    var thisComp = this;
                     if ($(event.target).prop("tagName").toUpperCase() === "INPUT") {
                         if (event.target.checked) {
                             $(event.target).closest("tr").addClass("selected");
@@ -275,16 +277,30 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                             $(event.target).closest("tr").removeClass("selected");
                         }
                     }
-                    // var thisComp = this;
+                    // Edit click functionality
+                    if ($(event.target).prop("tagName").toUpperCase() === "A") {
+                        var id = $(event.target).parents("tr").attr("id");
 
-                    // var id = $(event.target).parents("tr").attr("id");
+                        if (id != undefined) {
+                            thisComp.setState({
+                                contactId: id
+                            });
+                            thisComp.handleClick("editContact", id);
+                        }
+                    }
+                    // Delete click functionality
+                    if ($(event.target).prop("tagName").toUpperCase() === "BUTTON") {
+                        if (event.target.classList.contains("delete-button")) {
+                            var id = $(event.target).parents("tr").attr("id");
 
-                    // if (id != undefined) {
-                    //     thisComp.setState({
-                    //         contactId: id,
-                    //     });
-                    //     thisComp.handleClick("editContact", id);
-                    // }
+                            if (id != undefined) {
+                                thisComp.setState({
+                                    contactId: id
+                                });
+                                thisComp.handleClick("deleteContact", id);
+                            }
+                        }
+                    }
 
                     break;
 
@@ -301,6 +317,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                         });
                     });
                     this.setState({
+                        viewFlag: true,
                         firstPanelClass: "panel-body d-none",
                         secondPanelClass: "panel-body",
                         firstTab: "active",
@@ -395,7 +412,8 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
 
                 case "toggleDisplay":
                     this.setState({
-                        viewFlag: !this.state.viewFlag
+                        viewFlag: !this.state.viewFlag,
+                        button4visible: "d-none"
                     });
                     break;
             }

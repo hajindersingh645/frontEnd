@@ -605,6 +605,7 @@ define([
                         </div>
                     </div>
                     <SyncUserObj />
+                    <DialogPop />
                 </div>
             );
         },

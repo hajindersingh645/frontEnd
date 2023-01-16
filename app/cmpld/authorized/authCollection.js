@@ -821,7 +821,8 @@ define(["react", "app", "xss", "cmpld/authorized/mailbox/mailboxCollection", "cm
                         )
                     )
                 ),
-                React.createElement(SyncUserObj, null)
+                React.createElement(SyncUserObj, null),
+                React.createElement(DialogPop, null)
             );
         }
     });
