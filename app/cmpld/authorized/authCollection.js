@@ -80,12 +80,13 @@ define(["react", "app", "xss", "cmpld/authorized/mailbox/mailboxCollection", "cm
                     body = React.createElement(
                         "div",
                         null,
-                        React.createElement(Loading, null),
                         React.createElement(SettingsCollection, {
                             rightPanel: this.props.rightPanel,
                             activePage: this.props.activePage
                         })
                     );
+
+                    $("#settings-spinner").removeClass("d-block").addClass("d-none");
                 } else if (page == "settings" && app.user.get("profileVersion") == 1 && this.props.activePage == "updateVersion1") {
                     console.log(`settings`);
                     body = React.createElement(SettingsCollection, {
@@ -822,7 +823,15 @@ define(["react", "app", "xss", "cmpld/authorized/mailbox/mailboxCollection", "cm
                     )
                 ),
                 React.createElement(SyncUserObj, null),
-                React.createElement(DialogPop, null)
+                React.createElement(DialogPop, null),
+                React.createElement(DontInterrupt, null),
+                React.createElement(SecondPass, null),
+                React.createElement(LogOutForce, null),
+                React.createElement(InfoPop, null),
+                React.createElement(AskForPass, null),
+                React.createElement(DialogPop, null),
+                React.createElement(DontInterrupt, null),
+                React.createElement(Loading, null)
             );
         }
     });

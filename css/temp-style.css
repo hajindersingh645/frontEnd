@@ -16242,6 +16242,7 @@ textarea::-webkit-scrollbar {
     font-size: 16px;
     color: #415067;
     cursor: pointer;
+    font-weight: 500;
 }
 .left-acco-menu .accordion-button:after {
     width: 11px;
@@ -16255,7 +16256,8 @@ textarea::-webkit-scrollbar {
     text-decoration: none;
     color: #415067;
 }
-.left-acco-menu .accordion-button:not(.collapsed) {
+.left-acco-menu .accordion-button:not(.collapsed),
+.left-acco-menu .accordion-button.active {
     border: none;
     -webkit-box-shadow: none;
     box-shadow: none;
@@ -18146,10 +18148,10 @@ textarea:focus {
 .table-responsive .check-button {
     background: url("../images/icon-check-2.svg") right top/24px no-repeat;
 }
-.table-responsive tbody tr:hover {
+/* .table-responsive tbody tr:hover {
     background: rgba(34, 119, 246, 0.1);
     border-radius: 4px;
-}
+} */
 .table-responsive tbody tr:hover .disposed-button {
     background: url("../images/icon-disposed-blue.svg") right top/24px no-repeat;
 }
@@ -18157,6 +18159,7 @@ textarea:focus {
     background: url("../images/icon-check-2-blue.svg") right top/24px no-repeat;
 }
 .table-responsive tbody tr:hover td {
+    background: rgba(34, 119, 246, 0.1);
     color: #2277f6;
     text-shadow: 0 0 0.01px #2277f6;
 }

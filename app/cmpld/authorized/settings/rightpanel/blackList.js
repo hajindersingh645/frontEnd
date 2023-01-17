@@ -264,22 +264,6 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
                     break;
 
                 case "deleteRule":
-                    var thisComp = this;
-
-                    var post = {
-                        ruleId: thisComp.state.ruleId
-                    };
-
-                    app.serverCall.ajaxRequest("deleteBlockedEmails", post, function (result) {
-                        if (result["response"] == "success") {
-                            thisComp.getFilter(function (filter) {
-                                thisComp.setState({ filterSet: filter });
-                                thisComp.handleClick("showFirst");
-                            });
-                            app.notifications.systemMessage("saved");
-                        }
-                    });
-
                     break;
                 case "handleSelectAll":
                     if (event.target.checked) {
@@ -321,7 +305,7 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
                                 thisComp.setState({
                                     ruleId: id
                                 });
-                                thisComp.handleClick("deleteRule", id);
+                                thisComp.deleteRule(id);
                             }
                         }
                     }
@@ -333,6 +317,24 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
 
                     break;
             }
+        },
+
+        deleteRule: function (id) {
+            var thisComp = this;
+
+            var post = {
+                ruleId: id
+            };
+
+            app.serverCall.ajaxRequest("deleteBlockedEmails", post, function (result) {
+                if (result["response"] == "success") {
+                    thisComp.getFilter(function (filter) {
+                        thisComp.setState({ filterSet: filter });
+                        thisComp.handleClick("showFirst");
+                    });
+                    app.notifications.systemMessage("saved");
+                }
+            });
         },
 
         componentWillUpdate: function (nextProps, nextState) {

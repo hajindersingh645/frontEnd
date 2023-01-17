@@ -16,7 +16,8 @@ define(["react", "app"], function (React, app) {
             return React.createElement(
                 "div",
                 {
-                    className: `in-working popup ${ this.state.active ? "d-block" : "d-none" }`
+                    className: `in-working popup d-none`,
+                    id: "settings-spinner"
                 },
                 React.createElement(
                     "div",

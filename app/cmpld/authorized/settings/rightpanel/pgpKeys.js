@@ -270,50 +270,6 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                     break;
 
                 case "editKey":
-                    var keys = app.user.get("allKeys");
-
-                    var id = this.state.keyId;
-                    console.log(keys[id]);
-                    this.setState({
-                        viewFlag: true,
-                        firstPanelClass: "panel-body d-none",
-                        secondPanelClass: "panel-body",
-                        firstTab: "active",
-
-                        inputSelectDisabled: false,
-                        txtArea1readonly: false,
-                        txtArea2readonly: false,
-                        keyEmail: app.transform.from64str(keys[id]["email"]),
-                        keyName: app.transform.from64str(keys[id]["displayName"]),
-
-                        //	keyBit:keys[id]['keyLength'],
-
-                        txtArea1value: app.transform.from64str(keys[id]["v2"]["publicKey"]),
-                        txtArea2value: app.transform.from64str(keys[id]["v2"]["privateKey"]),
-
-                        //button2enabled:false,
-                        button2enabled: true,
-                        button2text: "Save",
-                        button2onClick: "saveKeys",
-
-                        button3enabled: true,
-                        button3visible: "",
-                        button3text: "Cancel",
-                        button3onClick: "showFirst",
-                        privpassText: keys[id]["keyPass"],
-                        privTextDisabled: false,
-
-                        button4enabled: true,
-                        button4visible: "",
-                        button4iClass: "",
-                        button4text: "Generate New Keys",
-                        button4onClick: "generateNewKeys",
-                        button5class: "d-none",
-
-                        keyDate: keys[id]["date"],
-                        keyModified: keys[id]["keysModified"]
-                    });
-
                     break;
 
                 case "generateNewKeys":
@@ -507,7 +463,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                             thisComp.setState({
                                 keyId: id
                             });
-                            thisComp.handleClick("editKey", id);
+                            thisComp.editKey(id);
                         }
                     }
 
@@ -519,6 +475,53 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                     break;
             }
         },
+
+        editKey: function (id) {
+            var keys = app.user.get("allKeys");
+
+            // var id = this.state.keyId;
+            console.log(keys[id]);
+            this.setState({
+                viewFlag: true,
+                firstPanelClass: "panel-body d-none",
+                secondPanelClass: "panel-body",
+                firstTab: "active",
+
+                inputSelectDisabled: false,
+                txtArea1readonly: false,
+                txtArea2readonly: false,
+                keyEmail: app.transform.from64str(keys[id]["email"]),
+                keyName: app.transform.from64str(keys[id]["displayName"]),
+
+                //	keyBit:keys[id]['keyLength'],
+
+                txtArea1value: app.transform.from64str(keys[id]["v2"]["publicKey"]),
+                txtArea2value: app.transform.from64str(keys[id]["v2"]["privateKey"]),
+
+                //button2enabled:false,
+                button2enabled: true,
+                button2text: "Save",
+                button2onClick: "saveKeys",
+
+                button3enabled: true,
+                button3visible: "",
+                button3text: "Cancel",
+                button3onClick: "showFirst",
+                privpassText: keys[id]["keyPass"],
+                privTextDisabled: false,
+
+                button4enabled: true,
+                button4visible: "",
+                button4iClass: "",
+                button4text: "Generate New Keys",
+                button4onClick: "generateNewKeys",
+                button5class: "d-none",
+
+                keyDate: keys[id]["date"],
+                keyModified: keys[id]["keysModified"]
+            });
+        },
+
         componentWillUpdate: function (nextProps, nextState) {
             if (JSON.stringify(nextState.dataSet) !== JSON.stringify(this.state.dataSet)) {
                 var t = $("#table1").DataTable();
@@ -987,7 +990,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                             React.createElement(
                                                 "div",
                                                 { className: "information-row-right" },
-                                                this.state.keyFingerprint
+                                                this.state.keyFingerprint == `` || this.state.keyFingerprint == undefined || this.state.keyFingerprint == null ? `NA` : this.state.keyFingerprint
                                             )
                                         ),
                                         React.createElement(

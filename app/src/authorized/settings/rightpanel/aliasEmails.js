@@ -35,11 +35,17 @@ define([
                 if (emailData["addrType"] == 3) {
                     var el = {
                         DT_RowId: email64,
+                        checkbox:
+                            '<label class="container-checkbox"><input type="checkbox" name="inbox-email" /><span class="checkmark"></span></label>',
                         email: app.transform.from64str(emailData["email"]),
                         name: app.transform.escapeTags(
                             app.transform.from64str(emailData["name"])
                         ),
                         main: 0,
+                        edit: '<a class="table-icon edit-button"></a>',
+                        delete: '<button class="table-icon delete-button"></button>',
+                        options:
+                            '<div class="dropdown"><button class="btn btn-secondary dropdown-toggle table-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button></div>',
                     };
                     alEm.push(el);
                 }
@@ -174,6 +180,149 @@ define([
             }
         },
         componentWillUnmount: function () {},
+        /**
+         *
+         * @param {string} name
+         * @param {string} email
+         * @param {string} domain
+         * @param {string} type
+         */
+        addAlDisp: function (name, email, domain, type) {
+            //console.log(name,email,domain);
+
+            app.user.set({ inProcess: true });
+
+            var changeObj = {};
+            var firPart = {};
+            var secPart = {};
+            var dfdmail = new $.Deferred();
+            var thisComp = this;
+            var newKey = {};
+            app.user.set({ inProcess: true });
+
+            var email64 = app.transform.to64str(email + domain);
+
+            if (type === "disposable") {
+                firPart = {
+                    addrType: 2,
+                    canSend: false,
+                    email: email64,
+                    isDefault: false,
+                    keyLength: app.user.get("defaultPGPKeybit"),
+                    name: "",
+                    includeSignature: false,
+                    signature: "",
+                    date: Math.round(new Date().getTime() / 1000),
+                    keysModified: Math.round(new Date().getTime() / 1000),
+                };
+
+                //	thisComp.setState({button1:{text:"Generating Keys",enabled:false,iClass:"fa fa-spin fa-refresh",onClick:""}});
+            } else {
+                firPart = {
+                    addrType: 3,
+                    canSend: true,
+                    email: email64,
+                    isDefault: thisComp.state.isDefault,
+                    keyLength: app.user.get("defaultPGPKeybit"),
+                    name: app.transform.to64str(name),
+                    displayName:
+                        name != ""
+                            ? app.transform.to64str(
+                                  name +
+                                      " <" +
+                                      app.transform.from64str(email64) +
+                                      ">"
+                              )
+                            : email64,
+                    includeSignature: this.state.includeSignature,
+                    signature: this.state.includeSignature
+                        ? app.transform.to64str(
+                              app.globalF.filterXSSwhite(this.state.signature)
+                          )
+                        : "",
+                    date: Math.round(new Date().getTime() / 1000),
+                    keysModified: Math.round(new Date().getTime() / 1000),
+                };
+
+                //	thisComp.setState({button2:{text:"Generating Keys",enabled:false,iClass:"fa fa-spin fa-refresh"}});
+            }
+
+            app.generate.generatePairs(
+                app.user.get("defaultPGPKeybit"),
+                name + "<" + app.transform.from64str(email64) + ">",
+                function (PGPkeys) {
+                    //app.generate.generatePairs(app.user.get("defaultPGPKeybit")).done(function(PGPkeys){ //todo revert
+
+                    if (app.user.get("inProcess")) {
+                        secPart = {
+                            keyPass: PGPkeys["password"],
+                            v2: {
+                                privateKey: app.transform.to64str(
+                                    PGPkeys["privateKey"]
+                                ),
+                                publicKey: app.transform.to64str(
+                                    PGPkeys["publicKey"]
+                                ),
+                                receiveHash: app.transform
+                                    .SHA512(app.transform.from64str(email64))
+                                    .substring(0, 10),
+                            },
+                        };
+
+                        //changeObj[email64]=$.extend(firPart, secPart);
+                        //var keys=app.user.get("allKeys");
+
+                        //keys[email64]=$.extend(firPart, secPart);
+                        newKey = $.extend(firPart, secPart);
+                        //console.log(changeObj);
+                    }
+                    dfdmail.resolve();
+                }
+            );
+
+            dfdmail.done(function () {
+                if (app.user.get("inProcess")) {
+                    $("#dntInter").modal("hide");
+
+                    app.user.set({ inProcess: false });
+                    //app.user.set({"pgpKeysChanged":true});
+                    app.user.set({ newPGPKey: newKey });
+                    //app.userObjects.updateObjects();
+
+                    app.userObjects.updateObjects(
+                        "addPGPKey",
+                        "",
+                        function (result) {
+                            if (result == "saved") {
+                                if (type == "disposable") {
+                                    //console.log(app.user.get("newPGPKey"));
+                                    thisComp.setState({
+                                        dataDispisable:
+                                            thisComp.getDisposableDataData(),
+                                    });
+                                } else {
+                                    thisComp.setState({
+                                        dataAlias: thisComp.getAliasData(),
+                                    });
+
+                                    thisComp.handleClick("showFirst");
+
+                                    //thisComp.setState({dataAlias:thisComp.getAliasData()});
+                                }
+                            } else if (result == "newerFound") {
+                                //app.notifications.systemMessage('newerFnd');
+                            } else if (result == "emailAdOverLimit") {
+                                app.notifications.systemMessage("rchdLimits");
+                            } else {
+                                app.notifications.systemMessage("tryAgain");
+                            }
+
+                            app.user.unset("newPGPKey");
+                        }
+                    );
+                }
+            });
+        },
         componentDidMount: function () {
             var thsComp = this;
 
@@ -283,6 +432,44 @@ define([
             switch (action) {
                 case "editAlias":
                     var keys = app.user.get("allKeys")[event];
+
+                    if (keys["addrType"] == 1) {
+                        this.setState({
+                            deleteAlias: "hidden",
+                        });
+                    } else {
+                        this.setState({
+                            deleteAlias: "",
+                        });
+                    }
+
+                    this.setState({
+                        viewFlag: true,
+                        firstPanelClass: "panel-body hidden",
+                        secondPanelClass: "panel-body hidden",
+                        thirdPanelClass: "panel-body hidden",
+                        fourthPanelClass: "panel-body",
+                        firstTab: "active",
+                        secondTab: "",
+
+                        button1enabled: true,
+                        button1iClass: "",
+                        button1visible: "hidden",
+
+                        aliasId: event,
+                        aliasEmail: app.transform.from64str(event),
+                        aliasName: app.transform.from64str(keys["name"]),
+
+                        isDefault: keys["isDefault"],
+                        includeSignature: keys["includeSignature"],
+                        signature: app.transform.from64str(keys["signature"]),
+
+                        aliasNameEnabled: false,
+                        button5click: "enableEdit",
+                        button5text: "Edit",
+                        button5class: "btn btn-warning",
+                        signatureEditable: false,
+                    });
                     break;
                 case "changeDomain":
                     var validator = this.state.aliasForm;
@@ -324,11 +511,160 @@ define([
          */
         handleClick: function (action, event) {
             switch (action) {
-                case "selectRowTab1":
-                    var id = $(event.target).parents("tr").attr("id");
-                    if (id != undefined) {
-                        this.handleChange("editAlias", id);
+                case "showFirst":
+                    this.setState({
+                        viewFlag: false,
+                        firstPanelClass: "panel-body",
+                        secondPanelClass: "panel-body d-none",
+                        thirdPanelClass: "panel-body d-none",
+                        fourthPanelClass: "panel-body d-none",
+                        firstTab: "active",
+                        secondTab: "",
+
+                        button1visible: "",
+
+                        button3visible: "d-none",
+
+                        isDefault: false,
+                        aliasId: "",
+                        aliasName: "",
+                        aliasEmail: "",
+                        domain: app.defaults.get("domainMail").toLowerCase(),
+                        includeSignature: false,
+                        signature: "",
+                        signatureEditable: false,
+                    });
+
+                    $("#fromAliasName").removeClass("invalid");
+                    $("#fromAliasName").removeClass("valid");
+
+                    $("#fromAliasEmail").removeClass("invalid");
+                    $("#fromAliasEmail").removeClass("valid");
+
+                    var validator = $("#addNewAliasForm").validate();
+                    validator.resetForm();
+
+                    break;
+                case "handleSelectAll":
+                    if (event.target.checked) {
+                        $("table .container-checkbox input").prop(
+                            "checked",
+                            true
+                        );
+                        $("table tr").addClass("selected");
+                    } else {
+                        $("table .container-checkbox input").prop(
+                            "checked",
+                            false
+                        );
+                        $("table tr").removeClass("selected");
                     }
+
+                    break;
+                case "saveNewAlias":
+                    var validator = this.state.aliasForm;
+                    validator.form();
+                    var thisComp = this;
+
+                    if (validator.numberOfInvalids() == 0) {
+                        $("#dntModHead").html("Please Wait");
+                        $("#dntModBody").html(
+                            "Sit tight while we working. It may take a minute, depend on your device. Or you can cancel"
+                        );
+
+                        $("#dntOk").on("click", function () {
+                            app.user.set({ inProcess: false });
+
+                            $("#dntInter").modal("hide");
+                        });
+
+                        var email = thisComp.state.aliasEmail.toLowerCase();
+                        var name = thisComp.state.aliasName;
+                        var domain = thisComp.state.domain;
+
+                        app.globalF.checkSecondPass(function () {
+                            $("#dntInter").modal({
+                                backdrop: "static",
+                                keyboard: false,
+                            });
+                            thisComp.addAlDisp(name, email, domain, "alias");
+                        });
+                    }
+
+                    break;
+
+                case "addAlias":
+                    var thisComp = this;
+
+                    app.globalF.checkPlanLimits(
+                        "alias",
+                        thisComp.state.dataAlias.length - 1,
+                        function (result) {
+                            if (result) {
+                                thisComp.setState({
+                                    firstPanelClass: "panel-body d-none",
+                                    secondPanelClass: "panel-body ",
+                                    thirdPanelClass: "panel-body d-none",
+                                    firstTab: "active",
+                                    secondTab: "",
+
+                                    button1visible: "d-none",
+                                    signature:
+                                        '<div>Sent using Encrypted Email Service -&nbsp;<a href="https://cyberfear.com/index.html#createUser/' +
+                                        app.user.get("userPlan")["coupon"] +
+                                        '" target="_blank">CyberFear.com</a></div>',
+                                });
+                            } else {
+                                thisComp.props.updateAct("Plan");
+                                Backbone.history.navigate("settings/Plan", {
+                                    trigger: true,
+                                });
+                            }
+                        }
+                    );
+
+                    break;
+                case "selectRowTab1":
+                    var thisComp = this;
+                    // Select element
+                    if (
+                        $(event.target).prop("tagName").toUpperCase() ===
+                        "INPUT"
+                    ) {
+                        if (event.target.checked) {
+                            $(event.target).closest("tr").addClass("selected");
+                        } else {
+                            $(event.target)
+                                .closest("tr")
+                                .removeClass("selected");
+                        }
+                    }
+                    // Edit click functionality
+                    if ($(event.target).prop("tagName").toUpperCase() === "A") {
+                        var id = $(event.target).parents("tr").attr("id");
+
+                        if (id != undefined) {
+                            thisComp.handleChange("editAlias", id);
+                        }
+                    }
+                    // Delete click functionality
+                    if (
+                        $(event.target).prop("tagName").toUpperCase() ===
+                        "BUTTON"
+                    ) {
+                        if (event.target.classList.contains("delete-button")) {
+                            var id = $(event.target).parents("tr").attr("id");
+
+                            if (id != undefined) {
+                                thisComp.deleteAlias(id);
+                            }
+                        }
+                    }
+
+                    // var id = $(event.target).parents("tr").attr("id");
+                    // if (id != undefined) {
+                    //     this.handleChange("editAlias", id);
+                    // }
 
                     break;
                 case "toggleDisplay":
@@ -337,6 +673,46 @@ define([
                     });
                     break;
             }
+        },
+        deleteAlias: function (id) {
+            $("#dialogModHead").html("Delete");
+            $("#dialogModBody").html(
+                "Email alias will be deleted, and you wont be able to send or receive email with it. Continue?"
+            );
+
+            var keys = app.user.get("allKeys");
+            var thisComp = this;
+
+            $("#dialogOk").on("click", function () {
+                $("#dialogPop").modal("hide");
+                app.globalF.checkSecondPass(function () {
+                    app.user.set({ newPGPKey: keys[id] });
+
+                    delete keys[id];
+
+                    app.userObjects.updateObjects(
+                        "deletePGPKeys",
+                        "",
+                        function (result) {
+                            if (result == "saved") {
+                                thisComp.setState({
+                                    dataAlias: thisComp.getAliasData(),
+                                });
+                                thisComp.handleClick("showFirst");
+                            } else if (result == "newerFound") {
+                                thisComp.setState({
+                                    dataAlias: thisComp.getAliasData(),
+                                });
+                                thisComp.handleClick("showFirst");
+                            }
+
+                            app.user.unset("newPGPKey");
+                        }
+                    );
+                });
+            });
+
+            $("#dialogPop").modal("show");
         },
         render: function () {
             return (
@@ -420,7 +796,13 @@ define([
                                                 <tr>
                                                     <th scope="col">
                                                         <label className="container-checkbox">
-                                                            <input type="checkbox" />
+                                                            <input
+                                                                type="checkbox"
+                                                                onChange={this.handleClick.bind(
+                                                                    this,
+                                                                    "handleSelectAll"
+                                                                )}
+                                                            />
                                                             <span className="checkmark"></span>
                                                         </label>
                                                     </th>
@@ -725,7 +1107,7 @@ define([
                                                     className="btn-border fixed-width-btn"
                                                     onClick={this.handleClick.bind(
                                                         this,
-                                                        "toggleDisplay"
+                                                        "showFirst"
                                                     )}
                                                 >
                                                     Cancel

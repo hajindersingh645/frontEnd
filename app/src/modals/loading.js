@@ -15,9 +15,8 @@ define(["react", "app"], function (React, app) {
         render: function () {
             return (
                 <div
-                    className={`in-working popup ${
-                        this.state.active ? "d-block" : "d-none"
-                    }`}
+                    className={`in-working popup d-none`}
+                    id="settings-spinner"
                 >
                     <div className="wrapper">
                         <div className="inner">

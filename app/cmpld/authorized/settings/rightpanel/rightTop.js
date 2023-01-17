@@ -5,6 +5,9 @@ define(["react", "app"], function (React, app) {
         handleClick: function (action, event) {
             switch (action) {
                 case "back-to-inbox":
+                    app.user.set({ isComposingEmail: false });
+                    app.user.set({ isDraftOpened: false });
+                    app.user.set({ isDecryptingEmail: false });
                     Backbone.history.navigate("/mail/Inbox", {
                         trigger: true
                     });

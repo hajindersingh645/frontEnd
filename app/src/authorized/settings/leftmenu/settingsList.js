@@ -599,7 +599,12 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                 <div className="accordion-item">
                                     <h2 className="accordion-header">
                                         <a
-                                            className="accordion-button icon-setting"
+                                            className={`accordion-button icon-setting collapsed ${
+                                                this.state.activeLink ===
+                                                `Profile`
+                                                    ? "active"
+                                                    : ""
+                                            }`}
                                             onClick={this.handleClick.bind(
                                                 this,
                                                 "Profile"

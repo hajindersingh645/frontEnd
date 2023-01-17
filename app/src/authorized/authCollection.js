@@ -120,13 +120,16 @@ define([
                 ) {
                     body = (
                         <div>
-                            <Loading />
                             <SettingsCollection
                                 rightPanel={this.props.rightPanel}
                                 activePage={this.props.activePage}
                             />
                         </div>
                     );
+
+                    $("#settings-spinner")
+                        .removeClass("d-block")
+                        .addClass("d-none");
                 } else if (
                     page == "settings" &&
                     app.user.get("profileVersion") == 1 &&
@@ -606,6 +609,15 @@ define([
                     </div>
                     <SyncUserObj />
                     <DialogPop />
+                    <DontInterrupt />
+
+                    <SecondPass />
+                    <LogOutForce />
+                    <InfoPop />
+                    <AskForPass />
+                    <DialogPop />
+                    <DontInterrupt />
+                    <Loading />
                 </div>
             );
         },

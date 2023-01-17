@@ -36,6 +36,9 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                 case "settings":
                     app.mixins.canNavigate(function (decision) {
                         if (decision) {
+                            $("#settings-spinner")
+                                .removeClass("d-none")
+                                .addClass("d-block");
                             Backbone.history.navigate("/settings/Profile", {
                                 trigger: true,
                             });

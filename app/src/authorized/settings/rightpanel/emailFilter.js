@@ -416,32 +416,6 @@ define([
                     break;
 
                 case "deleteRule":
-                    var thisComp = this;
-                    var filter = app.user.get("filter");
-
-                    //filter=app.globalF.arrayRemove(filter,this.state.ruleId);
-                    console.log(filter);
-
-                    delete filter[this.state.ruleId];
-
-                    //pp.user.set({"filterChanged":true});
-                    //app.userObjects.updateObjects();
-
-                    app.userObjects.updateObjects(
-                        "saveFilter",
-                        "",
-                        function (result) {
-                            if (result == "saved") {
-                                thisComp.setState({
-                                    filterSet: thisComp.getFilter(),
-                                });
-                                thisComp.handleClick("showFirst");
-                            } else if (result == "newerFound") {
-                                //app.notifications.systemMessage('newerFnd');
-                            }
-                        }
-                    );
-
                     break;
 
                 case "selectRow":
@@ -449,6 +423,8 @@ define([
                     // if (id != undefined) {
                     //     this.handleClick("editRule", id);
                     // }
+
+                    var thisComp = this;
 
                     if (
                         $(event.target).prop("tagName").toUpperCase() ===
@@ -487,13 +463,31 @@ define([
                                 thisComp.setState({
                                     ruleId: id,
                                 });
-                                thisComp.handleClick("deleteRule", id);
+                                thisComp.deleteRule(id);
                             }
                         }
                     }
 
                     break;
             }
+        },
+
+        deleteRule: function (id) {
+            var thisComp = this;
+            var filter = app.user.get("filter");
+            console.log(id);
+
+            delete filter[id];
+
+            app.userObjects.updateObjects("saveFilter", "", function (result) {
+                if (result == "saved") {
+                    thisComp.setState({
+                        filterSet: thisComp.getFilter(),
+                    });
+                    thisComp.handleClick("showFirst");
+                } else if (result == "newerFound") {
+                }
+            });
         },
 
         componentWillUpdate: function (nextProps, nextState) {

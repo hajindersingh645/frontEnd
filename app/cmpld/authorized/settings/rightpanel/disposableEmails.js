@@ -648,7 +648,8 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
 
                 case "toggleDisplay":
                     this.setState({
-                        viewFlag: !this.state.viewFlag
+                        viewFlag: !this.state.viewFlag,
+                        aliasNameEnabled: true
                     });
                     break;
                 case "handleSelectAll":
@@ -1174,7 +1175,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                                 {
                                                     type: "button",
                                                     className: "btn-blue fixed-width-btn",
-                                                    onClick: this.handleClick.bind(this, this.state.button5click)
+                                                    onClick: this.handleClick.bind(this, "addDisposable")
                                                 },
                                                 "Save"
                                             )

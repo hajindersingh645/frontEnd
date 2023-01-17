@@ -218,8 +218,7 @@ define(["app", "backbone", "react", "jquery", "bootstrap", "cmpld/splashPage/Spl
                 //clearTimeout(app.mailMan.get('loading'));
 
                 //var tt=setTimeout(function(){
-                $("#spinn").addClass("hidden");
-                $("#overlay").addClass("hidden");
+                $("#settings-spinner").removeClass("d-none").addClass("d-block");
                 //}, 1000);
 
                 switch (options) {

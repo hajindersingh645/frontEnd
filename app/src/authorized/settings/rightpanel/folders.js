@@ -621,7 +621,7 @@ define([
                                 thisComp.setState({
                                     folderId: id,
                                 });
-                                thisComp.handleClick("deleteFolder", id);
+                                thisComp.deleteFolder(id);
                             }
                         }
                     }
@@ -693,80 +693,6 @@ define([
                     break;
 
                 case "deleteFolder":
-                    var thisComp = this;
-                    var id = this.state.folderId;
-                    var trash = app.user.get("systemFolders")["trashFolderId"];
-                    var filter = app.user.get("filter");
-
-                    var folders = app.user.get("folders");
-                    var emails = app.user.get("emails")["folders"];
-
-                    if (folders[id]["isMain"]) {
-                        $("#infoModHead").html("Delete Folder");
-                        $("#infoModBody").html(
-                            "You can not delete system folder"
-                        );
-
-                        $("#infoModal").modal("show");
-                    } else {
-                        $("#dialogModHead").html("Delete Folder");
-                        $("#dialogModBody").html(
-                            "All messages and filter rules for this folder will be deleted. Do you want to continue?"
-                        );
-
-                        $("#dialogOk").on("click", function () {
-                            if (Object.keys(emails[id]).length > 0) {
-                                $.each(emails[id], function (index, email) {
-                                    email["f"] = trash;
-                                });
-
-                                emails[trash] = $.extend(
-                                    {},
-                                    emails[trash],
-                                    emails[id]
-                                );
-                            }
-
-                            $.each(filter, function (filterIndex, filterData) {
-                                if (filterData["to"] == id) {
-                                    delete filter[filterIndex];
-                                    //filter=app.globalF.arrayRemove(filter,filterIndex);
-                                }
-                            });
-
-                            //console.log(object);
-                            //console.log(id);
-
-                            delete emails[id]; //removing from mails storage
-                            delete folders[id]; //removing folder reference
-
-                            $("#dialogPop").modal("hide");
-
-                            app.userObjects.updateObjects(
-                                "folderSettings",
-                                "",
-                                function (result) {
-                                    if (result["response"] == "success") {
-                                        if (result["data"] == "saved") {
-                                            thisComp.setState({
-                                                folderSet:
-                                                    thisComp.getFolders(),
-                                            });
-                                            thisComp.handleClick("showFirst");
-                                        } else if (
-                                            result["data"] == "newerFound"
-                                        ) {
-                                            //app.notifications.systemMessage('newerFnd');
-                                            thisComp.handleClick("showFirst");
-                                        }
-                                    }
-                                }
-                            );
-                        });
-
-                        $("#dialogPop").modal("show");
-                    }
-
                     break;
 
                 case "editFolder":
@@ -809,6 +735,73 @@ define([
                     });
 
                     break;
+            }
+        },
+
+        deleteFolder: function (id) {
+            // console.log(id);
+            // return false;
+            var thisComp = this;
+            // var id = this.state.folderId;
+
+            var trash = app.user.get("systemFolders")["trashFolderId"];
+            var filter = app.user.get("filter");
+
+            var folders = app.user.get("folders");
+            var emails = app.user.get("emails")["folders"];
+
+            if (folders[id]["isMain"]) {
+                $("#infoModHead").html("Delete Folder");
+                $("#infoModBody").html("You can not delete system folder");
+
+                $("#infoModal").modal("show");
+            } else {
+                $("#dialogModHead").html("Delete Folder");
+                $("#dialogModBody").html(
+                    "All messages and filter rules for this folder will be deleted. Do you want to continue?"
+                );
+
+                $("#dialogOk").on("click", function () {
+                    if (Object.keys(emails[id]).length > 0) {
+                        $.each(emails[id], function (index, email) {
+                            email["f"] = trash;
+                        });
+
+                        emails[trash] = $.extend({}, emails[trash], emails[id]);
+                    }
+
+                    $.each(filter, function (filterIndex, filterData) {
+                        if (filterData["to"] == id) {
+                            delete filter[filterIndex];
+                            //filter=app.globalF.arrayRemove(filter,filterIndex);
+                        }
+                    });
+
+                    delete emails[id]; //removing from mails storage
+                    delete folders[id]; //removing folder reference
+
+                    $("#dialogPop").modal("hide");
+
+                    app.userObjects.updateObjects(
+                        "folderSettings",
+                        "",
+                        function (result) {
+                            if (result["response"] == "success") {
+                                if (result["data"] == "saved") {
+                                    thisComp.setState({
+                                        folderSet: thisComp.getFolders(),
+                                    });
+                                    thisComp.handleClick("showFirst");
+                                } else if (result["data"] == "newerFound") {
+                                    //app.notifications.systemMessage('newerFnd');
+                                    thisComp.handleClick("showFirst");
+                                }
+                            }
+                        }
+                    );
+                });
+
+                $("#dialogPop").modal("show");
             }
         },
 
@@ -936,7 +929,13 @@ define([
                                             <tr>
                                                 <th scope="col">
                                                     <label className="container-checkbox">
-                                                        <input type="checkbox" />
+                                                        <input
+                                                            type="checkbox"
+                                                            onChange={this.handleClick.bind(
+                                                                this,
+                                                                "handleSelectAll"
+                                                            )}
+                                                        />
                                                         <span className="checkmark"></span>
                                                     </label>
                                                 </th>
@@ -1011,7 +1010,13 @@ define([
                                             <tr>
                                                 <th scope="col">
                                                     <label className="container-checkbox">
-                                                        <input type="checkbox" />
+                                                        <input
+                                                            type="checkbox"
+                                                            onChange={this.handleClick.bind(
+                                                                this,
+                                                                "handleSelectAll"
+                                                            )}
+                                                        />
                                                         <span className="checkmark"></span>
                                                     </label>
                                                 </th>

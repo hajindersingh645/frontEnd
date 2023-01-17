@@ -790,6 +790,7 @@ define([
                 case "toggleDisplay":
                     this.setState({
                         viewFlag: !this.state.viewFlag,
+                        aliasNameEnabled: true,
                     });
                     break;
                 case "handleSelectAll":
@@ -1209,7 +1210,7 @@ define([
                                                     className="btn-blue fixed-width-btn"
                                                     onClick={this.handleClick.bind(
                                                         this,
-                                                        this.state.button5click
+                                                        "addDisposable"
                                                     )}
                                                 >
                                                     Save

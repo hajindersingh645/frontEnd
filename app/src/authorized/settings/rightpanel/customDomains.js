@@ -139,6 +139,7 @@ define([
                             userToken: app.user.get("userLoginToken"),
                         },
                         dataFilter: function (data) {
+                            console.log(data);
                             var json = JSON.parse(data);
                             if (json["response"] == "true") {
                                 return '"true"';
