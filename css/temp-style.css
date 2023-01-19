@@ -13566,6 +13566,9 @@ footer .footer-bottom-row .copyright {
 .table-responsive tbody tr:hover .table-icon {
     display: block;
 }
+.middle-section .inbox-list table .email.unread .inbox-list-top .unread-bullet {
+    display: inline-block;
+}
 .ql-snow .ql-tooltip.ql-editing a.ql-action::after {
     border-right: 0px;
     content: "Save";
@@ -14942,6 +14945,10 @@ button {
     float: left;
     padding: 28px 20px 0;
 }
+#offcanvasLeft .storage{
+    position: absolute;
+    bottom: 40px;
+}
 .arrow-btn,
 .back-to-inbox-link,
 .ellipsis-dropdown,
@@ -15457,6 +15464,7 @@ header .user-dropdown .dropdown-menu li button {
     float: left;
     text-decoration: none;
     color: #415067;
+    cursor: pointer;
 }
 .folder-menu .accordion-body ul li a .number-badge {
     margin: 1px 0 0;
@@ -16212,7 +16220,7 @@ textarea::-webkit-scrollbar {
     margin: 0 auto -270px;
 }
 .left-side.no-cta .left-bottom {
-    /* height: 71px; */
+    height: 71px;
     position: absolute;
     bottom: 41px;
 }
@@ -19859,7 +19867,7 @@ header .menu-icon.on-left-side {
         display: block !important;
     }
     .middle-section .inbox-list-top-content {
-        width: 75%;
+        max-width: 75%;
     }
 }
 @media screen and (max-width: 767px) {

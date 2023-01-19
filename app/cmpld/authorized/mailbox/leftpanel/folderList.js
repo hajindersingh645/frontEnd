@@ -442,7 +442,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                 "ul",
                                                 { id: "folderulcustom" },
                                                 this.state.customFolders.map(function (folderData, i) {
-                                                    React.createElement(
+                                                    return React.createElement(
                                                         "li",
                                                         {
                                                             key: "li_" + folderData["index"],
@@ -642,7 +642,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                 "ul",
                                                 { id: "folderulcustom" },
                                                 this.state.customFolders.map(function (folderData, i) {
-                                                    React.createElement(
+                                                    return React.createElement(
                                                         "li",
                                                         {
                                                             key: "li_" + folderData["index"],

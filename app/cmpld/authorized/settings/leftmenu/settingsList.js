@@ -610,30 +610,6 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                     { className: "left-bottom" },
                     React.createElement(
                         "div",
-                        { className: "left-cta" },
-                        React.createElement(
-                            "div",
-                            { className: "call-to-action" },
-                            React.createElement(
-                                "div",
-                                { className: "cta-title" },
-                                "Let's explore the full",
-                                React.createElement("br", null),
-                                "version of your mailbox"
-                            ),
-                            React.createElement(
-                                "div",
-                                { className: "white-btn" },
-                                React.createElement(
-                                    "a",
-                                    { href: "#" },
-                                    "Discover Pro"
-                                )
-                            )
-                        )
-                    ),
-                    React.createElement(
-                        "div",
                         { className: "storage" },
                         React.createElement(
                             "div",

@@ -618,18 +618,6 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                         </div>
                     </div>
                     <div className="left-bottom">
-                        <div className="left-cta">
-                            <div className="call-to-action">
-                                <div className="cta-title">
-                                    Let's explore the full
-                                    <br />
-                                    version of your mailbox
-                                </div>
-                                <div className="white-btn">
-                                    <a href="#">Discover Pro</a>
-                                </div>
-                            </div>
-                        </div>
                         <div className="storage">
                             <div className="storage-count">
                                 {this.boxSize()}

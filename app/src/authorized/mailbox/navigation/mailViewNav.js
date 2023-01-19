@@ -23,6 +23,35 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
             //     .draw();
         },
 
+        getCustomFolderList: function () {
+            var folderList = app.globalF.getCustomFolderList();
+            var thisComp = this;
+
+            var options = [];
+            $.each(folderList, function (index, folderData) {
+                options.push(
+                    <li key={index}>
+                        <a
+                            id={folderData["index"]}
+                            onClick={thisComp.handleChange.bind(
+                                thisComp,
+                                "moveToFolder"
+                            )}
+                        >
+                            {folderData["name"]}
+                        </a>
+                    </li>
+                );
+            });
+            this.setState({
+                moveFolderCust: options,
+            });
+        },
+
+        componentDidMount: function () {
+            this.getCustomFolderList();
+        },
+
         render: function () {
             return (
                 <div className="desktop-search">

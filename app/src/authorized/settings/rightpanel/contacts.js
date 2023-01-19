@@ -527,6 +527,9 @@ define([
                         rememberContacts: !this.state.rememberContacts,
                     });
                     app.user.set({ inProcess: true });
+                    $("#settings-spinner")
+                        .removeClass("d-none")
+                        .addClass("d-block");
                     app.user.set({
                         rememberContacts: !this.state.rememberContacts,
                     });
@@ -542,6 +545,9 @@ define([
                             } else if (response === "nothingUpdt") {
                                 app.user.set({ inProcess: false });
                             }
+                            $("#settings-spinner")
+                                .removeClass("d-block")
+                                .addClass("d-none");
                         }
                     );
 
