@@ -1,6 +1,8 @@
 var App = (function () {
     var loadSlider = function () {
         var AboutSlider = $(".about-slider");
+        var JournalistsSlider = $(".journalists-slider");
+        var CustomerTestimonialSlider = $(".customer-testimonial-slider");
         var TestimonialSlider = $(".testimonial-slider");
         var owl = $(".about-slider, .testimonial-slider");
 
@@ -70,6 +72,60 @@ var App = (function () {
                     },
                     1900: {
                         items: 4.5,
+                    },
+                },
+            });
+        }
+
+        if (JournalistsSlider.length > 0) {
+            JournalistsSlider.owlCarousel({
+                nav: false,
+                autoplayTimeout: 7000,
+                slideSpeed: 500,
+                paginationSpeed: 600,
+                autoplay: false,
+                dots: false,
+                margin: 20,
+                items: 1,
+                loop: true,
+                autoplaySpeed: 3000,
+                center: true,
+                responsive: {
+                    600: {
+                        items: 1,
+                    },
+                    768: {
+                        items: 3,
+                    },
+                    1000: {
+                        items: 3,
+                    },
+                },
+            });
+        }
+
+        if (CustomerTestimonialSlider.length > 0) {
+            CustomerTestimonialSlider.owlCarousel({
+                nav: false,
+                autoplayTimeout: 7000,
+                slideSpeed: 500,
+                paginationSpeed: 600,
+                autoplay: false,
+                dots: false,
+                margin: 20,
+                items: 1,
+                loop: true,
+                autoplaySpeed: 3000,
+                center: true,
+                responsive: {
+                    600: {
+                        items: 1,
+                    },
+                    768: {
+                        items: 3,
+                    },
+                    1000: {
+                        items: 3,
                     },
                 },
             });
