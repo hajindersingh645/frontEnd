@@ -4,7 +4,9 @@ var App = (function () {
         var JournalistsSlider = $(".journalists-slider");
         var CustomerTestimonialSlider = $(".customer-testimonial-slider");
         var TestimonialSlider = $(".testimonial-slider");
-        var owl = $(".about-slider, .testimonial-slider");
+        var owl = $(
+            ".about-slider, .testimonial-slider, .journalists-slider, .customer-testimonial-slider"
+        );
 
         var MouseScrolling = $(".mouse-scrolling");
 
