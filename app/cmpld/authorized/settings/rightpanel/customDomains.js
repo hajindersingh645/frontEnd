@@ -1454,9 +1454,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                             React.createElement(
                                 "div",
                                 { className: "green-bg-text" },
-                                "Host: default._domainkey",
-                                React.createElement("br", null),
-                                "TXT: default._domainkey v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDTNXD2KoQUiAmAJcp05gt0dStpoiXf0xDsD6T4M/THCT461Ata4EyuYQhJHSbZ6IDvMMrkZymLYdhbgsue6YWX44UVoX1LSYKt64HaMG+H9TrEbksH6UpbYcCDKGc7cUYolrwwmUh4fxnC3x5REbpCT7FhsHj5I3D1wmid+Yj25wIDAQAB;"
+                                "Paste the content of DKIM Record Answer"
                             ),
                             React.createElement(
                                 "h3",
