@@ -78,6 +78,7 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
                         display: from + match + text + "<span>will be moved to </span> " + to,
                         index: index
                     },
+                    edit: '<a class="table-icon edit-button"></a>',
                     delete: '<button class="table-icon delete-button"></button>',
                     options: '<div class="dropdown"><button class="btn btn-secondary dropdown-toggle table-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button></div>'
                 };
@@ -123,7 +124,7 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
                             _: "text.display",
                             sort: "text.index"
                         }
-                    }, { data: "delete" }, { data: "options" }],
+                    }, { data: "edit" }, { data: "delete" }, { data: "options" }],
                     columnDefs: [{ orderDataType: "data-sort", targets: 1 }, { sClass: "data-cols type_full", targets: [1] }],
                     order: [[1, "asc"]],
                     language: {
@@ -279,6 +280,7 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
                     var thisComp = this;
 
                     if (validator.numberOfInvalids() == 0) {
+                        $("#settings-spinner").removeClass("d-none").addClass("d-block");
                         var id = thisComp.state.ruleId;
                         var from = thisComp.state.fieldFrom;
                         var match = thisComp.state.fieldMatch;
@@ -303,6 +305,7 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
                             //thisComp.setState({filterSet:thisComp.getFilter()});
                             //thisComp.handleClick("showFirst");
                         });
+                        $("#settings-spinner").removeClass("d-block").addClass("d-none");
                     }
 
                     break;
@@ -383,6 +386,7 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
         },
 
         deleteRule: function (id) {
+            $("#settings-spinner").removeClass("d-none").addClass("d-block");
             var thisComp = this;
             var filter = app.user.get("filter");
             console.log(id);
@@ -397,6 +401,7 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
                     thisComp.handleClick("showFirst");
                 } else if (result == "newerFound") {}
             });
+            $("#settings-spinner").removeClass("d-block").addClass("d-none");
         },
 
         componentWillUpdate: function (nextProps, nextState) {
@@ -516,6 +521,7 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
                                         React.createElement("col", { width: "40" }),
                                         React.createElement("col", null),
                                         React.createElement("col", { width: "40" }),
+                                        React.createElement("col", { width: "40" }),
                                         React.createElement("col", { width: "40" })
                                     ),
                                     React.createElement(
@@ -542,6 +548,7 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
                                                 { scope: "col" },
                                                 "Filters"
                                             ),
+                                            React.createElement("th", null),
                                             React.createElement(
                                                 "th",
                                                 { scope: "col" },

@@ -324,6 +324,9 @@ define([
                         emfValidator.numberOfInvalids() === 0 &&
                         emNotValidator.numberOfInvalids() === 0
                     ) {
+                        $("#settings-spinner")
+                            .removeClass("d-none")
+                            .addClass("d-block");
                         app.user.set({
                             sessionExpiration: this.state.sessionExpiration,
                         });
@@ -353,6 +356,9 @@ define([
                                 }
                             }
                         );
+                        $("#settings-spinner")
+                            .removeClass("d-block")
+                            .addClass("d-none");
                     }
 
                     break;

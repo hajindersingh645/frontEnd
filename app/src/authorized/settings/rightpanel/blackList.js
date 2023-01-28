@@ -263,6 +263,9 @@ define([
                     var thisComp = this;
 
                     if (validator.numberOfInvalids() == 0) {
+                        $("#settings-spinner")
+                            .removeClass("d-none")
+                            .addClass("d-block");
                         console.log(thisComp.state.ruleId);
                         console.log(thisComp.state.fieldMatch);
                         console.log(thisComp.state.fieldText);
@@ -290,6 +293,9 @@ define([
                                 }
                             }
                         );
+                        $("#settings-spinner")
+                            .removeClass("d-block")
+                            .addClass("d-none");
                     }
 
                     break;
@@ -396,6 +402,7 @@ define([
         },
 
         deleteRule: function (id) {
+            $("#settings-spinner").removeClass("d-none").addClass("d-block");
             var thisComp = this;
 
             var post = {
@@ -415,6 +422,7 @@ define([
                     }
                 }
             );
+            $("#settings-spinner").removeClass("d-block").addClass("d-none");
         },
 
         componentWillUpdate: function (nextProps, nextState) {

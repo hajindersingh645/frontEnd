@@ -299,7 +299,9 @@ require([
 		 });
 		 */
     app.restartApp = function () {
-        window.location.href = "/index.html";
+        // window.location.href = "/index.html";
+        window.location.href = "mailbox.html#login";
+        window.location.reload();
     };
 
     app.run();

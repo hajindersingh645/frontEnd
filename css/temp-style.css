@@ -14945,7 +14945,7 @@ button {
     float: left;
     padding: 28px 20px 0;
 }
-#offcanvasLeft .storage{
+#offcanvasLeft .storage {
     position: absolute;
     bottom: 40px;
 }
@@ -15458,6 +15458,9 @@ header .user-dropdown .dropdown-menu li button {
     width: 100%;
     float: left;
     padding: 20px 0 0;
+}
+#folderulcustom li {
+    padding-top: 11px;
 }
 .folder-menu .accordion-body ul li a {
     width: 100%;
@@ -18476,6 +18479,10 @@ textarea {
     background: rgba(34, 119, 246, 1);
     color: #fff;
 }
+.tab-section .nav-tabs li .nav-link.active span.low-opacity {
+    background: rgb(213, 229, 253);
+    color: rgb(34, 119, 246);
+}
 .tab-section .nav-tabs li .nav-link span {
     background: #f37d58;
     color: #fff;
@@ -19160,7 +19167,7 @@ header .menu-icon.on-left-side {
     left: -3px;
     opacity: 0;
 }
-.arrow-btn.ellipsis-dropdown .dropdown > button,
+/* .arrow-btn.ellipsis-dropdown .dropdown > button, */
 .loading-skeleton .ellipsis-dropdown > button {
     background: url(../images/icon-ellipsis.svg) left top/24px no-repeat;
     position: relative;
@@ -19170,8 +19177,21 @@ header .menu-icon.on-left-side {
     border: none;
     padding: 0;
 }
-.arrow-btn.ellipsis-dropdown .dropdown > button.active {
+/* .arrow-btn.ellipsis-dropdown .dropdown > button.active {
     background: url(../images/icon-ellipsis-blue.svg) left top no-repeat;
+} */
+.arrow-btn.ellipsis-dropdown .dropdown > button {
+    background: none;
+    width: auto;
+    height: auto;
+}
+.arrow-btn.ellipsis-dropdown .dropdown > button svg,
+.arrow-btn.ellipsis-dropdown .dropdown > button svg path {
+    fill: #000;
+}
+.arrow-btn.ellipsis-dropdown .dropdown > button.active svg,
+.arrow-btn.ellipsis-dropdown .dropdown > button.active svg path {
+    fill: #2277f6;
 }
 .arrow-btn.ellipsis-dropdown .dropdown > button.active::before,
 .container-checkbox input:checked ~ .checkmark::before,
@@ -19781,8 +19801,8 @@ header .menu-icon.on-left-side {
 }
 .right-side .email-content-top .email-title-wrapper .email-subject {
     position: relative;
-    padding-left: 21px;
-    font-size: 19px;
+    padding-left: 19px;
+    font-size: 16px;
     display: flex;
     align-items: center;
 }
@@ -20227,6 +20247,19 @@ header .menu-icon.on-left-side {
     }
 }
 @media screen and (max-width: 640px) {
+    .compose-ec .c-editor-actions {
+        justify-content: start;
+        align-items: self-start;
+        flex-direction: column;
+    }
+    .compose-ec .c-editor-actions .c-editor-formating {
+        margin-bottom: 7px;
+    }
+    .compose-ec .c-editor-actions .c-editor-send-actions {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
     .compose-email-wrapper,
     .compose-email-wrapper.compose-minimize {
         width: 90%;
@@ -20906,4 +20939,262 @@ header .menu-icon.on-left-side {
 #additional-plans .btn-row {
     float: right;
     width: auto;
+}
+
+/* Pop-up notifications */
+.app-notification {
+    float: none;
+    clear: both;
+    min-width: 443px;
+    max-width: 443px;
+}
+.app-notification.type-1 {
+    visibility: hidden;
+    opacity: 0;
+    z-index: -1;
+    position: fixed;
+}
+.app-notification.type-1.active {
+    visibility: visible;
+    opacity: 1;
+    z-index: 10;
+    top: 61px;
+}
+.app-notification ._inside {
+    border: solid 2px rgb(242, 242, 242);
+    border-radius: 12px;
+    background: #ffffff;
+    overflow: hidden;
+}
+
+.app-notification button {
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    font-size: 12px;
+}
+.app-notification button ._icon {
+    padding-right: 11px;
+}
+.app-notification button._highlight {
+    color: #2277f6;
+}
+
+.app-notification ._header {
+    padding: 26px 24px 12px 24px;
+}
+.app-notification ._header ._title {
+    font-size: 18px;
+    color: #000;
+}
+
+.app-notification ._filter_wrap {
+    border-bottom: solid 1px rgb(242, 242, 242);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+.app-notification ._filter ul {
+    display: flex;
+    align-items: center;
+}
+.app-notification ._filter button {
+    color: rgb(103, 115, 133);
+    font-size: 14px;
+    font-weight: 500;
+    position: relative;
+    padding: 12px 9px;
+}
+.app-notification ._filter button ._count {
+    background-color: rgb(240, 241, 243);
+    color: rgb(103, 115, 133);
+    border-radius: 4px;
+    height: 20px;
+    min-width: 20px;
+    line-height: 20px;
+    display: inline-block;
+    margin-left: 7px;
+    font-size: 12px;
+    text-align: center;
+}
+.app-notification ._filter ._active button {
+    color: #2277f6;
+}
+.app-notification ._filter ._active button::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #2277f6;
+    height: 1.5px;
+    width: 100%;
+}
+.app-notification ._filter ._active button ._count {
+    background-color: rgba(34, 119, 246, 0.1);
+    color: #2277f6;
+}
+.app-notification ._content {
+    padding: 9px 24px;
+}
+.app-notification ._enable_notification {
+    background-color: rgba(34, 119, 246, 0.05);
+    color: #2277f6;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+}
+.app-notification ._enable_notification p {
+    display: flex;
+    align-items: center;
+    color: #2277f6;
+    font-size: 12px;
+    padding: 0;
+    opacity: 1;
+}
+.app-notification ._enable_notification p ._icon {
+    padding-right: 9px;
+}
+.app-notification ._enable_notification p span {
+    color: #2277f6;
+}
+.app-notification ._items_wrapper {
+    max-height: 523px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.app-notification ._item {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-bottom: solid 1px #f2f2f2;
+}
+.app-notification ._item ._c_inner {
+    display: flex;
+}
+.app-notification ._item ._icon {
+    min-width: 40px;
+    max-width: 40px;
+    min-height: 40px;
+    max-height: 40px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+}
+.app-notification ._item ._icon._system {
+    background-color: #2277f6;
+    color: #fff;
+}
+.app-notification ._item ._icon ._starred {
+    background-color: #fff;
+    width: 14px;
+    height: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    right: -5px;
+    border-radius: 100%;
+}
+.app-notification ._item ._icon._w_initial {
+    background-color: rgba(140, 34, 246, 0.2);
+}
+.app-notification ._item ._icon ._initials {
+    color: #000;
+    opacity: 1;
+}
+.app-notification ._item ._details {
+    padding-left: 13px;
+    padding-right: 13px;
+}
+.app-notification ._item ._title,
+.app-notification ._item ._desc {
+    font-weight: 500;
+    font-size: 13px;
+    color: #000;
+}
+.app-notification ._item ._title span._ins {
+    color: rgba(0, 0, 0, 0.7);
+}
+.app-notification ._item ._desc {
+    color: rgba(0, 0, 0, 0.5);
+    padding-bottom: 11px;
+    float: none;
+}
+.app-notification ._item a {
+    color: #2277f6;
+    opacity: 1;
+}
+.app-notification ._item ._meta {
+    color: #415067;
+    display: flex;
+    align-items: center;
+    font-size: 10px;
+}
+.app-notification ._item ._meta li {
+    padding: 0 11px;
+    position: relative;
+}
+.app-notification ._item ._meta li:first-child {
+    padding-left: 0;
+}
+.app-notification ._item ._meta li:not(:first-child)::before {
+    content: "";
+    position: absolute;
+    left: -2.5px;
+    top: 5px;
+    width: 5px;
+    height: 5px;
+    background-color: rgb(141, 150, 164);
+    border-radius: 100%;
+}
+
+.app-notification ._item ._attachments._type_files {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+.app-notification ._item ._attachments {
+    margin-top: 11px;
+}
+.app-notification ._item ._attachments._type_files ._icon {
+    min-width: initial;
+    max-width: initial;
+    margin-right: 4px;
+}
+.app-notification ._item ._attachments._type_files li {
+    background-color: #f5f6f7;
+    border-radius: 12px;
+    color: #415067;
+    font-size: 11px;
+    padding: 0px 11px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.app-notification ._item ._attachments._type_images {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.app-notification ._item ._attachments li._action button {
+    background-color: #f5f6f7;
+    color: #415067;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    border-radius: 12px;
+    min-height: 72px;
+    max-height: 72px;
+    width: 32px;
 }

@@ -341,6 +341,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
 
                     this.validateBeforeSafe(function (result) {
                         if (result) {
+                            $("#settings-spinner").removeClass("d-none").addClass("d-block");
                             app.globalF.checkSecondPass(function () {
                                 var key = app.user.get("allKeys");
 
@@ -372,6 +373,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                     }
                                 });
                             });
+                            $("#settings-spinner").removeClass("d-block").addClass("d-none");
                             //console.log('saveKeys');
                         } else {
                             $("#infoModHead").html("PGP Key Pair Mismatch");
@@ -493,7 +495,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                 keyEmail: app.transform.from64str(keys[id]["email"]),
                 keyName: app.transform.from64str(keys[id]["displayName"]),
 
-                //	keyBit:keys[id]['keyLength'],
+                keyBit: keys[id]["keyLength"],
 
                 txtArea1value: app.transform.from64str(keys[id]["v2"]["publicKey"]),
                 txtArea2value: app.transform.from64str(keys[id]["v2"]["privateKey"]),
@@ -661,7 +663,11 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
             for (var i = 1024; i <= app.user.get("userPlan")["planData"]["pgpStr"]; i += 1024) {
                 options.push(React.createElement(
                     "option",
-                    { key: i, value: i },
+                    {
+                        key: i,
+                        value: i,
+                        selected: this.state.keyBit === i
+                    },
                     i,
                     " bits"
                 ));

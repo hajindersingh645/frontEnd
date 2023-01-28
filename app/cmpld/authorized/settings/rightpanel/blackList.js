@@ -212,6 +212,7 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
                     var thisComp = this;
 
                     if (validator.numberOfInvalids() == 0) {
+                        $("#settings-spinner").removeClass("d-none").addClass("d-block");
                         console.log(thisComp.state.ruleId);
                         console.log(thisComp.state.fieldMatch);
                         console.log(thisComp.state.fieldText);
@@ -235,6 +236,7 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
                                 app.notifications.systemMessage("saved");
                             }
                         });
+                        $("#settings-spinner").removeClass("d-block").addClass("d-none");
                     }
 
                     break;
@@ -320,6 +322,7 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
         },
 
         deleteRule: function (id) {
+            $("#settings-spinner").removeClass("d-none").addClass("d-block");
             var thisComp = this;
 
             var post = {
@@ -335,6 +338,7 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
                     app.notifications.systemMessage("saved");
                 }
             });
+            $("#settings-spinner").removeClass("d-block").addClass("d-none");
         },
 
         componentWillUpdate: function (nextProps, nextState) {

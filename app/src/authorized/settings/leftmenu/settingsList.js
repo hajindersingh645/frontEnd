@@ -419,7 +419,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                                 "2-Step"
                                                             )}
                                                         >
-                                                            2AF
+                                                            2FA
                                                         </a>
                                                     </li>
                                                     <li

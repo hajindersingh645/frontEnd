@@ -853,7 +853,7 @@ define(["react", "app", "ajaxQueue", "cmpld/authorized/settings/rightpanel/right
                             React.createElement(
                                 "p",
                                 null,
-                                "CyberFear offers the option to have two passwords protecting your account instead of a single password. We understand there are reasons why two passwords might not be considered as a better solution than a single password. Two factor authentication with Google Authenticator or a YubiKey can be enabled instead of or in addition to a second password."
+                                "Mailum offers the option to have two passwords protecting your account instead of a single password. We understand there are reasons why two passwords might not be considered as a better solution than a single password. Two factor authentication with Google Authenticator or a YubiKey can be enabled instead of or in addition to a second password."
                             )
                         )
                     )

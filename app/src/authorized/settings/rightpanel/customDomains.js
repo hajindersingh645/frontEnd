@@ -495,6 +495,9 @@ define([
                     var thisComp = this;
 
                     if (this.state.domainID != undefined) {
+                        $("#settings-spinner")
+                            .removeClass("d-none")
+                            .addClass("d-block");
                         var custDomain =
                             app.user.get("customDomains")[this.state.domainID];
                         var subdomains = this.state.subdomainList;
@@ -551,6 +554,9 @@ define([
                                 }
                             }
                         );
+                        $("#settings-spinner")
+                            .removeClass("d-block")
+                            .addClass("d-none");
                     }
 
                     break;
@@ -561,6 +567,9 @@ define([
                     emfValidator.form();
 
                     if (emfValidator.numberOfInvalids() == 0) {
+                        $("#settings-spinner")
+                            .removeClass("d-none")
+                            .addClass("d-block");
                         app.user.set({
                             newDomain: {
                                 id: app.transform.to64str(
@@ -607,6 +616,9 @@ define([
                                 }
                             }
                         );
+                        $("#settings-spinner")
+                            .removeClass("d-block")
+                            .addClass("d-none");
                     }
 
                     break;
@@ -643,7 +655,9 @@ define([
                         $("#dialogOk").on("click", function () {
                             //var domains=app.user.get('customDomains');
                             //delete domains[id];
-
+                            $("#settings-spinner")
+                                .removeClass("d-none")
+                                .addClass("d-block");
                             app.user.set({
                                 newDomain: {
                                     id: id,
@@ -678,6 +692,9 @@ define([
                             );
 
                             //thisComp.handleClick('showFirst');
+                            $("#settings-spinner")
+                                .removeClass("d-block")
+                                .addClass("d-none");
                         });
 
                         $("#dialogPop").modal("show");
@@ -1318,29 +1335,31 @@ define([
                                 <h3>Domain</h3>
                                 <p>
                                     The domain name you own and want to setup
-                                    with mail hosting at CyberFear.com.
+                                    with mail hosting at mailum.com.
                                 </p>
                                 <h3>Verification String</h3>
                                 <p>
                                     A randomly generated string that verifies
                                     ownership of your domain. Create a TXT
-                                    record in your DNS zone file in the format
+                                    record in your DNS zone file in the format:
                                 </p>
                                 <div className="green-bg-text">
-                                    @ IN TXT cyberfear=Verification String
+                                    Host: @ <br /> TXT: mailum=Verification
+                                    String
                                 </div>
                                 <h3>SPF Record</h3>
                                 <p>
                                     An SPF record is a TXT record in your DNS
-                                    zone and used to signal that CyberFear is
+                                    zone and used to signal that Mailum is
                                     authorized to send email from your custom
                                     domain name. This record is important for
                                     passing spam checks at your contacts email
                                     hosting servers. Create the TXT record in
-                                    your DNS zone file with the format
+                                    your DNS zone file with the format:
                                 </p>
                                 <div className="green-bg-text">
-                                    @ IN TXT v=spf1 include:cyberfear.com ~all
+                                    Host: @ <br /> TXT: v=spf1
+                                    include:mailum.com ~all
                                 </div>
                                 <div className="bullets">
                                     <ul>
@@ -1365,11 +1384,13 @@ define([
                                 </p>
                                 <h3>MX Record</h3>
                                 <p>
-                                    Create/replace a single MX record with
-                                    priority 10 to hostname
+                                    Create/replace a single MX record in the
+                                    format:
                                 </p>
                                 <div className="green-bg-text">
-                                    custom.cyberfear.com
+                                    Host: @ <br />
+                                    Priority: 10 <br />
+                                    Value: custom.mailum.com
                                 </div>
                                 <h3>Owner</h3>
                                 <p>
@@ -1383,10 +1404,12 @@ define([
                                     authorized to send email on behalf of your
                                     domain. This is another step to comply and
                                     pass spam check. Please create the TXT
-                                    record in your zone file:
+                                    record in the format:
                                 </p>
                                 <div className="green-bg-text">
-                                    default._domainkey v=DKIM1; k=rsa;
+                                    Host: default._domainkey
+                                    <br />
+                                    TXT: default._domainkey v=DKIM1; k=rsa;
                                     p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDTNXD2KoQUiAmAJcp05gt0dStpoiXf0xDsD6T4M/THCT461Ata4EyuYQhJHSbZ6IDvMMrkZymLYdhbgsue6YWX44UVoX1LSYKt64HaMG+H9TrEbksH6UpbYcCDKGc7cUYolrwwmUh4fxnC3x5REbpCT7FhsHj5I3D1wmid+Yj25wIDAQAB;
                                 </div>
                                 <h3>Status</h3>

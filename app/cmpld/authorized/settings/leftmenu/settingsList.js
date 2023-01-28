@@ -412,7 +412,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                         {
                                                             onClick: this.handleClick.bind(this, "2-Step")
                                                         },
-                                                        "2AF"
+                                                        "2FA"
                                                     )
                                                 ),
                                                 React.createElement(

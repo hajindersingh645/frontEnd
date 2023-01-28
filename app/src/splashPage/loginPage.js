@@ -298,7 +298,7 @@ define(["react", "app", "validation", "cmpld/modals/paymentGate"], function (
                     <div>
                         <h1>Login</h1>
                         <div className="welcome-text">
-                            Welcome back to <span>Cyberfear.</span>
+                            Welcome back to <span>Mailum.</span>
                         </div>
                         <div className="form-section">
                             <form

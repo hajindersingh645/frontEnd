@@ -405,6 +405,9 @@ define([
 
                     this.validateBeforeSafe(function (result) {
                         if (result) {
+                            $("#settings-spinner")
+                                .removeClass("d-none")
+                                .addClass("d-block");
                             app.globalF.checkSecondPass(function () {
                                 var key = app.user.get("allKeys");
 
@@ -454,6 +457,9 @@ define([
                                     }
                                 );
                             });
+                            $("#settings-spinner")
+                                .removeClass("d-block")
+                                .addClass("d-none");
                             //console.log('saveKeys');
                         } else {
                             $("#infoModHead").html("PGP Key Pair Mismatch");
@@ -597,7 +603,7 @@ define([
                 keyEmail: app.transform.from64str(keys[id]["email"]),
                 keyName: app.transform.from64str(keys[id]["displayName"]),
 
-                //	keyBit:keys[id]['keyLength'],
+                keyBit: keys[id]["keyLength"],
 
                 txtArea1value: app.transform.from64str(
                     keys[id]["v2"]["publicKey"]
@@ -803,7 +809,11 @@ define([
                 i += 1024
             ) {
                 options.push(
-                    <option key={i} value={i}>
+                    <option
+                        key={i}
+                        value={i}
+                        selected={this.state.keyBit === i}
+                    >
                         {i} bits
                     </option>
                 );

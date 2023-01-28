@@ -269,6 +269,7 @@ define(["react", "app", "summernote", "cmpld/authorized/settings/rightpanel/righ
                     emNotValidator.form();
 
                     if (emfValidator.numberOfInvalids() === 0 && emNotValidator.numberOfInvalids() === 0) {
+                        $("#settings-spinner").removeClass("d-none").addClass("d-block");
                         app.user.set({
                             sessionExpiration: this.state.sessionExpiration
                         });
@@ -289,6 +290,7 @@ define(["react", "app", "summernote", "cmpld/authorized/settings/rightpanel/righ
                         app.userObjects.updateObjects("userProfile", "", function (response) {
                             if (response === "success") {} else if (response === "failed") {} else if (response === "nothing") {}
                         });
+                        $("#settings-spinner").removeClass("d-block").addClass("d-none");
                     }
 
                     break;

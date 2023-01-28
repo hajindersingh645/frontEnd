@@ -122,7 +122,7 @@ define(["react", "app"], function (React, app) {
                                             className: "modal-title",
                                             id: "userSyncTitle"
                                         },
-                                        "We're Setting up Your Emails"
+                                        "We're setting up your mailbox..."
                                     ),
                                     React.createElement(
                                         "div",

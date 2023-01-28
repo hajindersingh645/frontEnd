@@ -431,7 +431,7 @@ define(["app", "react"], function (app, React) {
                         >
                             <h1>Create Account</h1>
                             <div className="welcome-text">
-                                It's time to make next level email managment.
+                                to start using privacy protecting email service
                             </div>
                             <div className="form-section">
                                 <form

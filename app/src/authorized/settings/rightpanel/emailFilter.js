@@ -114,6 +114,7 @@ define([
                             to,
                         index: index,
                     },
+                    edit: '<a class="table-icon edit-button"></a>',
                     delete: '<button class="table-icon delete-button"></button>',
                     options:
                         '<div class="dropdown"><button class="btn btn-secondary dropdown-toggle table-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button></div>',
@@ -166,6 +167,7 @@ define([
                                 sort: "text.index",
                             },
                         },
+                        { data: "edit" },
                         { data: "delete" },
                         { data: "options" },
                     ],
@@ -344,6 +346,9 @@ define([
                     var thisComp = this;
 
                     if (validator.numberOfInvalids() == 0) {
+                        $("#settings-spinner")
+                            .removeClass("d-none")
+                            .addClass("d-block");
                         var id = thisComp.state.ruleId;
                         var from = thisComp.state.fieldFrom;
                         var match = thisComp.state.fieldMatch;
@@ -385,6 +390,9 @@ define([
                                 //thisComp.handleClick("showFirst");
                             }
                         );
+                        $("#settings-spinner")
+                            .removeClass("d-block")
+                            .addClass("d-none");
                     }
 
                     break;
@@ -473,6 +481,7 @@ define([
         },
 
         deleteRule: function (id) {
+            $("#settings-spinner").removeClass("d-none").addClass("d-block");
             var thisComp = this;
             var filter = app.user.get("filter");
             console.log(id);
@@ -488,6 +497,7 @@ define([
                 } else if (result == "newerFound") {
                 }
             });
+            $("#settings-spinner").removeClass("d-block").addClass("d-none");
         },
 
         componentWillUpdate: function (nextProps, nextState) {
@@ -597,6 +607,7 @@ define([
                                             <col />
                                             <col width="40" />
                                             <col width="40" />
+                                            <col width="40" />
                                         </colgroup>
                                         <thead>
                                             <tr>
@@ -613,6 +624,7 @@ define([
                                                     </label>
                                                 </th>
                                                 <th scope="col">Filters</th>
+                                                <th></th>
                                                 <th scope="col">
                                                     <button className="trash-btn"></button>
                                                 </th>

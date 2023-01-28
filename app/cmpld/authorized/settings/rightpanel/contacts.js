@@ -209,6 +209,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                     break;
 
                 case "addNewContact":
+                    $("#settings-spinner").removeClass("d-none").addClass("d-block");
                     var thisComp = this;
                     app.globalF.checkPlanLimits("contacts", Object.keys(app.user.get("contacts")).length, function (result) {
                         if (result) {
@@ -226,6 +227,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                 button4visible: "d-none"
                             });
                         }
+                        $("#settings-spinner").removeClass("d-block").addClass("d-none");
                     });
 
                     break;
@@ -236,6 +238,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                     $("#dialogModBody").html("Contact will be deleted. Continue?");
 
                     $("#dialogOk").on("click", function () {
+                        $("#settings-spinner").removeClass("d-none").addClass("d-block");
                         var id = thisComp.state.contactId;
 
                         var contacts = app.user.get("contacts");
@@ -252,6 +255,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                 $("#dialogPop").modal("hide");
                             }
                         });
+                        $("#settings-spinner").removeClass("d-block").addClass("d-none");
                     });
 
                     $("#dialogPop").modal("show");
@@ -309,12 +313,15 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                     var contact = contacts[event];
                     var thisComp = this;
 
+                    $("#settings-spinner").removeClass("d-none").addClass("d-block");
+
                     app.globalF.getPublicKeyInfo(app.transform.from64str(contact["pgp"]), function (result) {
                         thisComp.setState({
                             keyStrength: result["strength"],
                             keyFingerprint: result["fingerprint"],
                             keyDate: result["created"]
                         });
+                        $("#settings-spinner").removeClass("dmblock").addClass("d-none");
                     });
                     this.setState({
                         viewFlag: true,
@@ -346,6 +353,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                     validator.form();
 
                     if (validator.numberOfInvalids() == 0) {
+                        $("#settings-spinner").removeClass("d-none").addClass("d-block");
                         var contacts = app.user.get("contacts");
 
                         var contId = app.transform.to64str(thisComp.state.emailField);
@@ -373,6 +381,8 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
 
                         thisComp.getContacts();
                         thisComp.handleClick("showFirst");
+
+                        $("#settings-spinner").removeClass("d-block").addClass("d-none");
                     }
 
                     break;
@@ -384,6 +394,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                     validator.form();
 
                     if (validator.numberOfInvalids() == 0) {
+                        $("#settings-spinner").removeClass("d-none").addClass("d-block");
                         var contacts = app.user.get("contacts");
 
                         if (contacts[thisComp.state.contactId]["n"] != app.transform.to64str(thisComp.state.nameField) || contacts[thisComp.state.contactId]["p"] != app.transform.to64str(thisComp.state.pinField) || contacts[thisComp.state.contactId]["e"] != app.transform.to64str(thisComp.state.emailField) || contacts[thisComp.state.contactId]["pgp"] != app.transform.to64str(thisComp.state.pgpField) || contacts[thisComp.state.contactId]["pgpOn"] != app.transform.to64str(thisComp.state.pgpOn)) {
@@ -406,6 +417,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                         } else {
                             app.notifications.systemMessage("nthTochng");
                         }
+                        $("#settings-spinner").removeClass("d-block").addClass("d-none");
                     }
 
                     break;
@@ -799,7 +811,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                                         name: "pinField",
                                                         className: "form-control with-icon icon-pin",
                                                         id: "pinField",
-                                                        placeholder: "Enter pin",
+                                                        placeholder: "Enter pin (optional)",
                                                         value: this.state.pinField,
                                                         readOnly: this.state.pgpOn,
                                                         onChange: this.handleChange.bind(this, "changePin")
@@ -879,7 +891,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                                         readOnly: !this.state.pgpOn,
                                                         value: this.state.pgpField,
                                                         onChange: this.handleChange.bind(this, "changePGP"),
-                                                        placeholder: "Public Key"
+                                                        placeholder: "Public Key (optional)"
                                                     })
                                                 )
                                             )

@@ -319,7 +319,7 @@ define(["react", "app", "validation", "cmpld/modals/paymentGate"], function (Rea
                         React.createElement(
                             "span",
                             null,
-                            "Cyberfear."
+                            "Mailum."
                         )
                     ),
                     React.createElement(

@@ -458,6 +458,9 @@ define([
                     var thisComp = this;
 
                     if (validator.numberOfInvalids() == 0) {
+                        $("#settings-spinner")
+                            .removeClass("d-none")
+                            .addClass("d-block");
                         var folders = app.user.get("folders");
                         var fId = thisComp.state.folderId;
                         folders[fId]["name"] = app.transform.to64str(
@@ -482,6 +485,9 @@ define([
                                 }
                             }
                         );
+                        $("#settings-spinner")
+                            .removeClass("d-block")
+                            .addClass("d-none");
                     }
 
                     break;
@@ -493,6 +499,9 @@ define([
                     var thisComp = this;
 
                     if (validator.numberOfInvalids() == 0) {
+                        $("#settings-spinner")
+                            .removeClass("d-none")
+                            .addClass("d-block");
                         var folderId = app.globalF.createFolderIndex();
                         var folders = app.user.get("folders");
                         folders[folderId] = {
@@ -521,6 +530,9 @@ define([
                                 }
                             }
                         );
+                        $("#settings-spinner")
+                            .removeClass("d-block")
+                            .addClass("d-none");
                     }
 
                     break;
@@ -762,6 +774,9 @@ define([
                 );
 
                 $("#dialogOk").on("click", function () {
+                    $("#settings-spinner")
+                        .removeClass("d-none")
+                        .addClass("d-block");
                     if (Object.keys(emails[id]).length > 0) {
                         $.each(emails[id], function (index, email) {
                             email["f"] = trash;
@@ -799,6 +814,9 @@ define([
                             }
                         }
                     );
+                    $("#settings-spinner")
+                        .removeClass("d-block")
+                        .addClass("d-none");
                 });
 
                 $("#dialogPop").modal("show");
@@ -866,19 +884,7 @@ define([
                                             Folders
                                         </a>
                                     </li>
-                                    <li
-                                        role="presentation"
-                                        className={this.state.secondTab}
-                                    >
-                                        <a
-                                            onClick={this.handleClick.bind(
-                                                this,
-                                                "showSecond"
-                                            )}
-                                        >
-                                            Labels
-                                        </a>
-                                    </li>
+                                    {/** Removed from here */}
                                 </ul>
                                 <div className="add-contact-btn">
                                     <a

@@ -841,7 +841,7 @@ define(["react", "app", "qrcode", "cmpld/authorized/settings/rightpanel/rightTop
                             React.createElement(
                                 "p",
                                 null,
-                                "Increase the security of your login with multi-factor authentication by Google Authenticator. After typing in your login password, you'll be prompted to enter the six digit code displayed in the Authenticator app on your mobile device. To begin the setup, be sure you are on the Google Auth tab and click on \"Enable Google Auth\" using the Authenticator app on your mobile device and scan the QR code displayed in your CyberFear settings."
+                                "Increase the security of your login with multi-factor authentication by Google Authenticator. After typing in your login password, you'll be prompted to enter the six digit code displayed in the Authenticator app on your mobile device. To begin the setup, be sure you are on the Google Auth tab and click on \"Enable Google Auth\" using the Authenticator app on your mobile device and scan the QR code displayed in your account settings."
                             ),
                             React.createElement(
                                 "h3",

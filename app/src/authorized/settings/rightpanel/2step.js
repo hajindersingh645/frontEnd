@@ -827,7 +827,7 @@ define([
                                     Google Auth tab and click on "Enable Google
                                     Auth" using the Authenticator app on your
                                     mobile device and scan the QR code displayed
-                                    in your CyberFear settings.
+                                    in your account settings.
                                 </p>
                                 <h3>YubiKey</h3>
                                 <p>

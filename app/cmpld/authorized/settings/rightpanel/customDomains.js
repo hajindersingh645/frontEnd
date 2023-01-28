@@ -407,6 +407,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                     var thisComp = this;
 
                     if (this.state.domainID != undefined) {
+                        $("#settings-spinner").removeClass("d-none").addClass("d-block");
                         var custDomain = app.user.get("customDomains")[this.state.domainID];
                         var subdomains = this.state.subdomainList;
 
@@ -456,6 +457,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                 }
                             }
                         });
+                        $("#settings-spinner").removeClass("d-block").addClass("d-none");
                     }
 
                     break;
@@ -466,6 +468,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                     emfValidator.form();
 
                     if (emfValidator.numberOfInvalids() == 0) {
+                        $("#settings-spinner").removeClass("d-none").addClass("d-block");
                         app.user.set({
                             newDomain: {
                                 id: app.transform.to64str(thisComp.state.newdomain),
@@ -504,6 +507,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                 }
                             }
                         });
+                        $("#settings-spinner").removeClass("d-block").addClass("d-none");
                     }
 
                     break;
@@ -534,7 +538,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                         $("#dialogOk").on("click", function () {
                             //var domains=app.user.get('customDomains');
                             //delete domains[id];
-
+                            $("#settings-spinner").removeClass("d-none").addClass("d-block");
                             app.user.set({
                                 newDomain: {
                                     id: id
@@ -561,6 +565,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                             });
 
                             //thisComp.handleClick('showFirst');
+                            $("#settings-spinner").removeClass("d-block").addClass("d-none");
                         });
 
                         $("#dialogPop").modal("show");
@@ -1342,7 +1347,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                             React.createElement(
                                 "p",
                                 null,
-                                "The domain name you own and want to setup with mail hosting at CyberFear.com."
+                                "The domain name you own and want to setup with mail hosting at mailum.com."
                             ),
                             React.createElement(
                                 "h3",
@@ -1352,12 +1357,14 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                             React.createElement(
                                 "p",
                                 null,
-                                "A randomly generated string that verifies ownership of your domain. Create a TXT record in your DNS zone file in the format"
+                                "A randomly generated string that verifies ownership of your domain. Create a TXT record in your DNS zone file in the format:"
                             ),
                             React.createElement(
                                 "div",
                                 { className: "green-bg-text" },
-                                "@ IN TXT cyberfear=Verification String"
+                                "Host: @ ",
+                                React.createElement("br", null),
+                                " TXT: mailum=Verification String"
                             ),
                             React.createElement(
                                 "h3",
@@ -1367,12 +1374,14 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                             React.createElement(
                                 "p",
                                 null,
-                                "An SPF record is a TXT record in your DNS zone and used to signal that CyberFear is authorized to send email from your custom domain name. This record is important for passing spam checks at your contacts email hosting servers. Create the TXT record in your DNS zone file with the format"
+                                "An SPF record is a TXT record in your DNS zone and used to signal that Mailum is authorized to send email from your custom domain name. This record is important for passing spam checks at your contacts email hosting servers. Create the TXT record in your DNS zone file with the format:"
                             ),
                             React.createElement(
                                 "div",
                                 { className: "green-bg-text" },
-                                "@ IN TXT v=spf1 include:cyberfear.com ~all"
+                                "Host: @ ",
+                                React.createElement("br", null),
+                                " TXT: v=spf1 include:mailum.com ~all"
                             ),
                             React.createElement(
                                 "div",
@@ -1411,12 +1420,16 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                             React.createElement(
                                 "p",
                                 null,
-                                "Create/replace a single MX record with priority 10 to hostname"
+                                "Create/replace a single MX record in the format:"
                             ),
                             React.createElement(
                                 "div",
                                 { className: "green-bg-text" },
-                                "custom.cyberfear.com"
+                                "Host: @ ",
+                                React.createElement("br", null),
+                                "Priority: 10 ",
+                                React.createElement("br", null),
+                                "Value: custom.mailum.com"
                             ),
                             React.createElement(
                                 "h3",
@@ -1436,12 +1449,14 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                             React.createElement(
                                 "p",
                                 { className: "break-all" },
-                                "DKIM is a digital signature that is sent along with email to verify that a server is authorized to send email on behalf of your domain. This is another step to comply and pass spam check. Please create the TXT record in your zone file:"
+                                "DKIM is a digital signature that is sent along with email to verify that a server is authorized to send email on behalf of your domain. This is another step to comply and pass spam check. Please create the TXT record in the format:"
                             ),
                             React.createElement(
                                 "div",
                                 { className: "green-bg-text" },
-                                "default._domainkey v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDTNXD2KoQUiAmAJcp05gt0dStpoiXf0xDsD6T4M/THCT461Ata4EyuYQhJHSbZ6IDvMMrkZymLYdhbgsue6YWX44UVoX1LSYKt64HaMG+H9TrEbksH6UpbYcCDKGc7cUYolrwwmUh4fxnC3x5REbpCT7FhsHj5I3D1wmid+Yj25wIDAQAB;"
+                                "Host: default._domainkey",
+                                React.createElement("br", null),
+                                "TXT: default._domainkey v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDTNXD2KoQUiAmAJcp05gt0dStpoiXf0xDsD6T4M/THCT461Ata4EyuYQhJHSbZ6IDvMMrkZymLYdhbgsue6YWX44UVoX1LSYKt64HaMG+H9TrEbksH6UpbYcCDKGc7cUYolrwwmUh4fxnC3x5REbpCT7FhsHj5I3D1wmid+Yj25wIDAQAB;"
                             ),
                             React.createElement(
                                 "h3",

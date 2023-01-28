@@ -558,6 +558,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
             var thisComp = this;
 
             $("#dialogOk").on("click", function () {
+                $("#settings-spinner").removeClass("d-none").addClass("d-block");
                 $("#dialogPop").modal("hide");
                 app.globalF.checkSecondPass(function () {
                     app.user.set({ newPGPKey: keys[id] });
@@ -580,6 +581,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                         app.user.unset("newPGPKey");
                     });
                 });
+                $("#settings-spinner").removeClass("d-block").addClass("d-none");
             });
 
             $("#dialogPop").modal("show");
@@ -1161,7 +1163,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                             React.createElement(
                                 "p",
                                 null,
-                                "this is an alternate addresses that can be used to receive email at your CyberFear account. Email aliases are not alternative login addresses. Using email aliases makes it possible to give out an email addresses that can't be targeted for login attacks."
+                                "This is an alternate addresses that can be used to receive emails. Email aliases are not alternative login addresses. Using email aliases makes it possible to give out an email addresses that can't be targeted for login attacks."
                             ),
                             React.createElement(
                                 "h3",

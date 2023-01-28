@@ -395,6 +395,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                     var thisComp = this;
 
                     if (validator.numberOfInvalids() == 0) {
+                        $("#settings-spinner").removeClass("d-none").addClass("d-block");
                         var folders = app.user.get("folders");
                         var fId = thisComp.state.folderId;
                         folders[fId]["name"] = app.transform.to64str(this.state.nameField);
@@ -413,6 +414,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                 }
                             }
                         });
+                        $("#settings-spinner").removeClass("d-block").addClass("d-none");
                     }
 
                     break;
@@ -424,6 +426,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                     var thisComp = this;
 
                     if (validator.numberOfInvalids() == 0) {
+                        $("#settings-spinner").removeClass("d-none").addClass("d-block");
                         var folderId = app.globalF.createFolderIndex();
                         var folders = app.user.get("folders");
                         folders[folderId] = {
@@ -448,6 +451,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                 }
                             }
                         });
+                        $("#settings-spinner").removeClass("d-block").addClass("d-none");
                     }
 
                     break;
@@ -641,6 +645,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                 $("#dialogModBody").html("All messages and filter rules for this folder will be deleted. Do you want to continue?");
 
                 $("#dialogOk").on("click", function () {
+                    $("#settings-spinner").removeClass("d-none").addClass("d-block");
                     if (Object.keys(emails[id]).length > 0) {
                         $.each(emails[id], function (index, email) {
                             email["f"] = trash;
@@ -674,6 +679,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                             }
                         }
                     });
+                    $("#settings-spinner").removeClass("d-block").addClass("d-none");
                 });
 
                 $("#dialogPop").modal("show");
@@ -751,20 +757,6 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                             onClick: this.handleClick.bind(this, "showFirst")
                                         },
                                         "Folders"
-                                    )
-                                ),
-                                React.createElement(
-                                    "li",
-                                    {
-                                        role: "presentation",
-                                        className: this.state.secondTab
-                                    },
-                                    React.createElement(
-                                        "a",
-                                        {
-                                            onClick: this.handleClick.bind(this, "showSecond")
-                                        },
-                                        "Labels"
                                     )
                                 )
                             ),

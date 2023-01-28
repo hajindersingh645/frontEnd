@@ -296,7 +296,7 @@ define([
                                     <br />
                                     You receive $3.24 reward. (20% of 16.20)
                                     <br />
-                                    CyberFear gains a new member.
+                                    Mailum gains a new member.
                                     <br />
                                     <br />
                                     You can share your link with multiple

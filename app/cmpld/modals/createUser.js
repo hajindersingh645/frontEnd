@@ -417,7 +417,7 @@ define(["app", "react"], function (app, React) {
                         React.createElement(
                             "div",
                             { className: "welcome-text" },
-                            "It's time to make next level email managment."
+                            "to start using privacy protecting email service"
                         ),
                         React.createElement(
                             "div",

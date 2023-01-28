@@ -237,6 +237,9 @@ define([
                     break;
 
                 case "addNewContact":
+                    $("#settings-spinner")
+                        .removeClass("d-none")
+                        .addClass("d-block");
                     var thisComp = this;
                     app.globalF.checkPlanLimits(
                         "contacts",
@@ -257,6 +260,9 @@ define([
                                     button4visible: "d-none",
                                 });
                             }
+                            $("#settings-spinner")
+                                .removeClass("d-block")
+                                .addClass("d-none");
                         }
                     );
 
@@ -270,6 +276,9 @@ define([
                     );
 
                     $("#dialogOk").on("click", function () {
+                        $("#settings-spinner")
+                            .removeClass("d-none")
+                            .addClass("d-block");
                         var id = thisComp.state.contactId;
 
                         var contacts = app.user.get("contacts");
@@ -290,6 +299,9 @@ define([
                                 }
                             }
                         );
+                        $("#settings-spinner")
+                            .removeClass("d-block")
+                            .addClass("d-none");
                     });
 
                     $("#dialogPop").modal("show");
@@ -361,6 +373,10 @@ define([
                     var contact = contacts[event];
                     var thisComp = this;
 
+                    $("#settings-spinner")
+                        .removeClass("d-none")
+                        .addClass("d-block");
+
                     app.globalF.getPublicKeyInfo(
                         app.transform.from64str(contact["pgp"]),
                         function (result) {
@@ -369,6 +385,9 @@ define([
                                 keyFingerprint: result["fingerprint"],
                                 keyDate: result["created"],
                             });
+                            $("#settings-spinner")
+                                .removeClass("dmblock")
+                                .addClass("d-none");
                         }
                     );
                     this.setState({
@@ -401,6 +420,9 @@ define([
                     validator.form();
 
                     if (validator.numberOfInvalids() == 0) {
+                        $("#settings-spinner")
+                            .removeClass("d-none")
+                            .addClass("d-block");
                         var contacts = app.user.get("contacts");
 
                         var contId = app.transform.to64str(
@@ -437,6 +459,10 @@ define([
 
                         thisComp.getContacts();
                         thisComp.handleClick("showFirst");
+
+                        $("#settings-spinner")
+                            .removeClass("d-block")
+                            .addClass("d-none");
                     }
 
                     break;
@@ -448,6 +474,9 @@ define([
                     validator.form();
 
                     if (validator.numberOfInvalids() == 0) {
+                        $("#settings-spinner")
+                            .removeClass("d-none")
+                            .addClass("d-block");
                         var contacts = app.user.get("contacts");
 
                         if (
@@ -502,6 +531,9 @@ define([
                         } else {
                             app.notifications.systemMessage("nthTochng");
                         }
+                        $("#settings-spinner")
+                            .removeClass("d-block")
+                            .addClass("d-none");
                     }
 
                     break;
@@ -846,7 +878,7 @@ define([
                                                             name="pinField"
                                                             className="form-control with-icon icon-pin"
                                                             id="pinField"
-                                                            placeholder="Enter pin"
+                                                            placeholder="Enter pin (optional)"
                                                             value={
                                                                 this.state
                                                                     .pinField
@@ -947,7 +979,7 @@ define([
                                                                 this,
                                                                 "changePGP"
                                                             )}
-                                                            placeholder="Public Key"
+                                                            placeholder="Public Key (optional)"
                                                         />
                                                     </div>
                                                 </div>

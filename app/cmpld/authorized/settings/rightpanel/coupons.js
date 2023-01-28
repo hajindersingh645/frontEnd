@@ -364,7 +364,7 @@ define(["react", "app", "accounting", "cmpld/authorized/settings/rightpanel/righ
                                 React.createElement("br", null),
                                 "You receive $3.24 reward. (20% of 16.20)",
                                 React.createElement("br", null),
-                                "CyberFear gains a new member.",
+                                "Mailum gains a new member.",
                                 React.createElement("br", null),
                                 React.createElement("br", null),
                                 "You can share your link with multiple people, it will always provide the discount and reward.",

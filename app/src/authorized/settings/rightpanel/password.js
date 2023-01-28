@@ -924,7 +924,7 @@ define([
                                 </p>
                                 <h3>Second Password</h3>
                                 <p>
-                                    CyberFear offers the option to have two
+                                    Mailum offers the option to have two
                                     passwords protecting your account instead of
                                     a single password. We understand there are
                                     reasons why two passwords might not be
