@@ -237,9 +237,6 @@ define([
                     break;
 
                 case "addNewContact":
-                    $("#settings-spinner")
-                        .removeClass("d-none")
-                        .addClass("d-block");
                     var thisComp = this;
                     app.globalF.checkPlanLimits(
                         "contacts",
@@ -260,9 +257,6 @@ define([
                                     button4visible: "d-none",
                                 });
                             }
-                            $("#settings-spinner")
-                                .removeClass("d-block")
-                                .addClass("d-none");
                         }
                     );
 
@@ -454,15 +448,15 @@ define([
                                 } else if (result == "newerFound") {
                                     $("#dialogPop").modal("hide");
                                 }
+
+                                $("#settings-spinner")
+                                    .removeClass("d-block")
+                                    .addClass("d-none");
                             }
                         );
 
                         thisComp.getContacts();
                         thisComp.handleClick("showFirst");
-
-                        $("#settings-spinner")
-                            .removeClass("d-block")
-                            .addClass("d-none");
                     }
 
                     break;

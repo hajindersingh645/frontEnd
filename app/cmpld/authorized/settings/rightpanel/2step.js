@@ -518,7 +518,7 @@ define(["react", "app", "qrcode", "cmpld/authorized/settings/rightpanel/rightTop
                                 React.createElement(
                                     "li",
                                     null,
-                                    "2AF"
+                                    "2FA"
                                 )
                             )
                         )

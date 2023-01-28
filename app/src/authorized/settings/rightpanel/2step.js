@@ -544,7 +544,7 @@ define([
                             <h2>Security</h2>
                             <div className="bread-crumb">
                                 <ul>
-                                    <li>2AF</li>
+                                    <li>2FA</li>
                                 </ul>
                             </div>
                         </div>
