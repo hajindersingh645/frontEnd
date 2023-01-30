@@ -2200,7 +2200,9 @@ define([
                                                 aria-selected="false"
                                             >
                                                 <strong>2 Years</strong>
-                                                <span>Save 40%</span>
+                                                <span className="low-opacity">
+                                                    Save 40%
+                                                </span>
                                             </button>
                                         </li>
                                     </ul>

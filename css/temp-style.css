@@ -20082,9 +20082,12 @@ header .menu-icon.on-left-side {
     .compose-ec
     .the-content
     .com-the-con-editor {
-    min-height: calc(100% - 61px);
-    max-height: calc(100% - 61px);
+    min-height: calc(100% - 109px);
+    max-height: calc(100% - 109px);
     overflow-y: auto;
+}
+.compose-email-wrapper.compose-maximize.c-editor-actions {
+    padding-bottom: 17px;
 }
 .compose-email-wrapper.compose-minimize {
     max-height: 57px;

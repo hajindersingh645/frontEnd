@@ -14,6 +14,8 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                 domain: app.defaults.get("domainMail").toLowerCase(),
                 domains: [],
 
+                pageTitle: `Add`,
+
                 showDisplayName: app.user.get("showDisplayName"),
                 aliasName: app.user.get("displayName")
             };
@@ -523,6 +525,9 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                         var id = $(event.target).parents("tr").attr("id");
 
                         if (id != undefined) {
+                            this.setState({
+                                pageTitle: `Edit`
+                            });
                             thisComp.handleChange("editAlias", id);
                         }
                     }
@@ -545,7 +550,8 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                     break;
                 case "toggleDisplay":
                     this.setState({
-                        viewFlag: !this.state.viewFlag
+                        viewFlag: !this.state.viewFlag,
+                        pageTitle: `Add`
                     });
                     break;
             }
@@ -632,7 +638,8 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                 React.createElement(
                                     "li",
                                     null,
-                                    "Add alias"
+                                    this.state.pageTitle,
+                                    " alias"
                                 )
                             )
                         )
@@ -803,7 +810,8 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                 React.createElement(
                                     "h3",
                                     null,
-                                    "Add alias"
+                                    this.state.pageTitle,
+                                    " alias"
                                 )
                             ),
                             React.createElement(

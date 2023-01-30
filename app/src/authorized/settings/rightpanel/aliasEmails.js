@@ -20,6 +20,8 @@ define([
                 domain: app.defaults.get("domainMail").toLowerCase(),
                 domains: [],
 
+                pageTitle: `Add`,
+
                 showDisplayName: app.user.get("showDisplayName"),
                 aliasName: app.user.get("displayName"),
             };
@@ -644,6 +646,9 @@ define([
                         var id = $(event.target).parents("tr").attr("id");
 
                         if (id != undefined) {
+                            this.setState({
+                                pageTitle: `Edit`,
+                            });
                             thisComp.handleChange("editAlias", id);
                         }
                     }
@@ -670,6 +675,7 @@ define([
                 case "toggleDisplay":
                     this.setState({
                         viewFlag: !this.state.viewFlag,
+                        pageTitle: `Add`,
                     });
                     break;
             }
@@ -754,7 +760,7 @@ define([
                                             Alias
                                         </a>
                                     </li>
-                                    <li>Add alias</li>
+                                    <li>{this.state.pageTitle} alias</li>
                                 </ul>
                             </div>
                         </div>
@@ -865,7 +871,7 @@ define([
                                 }`}
                             >
                                 <div className="middle-content-top">
-                                    <h3>Add alias</h3>
+                                    <h3>{this.state.pageTitle} alias</h3>
                                 </div>
 
                                 <div className="form-section">
