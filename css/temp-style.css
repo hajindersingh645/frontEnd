@@ -20878,8 +20878,12 @@ footer .footer-social-media a {
     }
 }
 @media screen and (max-width: 767px) {
+    footer p {
+        font-size: 12px;
+        font-weight: normal;
+    }
     footer .footer-logo {
-        margin-bottom: 39px;
+        margin-bottom: 16px;
         margin-right: 0;
         display: flex;
         align-items: center;
@@ -21411,6 +21415,7 @@ footer .footer-social-media a {
 }
 .app-smodal .modal-title {
     font-size: 18px;
+    font-weight: 600;
 }
 .app-smodal .icon-background {
     background: rgba(244, 67, 54, 0.05);
@@ -21429,7 +21434,7 @@ footer .footer-social-media a {
 .app-smodal #askPassHeader {
     text-align: center;
     font-size: 22px;
-    font-weight: 500;
+    font-weight: 600;
     padding-bottom: 8px;
 }
 .app-smodal #dialogModBody,
@@ -21441,13 +21446,18 @@ footer .footer-social-media a {
 .app-smodal .modal-footer button {
     border-radius: 12px;
     text-align: center;
-    font-weight: bold;
+    font-weight: 500;
     color: #000000;
     background-color: #eeeeee;
     margin: 0;
     border: 0;
     padding-top: 12px;
     padding-bottom: 12px;
+    font-size: 16px;
+}
+.app-smodal .modal-footer button#askPasSub {
+    background: #2277f6;
+    color: #fff;
 }
 .app-smodal #dialogOk {
     background-color: #f35858;
