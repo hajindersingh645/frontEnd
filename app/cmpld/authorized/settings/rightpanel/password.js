@@ -535,11 +535,13 @@ define(["react", "app", "ajaxQueue", "cmpld/authorized/settings/rightpanel/right
                     React.createElement(
                         "div",
                         { className: "middle-top" },
-                        React.createElement(
+                        this.state.viewFlag ? React.createElement(
                             "div",
                             { className: "arrow-back" },
-                            React.createElement("a", null)
-                        ),
+                            React.createElement("a", {
+                                onClick: this.handleClick.bind(this, "toggleDisplay")
+                            })
+                        ) : null,
                         React.createElement(
                             "h2",
                             null,

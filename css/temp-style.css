@@ -17057,7 +17057,7 @@ textarea::-webkit-scrollbar {
     right: 16px;
 }
 .setting-middle .arrow-back {
-    width: 100%;
+    width: auto;
     float: left;
     margin: 0 0 16px;
 }
@@ -21490,7 +21490,63 @@ footer .footer-social-media a {
     top: 10px;
 }
 
+.screen-darken {
+    content: "";
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+    z-index: 10;
+    opacity: 1;
+    visibility: visible;
+    position: fixed;
+}
+
+@media screen and (max-width: 1365px) {
+    .setting-middle {
+        padding-top: 8px;
+    }
+}
+@media screen and (max-width: 767px) {
+    .setting-middle .middle-top {
+        display: flex;
+        align-items: center;
+    }
+    .setting-middle .arrow-back {
+        margin-bottom: 0;
+        margin-right: 11px;
+    }
+    .setting-middle .bread-crumb {
+        margin-top: 0px;
+        padding-top: 0px;
+        display: flex;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+    .setting-middle .middle-content-top h3 {
+        width: auto;
+        margin-bottom: 0;
+    }
+    .setting-middle .add-contact-btn {
+        padding-left: 0px;
+    }
+
+    /* Compensate for bottom navigation height as it is overlapping content */
+    .setting-right .setting-right-data {
+        padding-bottom: 124px;
+    }
+
+    /* Footer settings navigation */
+    .left-settings-mobile {
+        display: block;
+    }
+}
 @media screen and (max-width: 640px) {
+    .middle-content .middle-content-top.alt .remember-box {
+        display: none;
+    }
     .app-smodal .modal-footer {
         flex-direction: column;
         gap: 8px;
@@ -21514,10 +21570,5 @@ footer .footer-social-media a {
         padding-right: calc(
             var(--bs-modal-padding) - var(--bs-modal-footer-gap) * 0.5
         );
-    }
-
-    /**/
-    .left-settings-mobile {
-        display: block;
     }
 }

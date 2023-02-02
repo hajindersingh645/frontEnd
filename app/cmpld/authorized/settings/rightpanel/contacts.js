@@ -583,7 +583,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                 },
                                 React.createElement(
                                     "div",
-                                    { className: "middle-content-top" },
+                                    { className: "middle-content-top alt" },
                                     React.createElement(
                                         "h3",
                                         null,

@@ -697,7 +697,7 @@ define([
                                         this.state.viewFlag ? "d-none" : ""
                                     }`}
                                 >
-                                    <div className="middle-content-top">
+                                    <div className="middle-content-top alt">
                                         <h3>Contacts</h3>
                                         <div className="middle-content-top-right">
                                             <div className="remember-box">

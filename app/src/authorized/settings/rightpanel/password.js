@@ -654,9 +654,16 @@ define([
                 <div id="rightSettingPanel">
                     <div className="setting-middle password">
                         <div className="middle-top">
-                            <div className="arrow-back">
-                                <a></a>
-                            </div>
+                            {this.state.viewFlag ? (
+                                <div className="arrow-back">
+                                    <a
+                                        onClick={this.handleClick.bind(
+                                            this,
+                                            "toggleDisplay"
+                                        )}
+                                    ></a>
+                                </div>
+                            ) : null}
                             <h2>Security</h2>
                             <div className="bread-crumb">
                                 <ul>
