@@ -263,19 +263,24 @@ define([
                     break;
                 case "deleteContact":
                     var thisComp = this;
+                    var id = thisComp.state.contactId;
+
+                    var contacts = app.user.get("contacts");
+                    console.log(contacts[id]);
 
                     $("#dialogModHead").html("Delete Contact");
                     $("#dialogModBody").html(
                         "Contact will be deleted. Continue?"
+                    );
+                    $("#dialogModBodyHeading").html(
+                        'Are you sure you want to Delete <br /> "Dennis@cyberfear.com"?'
                     );
 
                     $("#dialogOk").on("click", function () {
                         $("#settings-spinner")
                             .removeClass("d-none")
                             .addClass("d-block");
-                        var id = thisComp.state.contactId;
 
-                        var contacts = app.user.get("contacts");
                         delete contacts[id];
 
                         app.user.set({ contactsChanged: true });

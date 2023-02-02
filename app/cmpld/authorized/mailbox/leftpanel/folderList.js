@@ -141,6 +141,16 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                 case "login":
                     console.log(createUserFormValidator);
                     break;
+                case "settings":
+                    app.mixins.canNavigate(function (decision) {
+                        if (decision) {
+                            $("#settings-spinner").removeClass("d-none").addClass("d-block");
+                            Backbone.history.navigate("/settings/Plan", {
+                                trigger: true
+                            });
+                        }
+                    });
+                    break;
             }
         },
         boxSize: function () {
@@ -487,7 +497,9 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                     { className: "white-btn" },
                                     React.createElement(
                                         "a",
-                                        { href: "#" },
+                                        {
+                                            onClick: this.handleClick.bind(this, "settings")
+                                        },
                                         "Discover Pro"
                                     )
                                 )

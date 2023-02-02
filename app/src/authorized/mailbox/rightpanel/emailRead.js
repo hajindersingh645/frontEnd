@@ -70,6 +70,13 @@ define(["react", "app"], function (React, app) {
                 },
                 this
             );
+
+            $("#virtualization")
+                .contents()
+                .find("html")
+                .append(
+                    "<style>table,table tbody,table tr,table td{display:block;width:100%;}</style>"
+                );
         },
         getTagsList: function () {
             var labels = [];
@@ -1205,6 +1212,12 @@ define(["react", "app"], function (React, app) {
                                         .contents()
                                         .find("html")
                                         .html(prerenderedBody);
+                                    $("#virtualization")
+                                        .contents()
+                                        .find("html")
+                                        .append(
+                                            "<style>table,table tbody,table tr,table td{display:block;width:100%;}</style>"
+                                        );
 
                                     $("#virtualization").height(
                                         $("#virtualization")
@@ -1231,7 +1244,12 @@ define(["react", "app"], function (React, app) {
                                         .contents()
                                         .find("html")
                                         .html(prerenderedBody);
-
+                                    $("#virtualization")
+                                        .contents()
+                                        .find("html")
+                                        .append(
+                                            "<style>table,table tbody,table tr,table td{display:block;width:100%;}</style>"
+                                        );
                                     $("#virtualization").height(
                                         $("#virtualization")
                                             .contents()
@@ -1553,6 +1571,12 @@ define(["react", "app"], function (React, app) {
                             .contents()
                             .find("html")
                             .html(prerenderedBody);
+                        $("#virtualization")
+                            .contents()
+                            .find("html")
+                            .append(
+                                "<style>table,table tbody,table tr,table td{display:block;width:100%;}</style>"
+                            );
                         $("#virtualization").height(
                             $("#virtualization")
                                 .contents()
@@ -1590,7 +1614,12 @@ define(["react", "app"], function (React, app) {
                             .contents()
                             .find("html")
                             .html(prerenderedBody);
-
+                        $("#virtualization")
+                            .contents()
+                            .find("html")
+                            .append(
+                                "<style>table,table tbody,table tr,table td{display:block;width:100%;}</style>"
+                            );
                         $("#virtualization").height(
                             $("#virtualization")
                                 .contents()
@@ -1651,7 +1680,10 @@ define(["react", "app"], function (React, app) {
                                                     <img
                                                         src="/images/loading-circle.svg"
                                                         alt="loading-circle"
-                                                        style={{width:"91px", height: "91px"}}
+                                                        style={{
+                                                            width: "91px",
+                                                            height: "91px",
+                                                        }}
                                                     />
                                                 </div>
                                                 <div className="circle-content">

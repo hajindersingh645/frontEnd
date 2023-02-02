@@ -168,6 +168,18 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                 case "login":
                     console.log(createUserFormValidator);
                     break;
+                case "settings":
+                    app.mixins.canNavigate(function (decision) {
+                        if (decision) {
+                            $("#settings-spinner")
+                                .removeClass("d-none")
+                                .addClass("d-block");
+                            Backbone.history.navigate("/settings/Plan", {
+                                trigger: true,
+                            });
+                        }
+                    });
+                    break;
             }
         },
         boxSize: function () {
@@ -574,7 +586,14 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                         version of your mailbox
                                     </div>
                                     <div className="white-btn">
-                                        <a href="#">Discover Pro</a>
+                                        <a
+                                            onClick={this.handleClick.bind(
+                                                this,
+                                                "settings"
+                                            )}
+                                        >
+                                            Discover Pro
+                                        </a>
                                     </div>
                                 </div>
                             </div>
