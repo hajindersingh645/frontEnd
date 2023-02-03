@@ -21403,6 +21403,9 @@ footer .footer-social-media a {
     background: transparent;
     height: auto;
 }
+.app-smodal .modal-content {
+    border-radius: 12px;
+}
 .app-smodal .modal-header {
     border-color: #f4f5f6;
 }
