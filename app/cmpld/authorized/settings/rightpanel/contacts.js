@@ -97,7 +97,10 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                         sort: "name.display"
                     }
                 }, { data: "edit" }, { data: "delete" }, { data: "options" }],
-                columnDefs: [{ orderDataType: "data-sort", targets: 1 }, { sClass: "data-cols", targets: [1, 2] }],
+                columnDefs: [{ orderDataType: "data-sort", targets: 1 }, {
+                    sClass: "data-cols col-content-width_one_half",
+                    targets: [1, 2]
+                }, { sClass: "col-options-width", targets: [0, -1] }, { sClass: "col-mobile-hide", targets: [3, 4] }],
                 order: [[0, "asc"]],
                 language: {
                     emptyTable: "No Contacts",

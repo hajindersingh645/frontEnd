@@ -1,4 +1,4 @@
-define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings/rightpanel/rightTop", "quill"], function (React, app, DataTable, dataTableBoot, RightTop, Quill) {
+define(["react", "app", "dataTable", "dataTableBoot", "dataTableResponsive", "cmpld/authorized/settings/rightpanel/rightTop", "quill"], function (React, app, DataTable, dataTableBoot, dataTableResponsive, RightTop, Quill) {
     "use strict";
 
     return React.createClass({
@@ -781,7 +781,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                     React.createElement(
                                         "table",
                                         {
-                                            className: "table",
+                                            className: "table responsive",
                                             id: "table2",
                                             onClick: this.handleClick.bind(this, "selectRowTab2")
                                         },
@@ -821,7 +821,10 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                                 ),
                                                 React.createElement(
                                                     "th",
-                                                    { scope: "col" },
+                                                    {
+                                                        scope: "col",
+                                                        className: "col-mobile-hide"
+                                                    },
                                                     React.createElement("button", { className: "trash-btn" })
                                                 ),
                                                 React.createElement(
@@ -1322,7 +1325,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                 columns: [{ data: "checkbox" }, { data: "email" },
                 // { data: "dispose" },
                 { data: "delete" }, { data: "options" }],
-                columnDefs: [{ orderDataType: "data-sort", targets: 1 }, { sClass: "data-cols", targets: [1] }],
+                columnDefs: [{ orderDataType: "data-sort", targets: 1 }, { sClass: "col-options-width", targets: [0, -1] }, { sClass: "data-cols col-content-width", targets: [1] }, { sClass: "col-mobile-hide", targets: [2] }, { responsivePriority: 1, targets: [0, 1] }, { responsivePriority: 2, targets: -1 }],
                 order: [[1, "asc"]],
                 language: {
                     emptyTable: "Empty",

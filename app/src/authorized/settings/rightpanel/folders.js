@@ -155,7 +155,12 @@ define([
                 ],
                 columnDefs: [
                     { sClass: "d-none", targets: [2] },
-                    { sClass: "data-cols", targets: [1, 2] },
+                    {
+                        sClass: "data-cols col-content-width_one_half",
+                        targets: [1, 3],
+                    },
+                    { sClass: "col-options-width", targets: [0, -1] },
+                    { sClass: "col-mobile-hide", targets: [4] },
                     { bSortable: false, aTargets: [2, 3] },
                     { orderDataType: "data-sort", targets: 0 },
                     {

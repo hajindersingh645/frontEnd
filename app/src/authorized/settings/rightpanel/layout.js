@@ -200,52 +200,23 @@ define([
                     break;
 
                 case "safeAccSett":
-                    var emfValidator = this.state.emfValidator;
-                    var emNotValidator = this.state.emNotValidator;
-
-                    emfValidator.form();
-                    emNotValidator.form();
-
-                    if (
-                        emfValidator.numberOfInvalids() === 0 &&
-                        emNotValidator.numberOfInvalids() === 0
-                    ) {
-                        $("#settings-spinner")
-                            .removeClass("d-none")
-                            .addClass("d-block");
-                        app.user.set({
-                            sessionExpiration: this.state.sessionExpiration,
-                        });
-                        app.user.set({ mailPerPage: this.state.mailPerPage });
-                        app.user.set({
-                            defaultPGPKeybit: parseInt(
-                                this.state.defaultPGPStrength
-                            ),
-                        });
-
-                        app.user.set({
-                            remeberPassword: this.state.remeberPassword,
-                        });
-
-                        if (!this.state.remeberPassword) {
-                            app.user.set({ password: "" });
-                            app.user.set({ secondPassword: "" });
-                        }
-
-                        app.userObjects.updateObjects(
-                            "userProfile",
-                            "",
-                            function (response) {
-                                if (response === "success") {
-                                } else if (response === "failed") {
-                                } else if (response === "nothing") {
-                                }
+                    $("#settings-spinner")
+                        .removeClass("d-none")
+                        .addClass("d-block");
+                    app.user.set({ mailPerPage: this.state.mailPerPage });
+                    app.userObjects.updateObjects(
+                        "userProfile",
+                        "",
+                        function (response) {
+                            if (response === "success") {
+                            } else if (response === "failed") {
+                            } else if (response === "nothing") {
                             }
-                        );
-                        $("#settings-spinner")
-                            .removeClass("d-block")
-                            .addClass("d-none");
-                    }
+                        }
+                    );
+                    $("#settings-spinner")
+                        .removeClass("d-block")
+                        .addClass("d-none");
 
                     break;
             }
@@ -408,38 +379,11 @@ define([
                             </div>
 
                             <div className="panel-body">
-                                <h3>Display Name</h3>
+                                <h3>Emails per page</h3>
                                 <p>
-                                    Lorem ipsum dolor sit amet, graece ridens
-                                    insolens ne has. Per et vide equidem, sed
-                                    tacimates patrioque suscipiantur no. No sea
-                                    delectus percipit vituperata. Ad vim fierent
-                                    vulputate honestatis. At utamur malorum
-                                    incorrupte vel, pri recteque iudicabit cu.
-                                    Id nonumy veritus nominati eos, ut mea
-                                    oratio impetus expetenda. Possit menandri
-                                    persequeris no has, cibo deleniti euripidis
-                                    usu ei. Vel ea elit mentitum tacimates, ut
-                                    omnis scribentur vis. Pri id dico consetetur
-                                    repudiandae, vix no cibo quando offendit. At
-                                    nam nibh deserunt, his at facer tantas,
-                                    dicit quando mandamus his eu. Eros ocurreret
-                                    has id, altera verterem molestiae ad eum. Ea
-                                    saepe discere delicatissimi sea, ius ne
-                                    dolor timeam epicuri, ne sea quod civibus
-                                    convenire.
-                                </p>
-                                <h3>Signature</h3>
-                                <p>
-                                    <b>Signature</b> -Lorem ipsum dolor sit
-                                    amet, graece ridens insolens ne has. Per et
-                                    vide equidem, sed tacimates patrioque
-                                    suscipiantur no. No sea delectus percipit
-                                    vituperata. Ad vim fierent vulputate
-                                    honestatis. At utamur malorum incorrupte
-                                    vel, pri recteque iudicabit cu. Id nonumy
-                                    veritus nominati eos, ut mea oratio impetus
-                                    expetenda.
+                                    Select the number of emails you would like
+                                    to be displayed per page in your inbox and
+                                    folders.
                                 </p>
                             </div>
                         </div>

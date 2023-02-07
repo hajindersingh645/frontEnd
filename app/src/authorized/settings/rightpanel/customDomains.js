@@ -71,8 +71,10 @@ define([
                     { data: "options" },
                 ],
                 columnDefs: [
-                    { sClass: "data-cols", targets: [1] },
+                    { sClass: "data-cols col-content-width", targets: [1] },
                     { orderDataType: "data-sort", targets: 1 },
+                    { sClass: "col-mobile-hide", targets: [2, 3] },
+                    { sClass: "col-options-width", targets: [0, -1] },
                 ],
 
                 language: {

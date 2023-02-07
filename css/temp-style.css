@@ -21587,3 +21587,22 @@ footer .footer-social-media a {
         );
     }
 }
+
+/* */
+@media screen and (max-width: 640px) {
+    .table-responsive .name-width {
+        min-width: auto;
+    }
+    .col-mobile-hide {
+        display: none;
+    }
+    .col-options-width {
+        width: 13% !important;
+    }
+    .col-content-width {
+        width: 74% !important;
+    }
+    .col-content-width_one_half {
+        width: 37% !important;
+    }
+}

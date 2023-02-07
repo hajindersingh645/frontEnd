@@ -87,7 +87,9 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                 privTextDisabled: true,
 
                 keyDate: "",
-                keyId: ""
+                keyId: "",
+
+                defaultPGPStrength: app.user.get("defaultPGPKeybit")
             };
         },
 
@@ -105,7 +107,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                         sort: "email.display"
                     }
                 }, { data: "bit" }, { data: "edit" }, { data: "delete" }, { data: "options" }],
-                columnDefs: [{ orderDataType: "data-sort", targets: 1 }, { sClass: "data-cols", targets: [1] }],
+                columnDefs: [{ orderDataType: "data-sort", targets: 1 }, { sClass: "data-cols col-content-width", targets: [1] }, { sClass: "col-mobile-hide", targets: [2, 3, 4] }, { sClass: "col-options-width", targets: [0, -1] }],
                 order: [[1, "asc"]],
                 language: {
                     emptyTable: "No Keys",
@@ -657,6 +659,35 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                     break;
             }
         },
+        /**
+         *
+         * @returns {Array}
+         * @constructor
+         */
+        DefaultPGPbitList: function () {
+            var options = [];
+
+            for (var i = 1024; i <= 5120; i += 1024) {
+                if (i <= app.user.get("userPlan")["planData"]["pgpStr"]) {
+                    options.push(React.createElement(
+                        "option",
+                        { key: i, value: i },
+                        i,
+                        " bits"
+                    ));
+                } else {
+                    options.push(React.createElement(
+                        "option",
+                        { key: i, disabled: true, value: i },
+                        i,
+                        " bits"
+                    ));
+                }
+            }
+
+            return options;
+            console.log(app.user.get("userPlan")["planData"]["pgpStr"]);
+        },
         PGPbitList: function () {
             var options = [];
 
@@ -747,6 +778,15 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                             },
                             React.createElement(
                                 "div",
+                                { className: "middle-content-top" },
+                                React.createElement(
+                                    "h3",
+                                    null,
+                                    "Default PGP Strength"
+                                )
+                            ),
+                            React.createElement(
+                                "div",
                                 { className: "col-12" },
                                 React.createElement(
                                     "div",
@@ -763,10 +803,13 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                             { value: "0", disabled: true },
                                             "Default PGP bits"
                                         ),
-                                        this.PGPbitList()
+                                        this.DefaultPGPbitList()
                                     )
                                 )
                             ),
+                            React.createElement("div", {
+                                style: { padding: "10px", float: "left" }
+                            }),
                             React.createElement(
                                 "div",
                                 { className: "middle-content-top" },
@@ -1169,6 +1212,16 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                         React.createElement(
                             "div",
                             { className: "panel-body" },
+                            React.createElement(
+                                "h3",
+                                null,
+                                "Default key strength bits"
+                            ),
+                            React.createElement(
+                                "p",
+                                null,
+                                "Select the strength of the cryptography to be used for your key strength. A lower number of bits might improve speed but reduce security dramatically. A higher number of bits will take more time to process and open upon login and may not be supported by all devices if exported. The minimum recommended key strength is 2048 bits."
+                            ),
                             React.createElement(
                                 "h3",
                                 null,

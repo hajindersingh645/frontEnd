@@ -94,6 +94,8 @@ define([
 
                 keyDate: "",
                 keyId: "",
+
+                defaultPGPStrength: app.user.get("defaultPGPKeybit"),
             };
         },
 
@@ -120,7 +122,9 @@ define([
                 ],
                 columnDefs: [
                     { orderDataType: "data-sort", targets: 1 },
-                    { sClass: "data-cols", targets: [1] },
+                    { sClass: "data-cols col-content-width", targets: [1] },
+                    { sClass: "col-mobile-hide", targets: [2, 3, 4] },
+                    { sClass: "col-options-width", targets: [0, -1] },
                 ],
                 order: [[1, "asc"]],
                 language: {
@@ -800,6 +804,33 @@ define([
                     break;
             }
         },
+        /**
+         *
+         * @returns {Array}
+         * @constructor
+         */
+        DefaultPGPbitList: function () {
+            var options = [];
+
+            for (var i = 1024; i <= 5120; i += 1024) {
+                if (i <= app.user.get("userPlan")["planData"]["pgpStr"]) {
+                    options.push(
+                        <option key={i} value={i}>
+                            {i} bits
+                        </option>
+                    );
+                } else {
+                    options.push(
+                        <option key={i} disabled={true} value={i}>
+                            {i} bits
+                        </option>
+                    );
+                }
+            }
+
+            return options;
+            console.log(app.user.get("userPlan")["planData"]["pgpStr"]);
+        },
         PGPbitList: function () {
             var options = [];
 
@@ -876,6 +907,9 @@ define([
                                     this.state.viewFlag ? "d-none" : ""
                                 }`}
                             >
+                                <div className="middle-content-top">
+                                    <h3>Default PGP Strength</h3>
+                                </div>
                                 <div className="col-12">
                                     <div className="form-group">
                                         <select
@@ -891,10 +925,13 @@ define([
                                             <option value="0" disabled>
                                                 Default PGP bits
                                             </option>
-                                            {this.PGPbitList()}
+                                            {this.DefaultPGPbitList()}
                                         </select>
                                     </div>
                                 </div>
+                                <div
+                                    style={{ padding: "10px", float: "left" }}
+                                ></div>
                                 <div className="middle-content-top">
                                     <h3>PGP Keys</h3>
                                 </div>
@@ -1235,6 +1272,18 @@ define([
                             </div>
 
                             <div className="panel-body">
+                                <h3>Default key strength bits</h3>
+                                <p>
+                                    Select the strength of the cryptography to
+                                    be used for your key strength. A lower
+                                    number of bits might improve speed but
+                                    reduce security dramatically. A higher
+                                    number of bits will take more time to
+                                    process and open upon login and may not be
+                                    supported by all devices if exported. The
+                                    minimum recommended key strength is 2048
+                                    bits.
+                                </p>
                                 <h3>Key Strength</h3>
                                 <p>
                                     The strength of your PGP keys is determined

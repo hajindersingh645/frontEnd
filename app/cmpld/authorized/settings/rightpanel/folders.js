@@ -127,7 +127,10 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                         sort: "folder.display"
                     }
                 }, { data: "isMain" }, { data: "expire" }, { data: "delete" }, { data: "options" }],
-                columnDefs: [{ sClass: "d-none", targets: [2] }, { sClass: "data-cols", targets: [1, 2] }, { bSortable: false, aTargets: [2, 3] }, { orderDataType: "data-sort", targets: 0 }, {
+                columnDefs: [{ sClass: "d-none", targets: [2] }, {
+                    sClass: "data-cols col-content-width_one_half",
+                    targets: [1, 3]
+                }, { sClass: "col-options-width", targets: [0, -1] }, { sClass: "col-mobile-hide", targets: [4] }, { bSortable: false, aTargets: [2, 3] }, { orderDataType: "data-sort", targets: 0 }, {
                     responsivePriority: 1,
                     targets: 1
                 }, { responsivePriority: 2, targets: 5 }],

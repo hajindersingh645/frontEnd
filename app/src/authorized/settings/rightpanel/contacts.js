@@ -117,7 +117,12 @@ define([
                 ],
                 columnDefs: [
                     { orderDataType: "data-sort", targets: 1 },
-                    { sClass: "data-cols", targets: [1, 2] },
+                    {
+                        sClass: "data-cols col-content-width_one_half",
+                        targets: [1, 2],
+                    },
+                    { sClass: "col-options-width", targets: [0, -1] },
+                    { sClass: "col-mobile-hide", targets: [3, 4] },
                 ],
                 order: [[0, "asc"]],
                 language: {

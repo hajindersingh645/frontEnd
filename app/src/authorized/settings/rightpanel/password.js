@@ -33,6 +33,7 @@ define([
                 },
 
                 secAlertText: app.user.get("oneStep") ? "" : "d-none",
+                remeberPassword: app.user.get("remeberPassword"),
 
                 paswordForm: {},
                 secForm: {},
@@ -749,6 +750,26 @@ define([
                                                         }
                                                     />
                                                 </div>
+                                                <div className="form-group">
+                                                    <div className="checkbox-left">
+                                                        <label className="container-checkbox with-label">
+                                                            <input
+                                                                type="checkbox"
+                                                                checked={
+                                                                    this.state
+                                                                        .remeberPassword
+                                                                }
+                                                                onChange={this.handleChange.bind(
+                                                                    this,
+                                                                    "remPass"
+                                                                )}
+                                                            />
+                                                            <span className="checkmark"></span>
+                                                            Remember Password
+                                                            for Session
+                                                        </label>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div className="col-12">
                                                 <div className="info-text">
@@ -918,6 +939,17 @@ define([
                             </div>
 
                             <div className="panel-body">
+                                <h3>Remember Password</h3>
+                                <p>
+                                    Check this box to keep your password in
+                                    memory for the duration of the session. It
+                                    will prevent the system from asking you
+                                    every time you want to add or delete your
+                                    email aliases or change to private keys.
+                                    Enabling this feature can lower your
+                                    security, if someone can gain access to your
+                                    computer.
+                                </p>
                                 <h3>Password</h3>
                                 <p>
                                     (6-80 characters) Strengthen the security of
@@ -975,6 +1007,11 @@ define([
                         password2inputRepeat: {
                             text: event.target.value,
                         },
+                    });
+                    break;
+                case "remPass":
+                    this.setState({
+                        remeberPassword: !this.state.remeberPassword,
                     });
                     break;
             }

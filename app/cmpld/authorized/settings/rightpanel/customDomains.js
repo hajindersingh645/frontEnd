@@ -59,7 +59,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                 data: [],
 
                 columns: [{ data: "checkbox" }, { data: "domain" }, { data: "check" }, { data: "delete" }, { data: "options" }],
-                columnDefs: [{ sClass: "data-cols", targets: [1] }, { orderDataType: "data-sort", targets: 1 }],
+                columnDefs: [{ sClass: "data-cols col-content-width", targets: [1] }, { orderDataType: "data-sort", targets: 1 }, { sClass: "col-mobile-hide", targets: [2, 3] }, { sClass: "col-options-width", targets: [0, -1] }],
 
                 language: {
                     emptyTable: "No Domains",

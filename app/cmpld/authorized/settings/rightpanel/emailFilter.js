@@ -126,7 +126,10 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
                             sort: "text.index"
                         }
                     }, { data: "edit" }, { data: "delete" }, { data: "options" }],
-                    columnDefs: [{ orderDataType: "data-sort", targets: 1 }, { sClass: "data-cols type_full", targets: [1] }],
+                    columnDefs: [{ orderDataType: "data-sort", targets: 1 }, {
+                        sClass: "data-cols type_full col-content-width",
+                        targets: [1]
+                    }, { sClass: "col-options-width", targets: [0, -1] }, { sClass: "col-mobile-hide", targets: [2, 3] }],
                     order: [[1, "asc"]],
                     language: {
                         emptyTable: "Empty",

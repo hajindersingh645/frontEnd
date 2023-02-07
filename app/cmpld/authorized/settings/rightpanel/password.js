@@ -29,6 +29,7 @@ define(["react", "app", "ajaxQueue", "cmpld/authorized/settings/rightpanel/right
                 },
 
                 secAlertText: app.user.get("oneStep") ? "" : "d-none",
+                remeberPassword: app.user.get("remeberPassword"),
 
                 paswordForm: {},
                 secForm: {},
@@ -650,6 +651,25 @@ define(["react", "app", "ajaxQueue", "cmpld/authorized/settings/rightpanel/right
                                                     onChange: this.handleChange.bind(this, "changepass1repeat"),
                                                     value: this.state.password1inputRepeat
                                                 })
+                                            ),
+                                            React.createElement(
+                                                "div",
+                                                { className: "form-group" },
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "checkbox-left" },
+                                                    React.createElement(
+                                                        "label",
+                                                        { className: "container-checkbox with-label" },
+                                                        React.createElement("input", {
+                                                            type: "checkbox",
+                                                            checked: this.state.remeberPassword,
+                                                            onChange: this.handleChange.bind(this, "remPass")
+                                                        }),
+                                                        React.createElement("span", { className: "checkmark" }),
+                                                        "Remember Password for Session"
+                                                    )
+                                                )
                                             )
                                         ),
                                         React.createElement(
@@ -840,6 +860,16 @@ define(["react", "app", "ajaxQueue", "cmpld/authorized/settings/rightpanel/right
                             React.createElement(
                                 "h3",
                                 null,
+                                "Remember Password"
+                            ),
+                            React.createElement(
+                                "p",
+                                null,
+                                "Check this box to keep your password in memory for the duration of the session. It will prevent the system from asking you every time you want to add or delete your email aliases or change to private keys. Enabling this feature can lower your security, if someone can gain access to your computer."
+                            ),
+                            React.createElement(
+                                "h3",
+                                null,
                                 "Password"
                             ),
                             React.createElement(
@@ -890,6 +920,11 @@ define(["react", "app", "ajaxQueue", "cmpld/authorized/settings/rightpanel/right
                         password2inputRepeat: {
                             text: event.target.value
                         }
+                    });
+                    break;
+                case "remPass":
+                    this.setState({
+                        remeberPassword: !this.state.remeberPassword
                     });
                     break;
             }

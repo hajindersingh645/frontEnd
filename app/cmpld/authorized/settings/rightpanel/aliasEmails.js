@@ -270,7 +270,10 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                 dom: '<"middle-search"f>t<"mid-pagination-row"<"pagi-left"i><"pagi-right"p>>',
                 data: thsComp.getAliasData(),
                 columns: [{ data: "checkbox" }, { data: "email" }, { data: "name" }, { data: "edit" }, { data: "delete" }, { data: "options" }],
-                columnDefs: [{ orderDataType: "data-sort", targets: [1, 2] }, { sClass: "data-cols", targets: [1, 2] }],
+                columnDefs: [{ orderDataType: "data-sort", targets: [1, 2] }, { sClass: "col-options-width", targets: [0, -1] }, {
+                    sClass: "data-cols col-content-width_one_half",
+                    targets: [1, 2]
+                }, { sClass: "col-mobile-hide", targets: [3, 4] }],
                 order: [[2, "desc"], [0, "asc"]],
                 language: {
                     emptyTable: "Empty",

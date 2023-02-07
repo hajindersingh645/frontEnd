@@ -143,26 +143,14 @@ define([
                             </div>
 
                             <div className="panel-body">
-                                <h3>Display Name</h3>
+                                <h3>Timeout</h3>
+
                                 <p>
-                                    Lorem ipsum dolor sit amet, graece ridens
-                                    insolens ne has. Per et vide equidem, sed
-                                    tacimates patrioque suscipiantur no. No sea
-                                    delectus percipit vituperata. Ad vim fierent
-                                    vulputate honestatis. At utamur malorum
-                                    incorrupte vel, pri recteque iudicabit cu.
-                                    Id nonumy veritus nominati eos, ut mea
-                                    oratio impetus expetenda. Possit menandri
-                                    persequeris no has, cibo deleniti euripidis
-                                    usu ei. Vel ea elit mentitum tacimates, ut
-                                    omnis scribentur vis. Pri id dico consetetur
-                                    repudiandae, vix no cibo quando offendit. At
-                                    nam nibh deserunt, his at facer tantas,
-                                    dicit quando mandamus his eu. Eros ocurreret
-                                    has id, altera verterem molestiae ad eum. Ea
-                                    saepe discere delicatissimi sea, ius ne
-                                    dolor timeam epicuri, ne sea quod civibus
-                                    convenire.
+                                    Select the amount of time before your
+                                    current session logs out automatically and
+                                    requires you to login again. You can select{" "}
+                                    <b>Disable Timeout</b> to turn off this
+                                    feature.(Not recommended)
                                 </p>
                             </div>
                         </div>
