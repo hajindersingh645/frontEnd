@@ -17968,10 +17968,21 @@ header .user-dropdown .dropdown-menu button {
     background: url("../images/icon-attachment.svg") left top/16px no-repeat;
 }
 .icon-notification button {
-    background: url("../images/icon-notification.svg") left top/24px no-repeat;
+    /* background: url("../images/icon-notification.svg") left top/24px no-repeat; */
+    background: transparent;
 }
 .icon-notification button span {
     border: 2px solid #fff;
+}
+.icon-notification button path {
+    fill: #080d13;
+}
+.icon-notification button:hover {
+    background: transparent;
+}
+.icon-notification button:hover path,
+.icon-notification button:focus path {
+    fill: #2277f6;
 }
 header {
     background: #fff;
@@ -21062,8 +21073,9 @@ footer .footer-social-media a {
 .app-notification.type-1.active {
     visibility: visible;
     opacity: 1;
-    z-index: 10;
-    top: 61px;
+    z-index: 999;
+    top: 83px;
+    right: 20px;
 }
 .app-notification ._inside {
     border: solid 2px rgb(242, 242, 242);

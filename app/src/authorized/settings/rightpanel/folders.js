@@ -139,6 +139,7 @@ define([
             $("#table1").dataTable({
                 dom: '<"middle-search"f>t<"mid-pagination-row"<"pagi-left"i><"pagi-right"p>>',
                 data: folderSet,
+                responsive: true,
                 columns: [
                     { data: "checkbox" },
                     {
@@ -157,6 +158,11 @@ define([
                     { sClass: "data-cols", targets: [1, 2] },
                     { bSortable: false, aTargets: [2, 3] },
                     { orderDataType: "data-sort", targets: 0 },
+                    {
+                        responsivePriority: 1,
+                        targets: 1,
+                    },
+                    { responsivePriority: 2, targets: 5 },
                 ],
                 order: [[1, "desc"]],
                 language: {

@@ -747,6 +747,28 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                             },
                             React.createElement(
                                 "div",
+                                { className: "col-12" },
+                                React.createElement(
+                                    "div",
+                                    { className: "form-group" },
+                                    React.createElement(
+                                        "select",
+                                        {
+                                            className: "form-select",
+                                            onChange: this.handleChange.bind(this, "pgpStr"),
+                                            value: this.state.defaultPGPStrength
+                                        },
+                                        React.createElement(
+                                            "option",
+                                            { value: "0", disabled: true },
+                                            "Default PGP bits"
+                                        ),
+                                        this.PGPbitList()
+                                    )
+                                )
+                            ),
+                            React.createElement(
+                                "div",
                                 { className: "middle-content-top" },
                                 React.createElement(
                                     "h3",

@@ -24,6 +24,7 @@ require.config({
         quill: "/js/Plugins/quill/quill.min",
         offline: "/js/Plugins/offline/offline.min",
         dataTable: "/js/Plugins/dataTables/jquery.dataTables",
+        dataTableResponsive: "/js/Plugins/dataTables/dataTables.responsive",
         dataTableBoot: "/js/Plugins/dataTables/dataTables.bootstrap",
         //sha512:"/js/main/forge/sha512",
         //util:"/js/main/forge/util",
@@ -106,6 +107,10 @@ require.config({
         dataTable: {
             deps: ["jquery"],
             exports: "dataTable",
+        },
+        dataTableResponsive: {
+            deps: ["jquery", "dataTable"],
+            exports: "dataTableResponsive",
         },
         dataTableBoot: {
             deps: ["jquery", "dataTable"],

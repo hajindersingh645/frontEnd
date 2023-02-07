@@ -17,7 +17,8 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
         getInitialState: function () {
             return {
                 setings: { profile: "active" },
-                activeLink: ""
+                activeLink: "",
+                activeParentLink: "settings"
             };
         },
         boxSize: function () {
@@ -53,7 +54,8 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                 switch (i) {
                     case "Profile":
                         this.setState({
-                            activeLink: `Profile`
+                            activeLink: `Profile`,
+                            activeParentLink: `settings`
                         });
                         Backbone.history.navigate("/settings/Profile", {
                             trigger: true
@@ -61,16 +63,26 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                         break;
                     case "Layout":
                         this.setState({
-                            activeLink: `Layout`
+                            activeLink: `Layout`,
+                            activeParentLink: `mailbox`
                         });
                         Backbone.history.navigate("/settings/Layout", {
                             trigger: true
                         });
                         break;
-
+                    case "Session-Timeout":
+                        this.setState({
+                            activeLink: `Session-Timeout`,
+                            activeParentLink: `security`
+                        });
+                        Backbone.history.navigate("/settings/Session-Timeout", {
+                            trigger: true
+                        });
+                        break;
                     case "Password":
                         this.setState({
-                            activeLink: `Password`
+                            activeLink: `Password`,
+                            activeParentLink: `security`
                         });
                         Backbone.history.navigate("/settings/Password", {
                             trigger: true
@@ -78,7 +90,8 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                         break;
                     case "Aliases":
                         this.setState({
-                            activeLink: `Aliases`
+                            activeLink: `Aliases`,
+                            activeParentLink: `profile`
                         });
                         Backbone.history.navigate("/settings/Aliases", {
                             trigger: true
@@ -86,7 +99,8 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                         break;
                     case "Disposable-Aliases":
                         this.setState({
-                            activeLink: `Disposable-Aliases`
+                            activeLink: `Disposable-Aliases`,
+                            activeParentLink: `profile`
                         });
                         Backbone.history.navigate("/settings/Disposable-Aliases", {
                             trigger: true
@@ -94,7 +108,8 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                         break;
                     case "Custom-Domain":
                         this.setState({
-                            activeLink: `Custom-Domain`
+                            activeLink: `Custom-Domain`,
+                            activeParentLink: `profile`
                         });
                         Backbone.history.navigate("/settings/Custom-Domain", {
                             trigger: true
@@ -102,7 +117,8 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                         break;
                     case "2-Step":
                         this.setState({
-                            activeLink: `2-Step`
+                            activeLink: `2-Step`,
+                            activeParentLink: `security`
                         });
                         Backbone.history.navigate("/settings/2-Step", {
                             trigger: true
@@ -110,7 +126,8 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                         break;
                     case "Contacts":
                         this.setState({
-                            activeLink: `Contacts`
+                            activeLink: `Contacts`,
+                            activeParentLink: `profile`
                         });
                         Backbone.history.navigate("/settings/Contacts", {
                             trigger: true
@@ -126,7 +143,8 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                         break;
                     case "PGP-Keys":
                         this.setState({
-                            activeLink: `PGP-Keys`
+                            activeLink: `PGP-Keys`,
+                            activeParentLink: `security`
                         });
                         Backbone.history.navigate("/settings/PGP-Keys", {
                             trigger: true
@@ -144,7 +162,8 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
 
                     case "Filter":
                         this.setState({
-                            activeLink: `Filter`
+                            activeLink: `Filter`,
+                            activeParentLink: `mailbox`
                         });
                         Backbone.history.navigate("/settings/Filter", {
                             trigger: true
@@ -152,7 +171,8 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                         break;
                     case "BlackList":
                         this.setState({
-                            activeLink: `BlackList`
+                            activeLink: `BlackList`,
+                            activeParentLink: `mailbox`
                         });
                         Backbone.history.navigate("/settings/Black-List", {
                             trigger: true
@@ -160,7 +180,8 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                         break;
                     case "Folders":
                         this.setState({
-                            activeLink: `Folders`
+                            activeLink: `Folders`,
+                            activeParentLink: `mailbox`
                         });
                         Backbone.history.navigate("/settings/Folders", {
                             trigger: true
@@ -177,7 +198,8 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                         break;
                     case "Coupon":
                         this.setState({
-                            activeLink: `Coupon`
+                            activeLink: `Coupon`,
+                            activeParentLink: `premium`
                         });
                         Backbone.history.navigate("/settings/Coupons", {
                             trigger: true
@@ -186,7 +208,8 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
 
                     case "Plan":
                         this.setState({
-                            activeLink: `Plan`
+                            activeLink: `Plan`,
+                            activeParentLink: `premium`
                         });
                         Backbone.history.navigate("/settings/Plan", {
                             trigger: true
@@ -195,7 +218,8 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
 
                     case "Delete-Account":
                         this.setState({
-                            activeLink: `Delete-Account`
+                            activeLink: `Delete-Account`,
+                            activeParentLink: `profile`
                         });
                         Backbone.history.navigate("/settings/Delete-Account", {
                             trigger: true
@@ -243,7 +267,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                     "button",
                                     {
                                         type: "button",
-                                        className: "btn dropdown-toggle",
+                                        className: `btn dropdown-toggle ${ this.state.activeParentLink === `profile` ? "active" : "" }`,
                                         "data-bs-toggle": "dropdown",
                                         "aria-expanded": "false"
                                     },
@@ -345,7 +369,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                     "button",
                                     {
                                         type: "button",
-                                        className: "btn dropdown-toggle",
+                                        className: `btn dropdown-toggle ${ this.state.activeParentLink === `security` ? "active" : "" }`,
                                         "data-bs-toggle": "dropdown",
                                         "aria-expanded": "false"
                                     },
@@ -411,6 +435,19 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                             },
                                             "PGP Keys"
                                         )
+                                    ),
+                                    React.createElement(
+                                        "li",
+                                        {
+                                            className: `${ this.state.activeLink === `Session-Timeout` ? "active" : "" }`
+                                        },
+                                        React.createElement(
+                                            "a",
+                                            {
+                                                onClick: this.handleClick.bind(this, "Session-Timeout")
+                                            },
+                                            "Session Timeout"
+                                        )
                                     )
                                 )
                             ),
@@ -421,7 +458,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                     "button",
                                     {
                                         type: "button",
-                                        className: "btn dropdown-toggle",
+                                        className: `btn dropdown-toggle ${ this.state.activeParentLink === `mailbox` ? "active" : "" }`,
                                         "data-bs-toggle": "dropdown",
                                         "aria-expanded": "false"
                                     },
@@ -491,6 +528,19 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                             },
                                             "Blacklist / Whitelist"
                                         )
+                                    ),
+                                    React.createElement(
+                                        "li",
+                                        {
+                                            className: `${ this.state.activeLink === `Layout` ? "active" : "" }`
+                                        },
+                                        React.createElement(
+                                            "a",
+                                            {
+                                                onClick: this.handleClick.bind(this, "Layout")
+                                            },
+                                            "Layout"
+                                        )
                                     )
                                 )
                             ),
@@ -501,7 +551,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                     "button",
                                     {
                                         type: "button",
-                                        className: "btn dropdown-toggle",
+                                        className: `btn dropdown-toggle ${ this.state.activeParentLink === `premium` ? "active" : "" }`,
                                         "data-bs-toggle": "dropdown",
                                         "aria-expanded": "false"
                                     },
@@ -563,7 +613,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                 React.createElement(
                                     "button",
                                     {
-                                        className: `btn ${ this.state.activeLink === `Profile` ? "active" : "" }`,
+                                        className: `btn ${ this.state.activeLink === `Profile` || this.state.activeParentLink === `settings` ? "active" : "" }`,
                                         onClick: this.handleClick.bind(this, "Profile"),
                                         "aria-expanded": "false"
                                     },
@@ -840,6 +890,19 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                             },
                                                             "PGP Keys"
                                                         )
+                                                    ),
+                                                    React.createElement(
+                                                        "li",
+                                                        {
+                                                            className: `${ this.state.activeLink === `Session-Timeout` ? "active" : "" }`
+                                                        },
+                                                        React.createElement(
+                                                            "a",
+                                                            {
+                                                                onClick: this.handleClick.bind(this, "Session-Timeout")
+                                                            },
+                                                            "Session Timeout"
+                                                        )
                                                     )
                                                 )
                                             )
@@ -922,6 +985,19 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                                 onClick: this.handleClick.bind(this, "BlackList")
                                                             },
                                                             "Blacklist / Whitelist"
+                                                        )
+                                                    ),
+                                                    React.createElement(
+                                                        "li",
+                                                        {
+                                                            className: `${ this.state.activeLink === `Layout` ? "active" : "" }`
+                                                        },
+                                                        React.createElement(
+                                                            "a",
+                                                            {
+                                                                onClick: this.handleClick.bind(this, "Layout")
+                                                            },
+                                                            "Layout"
                                                         )
                                                     )
                                                 )

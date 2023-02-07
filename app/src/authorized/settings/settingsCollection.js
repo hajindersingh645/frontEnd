@@ -26,6 +26,7 @@ define([
                     delete: "",
                     blackList: "",
                     adminPanel: "",
+                    sessionTimeout: "",
                 },
                 setTabs: {
                     Header: "panel-title personal-info-title d-none-xs",
@@ -61,6 +62,7 @@ define([
                         delete: "",
                         blackList: "",
                         adminPanel: "",
+                        sessionTimeout: "",
                     },
                 },
                 () => {
@@ -119,6 +121,9 @@ define([
                     break;
                 case "Aliases":
                     thisComp.setActive(thisComp, "aliases");
+                    break;
+                case "Session-Timeout":
+                    thisComp.setActive(thisComp, "sessionTimeout");
                     break;
                 case "Disposable-Aliases":
                     thisComp.setActive(thisComp, "disposable");

@@ -117,6 +117,7 @@ define(["react", "app", "cmpld/authorized/settings/rightpanel/rightTop"], functi
 
             require(["dataTable", "dataTableBoot"], function (DataTable, dataTableBoot) {
                 $("#table1").dataTable({
+                    responsive: true,
                     dom: '<"middle-search"f>t<"mid-pagination-row"<"pagi-left"i><"pagi-right"p>>',
                     data: dtSet,
                     columns: [{ data: "checkbox" }, {

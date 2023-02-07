@@ -157,6 +157,7 @@ define([
                 dataTableBoot
             ) {
                 $("#table1").dataTable({
+                    responsive: true,
                     dom: '<"middle-search"f>t<"mid-pagination-row"<"pagi-left"i><"pagi-right"p>>',
                     data: dtSet,
                     columns: [

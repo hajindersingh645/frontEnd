@@ -120,13 +120,17 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
             $("#table1").dataTable({
                 dom: '<"middle-search"f>t<"mid-pagination-row"<"pagi-left"i><"pagi-right"p>>',
                 data: folderSet,
+                responsive: true,
                 columns: [{ data: "checkbox" }, {
                     data: {
                         _: "folder.display",
                         sort: "folder.display"
                     }
                 }, { data: "isMain" }, { data: "expire" }, { data: "delete" }, { data: "options" }],
-                columnDefs: [{ sClass: "d-none", targets: [2] }, { sClass: "data-cols", targets: [1, 2] }, { bSortable: false, aTargets: [2, 3] }, { orderDataType: "data-sort", targets: 0 }],
+                columnDefs: [{ sClass: "d-none", targets: [2] }, { sClass: "data-cols", targets: [1, 2] }, { bSortable: false, aTargets: [2, 3] }, { orderDataType: "data-sort", targets: 0 }, {
+                    responsivePriority: 1,
+                    targets: 1
+                }, { responsivePriority: 2, targets: 5 }],
                 order: [[1, "desc"]],
                 language: {
                     emptyTable: "Empty",

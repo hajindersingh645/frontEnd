@@ -876,6 +876,25 @@ define([
                                     this.state.viewFlag ? "d-none" : ""
                                 }`}
                             >
+                                <div className="col-12">
+                                    <div className="form-group">
+                                        <select
+                                            className="form-select"
+                                            onChange={this.handleChange.bind(
+                                                this,
+                                                "pgpStr"
+                                            )}
+                                            value={
+                                                this.state.defaultPGPStrength
+                                            }
+                                        >
+                                            <option value="0" disabled>
+                                                Default PGP bits
+                                            </option>
+                                            {this.PGPbitList()}
+                                        </select>
+                                    </div>
+                                </div>
                                 <div className="middle-content-top">
                                     <h3>PGP Keys</h3>
                                 </div>

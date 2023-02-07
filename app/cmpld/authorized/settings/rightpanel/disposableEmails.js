@@ -1318,6 +1318,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
             $("#table2").dataTable({
                 dom: '<"middle-search"f>t<"mid-pagination-row"<"pagi-left"i><"pagi-right"p>>',
                 data: thsComp.getDisposableDataData(),
+                responsive: true,
                 columns: [{ data: "checkbox" }, { data: "email" },
                 // { data: "dispose" },
                 { data: "delete" }, { data: "options" }],

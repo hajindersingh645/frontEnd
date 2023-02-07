@@ -328,6 +328,7 @@ define([
                 "cmpld/authorized/settings/rightpanel/deleteAccount",
                 "cmpld/authorized/settings/rightpanel/plan",
                 "cmpld/authorized/settings/rightpanel/blackList",
+                "cmpld/authorized/settings/rightpanel/sessionTimeout",
                 "cmpld/authorized/authCollection",
                 "cmpld/authorized/updates/updateVersion1",
                 "cmpld/authorized/settings/rightpanel/aliasEmails"
@@ -349,6 +350,7 @@ define([
                 Delete,
                 Plan,
                 blackList,
+                sessionTimeout,
                 AuthCollection,
                 UpdateVersion1,
                 Aliases
@@ -417,7 +419,9 @@ define([
                     case "Delete-Account":
                         Profil = Delete;
                         break;
-
+                    case "Session-Timeout":
+                        Profil = sessionTimeout;
+                        break;
                     case "Coupons":
                         Profil = Coupons;
                         break;

@@ -21,7 +21,8 @@ define(["react", "app", "cmpld/authorized/settings/leftmenu/settingsList"], func
                     plan: "",
                     delete: "",
                     blackList: "",
-                    adminPanel: ""
+                    adminPanel: "",
+                    sessionTimeout: ""
                 },
                 setTabs: {
                     Header: "panel-title personal-info-title d-none-xs",
@@ -54,7 +55,8 @@ define(["react", "app", "cmpld/authorized/settings/leftmenu/settingsList"], func
                     plan: "",
                     delete: "",
                     blackList: "",
-                    adminPanel: ""
+                    adminPanel: "",
+                    sessionTimeout: ""
                 }
             }, () => {
                 callback();
@@ -107,6 +109,9 @@ define(["react", "app", "cmpld/authorized/settings/leftmenu/settingsList"], func
                     break;
                 case "Aliases":
                     thisComp.setActive(thisComp, "aliases");
+                    break;
+                case "Session-Timeout":
+                    thisComp.setActive(thisComp, "sessionTimeout");
                     break;
                 case "Disposable-Aliases":
                     thisComp.setActive(thisComp, "disposable");
