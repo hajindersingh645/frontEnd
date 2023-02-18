@@ -7,6 +7,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                 moveFolderMain: [],
                 moveFolderCust: [],
                 unopened: app.user.get("unopenedEmails"),
+                menuExpanded: true,
             };
         },
         componentDidMount: function () {
@@ -167,6 +168,9 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
 
                 case "login":
                     console.log(createUserFormValidator);
+                    break;
+                case "toggleLeftSide":
+                    document.body.classList.toggle("shrinked");
                     break;
                 case "settings":
                     app.mixins.canNavigate(function (decision) {
@@ -354,10 +358,46 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
 
             return (
                 <div>
-                    <div className="left-side">
+                    <div
+                        className={`left-side ${
+                            this.state.menuExpanded ? "expanded" : "shrinked"
+                        }`}
+                    >
                         <div className="left-container">
                             <div className="logo">
-                                <a href="#">
+                                <div className="menu-icon">
+                                    <button
+                                        type="button"
+                                        onClick={this.handleClick.bind(
+                                            this,
+                                            "toggleLeftSide"
+                                        )}
+                                    >
+                                        <svg
+                                            id="Layer_1"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            xmlnsXlink="http://www.w3.org/1999/xlink"
+                                            x="0px"
+                                            y="0px"
+                                            viewBox="0 0 24 24"
+                                            xmlSpace="preserve"
+                                        >
+                                            <path
+                                                fill="#080D13"
+                                                d="M1.2,3.2h21.7c0.6,0,1.1,0.5,1.1,1.1l0,0c0,0.6-0.5,1.1-1.1,1.1H1.2C0.5,5.4,0,4.9,0,4.3l0,0C0,3.7,0.5,3.2,1.2,3.2z"
+                                            />
+                                            <path
+                                                fill="#080D13"
+                                                d="M1.2,11.3h21.7c0.6,0,1.1,0.5,1.1,1.1l0,0c0,0.6-0.5,1.1-1.1,1.1H1.2C0.5,13.5,0,13,0,12.4l0,0C0,11.8,0.5,11.3,1.2,11.3z"
+                                            />
+                                            <path
+                                                fill="#080D13"
+                                                d="M1.2,19.4h21.7c0.6,0,1.1,0.5,1.1,1.1l0,0c0,0.6-0.5,1.1-1.1,1.1H1.2c-0.6,0-1.1-0.5-1.1-1.1l0,0C0,19.9,0.5,19.4,1.2,19.4z"
+                                            />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <a href="#" className="brand">
                                     <img
                                         src="images/logo.svg"
                                         alt=""
@@ -377,7 +417,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                         "composeEmail"
                                     )}
                                 >
-                                    New message
+                                    <span className="text">New message</span>
                                 </button>
                             </div>
                             <div className="main-menu">
@@ -542,6 +582,25 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                                             "switchFolder"
                                                                         )}
                                                                     >
+                                                                        <span className="menu-icon">
+                                                                            <svg
+                                                                                width="24"
+                                                                                height="24"
+                                                                                viewBox="0 0 20 20"
+                                                                                fill="none"
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                            >
+                                                                                <path
+                                                                                    opacity="0.4"
+                                                                                    d="M16.2013 3.36209C16.3115 3.53535 16.1226 3.7372 15.9224 3.69169C15.5307 3.57502 15.0974 3.51669 14.6557 3.51669H11.9055C11.7745 3.51669 11.6511 3.45507 11.5724 3.35033L10.6141 2.07502C10.4967 1.90872 10.6076 1.66669 10.8112 1.66669H13.1057C14.4066 1.66669 15.5524 2.3423 16.2013 3.36209Z"
+                                                                                    fill="#56BEC5"
+                                                                                />
+                                                                                <path
+                                                                                    d="M16.7807 5.45002C16.4224 5.19169 16.0141 5.00002 15.5724 4.89169C15.2724 4.80835 14.9641 4.76669 14.6474 4.76669H11.5474C11.0641 4.76669 11.0307 4.72502 10.7724 4.38335L9.60573 2.83335C9.06406 2.10835 8.63906 1.66669 7.28073 1.66669H5.3474C3.31406 1.66669 1.66406 3.31669 1.66406 5.35002V14.65C1.66406 16.6834 3.31406 18.3334 5.3474 18.3334H14.6474C16.6807 18.3334 18.3307 16.6834 18.3307 14.65V8.45002C18.3307 7.20835 17.7224 6.11669 16.7807 5.45002ZM11.9891 13.6167H7.9974C7.6724 13.6167 7.4224 13.3584 7.4224 13.0334C7.4224 12.7167 7.6724 12.45 7.9974 12.45H11.9891C12.3141 12.45 12.5724 12.7167 12.5724 13.0334C12.5724 13.3584 12.3141 13.6167 11.9891 13.6167Z"
+                                                                                    fill="#56BEC5"
+                                                                                />
+                                                                            </svg>
+                                                                        </span>
                                                                         {folderData[
                                                                             "name"
                                                                         ] +
@@ -564,6 +623,127 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                                                       ]
                                                                                   ] +
                                                                                   "</span>")}
+                                                                    </a>
+                                                                </li>
+                                                            );
+                                                        },
+                                                        this
+                                                    )}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="folder-menu">
+                                <div className="add-folder">
+                                    <button
+                                        onClick={this.handleClick.bind(
+                                            this,
+                                            "addFolder"
+                                        )}
+                                    ></button>
+                                </div>
+                                <div className="accordion" id="accordionLabels">
+                                    <div className="accordion-item">
+                                        <h2
+                                            className="accordion-header"
+                                            id="headingOne"
+                                        >
+                                            <button
+                                                className="accordion-button"
+                                                type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#collapseOne"
+                                                aria-expanded="true"
+                                                aria-controls="collapseOne"
+                                            >
+                                                {" "}
+                                                Labels{" "}
+                                            </button>
+                                        </h2>
+                                        <div
+                                            id="collapseOne"
+                                            className="accordion-collapse collapse show"
+                                            aria-labelledby="headingOne"
+                                            data-bs-parent="#accordionLabels"
+                                        >
+                                            <div className="accordion-body">
+                                                <ul id="folderulcustom">
+                                                    {this.state.customFolders.map(
+                                                        function (
+                                                            folderData,
+                                                            i
+                                                        ) {
+                                                            return (
+                                                                <li
+                                                                    key={
+                                                                        "li_" +
+                                                                        folderData[
+                                                                            "index"
+                                                                        ]
+                                                                    }
+                                                                    className={
+                                                                        " " +
+                                                                        (folderData[
+                                                                            "role"
+                                                                        ] ==
+                                                                        "Inbox"
+                                                                            ? "active"
+                                                                            : this
+                                                                                  .state
+                                                                                  .unopened[
+                                                                                  folderData[
+                                                                                      "index"
+                                                                                  ]
+                                                                              ] ==
+                                                                              0
+                                                                            ? ""
+                                                                            : "active")
+                                                                    }
+                                                                >
+                                                                    <a
+                                                                        key={
+                                                                            "a_" +
+                                                                            i
+                                                                        }
+                                                                        id={
+                                                                            folderData[
+                                                                                "index"
+                                                                            ]
+                                                                        }
+                                                                        onClick={this.handleChange.bind(
+                                                                            this,
+                                                                            "switchFolder"
+                                                                        )}
+                                                                    >
+                                                                        <span className="menu-icon">
+                                                                            <svg
+                                                                                width="19"
+                                                                                height="16"
+                                                                                viewBox="0 0 19 16"
+                                                                                fill="none"
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                            >
+                                                                                <path
+                                                                                    d="M0 2C0 0.895431 0.895431 0 2 0H11.5C12.4443 0 13.3334 0.444583 13.9 1.2L18.1 6.8C18.6333 7.51111 18.6333 8.48889 18.1 9.2L13.9 14.8C13.3334 15.5554 12.4443 16 11.5 16H2C0.89543 16 0 15.1046 0 14V2Z"
+                                                                                    fill="#A066FF"
+                                                                                />
+                                                                                <rect
+                                                                                    x="2"
+                                                                                    y="2"
+                                                                                    width="2"
+                                                                                    height="12"
+                                                                                    rx="1"
+                                                                                    fill="white"
+                                                                                    fillOpacity="0.3"
+                                                                                />
+                                                                            </svg>
+                                                                        </span>
+                                                                        <span>
+                                                                            Google
+                                                                            Ads
+                                                                        </span>
                                                                     </a>
                                                                 </li>
                                                             );
@@ -808,6 +988,25 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                                         data-bs-dismiss="offcanvas"
                                                                         aria-label="Close"
                                                                     >
+                                                                        <span className="menu-icon">
+                                                                            <svg
+                                                                                width="24"
+                                                                                height="24"
+                                                                                viewBox="0 0 20 20"
+                                                                                fill="none"
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                            >
+                                                                                <path
+                                                                                    opacity="0.4"
+                                                                                    d="M16.2013 3.36209C16.3115 3.53535 16.1226 3.7372 15.9224 3.69169C15.5307 3.57502 15.0974 3.51669 14.6557 3.51669H11.9055C11.7745 3.51669 11.6511 3.45507 11.5724 3.35033L10.6141 2.07502C10.4967 1.90872 10.6076 1.66669 10.8112 1.66669H13.1057C14.4066 1.66669 15.5524 2.3423 16.2013 3.36209Z"
+                                                                                    fill="#56BEC5"
+                                                                                />
+                                                                                <path
+                                                                                    d="M16.7807 5.45002C16.4224 5.19169 16.0141 5.00002 15.5724 4.89169C15.2724 4.80835 14.9641 4.76669 14.6474 4.76669H11.5474C11.0641 4.76669 11.0307 4.72502 10.7724 4.38335L9.60573 2.83335C9.06406 2.10835 8.63906 1.66669 7.28073 1.66669H5.3474C3.31406 1.66669 1.66406 3.31669 1.66406 5.35002V14.65C1.66406 16.6834 3.31406 18.3334 5.3474 18.3334H14.6474C16.6807 18.3334 18.3307 16.6834 18.3307 14.65V8.45002C18.3307 7.20835 17.7224 6.11669 16.7807 5.45002ZM11.9891 13.6167H7.9974C7.6724 13.6167 7.4224 13.3584 7.4224 13.0334C7.4224 12.7167 7.6724 12.45 7.9974 12.45H11.9891C12.3141 12.45 12.5724 12.7167 12.5724 13.0334C12.5724 13.3584 12.3141 13.6167 11.9891 13.6167Z"
+                                                                                    fill="#56BEC5"
+                                                                                />
+                                                                            </svg>
+                                                                        </span>
                                                                         {folderData[
                                                                             "name"
                                                                         ] +

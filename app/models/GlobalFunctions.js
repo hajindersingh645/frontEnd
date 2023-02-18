@@ -3409,6 +3409,9 @@ define(["app", "forge", "openpgp"], function (app, forge, openpgp) {
                 b: parseInt(minBlock["bId"]),
                 sz: newMessage["size"],
                 vr: newMessage["meta"]["version"],
+                pt: newMessage["meta"]["pinTop"],
+                prn: newMessage["meta"]["pinRow"],
+                son: newMessage["meta"]["sortRow"],
             };
 
             folderBlock[emailToFolder["b"]]["data"][newMessage["messageId"]] =

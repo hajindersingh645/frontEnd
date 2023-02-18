@@ -109,6 +109,7 @@ No logs, no ads, offshore servers location. We accept BitCoin, Monero and more!"
             }
             #banner .banner-btn {
                 display: flex;
+                justify-content: center;
             }
             #banner .banner-btn a {
                 display: flex;
@@ -146,6 +147,46 @@ No logs, no ads, offshore servers location. We accept BitCoin, Monero and more!"
             }
             .mouse-scrolling .owl-dots .owl-dot.active span {
                 background-color: #ffffff;
+            }
+
+            /*  */
+            .download-at-list {
+                width: 100%;
+                float: left;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                margin-top: 24px;
+            }
+            .download-at-list .item {
+                display: flex;
+            }
+            .download-at-list .item {
+                background-color: #1d72f0;
+                border-radius: 12px;
+                color: #fff;
+                padding: 9px 21px;
+                text-decoration: none;
+            }
+            .download-at-list .item .icon {
+                margin-right: 8px;
+            }
+            .download-at-list .item .text-download {
+                color: rgba(255, 255, 255, 0.8);
+                font-size: 8px;
+                line-height: 160%;
+            }
+            .download-at-list .item .content {
+                display: flex;
+                flex-direction: column;
+                font-weight: 500;
+                justify-content: flex-start;
+                text-align: left;
+            }
+            .text-app {
+                font-size: 12px;
+                line-height: 160%;
             }
             @media screen and (max-width: 991px) {
                 #banner .banner-image.desk {
@@ -295,42 +336,302 @@ No logs, no ads, offshore servers location. We accept BitCoin, Monero and more!"
 
             <!--- Banner -->
             <section id="banner">
-                <div class="banner-image desk">
-                    <img src="/images/banner-image.svg" alt="" />
-                </div>
                 <div class="banner-content">
                     <div class="container">
-                        <div class="banner-left">
-                            <h1>
-                                Make Email<br />
-                                Security a Priority.
-                            </h1>
-                            <p>
-                                Protect confidential emails and information with
-                                open-source, most complete encryption that
-                                ensures your data is safeguarded from start to
-                                finish.
-                            </p>
+                        <div class="text-center">
+                            <div>
+                                <h1 class="desktop">
+                                    Make Email Security a Priority.
+                                </h1>
+                                <p class="desktop">
+                                    Protect confidential emails and information
+                                    with open-source, most complete<br />
+                                    encryption that ensures your data is
+                                    safeguarded from start to finish.
+                                </p>
+                                <h1 class="mobile">
+                                    Peace of Mind<br />Without Relying on Trust
+                                </h1>
+                                <p class="mobile">
+                                    Mailum is committed to keeping the Internet
+                                    an<br />
+                                    anonymous space free from surveillance.
+                                </p>
+                            </div>
                             <div class="banner-btn">
                                 <a href="/mailbox.html#signup" class="btn-white"
                                     >Try For Free</a
                                 >
-                                <a
-                                    href="https://blog.cyberfear.com/"
-                                    target="_blank"
-                                    class="btn-white-border"
-                                    >Learn More</a
-                                >
+                            </div>
+                            <div class="download-at-list">
+                                <a href="#" class="item">
+                                    <span class="icon"
+                                        ><img
+                                            src="/images/apple-store-icon.png"
+                                            alt="Apple Store"
+                                    /></span>
+                                    <span class="content">
+                                        <span class="text-download"
+                                            >Download on the</span
+                                        >
+                                        <span class="text-app"
+                                            >Apple Store</span
+                                        >
+                                    </span>
+                                </a>
+                                <a href="#" class="item">
+                                    <span class="icon"
+                                        ><img
+                                            src="/images/google-play-icon.png"
+                                            alt="Google Play"
+                                    /></span>
+                                    <span class="content">
+                                        <span class="text-download"
+                                            >Download on the</span
+                                        >
+                                        <span class="text-app"
+                                            >Google Play</span
+                                        >
+                                    </span>
+                                </a>
+                                <a href="#" class="item">
+                                    <span class="icon"
+                                        ><img
+                                            src="/images/f-droid-icon.png"
+                                            alt="F-Droid"
+                                    /></span>
+                                    <span class="content">
+                                        <span class="text-download"
+                                            >Download on the</span
+                                        >
+                                        <span class="text-app">F-Droid</span>
+                                    </span>
+                                </a>
+                            </div>
+                            <div>
+                                <img
+                                    src="/images/home-banner-desktop.png"
+                                    alt="Home page banner"
+                                />
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="banner-image mobile">
-                    <img src="/images/banner-image.svg" alt="" />
-                </div>
             </section>
             <!--- /Banner -->
-
+            <section class="features-setion">
+                <div class="feature-container">
+                    <div class="carousel-slider-wrapper">
+                        <div class="carousel-slider-container">
+                            <div class="_bg">
+                                <svg
+                                    viewBox="0 0 352 293"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        fill-rule="evenodd"
+                                        clip-rule="evenodd"
+                                        d="M269.867 134.708C270.554 134.69 271.243 134.682 271.935 134.682C315.653 134.682 351.094 170.122 351.094 213.841C351.094 257.559 315.653 293 271.935 293C230.739 293 196.893 261.53 193.124 221.319C172.734 121.799 236.146 24.1184 335.69 2.45926C340.268 1.46304 344.844 0.644867 349.41 0.000122217C304.673 30.8364 275.272 80.2316 269.867 134.708Z"
+                                        fill="#F7F8FA"
+                                    />
+                                    <path
+                                        fill-rule="evenodd"
+                                        clip-rule="evenodd"
+                                        d="M80.5546 134.708C81.2417 134.69 81.9309 134.682 82.6222 134.682C126.341 134.682 161.781 170.122 161.781 213.841C161.781 257.559 126.341 293 82.6223 293C41.4261 293 7.58004 261.53 3.81191 221.319C-16.5781 121.799 46.8332 24.1184 146.377 2.45926C150.956 1.46304 155.532 0.644867 160.098 0.000122217C115.361 30.8364 85.9596 80.2316 80.5546 134.708Z"
+                                        fill="#F7F8FA"
+                                    />
+                                </svg>
+                            </div>
+                            <div class="heading text-center">
+                                <div class="icon">
+                                    <svg
+                                        width="52"
+                                        height="42"
+                                        viewBox="0 0 52 42"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M39.517 19.3091C39.6154 19.3066 39.7141 19.3053 39.813 19.3053C46.0799 19.3053 51.1602 24.3856 51.1602 30.6524C51.1602 36.9192 46.0799 41.9995 39.813 41.9995C33.9072 41.9995 29.0551 37.4876 28.5158 31.7228C25.5939 17.4575 34.6835 3.45634 48.9522 0.351711C49.6089 0.20884 50.2651 0.0915147 50.92 -0.000930765C44.5068 4.41921 40.2919 11.4999 39.517 19.3091Z"
+                                            fill="#0E1427"
+                                        />
+                                        <path
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M12.3802 19.3091C12.4786 19.3066 12.5773 19.3053 12.6763 19.3053C18.9432 19.3053 24.0234 24.3856 24.0234 30.6524C24.0234 36.9192 18.9432 41.9995 12.6763 41.9995C6.77046 41.9995 1.9184 37.4876 1.37904 31.7228C-1.54277 17.4575 7.54682 3.45634 21.8155 0.351715C22.4722 0.20884 23.1284 0.0915147 23.7833 -0.000930765C17.37 4.41921 13.1552 11.4999 12.3802 19.3091Z"
+                                            fill="#0E1427"
+                                        />
+                                    </svg>
+                                </div>
+                                <h2 class="_title">Why Journalists love us</h2>
+                                <h5 class="_sub_title">
+                                    we have collected a professional team of
+                                    science and security experts
+                                </h5>
+                                <div class="slider-btn-wrp desktop">
+                                    <div class="container">
+                                        <div class="slider-btn">
+                                            <button class="prev-btn">
+                                                <svg
+                                                    width="24"
+                                                    height="24"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <path
+                                                        d="M4.25 12.2734L19.25 12.2734"
+                                                        stroke-width="1.5"
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                    />
+                                                    <path
+                                                        d="M10.3008 18.2978L4.25078 12.2738L10.3008 6.24878"
+                                                        stroke-width="1.5"
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                    />
+                                                </svg>
+                                            </button>
+                                            <button class="next-btn">
+                                                <svg
+                                                    width="24"
+                                                    height="24"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <path
+                                                        d="M19.75 11.7251H4.75"
+                                                        stroke-width="1.5"
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                    />
+                                                    <path
+                                                        d="M13.6992 5.70075L19.7492 11.7248L13.6992 17.7498"
+                                                        stroke-width="1.5"
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                    />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="testimonial-section type-1">
+                                <div class="owl-carousel journalists-slider">
+                                    <div class="testimonial-box">
+                                        <p>
+                                            "Mailum is an anonymous e-mail
+                                            service in Poland that has caught
+                                            our attention. It does not serve ads
+                                            or log IP addresses, while also
+                                            offering full encryption on par with
+                                            our other recommendations."
+                                        </p>
+                                        <div class="testimonial-box-bottom">
+                                            <div class="author-box">
+                                                <div class="client-name">
+                                                    Sven Taylor
+                                                </div>
+                                                <div class="company-name">
+                                                    RestorePrivacy.com
+                                                </div>
+                                            </div>
+                                            <div class="author-image">
+                                                <img
+                                                    src="/images/about-logo-2.png"
+                                                    alt=""
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="testimonial-box">
+                                        <p>
+                                            "Mailum is an anonymous e-mail
+                                            service in Poland that has caught
+                                            our attention. It does not serve ads
+                                            or log IP addresses, while also
+                                            offering full encryption on par with
+                                            our other recommendations."
+                                        </p>
+                                        <div class="testimonial-box-bottom">
+                                            <div class="author-box">
+                                                <div class="client-name">
+                                                    Sven Taylor
+                                                </div>
+                                                <div class="company-name">
+                                                    RestorePrivacy.com
+                                                </div>
+                                            </div>
+                                            <div class="author-image">
+                                                <img
+                                                    src="/images/about-logo-1.png"
+                                                    alt=""
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slider-btn-wrp mobile">
+                                <div class="container">
+                                    <div class="slider-btn">
+                                        <button class="prev-btn">
+                                            <svg
+                                                width="24"
+                                                height="24"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path
+                                                    d="M4.25 12.2734L19.25 12.2734"
+                                                    stroke-width="1.5"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                />
+                                                <path
+                                                    d="M10.3008 18.2978L4.25078 12.2738L10.3008 6.24878"
+                                                    stroke-width="1.5"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                />
+                                            </svg>
+                                        </button>
+                                        <button class="next-btn">
+                                            <svg
+                                                width="24"
+                                                height="24"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path
+                                                    d="M19.75 11.7251H4.75"
+                                                    stroke-width="1.5"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                />
+                                                <path
+                                                    d="M13.6992 5.70075L19.7492 11.7248L13.6992 17.7498"
+                                                    stroke-width="1.5"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
             <!--- Middle -->
             <div id="middle">
                 <section class="about-section">

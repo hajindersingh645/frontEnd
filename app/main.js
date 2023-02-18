@@ -25,6 +25,7 @@ require.config({
         offline: "/js/Plugins/offline/offline.min",
         dataTable: "/js/Plugins/dataTables/jquery.dataTables",
         dataTableResponsive: "/js/Plugins/dataTables/dataTables.responsive",
+        dataTableAbsolute: "/js/Plugins/dataTables/dataTables.absolute",
         dataTableBoot: "/js/Plugins/dataTables/dataTables.bootstrap",
         //sha512:"/js/main/forge/sha512",
         //util:"/js/main/forge/util",
@@ -111,6 +112,10 @@ require.config({
         dataTableResponsive: {
             deps: ["jquery", "dataTable"],
             exports: "dataTableResponsive",
+        },
+        dataTableAbsolute: {
+            deps: ["jquery", "dataTable"],
+            exports: "dataTableAbsolute",
         },
         dataTableBoot: {
             deps: ["jquery", "dataTable"],

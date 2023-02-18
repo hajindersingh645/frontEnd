@@ -23,7 +23,9 @@ define(["react", "app"], function (React, app) {
                 pgpEncrypted: false,
                 decryptedEmail: false,
                 emailLoading: app.user.get("isDecryptingEmail"),
-                //emailHasPin
+                pinTop: false,
+                pinRowNumber: 0,
+                sortOrderNumber: 0,
             };
         },
         componentWillUnmount: function () {
@@ -64,6 +66,9 @@ define(["react", "app"], function (React, app) {
                         pgpEncrypted: false,
                         decryptedEmail: false,
                         emailLoading: app.user.get("isDecryptingEmail"),
+                        pinTop: false,
+                        pinRowNumber: 0,
+                        sortOrderNumber: 0,
                     });
 
                     this.renderEmail();
@@ -243,6 +248,7 @@ define(["react", "app"], function (React, app) {
                 clearTimeout(app.user.get("emailOpenTimeOut"));
 
                 var email = app.user.get("currentMessageView");
+                console.log(email);
 
                 var from2 = [];
                 var from = app.transform.from64str(email["meta"]["from"]);
@@ -607,13 +613,10 @@ define(["react", "app"], function (React, app) {
                     toggleHTMLtext: "html",
                     pgpEncrypted: email["pgpEncrypted"],
                     hideEmailRead: false,
+                    pinTop: email["meta"]["pinTop"],
+                    pinRowNumber: email["meta"]["pinRow"],
+                    sortOrderNumber: email["meta"]["sortRow"],
                 });
-
-                // $('[data-toggle="popover-hover"]').popover({
-                //     trigger: "hover",
-                //     container: ".view-mail-header",
-                //     html: true,
-                // });
 
                 if (message["tp"] == 2) {
                     this.renderFull();
@@ -1195,6 +1198,54 @@ define(["react", "app"], function (React, app) {
                     $(w.document.body).html(html);
                     break;
 
+                case "pinToTop":
+                    var thisComp = this;
+                    if (
+                        app.user.get("currentMessageView")["id"] !==
+                            undefined &&
+                        app.user.get("currentMessageView")["id"] !== ""
+                    ) {
+                        var messages = app.user.get("emails")["messages"];
+                        // messages[emailId]["st"] == 0
+                        var email = app.user.get("currentMessageView");
+                        // var message =
+                        //     app.user.get("emails")["messages"][email["id"]];
+                        var emailId = email["id"];
+
+                        const pinnedTop = this.state.pinTop;
+                        const pinnedRowNumber = this.state.pinRowNumber;
+
+                        var updatePinToTop = setTimeout(function () {
+                            if (pinnedTop) {
+                                // message["pt"] = false;
+                                // message["son"] = pinnedRowNumber;
+                                messages[emailId]["pt"] = false;
+                                messages[emailId]["son"] = pinnedRowNumber;
+                                thisComp.setState({
+                                    pinTop: false,
+                                });
+                            } else {
+                                // message["pt"] = true;
+                                // message["son"] = -1;
+                                messages[emailId]["pt"] = true;
+                                messages[emailId]["son"] = -1;
+                                thisComp.setState({
+                                    pinTop: true,
+                                });
+                            }
+
+                            app.userObjects.updateObjects(
+                                "folderUpdate",
+                                "",
+                                function (result) {
+                                    app.globalF.syncUpdates();
+                                    console.log(result);
+                                }
+                            );
+                        }, 500);
+                    }
+
+                    break;
                 case "togglePlainHTML":
                     if (this.state.toggleHTMLtext == "html") {
                         this.setState({
@@ -2127,6 +2178,19 @@ define(["react", "app"], function (React, app) {
                                                                 )}
                                                             >
                                                                 Show Raw Header
+                                                            </button>
+                                                        </li>
+                                                        <li>
+                                                            <button
+                                                                onClick={this.handleClick.bind(
+                                                                    this,
+                                                                    "pinToTop"
+                                                                )}
+                                                            >
+                                                                {this.state
+                                                                    .pinTop
+                                                                    ? `Un-pin from top`
+                                                                    : `Pin to top`}
                                                             </button>
                                                         </li>
                                                     </ul>

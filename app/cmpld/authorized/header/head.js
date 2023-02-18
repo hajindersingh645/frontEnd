@@ -152,6 +152,37 @@ define(["react", "app", "accounting", "cmpld/authorized/mailbox/notifications"],
                         { className: "right-top-data" },
                         React.createElement(
                             "div",
+                            { className: "go-premium-button" },
+                            React.createElement(
+                                "a",
+                                { className: "button" },
+                                React.createElement(
+                                    "span",
+                                    { className: "icon" },
+                                    React.createElement(
+                                        "svg",
+                                        {
+                                            width: "20",
+                                            height: "20",
+                                            viewBox: "0 0 20 20",
+                                            fill: "none",
+                                            xmlns: "http://www.w3.org/2000/svg"
+                                        },
+                                        React.createElement("path", {
+                                            d: "M16.8989 6.07709L13.5656 8.46043C13.1239 8.77709 12.4906 8.58543 12.2989 8.07709L10.7239 3.87709C10.4573 3.15209 9.43228 3.15209 9.16561 3.87709L7.58228 8.06876C7.39061 8.58543 6.76561 8.77709 6.32395 8.45209L2.99061 6.06876C2.32395 5.60209 1.44061 6.26043 1.71561 7.03543L5.18228 15.7438C5.29895 16.0771 5.61561 16.2938 5.96561 16.2938H13.9073C14.2573 16.2938 14.5739 16.0688 14.6906 15.7438L18.1573 7.03543C18.4406 6.26043 17.5573 5.60209 16.8989 6.07709ZM12.0239 14.7688H7.85728C7.51561 14.7688 7.23228 14.4854 7.23228 14.1438C7.23228 13.8021 7.51561 13.5188 7.85728 13.5188H12.0239C12.3656 13.5188 12.6489 13.8021 12.6489 14.1438C12.6489 14.4854 12.3656 14.7688 12.0239 14.7688Z",
+                                            fill: "white"
+                                        })
+                                    )
+                                ),
+                                React.createElement(
+                                    "span",
+                                    null,
+                                    "Go Premium"
+                                )
+                            )
+                        ),
+                        React.createElement(
+                            "div",
                             { className: "icon-notification" },
                             React.createElement(
                                 "button",

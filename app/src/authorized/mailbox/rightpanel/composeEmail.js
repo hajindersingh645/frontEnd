@@ -1312,6 +1312,11 @@ define(["react", "app", "quill", "select2"], function (
                 draft["meta"]["version"] = 2;
 
                 draft["meta"]["modKey"] = thisComp.state.modKey;
+                draft["meta"]["pinTop"] = false;
+                draft["meta"]["pinRow"] =
+                    Object.keys(app.user.get("emails")["messages"]).length + 1; // pin row number original
+                draft["meta"]["sortRow"] =
+                    Object.keys(app.user.get("emails")["messages"]).length + 1; // pin to top number
 
                 draft["attachment"] = thisComp.getFileMeta(
                     thisComp.state.fileObject
@@ -1533,6 +1538,13 @@ define(["react", "app", "quill", "select2"], function (
 
                             draft["meta"]["type"] = 3;
                             draft["meta"]["version"] = 2;
+                            draft["meta"]["pinTop"] = false;
+                            draft["meta"]["pinRow"] =
+                                Object.keys(app.user.get("emails")["messages"])
+                                    .length + 1; // pin row number original
+                            draft["meta"]["sortRow"] =
+                                Object.keys(app.user.get("emails")["messages"])
+                                    .length + 1; // pin to top number
 
                             draft["attachment"] = jQuery.extend(
                                 true,
@@ -1628,20 +1640,14 @@ define(["react", "app", "quill", "select2"], function (
                     app.user.set({ isComposingEmail: false });
                     app.user.set({ isDraftOpened: false });
                     $("body").removeClass("draft-opened");
-                    $("#appRightSide").css(
-                        "display",
-                        "none"
-                    );
+                    $("#appRightSide").css("display", "none");
                     Backbone.history.loadUrl(Backbone.history.fragment);
                     break;
                 case "deleteDraft":
                     app.user.set({ isComposingEmail: false });
                     app.user.set({ isDraftOpened: false });
                     $("body").removeClass("draft-opened");
-                    $("#appRightSide").css(
-                        "display",
-                        "none"
-                    );
+                    $("#appRightSide").css("display", "none");
                     if (this.state.messageId == "") {
                         Backbone.history.navigate(
                             "/mail/" + app.user.get("currentFolder"),

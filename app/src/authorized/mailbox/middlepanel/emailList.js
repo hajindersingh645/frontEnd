@@ -1,4 +1,10 @@
-define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
+define([
+    "react",
+    "app",
+    "dataTable",
+    "dataTableAbsolute",
+    "dataTableBoot",
+], function (React, app) {
     return React.createClass({
         mixins: [app.mixins.touchMixins()],
         getInitialState: function () {
@@ -100,7 +106,9 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                 showPreview +
                                 '"><div class="mail-title">' +
                                 emailListCopy[folderId][index]["sb"] +
-                                "</div> <p>" +
+                                "</div> <p><span class='from'>" +
+                                fromTitle +
+                                ": </span>" +
                                 emailListCopy[folderId][index]["bd"] +
                                 "</p></div>" +
                                 emailListCopy[folderId][index]["tagPart"] +
@@ -109,6 +117,10 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                             //"open":folderData['o']?1:0,
                             timestamp:
                                 emailListCopy[folderId][index]["timestamp"],
+                            sortOrder:
+                                folderData["son"] === undefined
+                                    ? 0
+                                    : folderData["son"],
                         },
                     };
                 } else {
@@ -325,14 +337,7 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                     //     fromEmail +
                     //     "</span>";
 
-                    var fromPart =
-                        '<div class="inbox-list-top" data-content="' +
-                        fromTitle +
-                        '"><span class="inbox-list-top-content">' +
-                        trust +
-                        " " +
-                        fromEmail +
-                        '</span><span class="unread-bullet"></span> </div>';
+                    var fromPart = '<span class="unread-bullet"></span>';
 
                     // var dateAtPart =
                     //     '<span class="no-padding date col-xs-3 col-sm-2">' +
@@ -391,7 +396,9 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                                 showPreview +
                                 '"><div class="mail-title">' +
                                 emailListCopy[folderId][index]["sb"] +
-                                "</div> <p>" +
+                                "</div> <p><span class='from'>" +
+                                fromTitle +
+                                ": </span>" +
                                 emailListCopy[folderId][index]["bd"] +
                                 "</p></div>" +
                                 emailListCopy[folderId][index]["tagPart"] +
@@ -399,6 +406,10 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
 
                             timestamp:
                                 emailListCopy[folderId][index]["timestamp"],
+                            sortOrder:
+                                folderData["son"] === undefined
+                                    ? 0
+                                    : folderData["son"],
                         },
                     };
                 }
@@ -468,6 +479,10 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                 });
             });
 
+            var hidden = $.fn.dataTable.absoluteOrder([
+                { value: "TOP", position: "top" },
+            ]);
+
             $("#emailListTable").dataTable({
                 dom: '<"#checkAll"><"#emailListNavigation"pi>rt<"pull-right"p><"pull-right"i>',
                 data: dtSet,
@@ -479,6 +494,9 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                             filter: "email.display",
                         },
                     },
+                    {
+                        data: "email.sortOrder",
+                    },
                 ],
 
                 columnDefs: [
@@ -487,9 +505,14 @@ define(["react", "app", "dataTable", "dataTableBoot"], function (React, app) {
                         targets: 0,
                     },
                     { orderDataType: "data-sort", targets: 0 },
+                    {
+                        targets: -1,
+                        visible: false,
+                        type: hidden,
+                    },
                 ],
                 sPaginationType: "simple",
-                order: [[0, "desc"]],
+                order: [[1, "desc"]],
                 iDisplayLength: app.user.get("mailPerPage"),
                 language: {
                     emptyTable: "Empty",
