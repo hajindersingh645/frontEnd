@@ -15429,6 +15429,8 @@ header .user-dropdown .dropdown-menu li button {
     padding: 0 0 0 36px;
     position: relative;
     opacity: 0.5;
+    font-weight: 500;
+    font-size: 14px;
 }
 .main-menu ul li a .menu-icon {
     width: 24px;
@@ -15478,6 +15480,7 @@ header .user-dropdown .dropdown-menu li button {
     -webkit-box-shadow: none;
     box-shadow: none;
     opacity: 0.5;
+    font-size: 14px;
 }
 .folder-menu .accordion-button:after {
     width: 16px;
@@ -16209,6 +16212,7 @@ textarea::-webkit-scrollbar {
 }
 body.shrinked .left-side {
     width: 128px;
+    overflow: hidden;
 }
 .left-side::-webkit-scrollbar {
     width: 5px;
@@ -16222,13 +16226,14 @@ body.shrinked .left-side {
 }
 .left-side .logo .menu-icon {
     margin-right: 21px;
+    margin-left: 9px;
 }
 .left-side .logo .menu-icon button {
     background-color: transparent;
     width: 24px;
-    height: 24px;
+    height: auto;
     border: 0;
-    padding: 0;
+    padding: 4px;
 }
 .left-side .logo .menu-icon button * {
     pointer-events: none;
@@ -16424,6 +16429,8 @@ body.shrinked .left-side {
     float: left;
     padding: 30.65px 24px;
     display: none;
+    min-height: 86px;
+    max-height: 86px;
 }
 .middle-section .middle-top .desktop-search input {
     width: 100%;
@@ -17800,6 +17807,13 @@ body.shrinked .left-side {
     .setting-middle .middle-top {
         padding: 35px 0 23px 24px;
     }
+
+    body.shrinked .main-menu {
+        padding: 11px 40px 0 40px;
+    }
+    body.shrinked .folder-menu {
+        padding: 24px 40px 0 40px;
+    }
 }
 @media screen and (min-width: 2000px) {
     .setting-middle {
@@ -18059,6 +18073,8 @@ header {
     background: #fff;
     border-bottom: 0;
     border-bottom: solid 1px #f2f2f2;
+    min-height: 87px;
+    max-height: 87px;
 }
 header .menu-icon button {
     /* background: url("../images/icon-menu.svg") left top/30px no-repeat; */
@@ -19159,7 +19175,7 @@ header .menu-icon.on-left-side {
 }
 .middle-section .inbox-list table td > .email {
     width: 100%;
-    padding: 20px 60px;
+    padding: 14px 60px;
     position: relative;
     cursor: pointer;
     float: none;
@@ -19200,7 +19216,7 @@ header .menu-icon.on-left-side {
 .middle-section .inbox-list table p {
     width: 100%;
     float: none;
-    padding: 5px 0 0;
+    /* padding: 5px 0 0; */
     margin: 0;
     font-size: 12px;
     line-height: 140%;
@@ -21728,9 +21744,14 @@ body.shrinked .left-side .call-to-action {
     padding-top: 0px;
     margin-top: 0px;
 }
+body.shrinked .left-side .storage {
+    padding-left: 33px;
+    padding-right: 33px;
+}
 body.shrinked .left-side .storage .storage-count {
     padding-left: 0px;
     background: none;
+    text-align: center;
 }
 body.shrinked .left-side .logo {
     padding-left: 0px;
@@ -21797,4 +21818,10 @@ body.shrinked .folder-menu .add-folder {
 body.shrinked .accordion-header + .accordion-collapse {
     width: 100%;
     overflow: hidden;
+}
+body.shrinked .folder-menu .accordion-body ul li a .menu-icon {
+    margin-right: 0px;
+}
+body.shrinked .left-side .left-cta {
+    padding: 0px;
 }
