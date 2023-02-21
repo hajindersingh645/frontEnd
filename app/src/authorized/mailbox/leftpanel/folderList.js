@@ -362,6 +362,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                         className={`left-side ${
                             this.state.menuExpanded ? "expanded" : "shrinked"
                         }`}
+                        id="folderMenu"
                     >
                         <div className="left-container">
                             <div className="logo">

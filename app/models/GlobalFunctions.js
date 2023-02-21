@@ -941,7 +941,7 @@ define(["app", "forge", "openpgp"], function (app, forge, openpgp) {
                                         var body = JSON.parse(
                                             emailDecrypted["body"]
                                         );
-                                        //console.log(body);
+
                                         if (
                                             body["meta"]["version"] !==
                                             undefined
@@ -953,6 +953,7 @@ define(["app", "forge", "openpgp"], function (app, forge, openpgp) {
                                             emailDecrypted["meta"]
                                         );
                                         body["meta"]["from"] = body["from"];
+                                        body["meta"]["pinTop"] = message["pt"];
 
                                         //fix old emails where recipient to field is not an object
                                         if (
@@ -996,7 +997,9 @@ define(["app", "forge", "openpgp"], function (app, forge, openpgp) {
                                         var body = JSON.parse(
                                             emailDecrypted["body"]
                                         );
-                                        //console.log(body);
+                                        // console.log(
+                                        //     JSON.parse(emailDecrypted["body"])
+                                        // );
 
                                         // var meta = JSON.parse(emailDecrypted['meta']);
                                         //body['meta']['from'] = body['from'];
@@ -1020,6 +1023,8 @@ define(["app", "forge", "openpgp"], function (app, forge, openpgp) {
                                                     : body["body"]["html"]
                                             )
                                         );
+
+                                        body["meta"]["pinTop"] = message["pt"];
 
                                         var pgpInlineMatch =
                                             /^-{5}BEGIN PGP MESSAGE-{5}[\s\S]*-{5}END PGP MESSAGE-{5}$/im.exec(

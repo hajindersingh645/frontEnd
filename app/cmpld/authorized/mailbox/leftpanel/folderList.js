@@ -338,7 +338,8 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                 React.createElement(
                     "div",
                     {
-                        className: `left-side ${ this.state.menuExpanded ? "expanded" : "shrinked" }`
+                        className: `left-side ${ this.state.menuExpanded ? "expanded" : "shrinked" }`,
+                        id: "folderMenu"
                     },
                     React.createElement(
                         "div",

@@ -23,9 +23,7 @@ define(["react", "app"], function (React, app) {
                 pgpEncrypted: false,
                 decryptedEmail: false,
                 emailLoading: app.user.get("isDecryptingEmail"),
-                pinTop: false,
-                pinRowNumber: 0,
-                sortOrderNumber: 0,
+                pinTop: 0,
             };
         },
         componentWillUnmount: function () {
@@ -66,9 +64,7 @@ define(["react", "app"], function (React, app) {
                         pgpEncrypted: false,
                         decryptedEmail: false,
                         emailLoading: app.user.get("isDecryptingEmail"),
-                        pinTop: false,
-                        pinRowNumber: 0,
-                        sortOrderNumber: 0,
+                        pinTop: 0,
                     });
 
                     this.renderEmail();
@@ -248,7 +244,7 @@ define(["react", "app"], function (React, app) {
                 clearTimeout(app.user.get("emailOpenTimeOut"));
 
                 var email = app.user.get("currentMessageView");
-                console.log(email);
+                // console.log(email);
 
                 var from2 = [];
                 var from = app.transform.from64str(email["meta"]["from"]);
@@ -614,8 +610,6 @@ define(["react", "app"], function (React, app) {
                     pgpEncrypted: email["pgpEncrypted"],
                     hideEmailRead: false,
                     pinTop: email["meta"]["pinTop"],
-                    pinRowNumber: email["meta"]["pinRow"],
-                    sortOrderNumber: email["meta"]["sortRow"],
                 });
 
                 if (message["tp"] == 2) {
@@ -1205,32 +1199,28 @@ define(["react", "app"], function (React, app) {
                             undefined &&
                         app.user.get("currentMessageView")["id"] !== ""
                     ) {
+                        thisComp.setState({
+                            isWorkingFlag: true,
+                        });
                         var messages = app.user.get("emails")["messages"];
-                        // messages[emailId]["st"] == 0
                         var email = app.user.get("currentMessageView");
-                        // var message =
-                        //     app.user.get("emails")["messages"][email["id"]];
                         var emailId = email["id"];
 
                         const pinnedTop = this.state.pinTop;
                         const pinnedRowNumber = this.state.pinRowNumber;
 
                         var updatePinToTop = setTimeout(function () {
-                            if (pinnedTop) {
-                                // message["pt"] = false;
-                                // message["son"] = pinnedRowNumber;
-                                messages[emailId]["pt"] = false;
-                                messages[emailId]["son"] = pinnedRowNumber;
+                            console.log(parseInt(pinnedTop));
+                            if (parseInt(pinnedTop) < 0) {
+                                messages[emailId]["pt"] =
+                                    email["meta"]["timeSent"];
                                 thisComp.setState({
-                                    pinTop: false,
+                                    pinTop: 0,
                                 });
                             } else {
-                                // message["pt"] = true;
-                                // message["son"] = -1;
-                                messages[emailId]["pt"] = true;
-                                messages[emailId]["son"] = -1;
+                                messages[emailId]["pt"] = -1;
                                 thisComp.setState({
-                                    pinTop: true,
+                                    pinTop: -1,
                                 });
                             }
 
@@ -1239,7 +1229,9 @@ define(["react", "app"], function (React, app) {
                                 "",
                                 function (result) {
                                     app.globalF.syncUpdates();
-                                    console.log(result);
+                                    thisComp.setState({
+                                        isWorkingFlag: false,
+                                    });
                                 }
                             );
                         }, 500);
@@ -2188,7 +2180,8 @@ define(["react", "app"], function (React, app) {
                                                                 )}
                                                             >
                                                                 {this.state
-                                                                    .pinTop
+                                                                    .pinTop ===
+                                                                -1
                                                                     ? `Un-pin from top`
                                                                     : `Pin to top`}
                                                             </button>

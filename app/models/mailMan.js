@@ -409,9 +409,7 @@ define(["app", "forge", "openpgp"], function (app, forge, openpgp) {
                                 sz: parseInt(data["emailSize"]), //size
                                 st: 0, //status 1-replied,2-forwarder,3-opened,0-unopened
                                 vr: 2, //version
-                                pt: data["meta"]["pinTop"], //pin to top [true/false]
-                                prn: data["meta"]["pinRow"], // pin row number original
-                                son: data["meta"]["sortRow"], // sort order number
+                                pt: data["meta"]["pinTop"], //pin to top [equals timestamp]
                             };
 
                             emailMetaPromise.resolve();

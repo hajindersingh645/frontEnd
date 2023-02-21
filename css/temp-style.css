@@ -16210,7 +16210,7 @@ textarea::-webkit-scrollbar {
     display: none;
     transition: 0.4s;
 }
-body.shrinked .left-side {
+body.shrinked #folderMenu {
     width: 128px;
     overflow: hidden;
 }
@@ -16524,9 +16524,18 @@ body.shrinked .left-side {
     float: right;
     position: absolute;
     right: 15px;
-    top: 23px;
+    /* top: 23px; */
+    top: 18px;
     font-size: 12px;
     opacity: 0.6;
+    display: flex;
+    align-items: center;
+}
+.middle-section .inbox-list table .pinned {
+    margin-right: 6px;
+    margin-top: -6px;
+    width: 16px;
+    height: 16px;
 }
 .middle-section .inbox-list ul li .started-icon {
     width: 16px;
@@ -17808,10 +17817,14 @@ body.shrinked .left-side {
         padding: 35px 0 23px 24px;
     }
 
-    body.shrinked .main-menu {
+    .left-side .logo .menu-icon {
+        margin-left: 0px;
+    }
+
+    body.shrinked #folderMenu .main-menu {
         padding: 11px 40px 0 40px;
     }
-    body.shrinked .folder-menu {
+    body.shrinked #folderMenu .folder-menu {
         padding: 24px 40px 0 40px;
     }
 }
@@ -21731,69 +21744,69 @@ footer .footer-social-media a {
 }
 
 /* Shrinked Menu */
-body.shrinked .left-side #folderul a > span,
-body.shrinked .left-side .new-message-btn .text,
-body.shrinked .left-side .brand,
-body.shrinked #folderulcustom li a span {
+body.shrinked #folderMenu #folderul a > span,
+body.shrinked #folderMenu .new-message-btn .text,
+body.shrinked #folderMenu .brand,
+body.shrinked #folderMenu #folderulcustom li a span {
     display: none;
 }
-body.shrinked .left-side .call-to-action {
+body.shrinked #folderMenu .call-to-action {
     display: block;
     visibility: hidden;
     overflow: hidden;
     padding-top: 0px;
     margin-top: 0px;
 }
-body.shrinked .left-side .storage {
+body.shrinked #folderMenu .storage {
     padding-left: 33px;
     padding-right: 33px;
 }
-body.shrinked .left-side .storage .storage-count {
+body.shrinked #folderMenu .storage .storage-count {
     padding-left: 0px;
     background: none;
     text-align: center;
 }
-body.shrinked .left-side .logo {
+body.shrinked #folderMenu .logo {
     padding-left: 0px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-body.shrinked .left-side .logo .menu-icon {
+body.shrinked #folderMenu .logo .menu-icon {
     margin-right: 0px;
 }
-body.shrinked .left-side .new-message-btn {
+body.shrinked #folderMenu .new-message-btn {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-body.shrinked .left-side .new-message-btn button {
+body.shrinked #folderMenu .new-message-btn button {
     padding-left: 0px;
     width: 56px;
     height: 56px;
     background-position: center;
 }
-body.shrinked .left-side .main-menu ul li {
+body.shrinked #folderMenu .main-menu ul li {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-body.shrinked .left-side .main-menu ul li a {
+body.shrinked #folderMenu .main-menu ul li a {
     width: 24px;
     height: 24px;
     padding: 0;
     text-align: center;
 }
-body.shrinked .left-side .accordion-header {
+body.shrinked #folderMenu .accordion-header {
     visibility: hidden;
     width: 0px;
 }
-body.shrinked .left-side #folderul a > span.menu-icon,
-body.shrinked .left-side #folderul a > span.number-badge,
+body.shrinked #folderMenu #folderul a > span.menu-icon,
+body.shrinked #folderMenu #folderul a > span.number-badge,
 body.shrinked #folderulcustom li a span.menu-icon {
     display: block;
 }
-body.shrinked .left-side #folderul a > span.number-badge {
+body.shrinked #folderMenu #folderul a > span.number-badge {
     width: 6px;
     height: 6px;
     background: #2277f6;
@@ -21812,16 +21825,16 @@ body.shrinked .folder-menu {
     align-items: center;
     flex-direction: column;
 }
-body.shrinked .folder-menu .add-folder {
+body.shrinked #folderMenu .folder-menu .add-folder {
     position: static;
 }
-body.shrinked .accordion-header + .accordion-collapse {
+body.shrinked #folderMenu .accordion-header + .accordion-collapse {
     width: 100%;
     overflow: hidden;
 }
-body.shrinked .folder-menu .accordion-body ul li a .menu-icon {
+body.shrinked #folderMenu .folder-menu .accordion-body ul li a .menu-icon {
     margin-right: 0px;
 }
-body.shrinked .left-side .left-cta {
+body.shrinked #folderMenu .left-cta {
     padding: 0px;
 }

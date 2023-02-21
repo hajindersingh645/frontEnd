@@ -1312,11 +1312,7 @@ define(["react", "app", "quill", "select2"], function (
                 draft["meta"]["version"] = 2;
 
                 draft["meta"]["modKey"] = thisComp.state.modKey;
-                draft["meta"]["pinTop"] = false;
-                draft["meta"]["pinRow"] =
-                    Object.keys(app.user.get("emails")["messages"]).length + 1; // pin row number original
-                draft["meta"]["sortRow"] =
-                    Object.keys(app.user.get("emails")["messages"]).length + 1; // pin to top number
+                draft["meta"]["pinTop"] = draft["meta"]["timeSent"];
 
                 draft["attachment"] = thisComp.getFileMeta(
                     thisComp.state.fileObject
@@ -1538,13 +1534,7 @@ define(["react", "app", "quill", "select2"], function (
 
                             draft["meta"]["type"] = 3;
                             draft["meta"]["version"] = 2;
-                            draft["meta"]["pinTop"] = false;
-                            draft["meta"]["pinRow"] =
-                                Object.keys(app.user.get("emails")["messages"])
-                                    .length + 1; // pin row number original
-                            draft["meta"]["sortRow"] =
-                                Object.keys(app.user.get("emails")["messages"])
-                                    .length + 1; // pin to top number
+                            draft["meta"]["pinTop"] = draft["meta"]["timeSent"];
 
                             draft["attachment"] = jQuery.extend(
                                 true,
