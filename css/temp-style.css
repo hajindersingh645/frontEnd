@@ -15487,8 +15487,8 @@ header .user-dropdown .dropdown-menu li button {
     height: 16px;
     float: none;
     margin: 2px 0 0 5px;
-    -webkit-transform: rotate(0);
-    transform: rotate(0);
+    /* -webkit-transform: rotate(0);
+    transform: rotate(0); */
 }
 .folder-menu .accordion-body {
     padding: 10px 0 0;
@@ -16604,7 +16604,7 @@ body.shrinked #folderMenu {
     }
     .middle-section .middle-top .info-row {
         /* padding: 50px 24px 30px; */
-        padding: 25px 24px 25px;
+        padding: 25px 29px 25px;
     }
     .middle-section .inbox-list {
         padding: 0;
@@ -19235,6 +19235,8 @@ header .menu-icon.on-left-side {
     line-height: 140%;
     letter-spacing: -0.02em;
     color: rgba(8, 13, 19, 0.4);
+    max-height: 15px;
+    overflow: hidden;
 }
 .middle-section .inbox-list table p .from {
     color: rgba(8, 13, 19, 0.6);
@@ -21798,13 +21800,15 @@ body.shrinked #folderMenu .main-menu ul li a {
     text-align: center;
 }
 body.shrinked #folderMenu .accordion-header {
-    visibility: hidden;
-    width: 0px;
+    /* visibility: hidden;
+    width: 0px; */
+    float: none;
+    overflow: hidden;
 }
 body.shrinked #folderMenu #folderul a > span.menu-icon,
 body.shrinked #folderMenu #folderul a > span.number-badge,
 body.shrinked #folderulcustom li a span.menu-icon {
-    display: block;
+    display: block !important;
 }
 body.shrinked #folderMenu #folderul a > span.number-badge {
     width: 6px;
@@ -21827,6 +21831,7 @@ body.shrinked .folder-menu {
 }
 body.shrinked #folderMenu .folder-menu .add-folder {
     position: static;
+    display: none;
 }
 body.shrinked #folderMenu .accordion-header + .accordion-collapse {
     width: 100%;
@@ -21837,4 +21842,17 @@ body.shrinked #folderMenu .folder-menu .accordion-body ul li a .menu-icon {
 }
 body.shrinked #folderMenu .left-cta {
     padding: 0px;
+}
+body.shrinked .folder-menu .accordion-body ul li a {
+    justify-content: center;
+}
+body.shrinked .folder-menu .accordion-button {
+    opacity: 1;
+}
+body.shrinked .folder-menu .accordion-button > span {
+    display: none;
+}
+body.shrinked .folder-menu .accordion-button:after {
+    background-position: center;
+    background-size: 29px;
 }
