@@ -155,6 +155,8 @@ define([
                                             />
                                         </svg>
                                     </span>
+                                    <span className="off">{`%50`}</span>
+                                    <span className="off shadow">{`%50`}</span>
                                     <span>Go Premium</span>
                                 </a>
                             </div>

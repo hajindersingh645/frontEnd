@@ -11352,8 +11352,8 @@ textarea.form-control.with-icon {
         transform: translateY(-50%);
     }
     .full-height-container {
-        height: calc(100vh - 92px);
-        margin: 92px 0 0 0;
+        height: calc(100vh - 88px);
+        margin: 88px 0 0 0;
     }
     .full-height-container .left-side {
         position: absolute;
@@ -15284,9 +15284,40 @@ header .go-premium-button .button {
     text-decoration: none;
     font-weight: 900;
     background-blend-mode: screen;
+    position: relative;
 }
 header .go-premium-button .button .icon {
     margin-right: 4px;
+}
+header .go-premium-button .button .off,
+header .go-premium-button .button .off.shadow {
+    background-color: #f4f0ff;
+    color: #5f2bf4;
+    font-weight: 700;
+    border-radius: 2px;
+    width: 28px;
+    height: 15px;
+    position: absolute;
+    left: 0;
+    top: -14px;
+    position: absolute;
+    left: 0;
+    top: -9px;
+    padding: 4px 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1;
+    transform: rotate(-13.58deg);
+    z-index: 31;
+}
+header .go-premium-button .button .off.shadow {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: transparent;
+    transform: rotate(-20.86deg);
+    top: -5px;
+    left: -2px;
+    z-index: 23;
 }
 header .user-dropdown .btn-secondary {
     text-align: left;
@@ -15370,7 +15401,7 @@ header .user-dropdown .dropdown-menu li button {
 }
 .side-menu,
 .user-side-menu {
-    padding: 10px 0 0;
+    padding: 24px 0 0;
     width: 100%;
     float: left;
 }
@@ -15393,9 +15424,13 @@ header .user-dropdown .dropdown-menu li button {
     list-style-type: none;
 }
 .user-side-menu ul li {
-    padding: 14px 5px 0;
+    padding: 14px 5px;
     width: 100%;
     float: left;
+    border-bottom: solid 1px #f2f2f2;
+}
+.user-side-menu ul li:first-child {
+    border-top: solid 1px #f2f2f2;
 }
 .user-side-menu ul li a:hover.copy-icon,
 .user-side-menu ul li button:hover.copy-icon {
@@ -15541,13 +15576,13 @@ header .user-dropdown .dropdown-menu li button {
 .offcanvas-header .btn-close {
     float: right;
     position: absolute;
-    right: 15px;
+    right: 40px;
     top: 28px;
     margin: 0;
     padding: 0;
     z-index: 1;
-    width: 20px;
-    height: 20px;
+    width: 14px;
+    height: 14px;
 }
 .toast {
     -webkit-box-shadow: none;
@@ -16179,7 +16214,7 @@ textarea::-webkit-scrollbar {
         border: none !important;
     }
     .offcanvas-header .btn-close {
-        top: 15px;
+        top: 37px;
     }
 }
 @media screen and (min-width: 1366px) {
@@ -16250,7 +16285,8 @@ body.shrinked #folderMenu {
 .left-side .new-message-btn button {
     width: 100%;
     float: left;
-    background: url("../images/icon-plus-circle.svg") 24px center no-repeat;
+    /* background: url("../images/icon-plus-circle.svg") 24px center no-repeat; */
+    background: url("../images/icon-plus-white.svg") 24px center no-repeat;
     color: #fff;
     font-size: 16px;
     border: none;
@@ -16272,7 +16308,9 @@ body.shrinked #folderMenu {
     cursor: pointer;
 }
 .left-side .new-message-btn button:hover {
-    background: url("../images/icon-plus-circle.svg") 24px center no-repeat;
+    /* background: url("../images/icon-plus-circle.svg") 24px center no-repeat; */
+    background: url("../images/icon-plus-white.svg") 24px center no-repeat;
+
     padding: 0 0 0 56px;
 }
 .left-side .left-cta {
@@ -18094,7 +18132,8 @@ header .menu-icon button {
     background: transparent;
 }
 header .menu-icon button:hover {
-    background: url("../images/icon-menu-hover.svg") left top/30px no-repeat;
+    /* background: url("../images/icon-menu-hover.svg") left top/30px no-repeat; */
+    background: transparent;
 }
 header .menu-icon button:hover svg path {
     fill: #2377f7;
@@ -18146,7 +18185,7 @@ header .user-dropdown .dropdown-menu button:hover svg,
 .user-side-menu ul li button:hover svg path,
 header .user-dropdown .dropdown-menu a:hover svg path,
 header .user-dropdown .dropdown-menu button:hover svg path {
-    fill: #ce5353;
+    /* fill: #ce5353; */
 }
 header .user-dropdown .dropdown-menu a:hover.copy-icon,
 header .user-dropdown .dropdown-menu button:hover.copy-icon {
@@ -18161,7 +18200,7 @@ header .user-dropdown .dropdown-menu button:hover.logout-icon {
     visibility: visible;
 }
 .offcanvas-header .btn-close {
-    background: url("../images/icon-close.svg") left top/20px no-repeat;
+    background: url("../images/icon-close.svg") left top/14px no-repeat;
 }
 .side-menu {
     border-top: 1px solid #f2f2f2;
@@ -21549,6 +21588,9 @@ footer .footer-social-media a {
     padding-right: 64px;
     padding-bottom: 2rem;
 }
+#infoModal .modal-footer {
+    border: 0;
+}
 .app-smodal .modal-title {
     font-size: 18px;
     font-weight: 600;
@@ -21566,15 +21608,20 @@ footer .footer-social-media a {
 #askforPass .icon-background {
     background: rgba(76, 175, 80, 0.05);
 }
+#infoModal .icon-background {
+    background: rgba(34, 119, 246, 0.05);
+}
 .app-smodal #dialogModBodyHeading,
-.app-smodal #askPassHeader {
+.app-smodal #askPassHeader,
+.app-smodal #infoModHeader {
     text-align: center;
     font-size: 22px;
     font-weight: 600;
     padding-bottom: 8px;
 }
 .app-smodal #dialogModBody,
-.app-smodal #infoPass {
+.app-smodal #infoPass,
+.app-smodal #infoModBody {
     text-align: center;
     color: rgba(0, 0, 0, 0.5);
     font-size: 16px;
@@ -21591,9 +21638,14 @@ footer .footer-social-media a {
     padding-bottom: 12px;
     font-size: 16px;
 }
-.app-smodal .modal-footer button#askPasSub {
+.app-smodal .modal-footer button#askPasSub,
+#infoModal .modal-footer button {
     background: #2277f6;
     color: #fff;
+}
+#infoModal .modal-footer button {
+    height: 48px;
+    line-height: 1;
 }
 .app-smodal #dialogOk {
     background-color: #f35858;
@@ -21855,4 +21907,71 @@ body.shrinked .folder-menu .accordion-button > span {
 body.shrinked .folder-menu .accordion-button:after {
     background-position: center;
     background-size: 29px;
+}
+#offcanvasRight .offcanvas-header {
+    padding: 24px 40px;
+}
+#offcanvasRight .offcanvas-body {
+    display: inline-grid;
+    align-items: end;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+.logout-btn {
+    border-radius: 12px;
+    background-color: #eeeeee;
+    color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 48px;
+    text-decoration: none;
+    cursor: pointer;
+    line-height: 1;
+}
+.logout-btn .__icon {
+    margin-right: 10px;
+}
+
+/* Compose Email - File Uploading */
+.attachFiles
+    + .select2
+    .select2-selection__rendered
+    .select2-selection__choice {
+    background-color: #ffffff;
+    border: solid 1px #f6f6f6;
+    border-radius: 8px;
+    padding: 8px;
+    position: relative;
+    color: #415067;
+    font-size: 11px;
+    margin-top: 0px;
+    height: 42px;
+}
+.attachFiles
+    + .select2
+    .select2-selection__rendered
+    .select2-selection__choice::before {
+    position: absolute;
+    content: "";
+    width: 26px;
+    height: 26px;
+    background: #000000;
+    border-radius: 4px;
+}
+.attachFiles
+    + .select2
+    .select2-selection__rendered
+    .select2-selection__choice
+    .select2-selection__choice__remove {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+}
+.attachFiles
+    + .select2
+    .select2-selection__rendered
+    .select2-selection__choice
+    > span:last-child {
+    margin-left: 34px;
 }

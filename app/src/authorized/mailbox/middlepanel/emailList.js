@@ -31,6 +31,7 @@ define([
                 hidden: true,
                 isWorkingFlag: false,
                 moveToFolderFlag: false,
+                showReadUnread: "",
             };
         },
         componentWillReceiveProps: function (nextProps) {
@@ -376,7 +377,7 @@ define([
 
             app.user.set({ folderCached: emailListCopy });
 
-            var emTab = $("#emailListTable").DataTable().draw();
+            var emTab = $("#emailListTable").DataTable();
             emTab.clear();
             if (noRefresh == "") {
                 emTab.draw();
@@ -394,6 +395,12 @@ define([
 
             emTab.rows.add(data);
             emTab.draw(false);
+            if (thisComp.state.showReadUnread == "read") {
+                this.handleShowRead();
+            }
+            if (thisComp.state.showReadUnread == "unread") {
+                this.handleShowUnRead();
+            }
 
             // this.attachTooltip();
 
@@ -472,7 +479,7 @@ define([
                 ],
                 sPaginationType: "simple",
                 order: [[1, "desc"]],
-                iDisplayLength: app.user.get("mailPerPage"),
+                iDisplayLength: parseInt(app.user.get("mailPerPage")),
                 language: {
                     emptyTable: "Empty",
                     info: "_START_ - _END_ of _TOTAL_",
@@ -622,9 +629,10 @@ define([
                                             $(event.target).prop("tagName") !==
                                                 "INPUT"
                                         ) {
-                                            var table = $("#emailListTable")
-                                                .DataTable()
-                                                .draw();
+                                            var table =
+                                                $(
+                                                    "#emailListTable"
+                                                ).DataTable();
                                             table
                                                 .$("tr.selected")
                                                 .removeClass("selected");
@@ -661,6 +669,8 @@ define([
                             thisComp.setState({
                                 messsageId: "",
                             });
+                            app.user.set({ isDecryptingEmail: false });
+                            Backbone.history.loadUrl(Backbone.history.fragment);
                         }
                     }
                     break;
@@ -680,8 +690,7 @@ define([
             $("#emailListTable")
                 .DataTable()
                 .column(0)
-                .search(event.target.value, 0, 1)
-                .draw();
+                .search(event.target.value, 0, 1);
         },
         removeRefreshClass: function (_element) {
             setTimeout(function () {
@@ -1240,9 +1249,8 @@ define([
 
             var options = [];
             $.each(mainFolderList, function (index, folderData) {
-                if (
-                    ["Inbox", "Spam", "Trash"].indexOf(folderData["role"]) > -1
-                ) {
+                // ["Inbox", "Spam", "Trash"]
+                if (["Inbox"].indexOf(folderData["role"]) > -1) {
                     options.push(
                         <li key={folderData["index"]}>
                             <a
@@ -1310,6 +1318,9 @@ define([
             }
         },
         handleShowRead: function (event) {
+            this.setState({
+                showReadUnread: "read",
+            });
             $("#emailListTable td > div").removeClass("d-none");
             $("#emailListTable td > div").each(function () {
                 jElement = $(this);
@@ -1319,6 +1330,9 @@ define([
             });
         },
         handleShowUnRead: function (event) {
+            this.setState({
+                showReadUnread: "unread",
+            });
             $("#emailListTable td > div").addClass("d-none");
             $("#emailListTable td > div").each(function () {
                 jElement = $(this);
@@ -1756,7 +1770,9 @@ define([
                                                                 <path d="M12 12.713l-11.985-9.713h23.971l-11.986 9.713zm-5.425-1.822l-6.575-5.329v12.501l6.575-7.172zm10.85 0l6.575 7.172v-12.501l-6.575 5.329zm-1.557 1.261l-3.868 3.135-3.868-3.135-8.11 8.848h23.956l-8.11-8.848z" />
                                                             </svg>
                                                         </span>
-                                                        <div>Mark as Unead</div>
+                                                        <div>
+                                                            Mark as Unread
+                                                        </div>
                                                     </button>
                                                 </li>
                                                 <li>

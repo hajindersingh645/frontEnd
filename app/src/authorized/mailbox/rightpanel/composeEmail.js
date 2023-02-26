@@ -824,7 +824,7 @@ define(["react", "app", "quill", "select2"], function (
                                 if (list.length > 0) {
                                     $.each(list, function (index, value) {
                                         $("#atachFiles").append(
-                                            '<option value="' +
+                                            '<option class="attached-files-list" value="' +
                                                 value +
                                                 '">' +
                                                 app.transform.from64str(value) +
@@ -1557,6 +1557,10 @@ define(["react", "app", "quill", "select2"], function (
                                         app.globalF.resetCurrentMessage();
                                         app.globalF.resetDraftMessage();
 
+                                        app.user.set({
+                                            isDecryptingEmail: false,
+                                        });
+
                                         Backbone.history.navigate(
                                             "/mail/" +
                                                 app.user.get("currentFolder"),
@@ -1979,7 +1983,7 @@ define(["react", "app", "quill", "select2"], function (
                                             </span>
                                             <div className="inputs-wrap">
                                                 <select
-                                                    className="form-control"
+                                                    className="form-control attachFiles"
                                                     id="atachFiles"
                                                     multiple="multiple"
                                                 ></select>

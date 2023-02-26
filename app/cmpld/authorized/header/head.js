@@ -176,6 +176,16 @@ define(["react", "app", "accounting", "cmpld/authorized/mailbox/notifications"],
                                 ),
                                 React.createElement(
                                     "span",
+                                    { className: "off" },
+                                    `%50`
+                                ),
+                                React.createElement(
+                                    "span",
+                                    { className: "off shadow" },
+                                    `%50`
+                                ),
+                                React.createElement(
+                                    "span",
                                     null,
                                     "Go Premium"
                                 )
