@@ -20291,6 +20291,10 @@ header .menu-icon.on-left-side {
     padding-bottom: 12px;
     border-bottom: 1px solid #f6f6f6;
 }
+.com-content-header .he-item.att-bar .form-group {
+    margin: 0;
+    padding: 0;
+}
 .com-content-header .he-item .he-label {
     padding-right: 15px;
     color: #a0a7b3;
@@ -21947,6 +21951,7 @@ body.shrinked .folder-menu .accordion-button:after {
     font-size: 11px;
     margin-top: 0px;
     height: 42px;
+    padding-right: 29px;
 }
 .attachFiles
     + .select2

@@ -1376,6 +1376,7 @@ define(["app", "forge", "openpgp"], function (app, forge, openpgp) {
 
             //cleartext
             if (encryptionLevel == 0) {
+                console.log("LEVEL 0");
                 var emailArray = {};
                 if (
                     Object.keys(recipients["to"]).length > 0 ||
@@ -1472,6 +1473,7 @@ define(["app", "forge", "openpgp"], function (app, forge, openpgp) {
                     });
                 }
             } else if (encryptionLevel == 1) {
+                console.log("LEVEL 1");
                 //pin protected
                 var emailArray = {};
 
@@ -1634,6 +1636,7 @@ define(["app", "forge", "openpgp"], function (app, forge, openpgp) {
                     });
                 }
             } else if (encryptionLevel == 2) {
+                console.log("LEVEL 2");
                 //pgp protected
                 if (
                     Object.keys(recipients["to"]).length > 0 ||
@@ -1904,6 +1907,7 @@ define(["app", "forge", "openpgp"], function (app, forge, openpgp) {
                     });
                 }
             } else if (encryptionLevel == 3) {
+                console.log("LEVEL 3");
                 //internal
                 if (
                     Object.keys(recipients["to"]).length > 0 ||

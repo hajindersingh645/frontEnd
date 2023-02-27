@@ -908,7 +908,7 @@ define(["react", "app", "quill", "select2"], function (
                             thisComp.setState({
                                 uploadProgress: 100,
                                 sizeBarText: "File Successfully Uploaded",
-                                showUploadBar: "hidden",
+                                showUploadBar: "d-none",
                             });
                             app.user.set({
                                 uploadInProgress: false,
@@ -1561,13 +1561,13 @@ define(["react", "app", "quill", "select2"], function (
                                             isDecryptingEmail: false,
                                         });
 
-                                        Backbone.history.navigate(
-                                            "/mail/" +
-                                                app.user.get("currentFolder"),
-                                            {
-                                                trigger: true,
-                                            }
-                                        );
+                                        // Backbone.history.navigate(
+                                        //     "/mail/" +
+                                        //         app.user.get("currentFolder"),
+                                        //     {
+                                        //         trigger: true,
+                                        //     }
+                                        // );
                                         app.layout.display("viewBox");
                                         app.user.set({
                                             isComposingEmail: false,
@@ -1757,6 +1757,9 @@ define(["react", "app", "quill", "select2"], function (
             }
         },
         render: function () {
+            var sizeBar = { width: this.state.uploadProgress + "%" };
+            var sizeBarText =
+                this.state.sizeBarText + " " + this.state.uploadProgress + "%";
             return (
                 <div
                     className={`compose-email-wrapper ${
@@ -1987,6 +1990,33 @@ define(["react", "app", "quill", "select2"], function (
                                                     id="atachFiles"
                                                     multiple="multiple"
                                                 ></select>
+                                            </div>
+                                        </div>
+                                        <div
+                                            className={
+                                                "modal-body he-item att-bar " +
+                                                this.state.showUploadBar
+                                            }
+                                        >
+                                            <div className="form-group">
+                                                <div
+                                                    className="bs-example"
+                                                    data-example-id="progress-bar-with-label"
+                                                >
+                                                    <div className="progress">
+                                                        <div
+                                                            className="progress-bar"
+                                                            role="progressbar"
+                                                            aria-valuenow="60"
+                                                            aria-valuemin="0"
+                                                            aria-valuemax="100"
+                                                            style={sizeBar}
+                                                        >
+                                                            {sizeBarText}{" "}
+                                                            <i className="fa fa-refresh fa-spin"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div
