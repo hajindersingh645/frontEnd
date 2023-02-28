@@ -1649,6 +1649,7 @@ define(["react", "app", "quill", "select2"], function (
                                 trigger: true,
                             }
                         );
+                        Backbone.history.loadUrl(Backbone.history.fragment);
                     } else {
                         var thisComp = this;
 
@@ -1687,6 +1688,11 @@ define(["react", "app", "quill", "select2"], function (
                                                                         trigger: true,
                                                                     }
                                                                 );
+                                                                Backbone.history.loadUrl(
+                                                                    Backbone
+                                                                        .history
+                                                                        .fragment
+                                                                );
                                                             }
                                                         );
                                                     }
@@ -1723,6 +1729,10 @@ define(["react", "app", "quill", "select2"], function (
                                                             trigger: true,
                                                         }
                                                     );
+                                                    Backbone.history.loadUrl(
+                                                        Backbone.history
+                                                            .fragment
+                                                    );
                                                 }
                                             );
                                         }
@@ -1735,7 +1745,7 @@ define(["react", "app", "quill", "select2"], function (
                         //this.fileRemove(fileName64);
                     }
 
-                    Backbone.history.loadUrl(Backbone.history.fragment);
+                    // Backbone.history.loadUrl(Backbone.history.fragment);
 
                     break;
             }
