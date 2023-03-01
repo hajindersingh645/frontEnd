@@ -18,6 +18,7 @@ var App = (function () {
                 paginationSpeed: 600,
                 autoplay: true,
                 dots: true,
+                dotsData: true,
                 margin: 20,
                 items: 1,
                 loop: true,
