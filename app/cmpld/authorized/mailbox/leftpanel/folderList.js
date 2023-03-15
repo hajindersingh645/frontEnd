@@ -653,7 +653,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                             React.createElement(
                                                                 "span",
                                                                 null,
-                                                                app.transform.escapeTags(app.transform.from64str(label))
+                                                                label
                                                             )
                                                         )
                                                     );
