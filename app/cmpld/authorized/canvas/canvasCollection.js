@@ -154,7 +154,10 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                 React.createElement(
                                     "a",
                                     {
-                                        onClick: this.handleClick.bind(this, "settings")
+                                        onClick: this.handleClick.bind(this, "settings"),
+                                        "data-bs-dismiss": "offcanvas",
+                                        "data-bs-target": "#offcanvasRight",
+                                        "aria-label": "Close"
                                     },
                                     React.createElement(
                                         "span",

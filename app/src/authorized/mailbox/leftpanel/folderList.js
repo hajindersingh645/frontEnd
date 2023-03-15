@@ -4,6 +4,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
             return {
                 mainFolders: app.globalF.getMainFolderList(),
                 customFolders: app.globalF.getCustomFolderList(),
+                customLabels: app.globalF.getCustomLabelList(),
                 moveFolderMain: [],
                 moveFolderCust: [],
                 unopened: app.user.get("unopenedEmails"),
@@ -154,10 +155,24 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                     app.user.set({ isComposingEmail: true });
                     Backbone.history.loadUrl(Backbone.history.fragment);
                     break;
-
+                case "premiumplans":
+                    app.mixins.canNavigate(function (decision) {
+                        if (decision) {
+                            $("#settings-spinner")
+                                .removeClass("d-none")
+                                .addClass("d-block");
+                            Backbone.history.navigate("/settings/Plan", {
+                                trigger: true,
+                            });
+                        }
+                    });
+                    break;
                 case "addFolder":
                     app.mixins.canNavigate(function (decision) {
                         if (decision) {
+                            $("#settings-spinner")
+                                .removeClass("d-none")
+                                .addClass("d-block");
                             Backbone.history.navigate("/settings/Folders", {
                                 trigger: true,
                             });
@@ -398,7 +413,14 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                         </svg>
                                     </button>
                                 </div>
-                                <a href="#" className="brand">
+                                <a
+                                    onClick={this.handleClick.bind(
+                                        this,
+                                        "switchFolder"
+                                    )}
+                                    id="94835ea2fc"
+                                    className="brand"
+                                >
                                     <img
                                         src="images/logo.svg"
                                         alt=""
@@ -521,7 +543,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                 type="button"
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#collapseOne"
-                                                aria-expanded="true"
+                                                aria-expanded="false"
                                                 aria-controls="collapseOne"
                                             >
                                                 {" "}
@@ -530,7 +552,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                         </h2>
                                         <div
                                             id="collapseOne"
-                                            className="accordion-collapse collapse show"
+                                            className="accordion-collapse collapse"
                                             aria-labelledby="headingOne"
                                             data-bs-parent="#accordionExample"
                                         >
@@ -656,7 +678,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                 type="button"
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#collapseTwo"
-                                                aria-expanded="true"
+                                                aria-expanded="false"
                                                 aria-controls="collapseTwo"
                                             >
                                                 {" "}
@@ -665,53 +687,26 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                         </h2>
                                         <div
                                             id="collapseTwo"
-                                            className="accordion-collapse collapse show"
+                                            className="accordion-collapse collapse"
                                             aria-labelledby="headingOne"
                                             data-bs-parent="#accordionLabels"
                                         >
                                             <div className="accordion-body">
                                                 <ul id="folderulcustom">
-                                                    {this.state.customFolders.map(
-                                                        function (
-                                                            folderData,
-                                                            i
-                                                        ) {
+                                                    {this.state.customLabels.map(
+                                                        function (label, i) {
                                                             return (
                                                                 <li
                                                                     key={
                                                                         "li_" +
-                                                                        folderData[
-                                                                            "index"
-                                                                        ]
+                                                                        i
                                                                     }
-                                                                    className={
-                                                                        " " +
-                                                                        (folderData[
-                                                                            "role"
-                                                                        ] ==
-                                                                        "Inbox"
-                                                                            ? "active"
-                                                                            : this
-                                                                                  .state
-                                                                                  .unopened[
-                                                                                  folderData[
-                                                                                      "index"
-                                                                                  ]
-                                                                              ] ==
-                                                                              0
-                                                                            ? ""
-                                                                            : "active")
-                                                                    }
+                                                                    className={``}
                                                                 >
                                                                     <a
                                                                         key={
                                                                             "a_" +
                                                                             i
-                                                                        }
-                                                                        id={
-                                                                            folderData[
-                                                                                "index"
-                                                                            ]
                                                                         }
                                                                         onClick={this.handleChange.bind(
                                                                             this,
@@ -742,8 +737,9 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                                             </svg>
                                                                         </span>
                                                                         <span>
-                                                                            Google
-                                                                            Ads
+                                                                            {
+                                                                                label
+                                                                            }
                                                                         </span>
                                                                     </a>
                                                                 </li>
@@ -796,7 +792,14 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                     >
                         <div className="offcanvas-header">
                             <div className="logo">
-                                <a href="#">
+                                <a
+                                    onClick={this.handleClick.bind(
+                                        this,
+                                        "switchFolder"
+                                    )}
+                                    id="94835ea2fc"
+                                    className="brand"
+                                >
                                     <img
                                         src="images/logo.svg"
                                         alt=""
@@ -822,6 +825,33 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                 >
                                     New message
                                 </button>
+                            </div>
+                            <div className="go-premium-button">
+                                <a
+                                    className="button"
+                                    onClick={this.handleClick.bind(
+                                        this,
+                                        "premiumplans"
+                                    )}
+                                >
+                                    <span className="icon">
+                                        <svg
+                                            width="20"
+                                            height="20"
+                                            viewBox="0 0 20 20"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                d="M16.8989 6.07709L13.5656 8.46043C13.1239 8.77709 12.4906 8.58543 12.2989 8.07709L10.7239 3.87709C10.4573 3.15209 9.43228 3.15209 9.16561 3.87709L7.58228 8.06876C7.39061 8.58543 6.76561 8.77709 6.32395 8.45209L2.99061 6.06876C2.32395 5.60209 1.44061 6.26043 1.71561 7.03543L5.18228 15.7438C5.29895 16.0771 5.61561 16.2938 5.96561 16.2938H13.9073C14.2573 16.2938 14.5739 16.0688 14.6906 15.7438L18.1573 7.03543C18.4406 6.26043 17.5573 5.60209 16.8989 6.07709ZM12.0239 14.7688H7.85728C7.51561 14.7688 7.23228 14.4854 7.23228 14.1438C7.23228 13.8021 7.51561 13.5188 7.85728 13.5188H12.0239C12.3656 13.5188 12.6489 13.8021 12.6489 14.1438C12.6489 14.4854 12.3656 14.7688 12.0239 14.7688Z"
+                                                fill="white"
+                                            />
+                                        </svg>
+                                    </span>
+                                    <span className="off">{`%50`}</span>
+                                    <span className="off shadow">{`%50`}</span>
+                                    <span>Go Premium</span>
+                                </a>
                             </div>
                             <div className="main-menu">
                                 <ul id="folderul">
@@ -925,7 +955,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                 type="button"
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#collapseOne"
-                                                aria-expanded="true"
+                                                aria-expanded="false"
                                                 aria-controls="collapseOne"
                                             >
                                                 {" "}
@@ -934,7 +964,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                         </h2>
                                         <div
                                             id="collapseOne"
-                                            className="accordion-collapse collapse show"
+                                            className="accordion-collapse collapse"
                                             aria-labelledby="headingOne"
                                             data-bs-parent="#accordionExample"
                                         >

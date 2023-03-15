@@ -761,6 +761,17 @@ define(["app", "forge", "openpgp"], function (app, forge, openpgp) {
             return folderList;
         },
 
+        getCustomLabelList: function () {
+            var customLabelList = [];
+            $.each(app.user.get("tags"), function (label64, data64) {
+                customLabelList.push(
+                    app.transform.escapeTags(app.transform.from64str(label64))
+                );
+            });
+            // console.log(customLabelList);
+            return customLabelList;
+        },
+
         getInboxFolderId: function (callback) {
             $.each(app.user.get("folders"), function (index, folderData) {
                 if (folderData["isMain"]) {

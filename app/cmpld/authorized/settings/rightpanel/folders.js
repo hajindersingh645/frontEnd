@@ -31,6 +31,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                 nameField: "",
                 expireFolder: "",
                 labelField: "",
+                labelColor: "",
 
                 nameForm: {},
                 folderId: ""
@@ -474,7 +475,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
 
                     if (validator.numberOfInvalids() == 0) {
                         tags[app.transform.to64str(this.state.labelField)] = {
-                            color: ""
+                            color: this.state.labelColor
                         };
 
                         app.userObjects.updateObjects("labelSettings", "", function (result) {
@@ -725,6 +726,12 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                     });
 
                     break;
+                case "changeLabelColor":
+                    this.setState({
+                        labelColor: event.target.value
+                    });
+
+                    break;
             }
         },
         render: function () {
@@ -764,6 +771,20 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                             onClick: this.handleClick.bind(this, "showFirst")
                                         },
                                         "Folders"
+                                    )
+                                ),
+                                React.createElement(
+                                    "li",
+                                    {
+                                        role: "presentation",
+                                        className: this.state.secondTab
+                                    },
+                                    React.createElement(
+                                        "a",
+                                        {
+                                            onClick: this.handleClick.bind(this, "showSecond")
+                                        },
+                                        "Labels"
                                     )
                                 )
                             ),
@@ -1057,6 +1078,21 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                                 placeholder: "name",
                                                 value: this.state.labelField,
                                                 onChange: this.handleChange.bind(this, "changeLabelField")
+                                            })
+                                        ),
+                                        React.createElement(
+                                            "div",
+                                            {
+                                                className: `col-md-6 ${ this.state.inputLabelClass }`
+                                            },
+                                            React.createElement("input", {
+                                                type: "text",
+                                                name: "labelColour",
+                                                className: "form-control with-icon icon-email",
+                                                id: "labelColour",
+                                                placeholder: "color code",
+                                                value: this.state.labelColor,
+                                                onChange: this.handleChange.bind(this, "changeLabelColor")
                                             })
                                         ),
                                         React.createElement(

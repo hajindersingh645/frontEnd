@@ -36,6 +36,7 @@ define([
                 nameField: "",
                 expireFolder: "",
                 labelField: "",
+                labelColor: "",
 
                 nameForm: {},
                 folderId: "",
@@ -559,7 +560,7 @@ define([
 
                     if (validator.numberOfInvalids() == 0) {
                         tags[app.transform.to64str(this.state.labelField)] = {
-                            color: "",
+                            color: this.state.labelColor,
                         };
 
                         app.userObjects.updateObjects(
@@ -870,6 +871,12 @@ define([
                     });
 
                     break;
+                case "changeLabelColor":
+                    this.setState({
+                        labelColor: event.target.value,
+                    });
+
+                    break;
             }
         },
         render: function () {
@@ -895,7 +902,19 @@ define([
                                             Folders
                                         </a>
                                     </li>
-                                    {/** Removed from here */}
+                                    <li
+                                        role="presentation"
+                                        className={this.state.secondTab}
+                                    >
+                                        <a
+                                            onClick={this.handleClick.bind(
+                                                this,
+                                                "showSecond"
+                                            )}
+                                        >
+                                            Labels
+                                        </a>
+                                    </li>
                                 </ul>
                                 <div className="add-contact-btn">
                                     <a
@@ -1104,6 +1123,24 @@ define([
                                                     onChange={this.handleChange.bind(
                                                         this,
                                                         "changeLabelField"
+                                                    )}
+                                                />
+                                            </div>
+                                            <div
+                                                className={`col-md-6 ${this.state.inputLabelClass}`}
+                                            >
+                                                <input
+                                                    type="text"
+                                                    name="labelColour"
+                                                    className="form-control with-icon icon-email"
+                                                    id="labelColour"
+                                                    placeholder="color code"
+                                                    value={
+                                                        this.state.labelColor
+                                                    }
+                                                    onChange={this.handleChange.bind(
+                                                        this,
+                                                        "changeLabelColor"
                                                     )}
                                                 />
                                             </div>

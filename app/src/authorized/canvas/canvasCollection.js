@@ -134,6 +134,9 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                             this,
                                             "settings"
                                         )}
+                                        data-bs-dismiss="offcanvas"
+                                        data-bs-target="#offcanvasRight"
+                                        aria-label="Close"
                                     >
                                         <span className="__icon">
                                             <svg
