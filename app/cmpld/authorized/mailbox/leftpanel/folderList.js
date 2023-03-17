@@ -43,7 +43,8 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
             switch (i) {
                 case "switchFolder":
                     var thisComp = this;
-
+                    console.log(`clicked`);
+                    console.log($(event.target).attr("id"));
                     app.user.on("change:currentMessageView", function () {}, this);
 
                     if (thisComp.props.activePage != $(event.target).attr("id")) {
@@ -396,9 +397,9 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                             React.createElement(
                                 "a",
                                 {
-                                    onClick: this.handleClick.bind(this, "switchFolder"),
                                     id: "94835ea2fc",
-                                    className: "brand"
+                                    className: "brand",
+                                    onClick: this.handleChange.bind(this, "switchFolder")
                                 },
                                 React.createElement("img", {
                                     src: "images/logo.svg",
@@ -486,7 +487,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                         React.createElement(
                                             "button",
                                             {
-                                                className: "accordion-button",
+                                                className: "accordion-button collapsed",
                                                 type: "button",
                                                 "data-bs-toggle": "collapse",
                                                 "data-bs-target": "#collapseOne",
@@ -584,7 +585,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                         React.createElement(
                                             "button",
                                             {
-                                                className: "accordion-button",
+                                                className: "accordion-button collapsed",
                                                 type: "button",
                                                 "data-bs-toggle": "collapse",
                                                 "data-bs-target": "#collapseTwo",
@@ -727,9 +728,11 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                             React.createElement(
                                 "a",
                                 {
-                                    onClick: this.handleClick.bind(this, "switchFolder"),
                                     id: "94835ea2fc",
-                                    className: "brand"
+                                    className: "brand",
+                                    onClick: this.handleChange.bind(this, "switchFolder"),
+                                    "data-bs-dismiss": "offcanvas",
+                                    "aria-label": "Close"
                                 },
                                 React.createElement("img", {
                                     src: "images/logo.svg",

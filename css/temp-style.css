@@ -14963,6 +14963,8 @@ button {
 }
 .right-side .email-conetent-wrp .email-content-top-right .button-group {
     width: 90%;
+    display: flex;
+    justify-content: flex-end;
 }
 .middle-section .middle-top .info-row .info-row-right .referesh-btn {
     width: 24px;
@@ -16795,7 +16797,7 @@ body.shrinked #folderMenu {
 .right-side .email-conetent-wrp .email-content-top-right .content-list-menu {
     width: auto;
     float: left;
-    /* padding: 0 0 0 24px; */
+    padding: 0 0 0 24px;
 }
 .right-side
     .email-conetent-wrp
@@ -19285,6 +19287,7 @@ header .menu-icon.on-left-side {
 }
 .middle-section .inbox-list table p .from {
     color: rgba(8, 13, 19, 0.6);
+    cursor: pointer;
 }
 .middle-section .inbox-list table .email.unread p,
 .middle-section .inbox-list ul li.unread p {
@@ -21758,6 +21761,14 @@ footer .footer-social-media a {
     /* Footer settings navigation */
     .left-settings-mobile {
         display: block;
+    }
+
+    .middle-section .inbox-list table .select-checkbox,
+    .middle-section .inbox-list ul li .select-checkbox {
+        left: 16px;
+    }
+    .middle-section .inbox-list table td > .email {
+        padding: 14px 50px;
     }
 }
 @media screen and (max-width: 640px) {

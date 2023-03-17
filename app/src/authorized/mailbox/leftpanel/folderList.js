@@ -45,7 +45,8 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
             switch (i) {
                 case "switchFolder":
                     var thisComp = this;
-
+                    console.log(`clicked`);
+                    console.log($(event.target).attr("id"));
                     app.user.on(
                         "change:currentMessageView",
                         function () {},
@@ -414,12 +415,12 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                     </button>
                                 </div>
                                 <a
-                                    onClick={this.handleClick.bind(
+                                    id="94835ea2fc"
+                                    className="brand"
+                                    onClick={this.handleChange.bind(
                                         this,
                                         "switchFolder"
                                     )}
-                                    id="94835ea2fc"
-                                    className="brand"
                                 >
                                     <img
                                         src="images/logo.svg"
@@ -539,7 +540,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                             id="headingOne"
                                         >
                                             <button
-                                                className="accordion-button"
+                                                className="accordion-button collapsed"
                                                 type="button"
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#collapseOne"
@@ -674,7 +675,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                             id="headingOne"
                                         >
                                             <button
-                                                className="accordion-button"
+                                                className="accordion-button collapsed"
                                                 type="button"
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#collapseTwo"
@@ -793,12 +794,14 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                         <div className="offcanvas-header">
                             <div className="logo">
                                 <a
-                                    onClick={this.handleClick.bind(
+                                    id="94835ea2fc"
+                                    className="brand"
+                                    onClick={this.handleChange.bind(
                                         this,
                                         "switchFolder"
                                     )}
-                                    id="94835ea2fc"
-                                    className="brand"
+                                    data-bs-dismiss="offcanvas"
+                                    aria-label="Close"
                                 >
                                     <img
                                         src="images/logo.svg"
