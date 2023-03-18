@@ -21822,6 +21822,9 @@ footer .footer-social-media a {
     .col-content-width_one_half {
         width: 37% !important;
     }
+    .right-side .email-conetent-wrp .email-content-top-right .button-group {
+        width: 83%;
+    }
 }
 
 @media screen and (max-height: 390px) {

@@ -691,7 +691,12 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                     >
                         <div className="left-container">
                             <div className="logo">
-                                <a href="#">
+                                <a
+                                    onClick={this.handleClick.bind(
+                                        this,
+                                        "back-to-inbox"
+                                    )}
+                                >
                                     <img
                                         src="images/logo.svg"
                                         alt=""

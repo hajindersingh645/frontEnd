@@ -670,7 +670,9 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                             { className: "logo" },
                             React.createElement(
                                 "a",
-                                { href: "#" },
+                                {
+                                    onClick: this.handleClick.bind(this, "back-to-inbox")
+                                },
                                 React.createElement("img", {
                                     src: "images/logo.svg",
                                     alt: "",
