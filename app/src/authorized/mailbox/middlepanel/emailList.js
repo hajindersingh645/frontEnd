@@ -325,6 +325,8 @@ define([
                     tag +
                     "</span></div></div>";
 
+                // var tagPart = "";
+
                 emailListCopy[folderId][index] = {
                     DT_RowId: index,
                     unread: unread,
@@ -691,6 +693,10 @@ define([
                 .DataTable()
                 .column(0)
                 .search(event.target.value, 0, 1);
+        },
+        handleSearchReset: function () {
+            $("#desktop-search").val("");
+            $("#emailListTable").DataTable().column(0).search("", 0, 1);
         },
         removeRefreshClass: function (_element) {
             setTimeout(function () {
@@ -1413,10 +1419,22 @@ define([
                                 <input
                                     type="search"
                                     placeholder="Search..."
+                                    id="desktop-search"
                                     onChange={this.handleSearchChange.bind(
                                         this
                                     )}
                                 />
+                                <span
+                                    className="icon"
+                                    onClick={this.handleSearchReset.bind(this)}
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 48 48"
+                                    >
+                                        <path d="m12.45 37.65-2.1-2.1L21.9 24 10.35 12.45l2.1-2.1L24 21.9l11.55-11.55 2.1 2.1L26.1 24l11.55 11.55-2.1 2.1L24 26.1Z" />
+                                    </svg>
+                                </span>
                             </div>
                             <div className="info-row" id="checkAll">
                                 <div className="all-check">

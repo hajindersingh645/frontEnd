@@ -43,10 +43,73 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
 
         handleChange: function (i, event) {
             switch (i) {
-                case "switchFolder":
+                case "switchLabels":
+                    $("#emailListTable")
+                        .DataTable()
+                        .column(0)
+                        .search($(event.target).data("name"), 0, 1);
+                    break;
+                case "backToInbox":
+                    // Reset the label filter first
+                    $("#emailListTable").DataTable().column(0).search("", 0, 1);
                     var thisComp = this;
-                    console.log(`clicked`);
-                    console.log($(event.target).attr("id"));
+                    $("#wrapper").removeClass("email-read-active");
+                    app.user.on(
+                        "change:currentMessageView",
+                        function () {},
+                        this
+                    );
+                    $("#sdasdasd").addClass("hidden");
+                    clearTimeout(app.user.get("emailOpenTimeOut"));
+
+                    app.mixins.canNavigate(function (decision) {
+                        if (decision) {
+                            // $("#mMiddlePanelTop").removeClass(
+                            //     " hidden-xs hidden-sm hidden-md"
+                            // );
+                            $("#appRightSide").css("display", "none");
+                            var folder =
+                                app.user.get("folders")[
+                                    $(event.target).data("target")
+                                ]["name"];
+
+                            thisComp.removeClassesActive();
+
+                            Backbone.history.navigate(
+                                "/mail/" + app.transform.from64str(folder),
+                                {
+                                    trigger: true,
+                                }
+                            );
+
+                            app.user.set({
+                                currentFolder: app.transform.from64str(folder),
+                            });
+
+                            app.user.set({ resetSelectedItems: true });
+                            app.user.set({ isDecryptingEmail: false });
+
+                            app.globalF.resetCurrentMessage();
+                            app.globalF.resetDraftMessage();
+
+                            thisComp.props.changeFodlerId(
+                                $(event.target).data("target")
+                            );
+                            $("#" + $(event.target).data("target"))
+                                .parents("li")
+                                .addClass("active");
+
+                            $("#mMiddlePanel").scrollTop(0);
+
+                            app.layout.display("viewBox");
+                        }
+                    });
+                    break;
+                case "switchFolder":
+                    // Reset the label filter first
+                    $("#emailListTable").DataTable().column(0).search("", 0, 1);
+                    var thisComp = this;
+                    $("#wrapper").removeClass("email-read-active");
                     app.user.on(
                         "change:currentMessageView",
                         function () {},
@@ -93,7 +156,6 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                 thisComp.props.changeFodlerId(
                                     $(event.target).attr("id")
                                 );
-
                                 $("#" + $(event.target).attr("id"))
                                     .parents("li")
                                     .addClass("active");
@@ -415,11 +477,11 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                     </button>
                                 </div>
                                 <a
-                                    id="94835ea2fc"
+                                    data-target="94835ea2fc"
                                     className="brand"
                                     onClick={this.handleChange.bind(
                                         this,
-                                        "switchFolder"
+                                        "backToInbox"
                                     )}
                                 >
                                     <img
@@ -709,9 +771,12 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                                             "a_" +
                                                                             i
                                                                         }
+                                                                        data-name={
+                                                                            label.name
+                                                                        }
                                                                         onClick={this.handleChange.bind(
                                                                             this,
-                                                                            "switchFolder"
+                                                                            "switchLabels"
                                                                         )}
                                                                     >
                                                                         <span className="menu-icon">
@@ -724,7 +789,12 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                                             >
                                                                                 <path
                                                                                     d="M0 2C0 0.895431 0.895431 0 2 0H11.5C12.4443 0 13.3334 0.444583 13.9 1.2L18.1 6.8C18.6333 7.51111 18.6333 8.48889 18.1 9.2L13.9 14.8C13.3334 15.5554 12.4443 16 11.5 16H2C0.89543 16 0 15.1046 0 14V2Z"
-                                                                                    fill="#A066FF"
+                                                                                    fill={
+                                                                                        label.color !==
+                                                                                        ""
+                                                                                            ? label.color
+                                                                                            : "#c9d0da"
+                                                                                    }
                                                                                 />
                                                                                 <rect
                                                                                     x="2"
@@ -739,7 +809,7 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                                                                         </span>
                                                                         <span>
                                                                             {
-                                                                                label
+                                                                                label.name
                                                                             }
                                                                         </span>
                                                                     </a>
@@ -794,11 +864,11 @@ define(["react", "app", "accounting"], function (React, app, accounting) {
                         <div className="offcanvas-header">
                             <div className="logo">
                                 <a
-                                    id="94835ea2fc"
+                                    data-target="94835ea2fc"
                                     className="brand"
                                     onClick={this.handleChange.bind(
                                         this,
-                                        "switchFolder"
+                                        "backToInbox"
                                     )}
                                     data-bs-dismiss="offcanvas"
                                     aria-label="Close"

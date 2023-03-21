@@ -110,7 +110,6 @@ define([
                 //     { data: "edit" },
                 //     { data: "delete" },
                 //     { data: "options" },
-
                 var el = {
                     DT_RowId: label64,
                     checkbox:
@@ -562,6 +561,7 @@ define([
                         tags[app.transform.to64str(this.state.labelField)] = {
                             color: this.state.labelColor,
                         };
+                        console.log(tags);
 
                         app.userObjects.updateObjects(
                             "labelSettings",

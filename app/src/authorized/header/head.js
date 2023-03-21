@@ -79,6 +79,10 @@ define([
                 .search(event.target.value, 0, 1)
                 .draw();
         },
+        handleSearchReset: function () {
+            $("#mobile-search").val("");
+            $("#emailListTable").DataTable().column(0).search("", 0, 1);
+        },
         render: function () {
             return (
                 <div>
@@ -387,8 +391,20 @@ define([
                         <input
                             type="search"
                             placeholder="Search..."
+                            id="mobile-search"
                             onChange={this.handleSearchChange.bind(this)}
                         />
+                        <span
+                            className="icon"
+                            onClick={this.handleSearchReset.bind(this)}
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 48 48"
+                            >
+                                <path d="m12.45 37.65-2.1-2.1L21.9 24 10.35 12.45l2.1-2.1L24 21.9l11.55-11.55 2.1 2.1L26.1 24l11.55 11.55-2.1 2.1L24 26.1Z" />
+                            </svg>
+                        </span>
                     </div>
                     {this.state.notificationFlag && <Notifications />}
                 </div>

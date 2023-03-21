@@ -79,6 +79,15 @@ define(["react", "app"], function (React, app) {
                     "<style>table,table tbody,table tr,table td{display:block;width:100%;}</style>"
                 );
         },
+        getTagColor: function (tagName) {
+            var colorCode = `#c9d0da`;
+            $.each(app.user.get("tags"), function (index, labelData) {
+                if (tagName === app.transform.from64str(index)) {
+                    colorCode = labelData.color;
+                }
+            });
+            return colorCode;
+        },
         getTagsList: function () {
             var labels = [];
 
@@ -93,8 +102,45 @@ define(["react", "app"], function (React, app) {
                                 "assignLabel"
                             )}
                             value={index}
+                            className={
+                                thisComp.state.tag ===
+                                app.transform.from64str(index)
+                                    ? "active"
+                                    : ""
+                            }
                         >
-                            {app.transform.from64str(index)}
+                            <span className="icon">
+                                <svg
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 18 18"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M13.5119 9.2475L12.5969 8.3325C12.3794 8.145 12.2519 7.8675 12.2444 7.56C12.2294 7.2225 12.3644 6.885 12.6119 6.6375L13.5119 5.7375C14.2919 4.9575 14.5844 4.2075 14.3369 3.615C14.0969 3.03 13.3544 2.7075 12.2594 2.7075H4.42187V2.0625C4.42187 1.755 4.16687 1.5 3.85937 1.5C3.55187 1.5 3.29688 1.755 3.29688 2.0625V15.9375C3.29688 16.245 3.55187 16.5 3.85937 16.5C4.16687 16.5 4.42187 16.245 4.42187 15.9375V12.2775H12.2594C13.3394 12.2775 14.0669 11.9475 14.3144 11.355C14.5619 10.7625 14.2769 10.02 13.5119 9.2475Z"
+                                        fill={labelData.color}
+                                    />
+                                </svg>
+                            </span>
+                            <span>{app.transform.from64str(index)}</span>
+                            <span className="tick-icon">
+                                <svg
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 18 18"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M3.17188 10.0416L6.35369 13.1666L14.8385 4.83325"
+                                        stroke="#2277F6"
+                                        strokeWidth="1.25"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    />
+                                </svg>
+                            </span>
                         </a>
                     </li>
                 );
@@ -1967,14 +2013,63 @@ define(["react", "app"], function (React, app) {
                                 }`}
                             >
                                 <div className={`email-title-wrapper`}>
-                                    <div>
+                                    <div className="email-title">
                                         <h1 className="email-subject">
                                             {this.state.subject}
                                         </h1>
+                                        <div className="email-sent-date">
+                                            {this.state.timeSent}
+                                        </div>
                                     </div>
-                                    <div className="email-sent-date">
-                                        {this.state.timeSent}
-                                    </div>
+                                    {this.state.tag !== `` ? (
+                                        <div className="email-labels">
+                                            <span className="label-wrapper">
+                                                <span className="label label-success">
+                                                    <span className="icon">
+                                                        <svg
+                                                            width="18"
+                                                            height="18"
+                                                            viewBox="0 0 18 18"
+                                                            fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                        >
+                                                            <path
+                                                                d="M13.5119 9.2475L12.5969 8.3325C12.3794 8.145 12.2519 7.8675 12.2444 7.56C12.2294 7.2225 12.3644 6.885 12.6119 6.6375L13.5119 5.7375C14.2919 4.9575 14.5844 4.2075 14.3369 3.615C14.0969 3.03 13.3544 2.7075 12.2594 2.7075H4.42187V2.0625C4.42187 1.755 4.16687 1.5 3.85937 1.5C3.55187 1.5 3.29688 1.755 3.29688 2.0625V15.9375C3.29688 16.245 3.55187 16.5 3.85937 16.5C4.16687 16.5 4.42187 16.245 4.42187 15.9375V12.2775H12.2594C13.3394 12.2775 14.0669 11.9475 14.3144 11.355C14.5619 10.7625 14.2769 10.02 13.5119 9.2475Z"
+                                                                fill={this.getTagColor(
+                                                                    this.state
+                                                                        .tag
+                                                                )}
+                                                            />
+                                                        </svg>
+                                                    </span>
+                                                    {this.state.tag}
+                                                </span>
+
+                                                <a
+                                                    onClick={this.handleChange.bind(
+                                                        this,
+                                                        "removeTag"
+                                                    )}
+                                                    title="Remove Tag"
+                                                >
+                                                    <svg
+                                                        width="9"
+                                                        height="9"
+                                                        viewBox="0 0 6 6"
+                                                        fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                    >
+                                                        <path
+                                                            fillRule="evenodd"
+                                                            clipRule="evenodd"
+                                                            d="M5.13895 0.861119C5.29018 1.01235 5.29018 1.25755 5.13895 1.40878L3.54767 3.00007L5.13895 4.59135C5.29018 4.74259 5.29018 4.98779 5.13895 5.13902C4.98772 5.29025 4.74252 5.29025 4.59129 5.13902L3 3.54774L1.40871 5.13902C1.25748 5.29025 1.01228 5.29025 0.861049 5.13902C0.709815 4.98779 0.709815 4.74259 0.861049 4.59135L2.45233 3.00007L0.861049 1.40878C0.709816 1.25755 0.709816 1.01235 0.861049 0.861119C1.01228 0.709885 1.25748 0.709885 1.40871 0.861119L3 2.4524L4.59129 0.861119C4.74252 0.709885 4.98772 0.709885 5.13895 0.861119Z"
+                                                            fill="#959595"
+                                                        />
+                                                    </svg>
+                                                </a>
+                                            </span>
+                                        </div>
+                                    ) : null}
                                 </div>
                                 <div className="email-additional-details">
                                     <div className="email-content-top-left">
@@ -2102,70 +2197,7 @@ define(["react", "app"], function (React, app) {
                                                         className="dropdown-menu dropdown-labels"
                                                         aria-labelledby="label-list"
                                                     >
-                                                        <li>
-                                                            <span className="icon">
-                                                                <svg
-                                                                    width="18"
-                                                                    height="18"
-                                                                    viewBox="0 0 18 18"
-                                                                    fill="none"
-                                                                    xmlns="http://www.w3.org/2000/svg"
-                                                                >
-                                                                    <path
-                                                                        d="M13.5119 9.2475L12.5969 8.3325C12.3794 8.145 12.2519 7.8675 12.2444 7.56C12.2294 7.2225 12.3644 6.885 12.6119 6.6375L13.5119 5.7375C14.2919 4.9575 14.5844 4.2075 14.3369 3.615C14.0969 3.03 13.3544 2.7075 12.2594 2.7075H4.42187V2.0625C4.42187 1.755 4.16687 1.5 3.85937 1.5C3.55187 1.5 3.29688 1.755 3.29688 2.0625V15.9375C3.29688 16.245 3.55187 16.5 3.85937 16.5C4.16687 16.5 4.42187 16.245 4.42187 15.9375V12.2775H12.2594C13.3394 12.2775 14.0669 11.9475 14.3144 11.355C14.5619 10.7625 14.2769 10.02 13.5119 9.2475Z"
-                                                                    />
-                                                                </svg>
-                                                            </span>
-                                                            <span>Not set</span>
-                                                        </li>
-                                                        <li>
-                                                            <span className="icon normal">
-                                                                <svg
-                                                                    width="18"
-                                                                    height="18"
-                                                                    viewBox="0 0 18 18"
-                                                                    fill="none"
-                                                                    xmlns="http://www.w3.org/2000/svg"
-                                                                >
-                                                                    <path
-                                                                        d="M13.5119 9.2475L12.5969 8.3325C12.3794 8.145 12.2519 7.8675 12.2444 7.56C12.2294 7.2225 12.3644 6.885 12.6119 6.6375L13.5119 5.7375C14.2919 4.9575 14.5844 4.2075 14.3369 3.615C14.0969 3.03 13.3544 2.7075 12.2594 2.7075H4.42187V2.0625C4.42187 1.755 4.16687 1.5 3.85937 1.5C3.55187 1.5 3.29688 1.755 3.29688 2.0625V15.9375C3.29688 16.245 3.55187 16.5 3.85937 16.5C4.16687 16.5 4.42187 16.245 4.42187 15.9375V12.2775H12.2594C13.3394 12.2775 14.0669 11.9475 14.3144 11.355C14.5619 10.7625 14.2769 10.02 13.5119 9.2475Z"
-                                                                    />
-                                                                </svg>
-                                                            </span>
-                                                            <span>Normal</span>
-                                                        </li>
-                                                        <li>
-                                                            <span className="icon low">
-                                                                <svg
-                                                                    width="18"
-                                                                    height="18"
-                                                                    viewBox="0 0 18 18"
-                                                                    fill="none"
-                                                                    xmlns="http://www.w3.org/2000/svg"
-                                                                >
-                                                                    <path
-                                                                        d="M13.5119 9.2475L12.5969 8.3325C12.3794 8.145 12.2519 7.8675 12.2444 7.56C12.2294 7.2225 12.3644 6.885 12.6119 6.6375L13.5119 5.7375C14.2919 4.9575 14.5844 4.2075 14.3369 3.615C14.0969 3.03 13.3544 2.7075 12.2594 2.7075H4.42187V2.0625C4.42187 1.755 4.16687 1.5 3.85937 1.5C3.55187 1.5 3.29688 1.755 3.29688 2.0625V15.9375C3.29688 16.245 3.55187 16.5 3.85937 16.5C4.16687 16.5 4.42187 16.245 4.42187 15.9375V12.2775H12.2594C13.3394 12.2775 14.0669 11.9475 14.3144 11.355C14.5619 10.7625 14.2769 10.02 13.5119 9.2475Z"
-                                                                    />
-                                                                </svg>
-                                                            </span>
-                                                            <span>Low</span>
-                                                        </li>
-                                                        <li>
-                                                            <span className="icon high">
-                                                                <svg
-                                                                    width="18"
-                                                                    height="18"
-                                                                    viewBox="0 0 18 18"
-                                                                    fill="none"
-                                                                    xmlns="http://www.w3.org/2000/svg"
-                                                                >
-                                                                    <path
-                                                                        d="M13.5119 9.2475L12.5969 8.3325C12.3794 8.145 12.2519 7.8675 12.2444 7.56C12.2294 7.2225 12.3644 6.885 12.6119 6.6375L13.5119 5.7375C14.2919 4.9575 14.5844 4.2075 14.3369 3.615C14.0969 3.03 13.3544 2.7075 12.2594 2.7075H4.42187V2.0625C4.42187 1.755 4.16687 1.5 3.85937 1.5C3.55187 1.5 3.29688 1.755 3.29688 2.0625V15.9375C3.29688 16.245 3.55187 16.5 3.85937 16.5C4.16687 16.5 4.42187 16.245 4.42187 15.9375V12.2775H12.2594C13.3394 12.2775 14.0669 11.9475 14.3144 11.355C14.5619 10.7625 14.2769 10.02 13.5119 9.2475Z"
-                                                                    />
-                                                                </svg>
-                                                            </span>
-                                                            <span>High</span>
-                                                        </li>
+                                                        {this.getTagsList()}
                                                     </ul>
                                                 </div>
                                                 <button

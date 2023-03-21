@@ -764,9 +764,12 @@ define(["app", "forge", "openpgp"], function (app, forge, openpgp) {
         getCustomLabelList: function () {
             var customLabelList = [];
             $.each(app.user.get("tags"), function (label64, data64) {
-                customLabelList.push(
-                    app.transform.escapeTags(app.transform.from64str(label64))
+                var item = {};
+                item["name"] = app.transform.escapeTags(
+                    app.transform.from64str(label64)
                 );
+                item["color"] = data64.color;
+                customLabelList.push(item);
             });
             // console.log(customLabelList);
             return customLabelList;

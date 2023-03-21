@@ -15248,7 +15248,7 @@ header .right-top-data {
     align-items: center;
 }
 .right-side .email-conetent-wrp .email-content-top-right .right-menus {
-    border-left: 1px solid rgba(8, 13, 19, 0.06);
+    /* border-left: 1px solid rgba(8, 13, 19, 0.06); */
     width: 100%;
 }
 header .menu-icon {
@@ -15557,6 +15557,9 @@ header .user-dropdown .dropdown-menu li button {
 }
 .folder-menu .accordion-body ul li a .number-badge {
     margin: 1px 0 0;
+}
+.folder-menu .accordion-body ul li a > * {
+    pointer-events: none;
 }
 .side-menu-cta {
     width: 100%;
@@ -16485,6 +16488,18 @@ body.shrinked #folderMenu {
     border: none;
     outline: 0;
     font-family: "Plus Jakarta Sans", sans-serif;
+}
+.middle-section .middle-top .desktop-search .icon {
+    cursor: pointer;
+    position: absolute;
+    right: 24px;
+    top: 32px;
+    width: 21px;
+    height: 21px;
+    display: flex;
+}
+.middle-section .middle-top .desktop-search .icon > * {
+    pointer-events: none;
 }
 .middle-section .middle-top .info-row {
     width: 100%;
@@ -18219,6 +18234,18 @@ header .user-dropdown .dropdown-menu button:hover.logout-icon {
 .mobile-search input {
     background: url("../images/icon-search.svg") left center/20px no-repeat;
 }
+.mobile-search .icon {
+    cursor: pointer;
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    width: 21px;
+    height: 21px;
+    display: flex;
+}
+.mobile-search .icon > * {
+    pointer-events: none;
+}
 .back-to-inbox-link a {
     background: url("../images/icon-inbox.svg") left top/24px no-repeat;
     color: #415067;
@@ -18949,7 +18976,7 @@ textarea {
         overflow-y: auto;
     }
     .email-read-active {
-        overflow: hidden;
+        overflow-x: hidden;
     }
 }
 @media (max-width: 1199.98px) {
@@ -19985,6 +20012,7 @@ header .menu-icon.on-left-side {
     font-size: 16px;
     display: flex;
     align-items: center;
+    width: auto;
 }
 .right-side .email-content-top .email-title-wrapper .email-subject::before {
     position: absolute;
@@ -19999,6 +20027,11 @@ header .menu-icon.on-left-side {
     color: rgb(131, 134, 137);
     font-weight: 500;
     font-size: 11px;
+    margin-left: 11px;
+}
+.right-side .email-content-top .email-title-wrapper .email-title {
+    display: flex;
+    align-items: center;
 }
 .right-side .email-additional-details {
     display: flex;
@@ -21725,6 +21758,13 @@ footer .footer-social-media a {
     .middle-section .middle-top .info-row {
         padding-top: 20px;
     }
+
+    .right-side {
+        display: none !important;
+    }
+    .email-read-active .right-side {
+        display: block !important;
+    }
 }
 @media screen and (max-width: 767px) {
     header .go-premium-button .button {
@@ -22035,6 +22075,18 @@ body.shrinked .folder-menu .accordion-button:after {
 }
 
 /* Dropdown Labels */
+.dropdown-labels-wrapper {
+    position: relative;
+}
+.dropdown-labels-wrapper::before {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 0;
+    border-left: 1px solid rgba(8, 13, 19, 0.06);
+    width: 1px;
+    height: 100%;
+}
 .dropdown-toggle-labels {
     background: rgba(0, 0, 0, 0.05);
     width: auto !important;
@@ -22054,8 +22106,14 @@ body.shrinked .folder-menu .accordion-button:after {
     min-width: 226px;
     max-width: 226px;
 }
+.dropdown-labels a {
+    text-decoration: none;
+    color: #415067;
+    width: 100%;
+    cursor: pointer;
+}
 .dropdown-labels li {
-    padding-top: 7px 12px;
+    padding: 7px 12px;
     display: flex;
     align-items: center;
     font-size: 12px;
@@ -22078,7 +22136,42 @@ body.shrinked .folder-menu .accordion-button:after {
 .dropdown-labels-wrapper .icon.high svg {
     fill: #e34c3f;
 }
-
+.dropdown-labels-wrapper .tick-icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    visibility: hidden;
+}
+.dropdown-labels-wrapper a.active .tick-icon {
+    visibility: visible;
+}
 .dropdown-toggle-labels .icon {
     margin-right: 4px;
+}
+
+.dropdown-labels a.active {
+    color: #2277f6;
+}
+
+/* Email Labels */
+.email-labels {
+    display: flex;
+}
+.email-labels .label-wrapper {
+    color: #080d13;
+    display: flex;
+    border-radius: 4px;
+    background: rgba(245, 246, 247, 0.7);
+    font-size: 11px;
+    padding: 6px;
+    text-transform: capitalize;
+}
+.email-labels .label-wrapper a {
+    cursor: pointer;
+    margin-left: 5px;
+}
+/* Hiding label tags from email list */
+.middle-section .inbox-list table .mailListLabel {
+    visibility: hidden;
+    height: 0;
 }

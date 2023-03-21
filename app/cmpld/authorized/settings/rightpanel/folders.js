@@ -95,7 +95,6 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                 //     { data: "edit" },
                 //     { data: "delete" },
                 //     { data: "options" },
-
                 var el = {
                     DT_RowId: label64,
                     checkbox: '<label class="container-checkbox"><input type="checkbox" name="inbox-email" /><span class="checkmark"></span></label>',
@@ -477,6 +476,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                         tags[app.transform.to64str(this.state.labelField)] = {
                             color: this.state.labelColor
                         };
+                        console.log(tags);
 
                         app.userObjects.updateObjects("labelSettings", "", function (result) {
                             if (result == "saved") {
