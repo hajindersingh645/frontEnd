@@ -45,6 +45,7 @@ define([
         updateEmails: function (folderId, noRefresh) {
             var thisComp = this;
             var emails = app.user.get("emails")["folders"][folderId];
+            // console.log(emails);
 
             var emailListCopy = app.user.get("folderCached");
             if (emailListCopy[folderId] === undefined) {
@@ -242,8 +243,14 @@ define([
                     recipientTitle = recipientTitle.join(", ");
                 }
 
+                var titleTag = "";
+
                 if (folderData["tg"].length > 0) {
                     var tag = folderData["tg"][0]["name"];
+                    titleTag =
+                        '<span class="taggs" title="' +
+                        tag +
+                        '"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" > <path d="M13.5119 9.2475L12.5969 8.3325C12.3794 8.145 12.2519 7.8675 12.2444 7.56C12.2294 7.2225 12.3644 6.885 12.6119 6.6375L13.5119 5.7375C14.2919 4.9575 14.5844 4.2075 14.3369 3.615C14.0969 3.03 13.3544 2.7075 12.2594 2.7075H4.42187V2.0625C4.42187 1.755 4.16687 1.5 3.85937 1.5C3.55187 1.5 3.29688 1.755 3.29688 2.0625V15.9375C3.29688 16.245 3.55187 16.5 3.85937 16.5C4.16687 16.5 4.42187 16.245 4.42187 15.9375V12.2775H12.2594C13.3394 12.2775 14.0669 11.9475 14.3144 11.355C14.5619 10.7625 14.2769 10.02 13.5119 9.2475Z" fill="#C9D0DA"/></svg></span>';
                 } else {
                     var tag = "";
                 }
@@ -357,6 +364,7 @@ define([
                             '<div class="mail-toggle ' +
                             showPreview +
                             '"><div class="mail-title">' +
+                            titleTag +
                             emailListCopy[folderId][index]["sb"] +
                             "</div> <p><label class='from'>" +
                             fromTitle +
@@ -689,6 +697,12 @@ define([
             $("#selectAllAlt > input").prop("checked", false);
         },
         handleSearchChange: function (event) {
+            if (event.target.value.length > 1) {
+                $(".desktop-search").addClass("has-data");
+            } else {
+                $(".desktop-search").removeClass("has-data");
+            }
+
             $("#emailListTable")
                 .DataTable()
                 .column(0)
@@ -696,6 +710,7 @@ define([
         },
         handleSearchReset: function () {
             $("#desktop-search").val("");
+            $(".desktop-search").removeClass("has-data");
             $("#emailListTable").DataTable().column(0).search("", 0, 1);
         },
         removeRefreshClass: function (_element) {

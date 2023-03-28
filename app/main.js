@@ -23,6 +23,7 @@ require.config({
         SmartNotification: "/js/Plugins/SmartNotification",
         quill: "/js/Plugins/quill/quill.min",
         offline: "/js/Plugins/offline/offline.min",
+        irojs: "/js/Plugins/color/iro@5",
         dataTable: "/js/Plugins/dataTables/jquery.dataTables",
         dataTableResponsive: "/js/Plugins/dataTables/dataTables.responsive",
         dataTableAbsolute: "/js/Plugins/dataTables/dataTables.absolute",
@@ -134,6 +135,9 @@ require.config({
         },
         offline: {
             exports: "offline",
+        },
+        irojs: {
+            exports: "irojs",
         },
         qrcode: {
             deps: ["jquery"],

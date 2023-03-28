@@ -16497,6 +16497,11 @@ body.shrinked #folderMenu {
     width: 21px;
     height: 21px;
     display: flex;
+    visibility: hidden;
+    transition: all 0.2 ease-out;
+}
+.middle-section .middle-top .desktop-search.has-data .icon {
+    visibility: visible;
 }
 .middle-section .middle-top .desktop-search .icon > * {
     pointer-events: none;
@@ -19285,6 +19290,9 @@ header .menu-icon.on-left-side {
     text-overflow: ellipsis;
     width: 80%;
     display: inline-block;
+}
+.middle-section .inbox-list table .mail-title .taggs {
+    margin-right: 5px;
 }
 /* .inbox-list-top  */
 .middle-section .inbox-list table .unread-bullet {
@@ -22174,4 +22182,21 @@ body.shrinked .folder-menu .accordion-button:after {
 .middle-section .inbox-list table .mailListLabel {
     visibility: hidden;
     height: 0;
+}
+
+/* Color Picker Wrapper */
+#labelColourDiv,
+#folderColourDiv {
+    position: absolute;
+    background: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+    border: solid 1px rgba(0, 0, 0, 0.1);
+    display: none;
+    top: 100%;
+}
+#labelColour:focus + #labelColourDiv,
+#folderColour:focus + #folderColourDiv {
+    display: block;
 }

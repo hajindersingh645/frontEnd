@@ -2043,7 +2043,7 @@ define([
                             <div className={this.state.secondPanelClass}>
                                 <h3 className="d-none">Payment</h3>
 
-                                <div className="btn-row">
+                                <div className="btn-row btn-group">
                                     {/*<button type="submit" className="btn btn-primary" onClick={this.handleClick.bind(this, 'payPal')}>Pay With PayPal</button>*/}
                                     <button
                                         type="button"

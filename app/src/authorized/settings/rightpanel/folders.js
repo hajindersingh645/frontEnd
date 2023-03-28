@@ -4,7 +4,8 @@ define([
     "dataTable",
     "dataTableBoot",
     "cmpld/authorized/settings/rightpanel/rightTop",
-], function (React, app, DataTable, dataTableBoot, RightTop) {
+    "irojs",
+], function (React, app, DataTable, dataTableBoot, RightTop, IroJs) {
     "use strict";
     return React.createClass({
         getInitialState: function () {
@@ -37,6 +38,7 @@ define([
                 expireFolder: "",
                 labelField: "",
                 labelColor: "",
+                folderColor: "",
 
                 nameForm: {},
                 folderId: "",
@@ -286,6 +288,31 @@ define([
             $("#expireFold").rules("add", {
                 required: true,
             });
+
+            // Add color picker
+            var colorPicker = new IroJs.ColorPicker("#labelColourDiv", {
+                width: 135,
+            });
+            colorPicker.on(["color:init", "color:change"], function (color) {
+                try {
+                    document.getElementById("labelColour").value =
+                        color.hexString;
+                } catch (e) {
+                    console.log(e);
+                }
+            });
+
+            var colorPicker = new IroJs.ColorPicker("#folderColourDiv", {
+                width: 135,
+            });
+            colorPicker.on(["color:init", "color:change"], function (color) {
+                try {
+                    document.getElementById("folderColour").value =
+                        color.hexString;
+                } catch (e) {
+                    console.log(e);
+                }
+            });
         },
 
         componentWillUpdate: function (nextProps, nextState) {
@@ -519,6 +546,7 @@ define([
                             name: app.transform.to64str(this.state.nameField),
                             exp: this.state.expireFolder,
                             isMain: false,
+                            color: this.state.folderColor,
                         };
 
                         var emails = app.user.get("emails")["folders"];
@@ -561,7 +589,7 @@ define([
                         tags[app.transform.to64str(this.state.labelField)] = {
                             color: this.state.labelColor,
                         };
-                        console.log(tags);
+                        // console.log(tags);
 
                         app.userObjects.updateObjects(
                             "labelSettings",
@@ -877,6 +905,12 @@ define([
                     });
 
                     break;
+                case "changeFolderColor":
+                    this.setState({
+                        folderColor: event.target.value,
+                    });
+
+                    break;
             }
         },
         render: function () {
@@ -1143,6 +1177,7 @@ define([
                                                         "changeLabelColor"
                                                     )}
                                                 />
+                                                <div id="labelColourDiv"></div>
                                             </div>
 
                                             <div className="col-md-6">
@@ -1214,6 +1249,31 @@ define([
                                                             1 year
                                                         </option>
                                                     </select>
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div
+                                                    className={
+                                                        this.state
+                                                            .inputNameClass
+                                                    }
+                                                >
+                                                    <input
+                                                        type="text"
+                                                        name="folderColour"
+                                                        className="form-control with-icon icon-email"
+                                                        id="folderColour"
+                                                        placeholder="color code"
+                                                        value={
+                                                            this.state
+                                                                .folderColor
+                                                        }
+                                                        onChange={this.handleChange.bind(
+                                                            this,
+                                                            "changeFolderColor"
+                                                        )}
+                                                    />
+                                                    <div id="folderColourDiv"></div>
                                                 </div>
                                             </div>
                                         </div>

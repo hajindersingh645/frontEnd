@@ -1,4 +1,4 @@
-define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings/rightpanel/rightTop"], function (React, app, DataTable, dataTableBoot, RightTop) {
+define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings/rightpanel/rightTop", "irojs"], function (React, app, DataTable, dataTableBoot, RightTop, IroJs) {
     "use strict";
 
     return React.createClass({
@@ -32,6 +32,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                 expireFolder: "",
                 labelField: "",
                 labelColor: "",
+                folderColor: "",
 
                 nameForm: {},
                 folderId: ""
@@ -232,6 +233,29 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
 
             $("#expireFold").rules("add", {
                 required: true
+            });
+
+            // Add color picker
+            var colorPicker = new IroJs.ColorPicker("#labelColourDiv", {
+                width: 135
+            });
+            colorPicker.on(["color:init", "color:change"], function (color) {
+                try {
+                    document.getElementById("labelColour").value = color.hexString;
+                } catch (e) {
+                    console.log(e);
+                }
+            });
+
+            var colorPicker = new IroJs.ColorPicker("#folderColourDiv", {
+                width: 135
+            });
+            colorPicker.on(["color:init", "color:change"], function (color) {
+                try {
+                    document.getElementById("folderColour").value = color.hexString;
+                } catch (e) {
+                    console.log(e);
+                }
             });
         },
 
@@ -439,7 +463,8 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                         folders[folderId] = {
                             name: app.transform.to64str(this.state.nameField),
                             exp: this.state.expireFolder,
-                            isMain: false
+                            isMain: false,
+                            color: this.state.folderColor
                         };
 
                         var emails = app.user.get("emails")["folders"];
@@ -476,7 +501,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                         tags[app.transform.to64str(this.state.labelField)] = {
                             color: this.state.labelColor
                         };
-                        console.log(tags);
+                        // console.log(tags);
 
                         app.userObjects.updateObjects("labelSettings", "", function (result) {
                             if (result == "saved") {
@@ -729,6 +754,12 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                 case "changeLabelColor":
                     this.setState({
                         labelColor: event.target.value
+                    });
+
+                    break;
+                case "changeFolderColor":
+                    this.setState({
+                        folderColor: event.target.value
                     });
 
                     break;
@@ -1093,7 +1124,8 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                                 placeholder: "color code",
                                                 value: this.state.labelColor,
                                                 onChange: this.handleChange.bind(this, "changeLabelColor")
-                                            })
+                                            }),
+                                            React.createElement("div", { id: "labelColourDiv" })
                                         ),
                                         React.createElement(
                                             "div",
@@ -1171,6 +1203,26 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
                                                         "1 year"
                                                     )
                                                 )
+                                            )
+                                        ),
+                                        React.createElement(
+                                            "div",
+                                            { className: "col-md-6" },
+                                            React.createElement(
+                                                "div",
+                                                {
+                                                    className: this.state.inputNameClass
+                                                },
+                                                React.createElement("input", {
+                                                    type: "text",
+                                                    name: "folderColour",
+                                                    className: "form-control with-icon icon-email",
+                                                    id: "folderColour",
+                                                    placeholder: "color code",
+                                                    value: this.state.folderColor,
+                                                    onChange: this.handleChange.bind(this, "changeFolderColor")
+                                                }),
+                                                React.createElement("div", { id: "folderColourDiv" })
                                             )
                                         )
                                     ),
