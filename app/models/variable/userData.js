@@ -587,8 +587,6 @@ define(["app"], function (app) {
             $.each(
                 this.get("DecryptedProfileObject")[0]["data"]["tags"],
                 function (name, hren) {
-                    console.log(name);
-                    console.log(hren);
                     tags[name] = { color: hren["color"] };
                     //console.log(app.transform.from64str(name));
                     //console.log(app.transform.from64str(hren['name']));

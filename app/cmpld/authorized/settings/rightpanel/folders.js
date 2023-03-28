@@ -242,6 +242,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
             colorPicker.on(["color:init", "color:change"], function (color) {
                 try {
                     document.getElementById("labelColour").value = color.hexString;
+                    thisComp.setState({ labelColor: `${ color.hexString }` });
                 } catch (e) {
                     console.log(e);
                 }
@@ -253,6 +254,7 @@ define(["react", "app", "dataTable", "dataTableBoot", "cmpld/authorized/settings
             colorPicker.on(["color:init", "color:change"], function (color) {
                 try {
                     document.getElementById("folderColour").value = color.hexString;
+                    thisComp.setState({ folderColor: `${ color.hexString }` });
                 } catch (e) {
                     console.log(e);
                 }

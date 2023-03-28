@@ -297,6 +297,7 @@ define([
                 try {
                     document.getElementById("labelColour").value =
                         color.hexString;
+                    thisComp.setState({ labelColor: `${color.hexString}` });
                 } catch (e) {
                     console.log(e);
                 }
@@ -309,6 +310,7 @@ define([
                 try {
                     document.getElementById("folderColour").value =
                         color.hexString;
+                    thisComp.setState({ folderColor: `${color.hexString}` });
                 } catch (e) {
                     console.log(e);
                 }
