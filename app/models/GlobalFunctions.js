@@ -752,6 +752,7 @@ define(["app", "forge", "openpgp"], function (app, forge, openpgp) {
                     fold = jQuery.extend(true, {}, folderData);
                     fold["name"] = app.transform.from64str(folderData["name"]);
                     fold["index"] = index;
+                    fold["color"] = folderData["color"] !== undefined ? folderData["color"] : '#c9d0da';
                     folderList.push(fold);
                 }
             });

@@ -441,7 +441,23 @@ We disagree with mass surveillance and are committed to protecting your privacy 
                             </div>
                             <div class="home-banner-image">
                                 <!-- src="/images/home-banner-desktop-updated.webp" -->
-                                <img
+                                <picture>
+                                    <source
+                                        srcset="
+                                            /images/home-banner-desktop-updated.webp
+                                        "
+                                        media="(min-width: 768px)"
+                                    />
+                                    <source
+                                        srcset="/images/home-banner-mobile.webp"
+                                        media="(max-width: 767px)"
+                                    />
+                                    <img
+                                        src="/images/home-banner-mobile.webp"
+                                    />
+                                </picture>
+                                <!-- <img
+                                    src="/images/home-banner-mobile.webp"
                                     srcset="
                                         /images/home-banner-mobile.webp           672w,
                                         /images/home-banner-desktop-updated.webp 1176w
@@ -450,7 +466,7 @@ We disagree with mass surveillance and are committed to protecting your privacy 
                                     width="1176"
                                     height="771"
                                     alt="Home page banner"
-                                />
+                                /> -->
                             </div>
                         </div>
                     </div>
