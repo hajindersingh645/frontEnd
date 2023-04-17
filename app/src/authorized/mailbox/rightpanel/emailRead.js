@@ -890,20 +890,33 @@ define(["react", "app"], function (React, app) {
 
                     message["tg"] = [];
 
-                    message["tg"].push({ name: $(event.target).attr("value") });
+                    if (
+                        this.state.tag ===
+                        app.transform.from64str($(event.target).attr("value"))
+                    ) {
+                        // same tag is being clicked, so remove it by leaving out the tag array as blank
+                        // update local state
+                        thisComp.setState({
+                            tag: "",
+                        });
+                        thisComp.handleChange("removeTag");
+                    } else {
+                        message["tg"].push({
+                            name: $(event.target).attr("value"),
+                        });
+                        var name = $(event.target).attr("value");
+                        app.userObjects.updateObjects(
+                            "folderUpdate",
+                            "",
+                            function (result) {
+                                app.globalF.syncUpdates();
 
-                    var name = $(event.target).attr("value");
-                    app.userObjects.updateObjects(
-                        "folderUpdate",
-                        "",
-                        function (result) {
-                            app.globalF.syncUpdates();
-
-                            thisComp.setState({
-                                tag: app.transform.from64str(name),
-                            });
-                        }
-                    );
+                                thisComp.setState({
+                                    tag: app.transform.from64str(name),
+                                });
+                            }
+                        );
+                    }
 
                     break;
             }
@@ -2170,6 +2183,37 @@ define(["react", "app"], function (React, app) {
                                         </div>
                                         <div className="right-menus">
                                             <div className="button-group">
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-secondary btn-pin-to-top"
+                                                    onClick={this.handleClick.bind(
+                                                        this,
+                                                        "pinToTop"
+                                                    )}
+                                                >
+                                                    <span className="icon normal">
+                                                        <svg
+                                                            width="24"
+                                                            height="24"
+                                                            viewBox="0 0 24 24"
+                                                            fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                        >
+                                                            <path
+                                                                d="M13.336 6.48426L10.3611 9.45917C10.3053 9.515 10.2361 9.55569 10.1602 9.57738L7.78272 10.2567C7.44207 10.354 7.3313 10.7815 7.58182 11.032L12.9701 16.4202C13.2206 16.6708 13.6481 16.56 13.7454 16.2193L14.4247 13.8419C14.4464 13.766 14.4871 13.6968 14.5429 13.641L17.5178 10.6661C17.8807 10.3031 17.8807 9.71475 17.5178 9.35184L14.6502 6.48426C14.2873 6.12135 13.6989 6.12135 13.336 6.48426Z"
+                                                                fill="#080D13"
+                                                            />
+                                                            <path
+                                                                d="M6.75371 16.2443L10.4709 12.5271C10.7275 12.2705 11.1435 12.2705 11.4002 12.5271C11.6568 12.7838 11.6568 13.1998 11.4002 13.4564L7.683 17.1736C7.42638 17.4302 7.01032 17.4302 6.75371 17.1736C6.49709 16.917 6.49709 16.5009 6.75371 16.2443Z"
+                                                                fill="#080D13"
+                                                            />
+                                                        </svg>{" "}
+                                                        {this.state.pinTop ===
+                                                        -1
+                                                            ? `Pinned`
+                                                            : `Pin to top`}
+                                                    </span>
+                                                </button>
                                                 <div className="dropdown dropdown-labels-wrapper">
                                                     <button
                                                         className="btn btn-secondary dropdown-toggle dropdown-toggle-labels"
@@ -2188,7 +2232,18 @@ define(["react", "app"], function (React, app) {
                                                             >
                                                                 <path
                                                                     d="M13.5119 9.2475L12.5969 8.3325C12.3794 8.145 12.2519 7.8675 12.2444 7.56C12.2294 7.2225 12.3644 6.885 12.6119 6.6375L13.5119 5.7375C14.2919 4.9575 14.5844 4.2075 14.3369 3.615C14.0969 3.03 13.3544 2.7075 12.2594 2.7075H4.42187V2.0625C4.42187 1.755 4.16687 1.5 3.85937 1.5C3.55187 1.5 3.29688 1.755 3.29688 2.0625V15.9375C3.29688 16.245 3.55187 16.5 3.85937 16.5C4.16687 16.5 4.42187 16.245 4.42187 15.9375V12.2775H12.2594C13.3394 12.2775 14.0669 11.9475 14.3144 11.355C14.5619 10.7625 14.2769 10.02 13.5119 9.2475Z"
-                                                                    fill="#C9D0DA"
+                                                                    fill={
+                                                                        this
+                                                                            .state
+                                                                            .tag !==
+                                                                        ``
+                                                                            ? this.getTagColor(
+                                                                                  this
+                                                                                      .state
+                                                                                      .tag
+                                                                              )
+                                                                            : `#C9D0DA`
+                                                                    }
                                                                 />
                                                             </svg>
                                                         </span>

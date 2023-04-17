@@ -14962,7 +14962,7 @@ button {
     float: left;
 }
 .right-side .email-conetent-wrp .email-content-top-right .button-group {
-    width: 90%;
+    width: 100%;
     display: flex;
     justify-content: flex-end;
 }
@@ -15250,6 +15250,7 @@ header .right-top-data {
 .right-side .email-conetent-wrp .email-content-top-right .right-menus {
     /* border-left: 1px solid rgba(8, 13, 19, 0.06); */
     width: 100%;
+    display: flex;
 }
 header .menu-icon {
     width: auto;
@@ -15542,6 +15543,9 @@ header .user-dropdown .dropdown-menu li button {
 }
 #folderulcustom li {
     padding-top: 11px;
+}
+#folderulcustom li.active a {
+    font-weight: 900;
 }
 .folder-menu .accordion-body ul li a {
     width: 100%;
@@ -16814,10 +16818,21 @@ body.shrinked #folderMenu {
     border: none;
     padding: 0;
 }
+.right-side
+    .email-conetent-wrp
+    .email-content-top-right
+    .button-group
+    button.btn-pin-to-top {
+    width: auto;
+    font-size: 11px;
+    background: rgba(0, 0, 0, 0.03);
+    color: #080d13;
+    padding-right: 5px;
+}
 .right-side .email-conetent-wrp .email-content-top-right .content-list-menu {
     width: auto;
     float: left;
-    padding: 0 0 0 24px;
+    padding: 0 0 0 3px;
 }
 .right-side
     .email-conetent-wrp
@@ -16911,7 +16926,7 @@ body.shrinked #folderMenu {
 }
 @media screen and (min-width: 992px) {
     .right-side {
-        width: calc(100% - 291px);
+        width: calc(100% - 275px);
         padding-top: 80px;
         border-left: 1px solid #f2f2f2;
     }
@@ -16931,7 +16946,7 @@ body.shrinked #folderMenu {
         padding: 87px 0 0;
     }
     .right-side .email-conetent-wrp .email-content-top-right {
-        width: 50%;
+        width: 70%;
         padding-left: 15px;
         border-left: none;
     }
@@ -19984,7 +19999,7 @@ header .menu-icon.on-left-side {
     background-color: rgb(216, 232, 254);
 }
 .right-side .email-conetent-wrp .email-content-top-left {
-    max-width: 50%;
+    max-width: 30%;
 }
 .right-side .email-conetent-wrp .email-content-top-left .email-subject {
     font-size: 1.5rem;
@@ -20527,21 +20542,26 @@ header .menu-icon.on-left-side {
         left: 29px;
     }
     .right-side {
-        margin-top: 80px;
+        margin-top: 87px;
         padding-top: 0;
+    }
+    .right-side .email-conetent-wrp {
+        padding-top: 0px;
     }
 }
 @media screen and (min-width: 1366px) {
     .mailBody header {
         background-color: #fff;
     }
+    /*
     .right-side {
         margin-top: 0;
     }
+    */
 }
 @media screen and (min-width: 992px) and (max-width: 1365px) {
     header {
-        width: calc(70% - 291px);
+        width: calc(70% - 275px);
         border-left: 0;
     }
     .middle-section .middle-top {
@@ -20549,7 +20569,7 @@ header .menu-icon.on-left-side {
     }
     .middle-section .middle-top .desktop-search {
         position: absolute;
-        top: 33px;
+        top: 0;
         width: 39%;
         z-index: 999999999;
     }
@@ -20604,7 +20624,7 @@ header .menu-icon.on-left-side {
     height: 53px;
     border-radius: 8px;
     font-size: 16px;
-    font-family: "Plus Jakarta Display";
+    font-family: "Plus Jakarta Sans";
     padding: 10px 15px;
     background-color: transparent;
 }
@@ -20632,6 +20652,18 @@ header .menu-icon.on-left-side {
 @media screen and (max-width: 1365px) {
     .draft-opened .right-side {
         display: none !important;
+    }
+    .middle-section .middle-top .desktop-search {
+        min-height: 87px;
+        max-height: 87px;
+        border-bottom: solid 1px #f2f2f2;
+    }
+    .middle-section .middle-top {
+        padding-top: 0px;
+    }
+    .middle-section .middle-top .info-row {
+        border-top: 0px;
+        padding-top: 25px;
     }
 }
 
@@ -21801,16 +21833,6 @@ footer .footer-social-media a {
         padding-left: 0px;
     }
 
-    /* Compensate for bottom navigation height as it is overlapping content */
-    .setting-right .setting-right-data {
-        padding-bottom: 124px;
-    }
-
-    /* Footer settings navigation */
-    .left-settings-mobile {
-        display: block;
-    }
-
     .middle-section .inbox-list table .select-checkbox,
     .middle-section .inbox-list ul li .select-checkbox {
         left: 16px;
@@ -22083,7 +22105,19 @@ body.shrinked .folder-menu .accordion-button:after {
 }
 
 /* Dropdown Labels */
-.dropdown-labels-wrapper {
+.right-side .email-conetent-wrp .email-content-top-right .button-group {
+    position: relative;
+}
+.right-side .email-conetent-wrp .email-content-top-right .button-group::before {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 0;
+    border-left: 1px solid rgba(8, 13, 19, 0.06);
+    width: 1px;
+    height: 100%;
+}
+/* .dropdown-labels-wrapper {
     position: relative;
 }
 .dropdown-labels-wrapper::before {
@@ -22094,7 +22128,7 @@ body.shrinked .folder-menu .accordion-button:after {
     border-left: 1px solid rgba(8, 13, 19, 0.06);
     width: 1px;
     height: 100%;
-}
+} */
 .dropdown-toggle-labels {
     background: rgba(0, 0, 0, 0.05);
     width: auto !important;
@@ -22199,4 +22233,15 @@ body.shrinked .folder-menu .accordion-button:after {
 #labelColour:focus + #labelColourDiv,
 #folderColour:focus + #folderColourDiv {
     display: block;
+}
+
+@media screen and (max-width: 1365px) {
+    /* Footer settings navigation */
+    .left-settings-mobile {
+        display: block;
+    }
+    /* Compensate for bottom navigation height as it is overlapping content */
+    .setting-right .setting-right-data {
+        padding-bottom: 124px;
+    }
 }
