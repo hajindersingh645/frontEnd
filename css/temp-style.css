@@ -16827,7 +16827,18 @@ body.shrinked #folderMenu {
     font-size: 11px;
     background: rgba(0, 0, 0, 0.03);
     color: #080d13;
-    padding-right: 5px;
+    padding-right: 7px;
+    display: flex;
+    align-items: center;
+}
+.right-side
+    .email-conetent-wrp
+    .email-content-top-right
+    .button-group
+    button.btn-pin-to-top.active {
+    background: rgba(34, 119, 246, 0.05);
+    color: #2277f6;
+    font-weight: 600;
 }
 .right-side .email-conetent-wrp .email-content-top-right .content-list-menu {
     width: auto;
@@ -20656,7 +20667,7 @@ header .menu-icon.on-left-side {
     .middle-section .middle-top .desktop-search {
         min-height: 87px;
         max-height: 87px;
-        border-bottom: solid 1px #f2f2f2;
+        /* border-bottom: solid 1px #f2f2f2; */
     }
     .middle-section .middle-top {
         padding-top: 0px;
@@ -20664,6 +20675,22 @@ header .menu-icon.on-left-side {
     .middle-section .middle-top .info-row {
         border-top: 0px;
         padding-top: 25px;
+    }
+    .middle-section .middle-top .info-row {
+        border-top: 1px solid #eef2f9;
+    }
+    body.shrinked .middle-section,
+    body.shrinked .right-side {
+        width: calc(100% - 128px);
+    }
+    body.shrinked .mailBody header {
+        width: calc(70% - 128px);
+    }
+    body .mailBody header {
+        border-bottom: none;
+    }
+    body .mailBody header .go-premium-button {
+        display: none;
     }
 }
 
@@ -20677,6 +20704,58 @@ header .menu-icon.on-left-side {
 }
 .circle-bg {
     position: absolute;
+}
+.circle-bg #the-spinner {
+    width: 91px;
+    height: 91px;
+    border: 2px solid rgb(34, 119, 246, 0.1);
+    border-bottom: 2px solid #2277f6;
+    border-radius: 50%;
+}
+.circle-bg #the-spinner {
+    -webkit-transition-property: -webkit-transform;
+    -webkit-transition-duration: 1.2s;
+    -webkit-animation-name: rotate;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+
+    -moz-transition-property: -moz-transform;
+    -moz-animation-name: rotate;
+    -moz-animation-duration: 1.2s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+
+    transition-property: transform;
+    animation-name: rotate;
+    animation-duration: 1.2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+@-webkit-keyframes rotate {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes rotate {
+    from {
+        -moz-transform: rotate(0deg);
+    }
+    to {
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 .circle-content {
     background: #2277f6;
