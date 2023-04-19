@@ -20649,7 +20649,7 @@ header .menu-icon.on-left-side {
     height: 53px;
     border-radius: 8px;
     font-size: 16px;
-    font-family: "Plus Jakarta Display";
+    font-family: "Plus Jakarta Sans";
     padding: 10px 30px 10px 10px;
     line-height: 1;
 }
@@ -21873,6 +21873,7 @@ footer .footer-social-media a {
     }
     .middle-section {
         padding-top: 102px;
+        width: 100% !important;
     }
     .middle-section .middle-top .info-row {
         padding-top: 20px;
@@ -21883,6 +21884,10 @@ footer .footer-social-media a {
     }
     .email-read-active .right-side {
         display: block !important;
+        width: 100% !important;
+    }
+    body.shrinked .mailBody header {
+        width: 100%;
     }
 }
 @media screen and (max-width: 767px) {

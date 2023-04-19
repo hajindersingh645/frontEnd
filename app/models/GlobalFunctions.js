@@ -752,7 +752,10 @@ define(["app", "forge", "openpgp"], function (app, forge, openpgp) {
                     fold = jQuery.extend(true, {}, folderData);
                     fold["name"] = app.transform.from64str(folderData["name"]);
                     fold["index"] = index;
-                    fold["color"] = folderData["color"] !== undefined ? folderData["color"] : '#c9d0da';
+                    fold["color"] =
+                        folderData["color"] !== undefined
+                            ? folderData["color"]
+                            : "#c9d0da";
                     folderList.push(fold);
                 }
             });
@@ -917,7 +920,7 @@ define(["app", "forge", "openpgp"], function (app, forge, openpgp) {
             //console.log(folderKey);
 
             /*
-			 console.log(message);
+			console.log(message); 
 			 $.each(message, function( index, emailData ) {
 			 console.log(index);
 			 console.log(emailData);
@@ -1091,6 +1094,8 @@ define(["app", "forge", "openpgp"], function (app, forge, openpgp) {
                                         emailDecrypted["meta"]
                                     );
 
+                                    body["meta"]["pinTop"] = message["pt"];
+
                                     if (version == 1) {
                                         //old style sent message
 
@@ -1188,6 +1193,8 @@ define(["app", "forge", "openpgp"], function (app, forge, openpgp) {
                                     draft["modKey"] = body["modKey"];
 
                                     draft["meta"]["to"] = body["meta"]["to"];
+                                    draft["meta"]["pinTop"] =
+                                        body["meta"]["pinTop"];
 
                                     draft["attachment"] = body["attachment"];
 
@@ -1218,6 +1225,7 @@ define(["app", "forge", "openpgp"], function (app, forge, openpgp) {
                                     } else if (body["meta"]["version"] == 2) {
                                         draft["meta"]["from"] =
                                             body["meta"]["from"];
+                                        body["meta"]["pinTop"] = message["pt"];
 
                                         //console.log(body['to']);
                                         //console.log(app.transform.from64strA(body['to']));

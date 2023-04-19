@@ -1269,7 +1269,6 @@ define(["react", "app"], function (React, app) {
                         const pinnedRowNumber = this.state.pinRowNumber;
 
                         var updatePinToTop = setTimeout(function () {
-                            console.log(parseInt(pinnedTop));
                             if (parseInt(pinnedTop) < 0) {
                                 messages[emailId]["pt"] =
                                     email["meta"]["timeSent"];
