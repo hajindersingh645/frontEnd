@@ -16721,6 +16721,7 @@ body.shrinked #folderMenu {
     padding: 40px 0 0;
     z-index: 100;
     min-height: 100vh;
+    max-height: 100vh;
 }
 .right-side .mail-back {
     width: 25px;
@@ -16736,7 +16737,7 @@ body.shrinked #folderMenu {
     width: 100%;
     float: left;
     padding: 34px 0 0;
-    height: 100vh;
+    /* height: 100vh; */
     position: relative;
     display: flex;
     flex-direction: column;
@@ -18272,7 +18273,11 @@ header .user-dropdown .dropdown-menu button:hover.logout-icon {
     top: 10px;
     width: 21px;
     height: 21px;
-    display: flex;
+    visibility: hidden;
+    transition: all 0.2 ease-out;
+}
+.mobile-search.has-data .icon {
+    visibility: visible;
 }
 .mobile-search .icon > * {
     pointer-events: none;
@@ -20553,8 +20558,7 @@ header .menu-icon.on-left-side {
         left: 29px;
     }
     .right-side {
-        margin-top: 87px;
-        padding-top: 0;
+        padding-top: 87px;
     }
     .right-side .email-conetent-wrp {
         padding-top: 0px;
@@ -21919,7 +21923,13 @@ footer .footer-social-media a {
 
     .middle-section .inbox-list table .select-checkbox,
     .middle-section .inbox-list ul li .select-checkbox {
-        left: 16px;
+        left: 20px;
+    }
+    .middle-section .middle-top .info-row {
+        padding: 50px 20px 20px;
+    }
+    .middle-section .inbox-list table .unread-bullet {
+        left: -3px;
     }
     .middle-section .inbox-list table td > .email {
         padding: 14px 50px;
@@ -21978,6 +21988,21 @@ footer .footer-social-media a {
     }
     .right-side .email-conetent-wrp .email-content-top-right .button-group {
         width: 83%;
+    }
+    .right-side
+        .email-conetent-wrp
+        .email-content-top-right
+        .right-menus
+        .btn-pin-to-top,
+    .right-side
+        .email-conetent-wrp
+        .email-content-top-right
+        .right-menus
+        .dropdown-labels-wrapper {
+        display: none !important;
+    }
+    .right-side .email-conetent-wrp .email-content-top-right .right-menus {
+        justify-content: flex-end;
     }
 }
 

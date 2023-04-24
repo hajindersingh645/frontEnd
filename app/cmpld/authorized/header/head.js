@@ -61,10 +61,16 @@ define(["react", "app", "accounting", "cmpld/authorized/mailbox/notifications"],
             }
         },
         handleSearchChange: function (event) {
+            if (event.target.value.length > 1) {
+                $(".mobile-search").addClass("has-data");
+            } else {
+                $(".mobile-search").removeClass("has-data");
+            }
             $("#emailListTable").DataTable().column(0).search(event.target.value, 0, 1).draw();
         },
         handleSearchReset: function () {
             $("#mobile-search").val("");
+            $(".mobile-search").removeClass("has-data");
             $("#emailListTable").DataTable().column(0).search("", 0, 1);
         },
         render: function () {

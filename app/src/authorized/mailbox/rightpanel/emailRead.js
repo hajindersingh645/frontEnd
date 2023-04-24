@@ -2320,7 +2320,7 @@ define(["react", "app"], function (React, app) {
                                                         "forward"
                                                     )}
                                                 ></button>
-                                                <button className="star"></button>
+                                                {/* <button className="star"></button> */}
                                                 <button
                                                     className="delete"
                                                     onClick={this.handleClick.bind(
