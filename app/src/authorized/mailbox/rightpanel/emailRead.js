@@ -2417,6 +2417,14 @@ define(["react", "app"], function (React, app) {
                                                                     : `Pin to top`}
                                                             </button>
                                                         </li>
+                                                        <li className="dropdown-labels-wrapper dropdown-labels-mobile">
+                                                            <ul
+                                                                className="dropdown-labels"
+                                                                aria-labelledby="label-list"
+                                                            >
+                                                                {this.getTagsList()}
+                                                            </ul>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>

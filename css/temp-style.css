@@ -21969,6 +21969,10 @@ footer .footer-social-media a {
     }
 }
 
+.dropdown-labels-mobile {
+    display: none;
+}
+
 /* */
 @media screen and (max-width: 640px) {
     .table-responsive .name-width {
@@ -22000,6 +22004,14 @@ footer .footer-social-media a {
         .right-menus
         .dropdown-labels-wrapper {
         display: none !important;
+    }
+    .right-side
+        .email-conetent-wrp
+        .email-content-top-right
+        .right-menus
+        .dropdown-labels-wrapper.dropdown-labels-mobile,
+    .dropdown-labels-wrapper.dropdown-labels-mobile {
+        display: block !important;
     }
     .right-side .email-conetent-wrp .email-content-top-right .right-menus {
         justify-content: flex-end;
@@ -22256,6 +22268,10 @@ body.shrinked .folder-menu .accordion-button:after {
 .dropdown-labels {
     min-width: 226px;
     max-width: 226px;
+}
+.dropdown-labels-mobile .dropdown-labels {
+    min-width: initial;
+    max-width: initial;
 }
 .dropdown-labels a {
     text-decoration: none;
